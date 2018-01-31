@@ -37,21 +37,3 @@ pm2 startOrGracefulReload pm2.json
 账号:admin
 密码:123456
 ```
-
-## 内置模型 - 同时支持PC端与手机端【微信公众平台】
-##### 新闻系统模型 
-##### 下载系统模型 
-##### 视频系统模型
-##### 图库系统模型
-##### 商城系统模型
-##### 问答社区模型
-
-##后台部分截图
-
-![内容管理](http://data.cmswing.com/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
-![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png?imageView2/2/w/973)
-
-##手机端(微信)前台模版截图
-
-![新闻详情](http://data.cmswing.com/D8738B846D03D0854FA7FBB6C0CE189B.png)
-
