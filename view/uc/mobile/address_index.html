@@ -1,0 +1,490 @@
+{#
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+    .original {
+        border: 1px solid #999;
+        font-size: 10px !important;
+        border-radius: 4px;
+        line-height: 14px;
+        width: 30px;
+        color: #505050;
+        text-align: center;
+        margin-right: 5px;
+        top: -2px;
+        position: relative;
+        padding: 0 1px;
+    }
+    .mui-bar-tab .mui-tab-item.mui-active {
+        color: #929292;
+    }
+    .mui-table h4 ,.mui-media-body h4{
+        line-height: 21px;
+        font-weight: 400;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+    <a href="/uc/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right btn-edit" >个人中心</a>
+</header>
+
+<div class="mui-content">
+        <ul class="mui-table-view ">
+            <li class="mui-table-view-divider">我的地址</li>
+            {%for item in list %}
+            <li class="mui-table-view-cell {%if id == item.id%}mui-selected{%endif%}">
+                <a class="mui-navigate-right" href="/uc/address/editaddrmodal/id/{{item.id}}/type/1">
+                    <div class="mui-table">
+                        <div class="mui-table-cell mui-col-xs-10">
+                            <h4 class="mui-ellipsis">{{item.accept_name}} <small>({{item.mobile}})</small></h4>
+                            <h5>{{item.province}},{{item.city}},{{item.county}}</h5>
+                            <p class="mui-h6 mui-ellipsis">{{item.addr}}</p>
+                        </div>
+                        <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+                            {%if item.is_default == 1%}<span class="mui-h5 original">默认</span>{%endif%}
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endfor%}
+
+        </ul>
+        <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+            <a href="/uc/address/editaddrmodal" type="button" class="mui-btn mui-btn-primary mui-btn-block">添加新地址</a>
+        </div>
+</div>
+
+{% endblock%}
+
+{% block script %}
+
+{% endblock %}
+#}
+
+
+
+
+
+
+
+
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+.traveller-header{
+    background: #1eb6c1
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.traveller-header span{
+    display: inline-block;
+    margin-top:8.5px;
+    font-size:24px;
+    color:#fff;
+}
+.list-content{
+    margin-top:170px;
+}
+.search{
+    padding:20px 2.78% 17px 2.78%;
+}
+.search input.search-addr{
+    width:57.78%;
+    border:2px solid #1eb6c1;
+    margin:0;
+} 
+.search a{
+    display: inline-block;
+    width:15.37%;
+    height:38px;
+    line-height: 38px;
+    text-align: center;
+    background: #1eb6c1;
+    color:#fff;
+    margin-left:2.9%;
+    float:right;
+    border-radius: 5px;
+}
+.all-dele{
+    padding:0 2.78%;
+    margin-bottom:17px;
+}
+.all-dele a{
+    display: inline-block;
+    width:18.31%;
+    height:38px;
+    line-height: 38px;
+    text-align: center;
+    background: #1eb6c1;
+    color:#fff;
+    margin-right:2.78%;
+    border-radius: 38px;
+}
+.mui-table-view{
+    margin:0 2.78%;
+    margin-bottom:15px;
+    background:#fff;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.mui-table-view-cell:after{
+    height:0;
+}
+.mui-table-view .mui-table-view-cell:first-child{
+    border-bottom:1px solid #c8c7cc;
+}
+.mui-table-view .mui-table-view-cell:first-child>b{
+    font-size:24px;
+}
+.mui-table-view .mui-table-view-cell:first-child>a{
+    display: inline-block;
+    color:#1eb6c1;
+    text-decoration:underline;
+    margin:0;
+    margin-left:3.7%;
+    padding:0;
+    margin-top:5px;
+}
+.mui-table-view .mui-table-view-cell>span{
+    display: inline-block;
+    padding-left:9%;
+    width:40%;
+}
+.mui-table-view .mui-table-view-cell>em{
+    display:inline-block;
+    font-style:normal;
+}
+
+
+.clear:after{
+    content:"";
+    display: block;
+    clear:both;
+}
+.mui-table-view-cell>a:not(.mui-btn).mui-active{
+    background: transparent;
+}
+.active{
+    border:1px solid #1eb6c1 !important;
+    -webkit-box-shadow: 0 0 10px #1eb6c1 !important;
+    box-shadow: 0 5px 10px #1eb6c1 !important;
+}
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>常用地址</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+    <div class="search">
+        <input class="search-addr" type="text" placeholder="收件人/中文">
+        <a class="add-traveller" href="/uc/address/editaddrmodal">新增</a>
+        <a href="javascript:searchAddress();">查询</a>
+    </div>
+    <div class="all-dele">
+        <a id="sel-all">全选</a>
+        <a href="javascript:deleteAll()">删除</a>
+    </div>
+    <!-- 下拉刷新容器 -->
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content">
+        <div class="mui-scroll">
+            <div class="mui-table">
+                <!-- 数据列表 -->
+                {% for item in list.data %}
+                <ul class="mui-table-view" data-value="{{item.id}}">
+                    <li class="mui-table-view-cell mui-media li-title">
+                        <b>{{item.accept_name}}</b>
+                        <a href="javascript:deleteAddr({{item.id}})" class="mui-pull-right">删除</a>
+                        <a href="/uc/address/editaddrmodal/id/{{item.id}}/type/1" class="mui-pull-right">编辑</a>
+                        <a href="/uc/address/check/id/{{item.id}}" class="mui-pull-right">查看</a>
+                    </li>
+                    <li class="mui-table-view-cell mui-media">
+                        <span>省份：</span>
+                        <em>{{item.province}}</em>
+                    </li>
+                    <li class="mui-table-view-cell mui-media">
+                        <span>城市：</span>
+                        <em>{{item.city}}</em>
+                    </li>
+                    <li class="mui-table-view-cell mui-media">
+                        <span>详细地址：</span>
+                        <em>{{item.addr}}</em>
+                    </li>
+                    <li class="mui-table-view-cell mui-media">
+                        <span>邮编：</span>
+                        <em>{{item.zip}}</em>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/template" id="tpl" >
+    {% raw %}
+    <%_.forEach(data,function(item,k){%>
+    <ul class="mui-table-view" data-value="<%=item.id%>">
+        <li class="mui-table-view-cell mui-media li-title">
+            <b><%=item.accept_name%></b>
+            <a href="javascript:deleteAddr(<%=item.id%>)" class="mui-pull-right">删除</a>
+            <a href="/uc/address/editaddrmodal/id/{{item.id}}/type/1" class="mui-pull-right">编辑</a>
+            <a href="/uc/address/check/id/<%=item.id%>" class="mui-pull-right">查看</a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+            <span>省份：</span>
+            <em><%=item.province%></em>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+            <span>城市：</span>
+            <em><%=item.city%></em>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+            <span>详细地址：</span>
+            <em><%=item.addr%></em>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+            <span>邮编：</span>
+            <em><%=item.zip%></em>
+        </li>
+    </ul>
+    <%})%>
+    {% endraw %}
+</script>
+
+{% endblock%}
+
+{% block script %}
+<script>
+//超链接
+mui("#pullrefresh").on("tap",".mui-table-view-cell:first-child a",function(){
+    var href = this.getAttribute("href");
+    if(href=="#wait"){
+        //todo
+        mui.toast("功能开发中...")
+        return
+    }
+    mui.openWindow({url: href})
+})
+//加载模板
+var tplRender = _.template(document.getElementById("tpl").innerHTML)
+mui.init({
+    pullRefresh:{
+        container:"#pullrefresh",
+        down:{
+            callback:pulldownRefresh
+        },
+        up:{
+            contentrefresh:"正在加载...",
+            callback:pullupRefresh
+        }
+    }
+});
+var tops = parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+var size = parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+//记录位置
+window.onscroll = function(){
+    var patt1 = /\(.*?\)/;
+    var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+    if(srtY){
+        var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+    }else{
+        var Y = 0;
+    }
+    //console.log(Y)
+    var S = document.querySelector('#pullrefresh').querySelectorAll('ul.mui-table-view').length;
+    if(window.sessionStorage){
+        sessionStorage.setItem("{{http.url}}_top", Y);
+        sessionStorage.setItem("{{http.url}}_size", S)
+    }
+}
+//下拉刷新具体业务实现
+function pulldownRefresh(){
+    setTimeout(function(){
+        // var table = document.body.querySelector('#pullrefresh .mui-table');
+  //       var cells = document.body.querySelectorAll('.mui-table-view');
+  //       for(var i=cells.length,len=i+3;i<len;i++){
+  //        var div = document.createElement("div");
+  //        div.classNme = "mui-table-view-cell";
+  //        div.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>'
+  //        //下拉刷新，新纪录插到最前面；
+  //           table.insertBefore(div, table.firstChild); 
+  //       }
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+    },1500)
+}
+var count = 0;
+//上拉加载具体业务实现
+function pullupRefresh(){
+    setTimeout(function(){
+        var table = document.body.querySelector('#pullrefresh .mui-table');
+        var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view');
+        var count = "{{list.count}}";
+        console.log(count)
+        console.log((parseInt(count) > cells.length));
+        if(parseInt(cells.length) < parseInt(count)){
+            createFragment(10)
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+        }else {
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+        }
+    },1000)
+}
+
+var createFragment = function(count, page){
+    //无限加载
+    var table = document.body.querySelector('#pullrefresh .mui-table');
+    var lastIndex = table.querySelectorAll('.mui-table-view').length;
+    console.log(lastIndex);
+    var pages = page || Math.ceil((lastIndex+count)/count);
+    console.log(pages);
+    mui.ajax("/uc/address/mobilequery",{
+        data:{
+            page:pages
+        },
+        dataType:'json',//服务器返回json格式数据
+        type:'get',//HTTP请求类型
+        success:function(data){
+            console.log(data)
+            //获得服务器响应
+            $('#pullrefresh .mui-table').append(tplRender(data));
+        }
+    });
+}
+mui.ready(function() {
+    var page = Math.ceil(size/10);
+    if(page>1 ){
+        for (var i = 1; i < (page+1); i++) {
+            createFragment(10,(i+1))
+        }
+    }
+    mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+})
+//删除地址信息
+function deleteAddr(id){
+    var btnArray = ['否', '是'];
+    mui.confirm('确定要删除地址信息吗?','您好', btnArray, function(e) {
+        if (e.index == 1) {
+            $.ajax({
+                url:"/uc/address/deladdr",
+                data:{id:id},
+                success: function (res) {
+                    if(res.errno == 0){
+                       mui.toast("您选择的地址已经被删除.");
+                       setTimeout(function(){
+                            mui.openWindow({url:window.location.href})
+                       })                                               
+                    }else{
+                        mui.toast("您选择的地址删除失败！");
+                    }
+                }
+            })
+        }
+    })
+}
+//查询
+function searchAddress(){
+    var uname = $(".search-addr").val();
+    var html = "";
+    $.ajax({
+        url:"/uc/address/query?q="+uname,
+        success:function(result){
+            var  v = result.data;
+            for(var i=0;i<v.length;i++){
+                html+=`                                                                                       
+                    <ul class="mui-table-view" data-value="${v[i].id}">
+                        <li class="mui-table-view-cell mui-media li-title">
+                            <b>${v[i].accept_name}</b>
+                            <a href="javascript:deleteAddr(${v[i].id})" class="mui-pull-right">删除</a>
+                            <a href="/uc/address/editaddrmodal/id/${v[i].id}/type/1" class="mui-pull-right">编辑</a>
+                            <a href="/uc/address/check/id/${v[i].id}" class="mui-pull-right">查看</a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <span>省份：</span>
+                            <em>${v[i].province}</em>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <span>城市：</span>
+                            <em>${v[i].city}</em>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <span>详细地址：</span>
+                            <em>${v[i].addr}</em>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <span>邮编：</span>
+                            <em>${v[i].zip}</em>
+                        </li>
+                    </ul>             
+                `;
+            }
+            $(".mui-table").html(html);
+        }
+    })
+}
+//全选
+var selAll = document.getElementById("sel-all");
+selAll.addEventListener("tap",function(){
+    if($(".mui-table-view").hasClass("active")){
+        $(".mui-table-view").removeClass("active")
+    }else{
+        $(".mui-table-view").addClass("active")
+    }
+})
+function deleteAll(){
+    var seled = $(".active");
+    if(seled.length>0){
+        var btnArray = ['否', '是'];
+        mui.confirm('确定要删除选中的地址信息吗?','您好', btnArray, function(e) {
+            if (e.index == 1) {
+                for(var i=0;i<seled.length;i++){
+                    var k = seled[i]
+                    var id = parseInt($(k).attr("data-value"))
+                    //console.log(id)
+                    $.ajax({
+                        url:"/uc/address/deladdr",
+                        data:{id:id},
+                        success: function (res) {
+                            if(res.errno == 0){
+                               mui.toast("您选择的地址已经被删除.");                                               
+                            }else{
+                                mui.toast("您选择的地址删除失败！");
+                            }
+                        }
+                    })
+                }
+                setTimeout(function(){
+                    mui.openWindow({url:window.location.href})
+               },2000)
+            }
+        })
+    }
+}
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

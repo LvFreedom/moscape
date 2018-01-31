@@ -1,0 +1,1232 @@
+{% extends "../../../topic/mobile/inc/base.html" %}
+{% block style%}
+<style type="text/css">
+	/* .peanturoll-selection{
+	        background-color: transparent !important;
+	        margin-top: 53px !important;
+	    } */
+	/* .mui-bar-nav~.mui-content：first-child {
+	    padding-top: 44px;
+	} */
+	.paddingbottom{
+		padding-bottom:60px !important;
+	}
+	.clear-padding{
+		padding:0 !important; 
+	}
+	.padding-top-10{
+		padding-top:10px !important; 
+	}
+	.padding-bottom-10{
+		padding-bottom:10px !important; 
+	}
+
+	.peanturoll-search{
+        width: 94% !important;
+        height: 36px !important;
+        margin:auto;
+    }
+    .serch-input{
+        background-color: #fff !important;
+        border: 1px solid  skyblue !important ;
+        display: inline-block !important;
+    }
+    .search_btn{
+        width: 32px !important;
+        height: 32px !important;
+        padding: 6px 0px !important;
+        position: relative !important;
+        border: 0 !important;
+        float: right !important;
+        top: -48px !important;
+        right: 5px !important;
+    }
+    .search_logo{
+        width: 20px;
+        height: 20px;
+        margin:auto auto;
+    }
+
+
+    .mui-content{
+        background-color: #fff;
+    }
+	.peanturoll-type{
+        text-align: center;
+        font-weight: 500;
+        font-size: 24px;
+    }
+    .peanturoll-style{
+        text-align: center;
+        font-weight: 500;
+    }
+    .peanturoll-ul{
+        padding: 0 3%;
+        margin:5px 0;
+    }
+    .item-box-overlay-title {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 5px 10px;
+        margin-bottom:4px;
+        color: #fff;
+        background-color: rgba(4,5,5,0.5);
+        z-index: 100;
+    }
+    .peanturoll-item{
+        width: 49% !important;
+        display: inline-block;
+    }
+    .peanturoll-item-1{
+        width: 32% !important;
+        display: inline-block;
+    }
+    .hidden-li{
+        display: none !important;
+    }
+    .item-box figure {
+        height: 100%;
+        width: 100%;
+        margin:0;
+        display: block;
+        margin-bottom: 0;
+        overflow: hidden;
+        position: relative;
+    }
+    .title {
+        font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .img-responsive{
+        width: 100%;
+    }
+    .click-arrow{
+        margin-left:46%;
+        color: #c8c7cc;
+    }
+   .tournote{
+   	   width:45%; 
+   	   height: 40px;
+       background:url("/static/assets/images/mobile/community/tournote.jpg") no-repeat; 
+       background-size: 100% 100%;
+       color: #fff;
+       display: inline-block;
+       text-align: center;
+       margin-left:4%;
+       margin-right:2%;
+       padding-top: 10px;
+   }
+   .question{
+   	   width:45%;
+   	   height: 40px;
+       background:url("/static/assets/images/mobile/community/question.jpg") no-repeat; 
+       background-size: 100% 100%;
+       color: #fff;
+       display: inline-block;
+       text-align: center;
+       margin-right:2%;
+       padding-top: 10px;
+   }
+   .tournote a,.question a,.community-add a,.community-ask a{
+   		color: #fff !important;
+   		margin-top: 10px;
+   }
+   .pick-row{
+   		margin-top: -10px;
+   }
+   .under-pick-1,.under-pick-2{
+   		width:45%;
+   	   	height: 3px;
+       	display: inline-block;
+   }
+   .under-pick-1.active,.under-pick-2.active{
+   	   	background:url("/static/assets/images/mobile/community/underline.png") no-repeat; 
+       	background-size: 100% 100%;
+   }
+   .under-pick-1{
+       margin-left:4%;
+       margin-right:2%;
+   }
+   .under-pick-2{
+       	margin-right:2%;
+   }
+   .question-row{
+        padding: 0px 15px  !important;
+   }
+   .question-row.close{
+        display:none; 
+   }
+   .question-check{
+        font-size: 14px;
+        text-align: center;
+        font-weight: 600;
+        color: #666;
+   }
+   .question-check.active{
+        color: #1eb6c1;
+   }
+   .question-check.active .question-check-line{
+        background-color: #1eb6c1;
+   }
+   .question-check-line{
+        background-color:#666;
+        width: 3px;
+        height: 16px;
+        display: inline-block;
+       /*  margin-right: 10px; */
+        position: absolute;
+        left: 0px;
+        top: 2px;
+   }
+
+
+ 	.community-content{
+		min-height: 290px;
+		clear: both;
+	}
+	.community-content.close{
+		display: none;
+	}
+    .community-li{
+    	padding:10px 15px !important;
+    }
+    .mui-table-view:before{
+    	height: 0 
+    }
+    .mui-table-view:after{
+    	height: 0 
+    }
+	.mui-table-view-cell:after{
+		height: 0 
+	}
+	.price-span{
+    	color: #1eb6c1;
+    }
+    .img-cover{
+    	width: 100%;
+    	height: 95px;
+    }
+    .mui-table-view-cell>a:not(.mui-btn){
+    	white-space:normal;
+    }
+    .mui-table-view-cell>a .mui-col-sm-8.mui-col-xs-8{
+    	padding-left: 6px;
+    }
+	.community-title{
+        font-weight: bold;
+        /* margin-left:4px;  */
+        font-size: 16px;
+        line-height: 1.5;
+        color:#888;
+        height: auto;
+        min-height: 24px;
+        max-height: 48px;
+        word-wrap: break-word; 
+        word-break: normal;
+        /* word-wrap:break-all;  */
+        /* width:200px; */
+         overflow: hidden;
+        text-overflow: ellipsis;
+        /*white-space: nowrap; */
+	}
+	.item_info{
+		max-height: 42px;
+		height: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+		margin-top:5px;
+	}
+	.load-more-btn,.check-more-btn{
+		width: 94%;
+		margin:0 auto 10px auto;
+		padding: 5px 0;
+		border: 1px solid #1eb6c1;
+		color: #1eb6c1;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	.load-more-btn img,.check-more-btn img{
+		height: 12px;
+	}
+
+    .question-content{
+        background-color:transparent;
+    }
+    .question-content>ul{
+        padding: 7px 15px !important;
+    }
+    .question-div{
+        border: 1px solid #c8c7cc;
+    }
+    .mui-card-footer:before, .mui-card-header:after{
+        height:0;
+    }
+    .question-headimg{
+        border-radius: 50%;
+    }
+    .question-nickname{
+        font-size: 15px !important;
+        font-weight: bold;
+    }
+    .question-txt{
+        color: #888;
+    }
+    .question-point{
+        color: #888;
+        margin:0 3px; 
+    }
+    .question-wating{
+        width: 38px;
+        margin-bottom: -2px;
+    }
+    .question-title{
+        font-size: 17px !important;
+        font-weight: bold;
+        color: #333;
+    }
+    .question-detail{
+        color: #666;
+    }
+    .pull-right{
+        position:absolute !important;
+        right: 20px !important;
+        color: #666;
+        /* color: #888; */
+    }
+    .question-sign-1{
+        width: 14px;
+        margin-bottom: -3px;
+    }
+    .question-sign-div{
+        display: inline-block;
+        background-color:black;
+        width: 1px;
+        height: 16px;
+        margin:0 5px; 
+        position: relative;
+        top:2px;
+    }
+    .question-sign-2{
+        width: 19px;
+        margin-bottom: -2.5px;
+    }
+
+    .community-add{
+        width:45%; 
+        height: 40px;
+        background:url("/static/assets/images/mobile/community/iwanner.png") no-repeat; 
+        background-size: 100% 100%;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        margin-left:4%;
+        margin-right:2%;
+        padding-top: 10px;
+    }
+    .community-ask{
+        width:45%;
+        height: 40px;
+        background:url("/static/assets/images/mobile/community/iwanner.png") no-repeat; 
+        background-size: 100% 100%;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        margin-right:2%;
+        padding-top: 10px;
+    }
+    .iwanner-a{
+        position: relative;
+        top: -14.5px;
+        left: 5px;
+    }
+    .community-iwanner-img{
+        position: relative;
+        width: 31px;
+    }
+    .iwanner-img-1{
+        top: 8.5px;
+    	left: -3px;
+    }
+    .iwanner-img-2{
+        top: 10.5px;
+    	left: -6px;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<!-- <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <a class="mui-icon iconfont icon-search mui-pull-right" href="/search"></a>
+    <a href="/mod/question/sys/add/cid/{{category.id}}" class="mui-icon iconfont icon-post "></a>
+    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+
+</header> -->
+{% include "../../../topic/mobile/inc/top.html" %}
+{% include "../../../topic/mobile/inc/nav.html" %}
+<div class="mui-content peanturoll-selection padding-bottom-10">
+    <div class="mui-input-row peanturoll-search margin-top-10 " >
+        <form action="" method="get" class="">
+            <input type="search" name="q" {% if queryword %} value={{queryword}} {%endif%} class="serch-input">
+            <button class="search_btn" onclick="updateSearchword()"> 
+                <img class="search_logo" src="/static/assets/images/mobile/index/search_logo.png">
+            </button>
+        </form>
+        <input type="hidden" name="searchword">
+    </div> 
+</div>
+<div class="mui-content clear-padding">
+    <div class="mui-row">
+        <h4 class="peanturoll-style">热门</h4>
+        <!-- <a href="/search">更多 ></a> -->
+    </div>
+    <div class="mui-row">
+        <ul class="peanturoll-ul">
+
+             {% hotrecommend data = "list", position="1", limit= "6", issub=1, ischild=1, page=0 %}
+            {%set i = 1%}
+            {% for v in list %}
+            <li class="peanturoll-item-1 {%if i>3 %}hidden-li{%endif%}" ><!-- item -->
+                <div class="item-box thumbnail">
+                    <a class="peanutroll-a" href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                        <figure>
+                            <div class="item-box-overlay-title text-center text-title">
+                                <h4 class="nomargin title">{{v.title}}</h4>
+                            </div>
+                            <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=196,h=190')}}"  alt="">
+                        </figure>
+                    </a>
+                </div>
+            </li><!-- /item -->
+            {% set i = i + 1 %}
+            {% endfor %}
+        </ul>
+        <div>
+            <a class="mui-icon mui-icon-arrowdown click-arrow"></a>
+        </div>
+    </div>
+</div>
+<div class="mui-content clear-padding" id="swipe">
+    <div class="mui-row">
+        <h4 class="peanturoll-style">社区</h4>
+    </div>
+    <div class="suspend">
+        <div class="mui-row margin-top-10 community-navs" id="check-div">
+        {% set all = breadcrumb[0].id|get_cate %}
+        {%column data="bar",pid=breadcrumb[0].id%}
+        {%for v in bar%}
+            <div class="navs-div community-check {%if v.id==124%}tournote{%elseif v.id==125%}question{%endif%}" style="">
+                <a class="mui-control-item bar-item {%if category.id ==v.id%} mui-active{%endif%}" href="#item{{v.id}}"  data-url="{{v.url}}">
+                    {{v.name}}
+                </a>
+            </div>
+        {%endfor%}
+        </div>
+         <div class="mui-row pick-row">
+            <div class="under-pick-1 active"></div>
+            <div class="under-pick-2"></div>
+        </div>
+        <div class="mui-row question-row close">
+            <div class="mui-col-xs-4 mui-col-sm-4 question-check active" data-order="0">
+                <div class="question-check-line" >&nbsp;</div>
+                最新问题
+            </div>
+            <div class="mui-col-xs-4 mui-col-sm-4 question-check" data-order="1">
+                <div class="question-check-line" >&nbsp;</div>
+                热门问题
+            </div>
+            <div class="mui-col-xs-4 mui-col-sm-4 question-check" data-order="3">
+                <div class="question-check-line" >&nbsp;</div>
+                待回答问题
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mui-content  margin-bottom-10 clear-padding community ">
+    <div class="community-content tournote-content">
+    	{#
+        <ul class="mui-table-view ">
+            {% for val in list %}
+            {% set categoryname = val.category_id|get_cate %}
+            <li class="mui-table-view-cell mui-media community-li"> 
+                <a href="{{val.name|get_url(val.id)}}">
+                    <div class="mui-row">
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            {% if val.cover_id>0 %}
+                            <img class="img-cover" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}">
+                            {%else%}
+                            <img class="img-cover" src="/static/noimg.jpg">
+                            {% endif %}
+                        </div>
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+                            <h4 class="dotdot community-title">N{{val.title|truncate(30, true, "...")}}</h4>
+                            <p class="item_info">
+                                <span class="mui-pull-right price-span">¥{{val.price|get_price('1')}}/1人起</span> 
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endfor%}
+            <button type="button" class="mui-btn mui-btn-block margin-bottom-10 load-more-btn" data-page="2" onclick="loadtournote();">
+                展开更多
+                <span>
+                    <img src="/static/assets/images/mobile/search/load_more.png">
+                </span>
+            </button>
+            {% if currentPage < totalPages %}
+            {%endif%}   
+        </ul>
+        #}
+    </div>
+    <div class="community-content question-content close">
+        <ul class="mui-table-view question_card">
+            {%for val in list%}
+            {% set categoryname = val.category_id|get_cate %}
+            <div class="mui-card question-div">
+                <div class="mui-card-header mui-card-media">
+                    <img class="question-headimg" src="/uc/index/avatar/uid/{{val.uid}}">
+                    <div class="mui-media-body margin-top-10">
+                        <span class="question-nickname">{{val.uid|get_nickname}}</span>
+                        <span class="question-txt">提了一个问题</span>
+                        <span class="question-point">•</span>
+                        <span class="question-txt">{{val.create_time|moment}}</span>
+                        <span><img class="question-wating" src="static/assets/images/mobile/community/waiting.png"></span>
+                    </div>
+                </div>
+                <div class="mui-card-content">
+                    <div class="mui-card-content-inner" data-url="/mod/question/{{val.id}}">
+                        <p class="question-title">{{val.title}}</p>
+                        <p class="question-detail">一点喜欢{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="pull-right">
+                        <span>
+                            <img class="question-sign-1" src="/static/assets/images/mobile/community/reply.png"> 回答:{{val.answer_count}}12345
+                        </span>
+                        <span class="">
+                            <div class="question-sign-div">&nbsp;</div>
+                        </span>
+                        <span>
+                            <img class="question-sign-2" src="/static/assets/images/mobile/community/view.png"> 
+                            浏览:{{val.view}}
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            {%endfor%}
+            <button type="button" class="mui-btn mui-btn-block margin-bottom-10 load-more-btn" data-page="2" onclick="loadtournote();">
+                展开更多
+                <span>
+                    <img src="/static/assets/images/mobile/search/load_more.png">
+                </span>
+            </button>
+
+        </ul>
+    </div>
+</div>
+
+<div class="mui-content clear-padding">
+    <div class="mui-row">
+        <!-- <h4 class="peanturoll-style">社区</h4> -->
+    </div>
+    <div class="mui-row margin-top-10 community-navs padding-bottom-10">
+		<div class="navs-div community-iwanner community-add" >
+            <a class="mui-control-item iwanner-a" data-url="/mod/question/sys/add/cid/124">
+            	<img class="community-iwanner-img iwanner-img-1" src="/static/assets/images/mobile/community/iadd.png">
+            	我要发帖
+            </a>
+        </div>
+        <div class="navs-div community-iwanner community-ask">
+            <a class="mui-control-item iwanner-a" data-url="/mod/question/sys/add/cid/125">
+            	<img class="community-iwanner-img iwanner-img-2" src="/static/assets/images/mobile/community/iask.png">
+            	我要提问
+            </a>
+        </div>
+    </div>
+</div>
+<div class="mui-content clear-padding">
+    <div class="mui-row ">
+        <h4 class="peanturoll-style">专属推荐</h4>
+        <!-- <a href="/search">更多 ></a> -->
+    </div>
+    <div class="mui-row">
+        <ul class="peanturoll-ul">
+
+            {% topic data = "list", limit= "4", cid=130, issub=1, ischild=1, type="level", page=0 %}
+            {%set i = 1%}
+            {% for v in list %}
+            <li class="peanturoll-item" ><!-- item -->
+                <div class="item-box thumbnail">
+                    <a class="peanutroll-a" href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                        <figure>
+                            <div class="item-box-overlay-title text-center text-title">
+                                <h4 class="nomargin title">{{v.title}}</h4>
+                            </div>
+                            <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=196,h=190')}}"  alt="">
+                        </figure>
+                    </a>
+                </div>
+            </li><!-- /item -->
+            {% set i = i + 1 %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% include "../../../topic/mobile/inc/footer.html" %}
+{#
+<div id="slider" class="mui-slider" >
+    <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+            {% set all = breadcrumb[0].id|get_cate %}
+            <!-- <a class="mui-control-item bar-item {%if category.id ==all.id%} mui-active{%endif%}" href="#item1mobile" data-url="{{all.url}}">
+                全部
+            </a> -->
+
+            {%column data="bar",pid=breadcrumb[0].id%}
+            {%for v in bar%}
+            <a class="mui-control-item bar-item {%if category.id ==v.id%} mui-active{%endif%}" href="#item{{v.id}}"  data-url="{{v.url}}">
+                {{v.name}}
+            </a>
+            {%endfor%}
+
+        </div>
+    </div>
+    <div class="mui-slider-group " style="height: 0px;" >
+        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
+        </div>
+        <div id="item2mobile" class="mui-slider-item mui-control-content">
+        </div>
+        {% column data="bar",isapp="0" %}
+        {%for v in bar%}
+        <div id="item{{v.id}}" class="mui-slider-item mui-control-content">
+            {{v.title}}
+        </div>
+        {%endfor%}
+
+
+    </div>
+</div>
+#}
+{#
+<div id="slider" class="mui-slider" >
+    <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <div class="mui-scroll">
+            {% set all = breadcrumb[0].id|get_cate %}
+            <a class="mui-control-item bar-item {%if category.id ==all.id%} mui-active{%endif%}" href="#item1mobile" data-url="{{all.url}}">
+                全部
+            </a>
+
+            {%column data="bar",pid=breadcrumb[0].id%}
+            {%for v in bar%}
+            <a class="mui-control-item bar-item {%if category.id ==v.id%} mui-active{%endif%}" href="#item{{v.id}}"  data-url="{{v.url}}">
+                {{v.name}}
+            </a>
+            {%endfor%}
+
+        </div>
+    </div>
+    <div class="mui-slider-group " style="height: 0px;" >
+        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
+        </div>
+        <div id="item2mobile" class="mui-slider-item mui-control-content">
+        </div>
+        {% column data="bar",isapp="0" %}
+        {%for v in bar%}
+        <div id="item{{v.id}}" class="mui-slider-item mui-control-content">
+
+        </div>
+        {%endfor%}
+
+
+    </div>
+</div>
+
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content" style="margin-top:480px;">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view question_card">
+            {%for val in list%}
+            {% set categoryname = val.category_id|get_cate %}
+            <div class="mui-card">
+                <div class="mui-card-header mui-card-media">
+                    <img src="/uc/index/avatar/uid/{{val.uid}}">
+                    <div class="mui-media-body">
+                       {{val.title}}
+                        <p>{{val.uid|get_nickname}} 发表于 {{val.create_time|moment}}</p>
+                    </div>
+                </div>
+                <div class="mui-card-content">
+                    <div class="mui-card-content-inner" data-url="/mod/question/{{val.id}}">
+                    <p style="color: #333;">{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                        {% if val.imgs|length==1 %}
+                        <div class="mui-row">
+                            <div class="mui-col-sm-8 mui-col-xs-8">
+                                <img class="list_img_holder" src="{{val.imgs[0]}}">
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% if val.imgs|length>1 %}
+                    <div class="mui-row">
+                        {%set i = 0%}
+                        {%for img in val.imgs%}
+                        {%if i< 9 %}
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{img}}">
+                        </div>
+                        {%endif%}
+                        {%set i=i+1%}
+                        {%endfor%}
+                    </div>
+                    {%endif%}
+                        {%if val.answer_users>0%}
+                        <p>
+                                <span style="color: #333;" >{{val.answer_users|get_nickname}}</span> 在 {{val.update_time|moment}} 回复了问题
+
+                            </p>
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    来自:{{categoryname.name}}
+                    <a class="mui-card-link"><i class="mui-icon iconfont icon-focus"></i>{{val.focus_count}}</a>
+                    <a class="mui-card-link"><i class="mui-icon iconfont icon-comment"></i>{{val.answer_count}}</a>
+                    <a class="mui-card-link"><i class="mui-icon iconfont icon-attentionfavor"></i>{{val.view}}</a>
+                </div>
+            </div>
+
+            {%endfor%}
+
+
+        </ul>
+    </div>
+</div>
+#}
+<script type="text/template" id="tpl">
+    {% raw %}
+    <%_.forEach(data,function(val,k){ %>
+    <div class="mui-card">
+        <div class="mui-card-header mui-card-media">
+            <img src="/uc/index/avatar/uid/<%=val.uid%>">
+            <div class="mui-media-body">
+                <%=val.title %>
+                <p><%=val.nickname %> 发表于 <%=val.create_time%></p>
+            </div>
+        </div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner" data-url="/mod/question/<%=val.id%>">
+                <p style="color: #333;"><%=val.detail%></p>
+                <% if (val.imgs.length==1) {%>
+                <div class="mui-row">
+                    <div class="mui-col-sm-8 mui-col-xs-8">
+                        <img class="list_img_holder" src="<%=val.imgs[0]%>">
+                    </div>
+                </div>
+                <%}%>
+                <% if (val.imgs.length>1) {%>
+                <div class="mui-row">
+                    <%_.forEach(val.imgs,function(v,k){ %>
+                    <%if (k< 9) {%>
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <img class="list_img_holder" src="<%=v%>">
+                    </div>
+                    <%}%>
+                    <%})%>
+                </div>
+                <%}%>
+                <%if(val.answer_users>0){%>
+                <p>
+                    <span style="color: #333;" ><%=val.answer_username%></span> 在 <%=val.update_time%> 回复了问题
+
+                </p>
+                <%}%>
+            </div>
+        </div>
+        <div class="mui-card-footer">
+            来自:<%= val.catename%>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-focus"></i><%=val.focus_count%></a>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-comment"></i><%=val.answer_count%></a>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-attentionfavor"></i><%=val.view%></a>
+        </div>
+    </div>
+    <%})%>
+    {% endraw %}
+</script>
+{% endblock%}
+
+{% block script %}
+<script>
+{#
+    //console.log();
+    var tplRender =  _.template(document.getElementById("tpl").innerHTML);
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                callback: pulldownRefresh
+            },
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
+        }
+    });
+    mui("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
+        var url = this.getAttribute("data-url");
+        //打开关于页面
+        //alert(url)
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui("#pullrefresh .mui-table-view").on("tap",".mui-card-content-inner",function(){
+        var url = this.getAttribute("data-url");
+        //打开关于页面
+        mui.openWindow({
+            url: url
+        });
+    })
+    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    //记录位置
+    window.onscroll = function () {
+
+        var patt1 = /\(.*?\)/;
+        var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+        if (srtY) {
+            var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+        } else {
+            var Y = 0;
+        }
+        //console.log(Y)
+        var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('.mui-card').length;
+        //console.log(Y);
+        if (window.sessionStorage) {
+            sessionStorage.setItem("{{http.url}}_top", Y);
+            sessionStorage.setItem("{{http.url}}_size", S);
+        }
+    }
+    /**
+     * 下拉刷新具体业务实现
+     */
+    function pulldownRefresh() {
+        setTimeout(function() {
+            var table = document.body.querySelector('.mui-table-view');
+            var cells = document.body.querySelectorAll('.mui-card');
+            for (var i = cells.length, len = i + 3; i < len; i++) {
+                var li = document.createElement('li');
+                li.className = 'mui-table-view-cell';
+                li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+                //下拉刷新，新纪录插到最前面；
+                table.insertBefore(li, table.firstChild);
+            }
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        }, 1000);
+    }
+    /**
+     * 上拉加载具体业务实现
+     */
+    function pullupRefresh() {
+        setTimeout(function() {
+
+            var table = document.body.querySelector('#pullrefresh .mui-table-view');
+            var cells = document.body.querySelectorAll('#pullrefresh .mui-card');
+            var count = "{{count}}";
+            console.log((parseInt(count)));
+
+            if(parseInt(cells.length) < parseInt(count)){
+                createFragment(10)
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+            }else {
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+            }
+
+        }, 1000);
+    }
+    var createFragment = function(count, page) {
+        //无限加载
+        var table = document.body.querySelector('#pullrefresh .mui-table-view');
+        var lastIndex = table.querySelectorAll('.mui-card').length;
+        console.log(lastIndex);
+        var pages = page || Math.ceil((lastIndex+count)/count);
+        console.log(pages);
+        mui.ajax("{{http.url}}",{
+            data:{
+                page:pages
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'get',//HTTP请求类型
+            success:function(data){
+                $('#pullrefresh .mui-table-view').append(tplRender(data));
+
+            }
+        });
+
+    };
+
+    mui.ready(function() {
+
+        //mui('#pullrefresh').pullRefresh().pullupLoading();
+        console.log(size);
+        var page = Math.ceil(size/10);
+
+        if(page>1 ){
+            for (var i = 1; i < (page+1); i++) {
+                createFragment(10,(i+1))
+            }
+        }
+        console.log(tops);
+
+	   
+        mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+        //alert(1)
+
+//            $('header').on('doubleTap',function () {
+//                alert(3)
+//            })
+        document.querySelector('header h1').addEventListener('tap',function () {
+            //内容区滚动到顶部
+            console.log("内容区滚动到顶部");
+            mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+        });
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+
+    (function($){
+	    $(".mui-scroll-wrapper").scroll({
+	        bounce: false,//滚动条是否有弹力默认是true
+	        indicators: false, //是否显示滚动条,默认是true
+	    }); 
+	})(mui);
+#}
+    //固定浮动
+    $(document).ready(function(e) {      
+        //t = $('.community-navs').offset().top;// .community-navs 距离顶部的距离
+        //console.log(t);
+        //var m =  document.body.scrollHeight;
+            //console.log(m)
+        //mh = $('.main').height();
+        //fh = $('.community-navs').height(); // .community-navs 自身的高度
+        //console.log(fh);
+        $(window).scroll(function(e){   
+            //console.log('rollllllllllllllllllllll');
+            //var m =  document.body.scrollHeight; //窗口的高度 1576
+            //console.log('mmmmmmmmm');
+            //console.log(m); 
+            s=$(window).scrollTop();//当前窗口滚动的高度 动态 s=286时(自己的高度t 332 - header的高度 44) 达到目的
+            //s = $(document).scrollTop();
+           // console.log('sssssssss');
+            //console.log(s);
+            /*t = $('.community-navs').offset().top;// .community-navs 距离顶部的距离 
+            console.log('ttttttttttttttt navs到顶部的高度');
+            console.log(t);*/
+            //var m =  document.body.scrollHeight;
+                //console.log(m)
+            //mh = $('.main').height();
+            //hotrecommend
+            var sh = $("#swipe").find(".peanturoll-style").offset().top;
+            //console.log("ssssssssshhhhhhhhh    shequ到顶部高度");
+            //console.log(sh); 
+
+            /*var hs = $('.hotrecommend').offset().top;
+            console.log("hhhhhhhhhsssssssss    hs高度");
+            console.log(hs); */
+            /*hh = $('.hotrecommend').height(); // .community-navs 自身的高度
+            console.log("hhhhhhhhhhhhhhhhhhh    hot高度");
+            console.log(hh); */
+            /*ch = $('.community').height(); // .community-navs 自身的高度
+            console.log("ccccccchhhhhhhhhhh    社区高度");
+            console.log(ch); */
+            
+            /*var ih = $('.community-iwanner').offset().top;
+            console.log("iiiiiiiiiiiiihhhhhhhhh    ih到顶部高度");
+            console.log(ih);*/
+            /*var communityli = $('.community').find(".community-li");
+            var  lastli = communityli[communityli.length-1];
+            console.log(lastli);
+            var ih = $(lastli).offset().top;
+            console.log("iiiiiiiiiiiiihhhhhhhhh    ih到顶部高度");
+            console.log(ih);*/
+            if(s >sh-26 ){//&& s<ih
+                $('.suspend').css({'position':'fixed','top':'38px','width':'100%','background':'#fff','z-index':'130'});  
+                //console.log("iiiiiiiiiinnnnnnnnnnnnnnnnnnnn");           
+            }else{
+                $('.suspend').css({'position':'','background':''});
+                //console.log("ooooooooooooooooooooooooottttttttttt");
+
+            }
+       
+
+        })
+    });
+    //热门arrow点击事件
+    mui(".mui-content").on("tap",".click-arrow",function(){
+        if ($(this).hasClass("mui-icon-arrowdown")) {
+            $(this).removeClass("mui-icon-arrowdown").addClass("mui-icon-arrowup");
+            $(".peanturoll-item-1.hidden-li").removeClass("hidden-li");
+        }else{
+            $(this).removeClass("mui-icon-arrowup").addClass("mui-icon-arrowdown");
+            $(".peanturoll-item-1").eq(3).addClass("hidden-li");
+            $(".peanturoll-item-1").eq(4).addClass("hidden-li");
+            $(".peanturoll-item-1").eq(5).addClass("hidden-li");
+        }
+    });
+
+    //社区菜单切换功能
+    mui(".community-navs").on("tap",".community-check",function(){
+       if ($(this).hasClass("tournote")) {
+       		$(".under-pick-2").removeClass("active");
+       		$(".under-pick-1").addClass("active");
+       		$(".question-content").addClass("close");
+       		$(".tournote-content").removeClass("close");
+            $(".question-row").addClass("close");
+       }else{
+       		$(".under-pick-1").removeClass("active");
+       		$(".under-pick-2").addClass("active");
+       		$(".tournote-content").addClass("close");
+       		$(".question-content").removeClass("close");
+            $(".question-row").removeClass("close");
+       }
+
+    })
+    //点击问答页面order切换 
+    mui(".question-row").on("tap",".question-check",function(){
+        $(".question-check").removeClass("active");
+        $(this).addClass("active");
+        loadquestion(1);
+
+    });
+    
+    //search_btn点击事件 更新searchword
+    function updateSearchword() {
+    	var searchword = $('.serch-input').val();
+        $("input[name='searchword']").val(searchword);
+    	loadtournote(1);
+        loadquestion(1);
+    }
+    //页面初始ajax加载 游记攻略和问答内容
+    mui.ready(function(){
+        loadtournote();
+        loadquestion();
+    });
+    function loadtournote(page) {
+		(typeof(page) == "undefined")?page="1":page;
+        var searchword = $("input[name='searchword']").val();
+		var ul = document.createElement('ul');
+        ul.className = 'mui-table-view';
+        var thtml = tournote_ajax(page,searchword);
+        ul.innerHTML=thtml; 
+        if ("1"==page) {
+        	 $('.tournote-content').empty();
+        }
+        $('.tournote-content').append(ul);
+		
+    }
+    //封装查询攻略游记的ajax方法，返回String类型的 item循环的 html字符串
+    function tournote_ajax(page,searchword) {
+    	null == page ? page='1':page;
+    	null == searchword ? searchword='':searchword;
+    	var thtml='';
+    	$.ajax({
+            type:"get",
+            async:false,
+            url:"/ajax/question?cid=124&q="+searchword+"&page="+page,
+            success:function(dataResult){
+                $.each(dataResult.data,function(k,v){
+                    var cover;
+                    if(null==v.imgurl || ''==v.imgurl){
+                        cover = '<img class="img-cover" src="static/assets/images/noimage.jpg">';
+                    }else{
+                       cover = v.imgurl;
+                       cover = '<img class="img-cover" src='+cover+'>';
+                    }
+                    thtml += '<li class="mui-table-view-cell mui-media community-li"  data-url="/mod/question/'+v.id+'">\
+                                <a href="/mod/'+v.id+'.html">\
+                                    <div class="mui-row">\
+                                        <div class="mui-col-sm-4 mui-col-xs-4">\
+                                            '+cover+'\
+                                        </div>\
+                                        <div class="mui-col-sm-8 mui-col-xs-8">\
+                                            <p class="community-title">'+v.title+'</p>\
+                                            <p class="item_info">'+v.detailtext+'</p>\
+                                        </div>\
+                                    </div>\
+                                </a>\
+                            </li>'  
+                });
+                if(dataResult.currentPage < dataResult.totalPages){
+                    var nextPage =parseInt(page)+1;
+                    thtml+= '<button type="button" class="mui-btn mui-btn-block margin-bottom-10 check-more-btn" data-page='+nextPage+' onclick="loadtournote('+nextPage+');">\
+                                展开更多\
+                                <span>\
+                                    <img src="/static/assets/images/mobile/search/load_more.png">\
+                                </span>\
+                            </button>'
+                }
+               $("[data-page='"+page+"']").hide();      
+            }
+        });
+        return thtml;  
+    }
+    //loadquestion
+    function loadquestion(page) {
+        (typeof(page) == "undefined")?page="1":page;
+        var searchword = $("input[name='searchword']").val();
+        var order =$(".question-check.active").attr("data-order");
+        var ul = document.createElement('ul');
+        ul.className = 'mui-table-view';
+        var thtml = question_ajax(page,searchword,order);
+        ul.innerHTML=thtml; 
+        if ("1"==page) {
+             $('.question-content').empty();
+        }
+        $('.question-content').append(ul);    
+    }
+    /**
+     * [question_ajax description]
+     * 封装查询问答的ajax方法 返回String类型的 item循环的 html字符串
+     * @param  {[string]} page       
+     * @param  {[string]} searchword 
+     * @param  {[string]} order      [ '0'|'1'|'3'  最新|热门|待回答]
+     * @return {[string]} thtml      [ajax数据遍历得出的html字符串]
+     */
+    function question_ajax(page,searchword,order) {
+        null == page ? page='1':page;
+        null == searchword ? searchword='':searchword;
+        null == order ? order='1':order;
+        var thtml='';
+        $.ajax({
+            type:"get",
+            async:false,
+            url:"/ajax/question?cid=125&q="+searchword+"&page="+page+"&order="+order,
+            success:function(dataResult){
+                $.each(dataResult.data,function(k,v){
+                    var waiting='';
+                    if (0==v.answer_count) {
+                        waiting = '<span><img class="question-wating" src="static/assets/images/mobile/community/waiting.png"></span>';
+                    }
+                    thtml += '<div class="mui-card question-div" data-url="/mod/question/'+v.id+'">\
+                                <div class="mui-card-header mui-card-media">\
+                                    <img class="question-headimg" src="/uc/index/avatar/uid/'+v.uid+'">\
+                                    <div class="mui-media-body margin-top-10">\
+                                        <span class="question-nickname">'+v.username+'</span>\
+                                        <span class="question-txt">提了一个问题</span>\
+                                        <span class="question-point">•</span>\
+                                        <span class="question-txt">'+ v.create_time +'</span>\
+                                       '+waiting+'\
+                                    </div>\
+                                </div>\
+                                <div class="mui-card-content">\
+                                    <div class="mui-card-content-inner" >\
+                                        <p class="question-title">'+v.title+'</p>\
+                                        <p class="question-detail">'+v.detailtext+'</p>\
+                                    </div>\
+                                </div>\
+                                <div class="mui-card-footer">\
+                                    <a class="pull-right">\
+                                        <span>\
+                                            <img class="question-sign-1" src="/static/assets/images/mobile/community/reply.png"> 回答:'+ v.answer_count +'\
+                                        </span>\
+                                        <span>\
+                                            <div class="question-sign-div">&nbsp;</div>\
+                                        </span>\
+                                        <span>\
+                                            <img class="question-sign-2" src="/static/assets/images/mobile/community/view.png"> \
+                                            浏览:'+ v.view +'\
+                                        </span>\
+                                    </a>\
+                                </div>\
+                            </div>'  
+                });
+                if(dataResult.currentPage < dataResult.totalPages){
+                    var nextPage =parseInt(page)+1;
+                    thtml+= '<button type="button" class="mui-btn mui-btn-block margin-bottom-10 check-more-btn" data-pages='+nextPage+' onclick="loadquestion('+nextPage+');">\
+                                展开更多\
+                                <span>\
+                                    <img src="/static/assets/images/mobile/search/load_more.png">\
+                                </span>\
+                            </button>';
+                }
+               $("[data-pages='"+page+"']").hide();      
+            }
+        });
+        return thtml;  
+    }
+
+    mui(".peanturoll-ul").on("tap",".item-box.thumbnail ",function(){
+        var url = $(this).find(".peanutroll-a").attr("href");
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui(".community-navs ").on("tap",".community-iwanner",function(){
+    	
+        var url = $(this).children(".iwanner-a").attr("data-url");
+        //打开关于页面
+        //alert(url)
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui(".tournote-content").on("tap",".community-li",function(){
+        var url = this.getAttribute("data-url");
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui(".question-content").on("tap",".question-div",function(){
+        var url = this.getAttribute("data-url");
+        mui.openWindow({
+            url: url
+        });
+    })
+     //
+    mui(".peanturoll-row").on("tap",".footer-t",function(){
+        var url = $(this).find("a").attr("href");
+        mui.openWindow({
+            url: url
+        });
+    })
+    //底部导航栏单击打开herf事件
+    mui.ready(function() {
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+
+
+
+</script>
+
+{% endblock %}

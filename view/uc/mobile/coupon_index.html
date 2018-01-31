@@ -1,0 +1,230 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+ul,ul li{
+	margin:0;
+	padding:0;
+}
+.traveller-header{
+	background: #1eb6c1
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.traveller-header span{
+    display: inline-block;
+    margin-top:10.5px;
+    font-size:24px;
+    color:#fff;
+}
+.mui-content{
+	padding-bottom:50px;
+}
+h3.title{
+	font-weight:normal;
+	padding:10px 0 10px 6.39%;
+}
+h3.title b{
+	display: inline-block;
+	position:relative;
+	font-size:15px;
+	font-weight: normal;
+	width:25%;
+	height:27px;
+	line-height: 27px;
+	margin-left: 15px;
+	background: url(/static/assets/images/mobile/uc/bg_coupon.png) no-repeat;
+    background-size: 100% 100%;
+	color:#1eb6c1;
+}
+h3.title b i{
+	display: inline-block;
+    width: 19px;
+    height: 20px;
+    float: left;
+    margin-left:3px;
+    margin-top: 3px;
+    margin-right: 5px;
+    background: url(/static/assets/images/mobile/uc/coupon.png) no-repeat;
+    background-size: 100% 100%;
+}
+.search{
+	background: #fff;
+	padding:15px 3.52%;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.search input{
+	width:60%;
+	margin:0;
+}
+.search a{
+	display: inline-block;
+	width:20%;
+	height:40px;
+	line-height: 40px;
+	background: #1eb6c1;
+	color:#fff;
+	text-align: center;
+	border-radius: 8px;
+}
+h3.number{
+	font-weight:normal;
+	padding:10px 5% 10px 5%;
+	margin-top:10px;
+}
+.number span{
+	display: inline-block;
+	font-size:15px;
+	color:#b2b2b2;
+	margin-top:8px;
+}
+.number span a{
+	color:#b2b2b2;
+	margin:0 3px;
+}
+.coupon-content{
+	background: #fff;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+}
+.mui-table-view-cell:after{
+	height:0;
+}
+em{
+	font-style: normal;
+	color:#b2b2b2;
+}
+.coupon-content>li>span>b{
+	font-size:18px;
+	font-weight: normal;
+	color:#1eb6c1;
+}
+.coupon-content>li>span>a{
+	color:#1eb6c1;
+}
+
+.clear:after{
+    content:"";
+    display: block;
+    clear:both;
+}
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>优惠券</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+	<h3 class="title"><span>添加新的优惠券</span><b><i></i>优惠券</b></h3>
+	<div class="search clear">
+		<input id="add-coupon" class="add-coupon mui-pull-left" type="text" placeholder="输入16位优惠券验证码" maxlength="16">
+        <a class="mui-pull-right" href="javascript:addCoupon();">添加</a>
+	</div>
+	<h3 class="number">所有优惠券<span class="mui-pull-right">(共<a class="all">m</a>个,可用优惠券<a class="can-use">n</a>个)</span></h3>
+	{% for item in list %}
+	<ul class="coupon-content mui-table-view">
+		<li class="mui-table-view-cell">
+			<em>序列号/卡号：{{item.code}}</em>
+			<span class="mui-pull-right"><a class="use-info{{item.code}}" href=""></a></span>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>截止有效时间：<span id="end-date{{item.code}}"></span></span>
+			<span class="mui-pull-right">面值/折扣：<b>¥{{item.price}}</b></span>
+		</li>
+	</ul>
+	{% endfor %}
+</section>
+
+{% endblock%}
+
+{% block script %}
+<script>
+function time(date){
+	var newdate = new Date(date)
+	var y = newdate.getFullYear();  
+	var m = newdate.getMonth() + 1;  
+	m = m < 10 ? ('0' + m) : m;  
+	var d = newdate.getDate();  
+	d = d < 10 ? ('0' + d) : d;  
+	var h = newdate.getHours();  
+	var minute = newdate.getMinutes();  
+		minute = minute < 10 ? ('0' + minute) : minute;  
+	//var time = y + '-' + m + '-' + d+' '+h+':'+minute;
+	var time = y + '-' + m + '-' + d
+	return time;  
+}
+mui.ready(function(){
+	$.ajax({
+		url:"/uc/booking/discountquery",
+		success:function(data){
+			console.log(data)
+			var m = data.length;
+  			var N=0;
+  			$.each(data,function(k,v){
+  				console.log(v)  				
+  				var date1 = v.validity_date;
+  				var validity1 = time(date1)
+  				var current1 = new Date().getTime();
+  				var validity = time(v.validity_date)
+  				console.log(validity)
+  				$("#end-date"+v.code).html(validity)
+
+  				if(date1>current1){
+  					N++;
+  					$(".use-info"+v.code).html("可用")
+  				}else{
+  					$(".use-info"+v.code).html("已失效")
+  				}
+  				return N;
+  			})
+  			$(".all").html(m)
+  			$(".can-use").html(N)
+
+		}
+	})
+})
+function addCoupon(){
+	var coupon = $("#add-coupon").val()
+	//var pro;
+	$.ajax({
+		url:"/uc/booking/discountadd/code/"+coupon,
+		async:false,
+		success:function(result){
+			console.log(result)
+			if(result.errno == 1000){
+				mui.toast(result.errmsg);
+			}else if(result.errno == 0){
+				mui.toast(result.data);
+				setTimeout(function(){
+					mui.openWindow({url:window.location.href})
+				},1000)
+			}
+		}
+	});
+}
+mui.ready(function() {
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#wait"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }
+            mui.openWindow({url: href})
+
+        })
+    }
+});
+</script>
+{% endblock %}

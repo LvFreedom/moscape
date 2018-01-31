@@ -1,0 +1,300 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link href="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.css" rel="stylesheet">
+<link href="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.css" rel="stylesheet">
+<style>
+header.collection-header{
+        background:#1eb6c1;
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.collection-header span{
+    display: inline-block;
+    margin-top:8.5px;
+    font-size:24px;
+    color:#fff;
+    font-family: "Microsoft YaHei"
+}
+.mui-scroll{
+	padding:0 2.78%;
+}
+.list-content{
+	margin-top:62px;
+}
+.collection-box{
+	background: #fff;
+	margin-bottom:15px;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.collection-box>div{
+	float:left;
+}
+.collection-box>div.cover-img{
+	width:40%;
+}
+.collection-box>div.collection-detail{
+	width:60%;
+	position:relative;
+    padding: 11px 15px;
+}
+.collection-box>div.collection-detail>div>a{
+	display: block;
+}
+.collection-box>div.collection-detail>div>a>span{
+	font-size:20px;
+	color:#000;
+}
+.collection-box>div.collection-detail>p{
+	margin-top:20px;
+}
+.collection-box>div.collection-detail>p>a,
+.collection-box>div.collection-detail>p>span{
+	color:#1eb6c1;
+}
+.collection-box>div.collection-detail>p>span{
+	font-size:17px;
+}
+
+
+
+.clear:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+.mui-table-view-cell:after{
+	height:0;
+}
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav collection-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>收藏</span>
+</header>
+{% include "./inc/barnav.html" %}
+<section class="mui-content">
+	<!-- 下拉刷新容器 -->
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content" >
+		<div class="mui-scroll">
+			<div class="mui-table">
+				<!-- 数据列表 -->
+				{% for item in info.data %}
+				<div class="collection-box mui-table-view clear">
+					<input type="hidden" value="{{item.question_id}}" name="id{{item.question_id}}" class="id{{item.question_id}}">
+					<div class="cover-img mui-table-view-cell">
+						<a target="_blank" href="/p/{{item.question_id}}.html">
+							<img src="{{item.productinfo.cover_url}}" width="169px" height="108px" alt="">
+			        	</a>   
+					</div>
+					<div class="collection-detail">
+						<div>
+							<a target="_blank" href="/p/{{item.question_id}}.html">
+								<span class="product-title">
+				                	{{item.productinfo.title}}
+				              	</span>
+				        	</a>
+						</div>
+			        	
+			          	<p class="clear">
+				            <a class="mui-pull-left" href="javascript:cancelCollect({{item.question_id}});">取消收藏</a>
+				            <span class="product-price mui-pull-right">¥{{item.productinfo.price}}</span>
+			          	</p>
+			        </div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+
+
+</section>
+<script type="text/template" id="tpl">
+	{% raw %}
+	<%_.forEach(data,function(item,k){%>
+	<div class="collection-box mui-table-view clear">
+		<input type="hidden" value="<%=item.question_id%>" name="<%=item.question_id%>" class="<%=item.question_id%>">
+		<div class="cover-img mui-table-view-cell">
+			<a target="_blank" href="/p/<%=item.question_id%>.html">
+				<img src="<%=item.productinfo.cover_url%>" width="169px" height="108px" alt="">
+        	</a>   
+		</div>
+		<div class="collection-detail">
+			<div>
+				<a target="_blank" href="/p/<%=item.question_id%>.html">
+					<span class="product-title">
+	                	<%=item.productinfo.title%>
+	              	</span>
+        		</a>
+			</div>
+        	
+          	<p class="clear">
+	            <a class="mui-pull-left" href="javascript:cancelCollect(<%=item.question_id%>);">取消收藏</a>
+	            <span class="product-price mui-pull-right">¥<%=item.productinfo.price%></span>
+          	</p>
+        </div>
+	</div>
+	<%})%>
+	{% endraw %}
+</script>
+{% endblock%}
+	
+{% block script %}
+<script>
+//超链接
+mui("#pullrefresh").on("tap","a",function(){
+	var href = this.getAttribute("href");
+	if(href=="#wait"){
+	    //todo
+	    mui.toast("功能开发中...")
+	    return
+	}
+	mui.openWindow({url: href})
+})
+//加载模板
+var tplRender = _.template(document.getElementById("tpl").innerHTML)
+mui.init({
+	pullRefresh:{
+		container:"#pullrefresh",
+		down:{
+			callback:pulldownRefresh
+		},
+		up:{
+			contentrefresh:"正在加载...",
+			callback:pullupRefresh
+		}
+	}
+});
+var tops = parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+var size = parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+//记录位置
+window.onscroll = function(){
+	var patt1 = /\(.*?\)/;
+	var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+	if(srtY){
+		var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+	}else{
+		var Y = 0;
+	}
+	//console.log(Y)
+	var S = document.querySelector('#pullrefresh').querySelectorAll('.mui-table-view').length;
+	if(window.sessionStorage){
+		sessionStorage.setItem("{{http.url}}_top", Y);
+		sessionStorage.setItem("{{http.url}}_size", S)
+	}
+}
+//下拉刷新具体业务实现
+function pulldownRefresh(){
+	setTimeout(function(){
+		// var table = document.body.querySelector('#pullrefresh .mui-table');
+  //       var cells = document.body.querySelectorAll('.mui-table-view');
+  //       for(var i=cells.length,len=i+3;i<len;i++){
+  //       	var div = document.createElement("div");
+  //       	div.classNme = "mui-table-view-cell";
+  //       	div.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>'
+  //       	//下拉刷新，新纪录插到最前面；
+  //           table.insertBefore(div, table.firstChild); 
+  //       }
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+	},1500)
+}
+var count = 0;
+//上拉加载具体业务实现
+function pullupRefresh(){
+	setTimeout(function(){
+		var table = document.body.querySelector('#pullrefresh .mui-table');
+        var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view');
+        var count = "{{info.count}}";
+        console.log(count)
+        console.log((parseInt(count) > cells.length));
+        if(parseInt(cells.length) < parseInt(count)){
+        	createFragment(5)
+        	mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+        }else {
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+        }
+	},1000)
+}
+
+var createFragment = function(count, page){
+	//无限加载
+	var table = document.body.querySelector('#pullrefresh .mui-table');
+    var lastIndex = table.querySelectorAll('.mui-table-view').length;
+    console.log(lastIndex);
+    var pages = page || Math.ceil((lastIndex+count)/count);
+    console.log(pages);
+    mui.ajax("/ajax/focuslist",{
+        data:{
+            page:pages
+        },
+        dataType:'json',//服务器返回json格式数据
+        type:'get',//HTTP请求类型
+        success:function(data){
+        	console.log(data)
+            //获得服务器响应
+            $('#pullrefresh .mui-table').append(tplRender(data.data));
+        }
+    });
+}
+mui.ready(function() {
+    var page = Math.ceil(size/10);
+    if(page>1 ){
+        for (var i = 1; i < (page+1); i++) {
+            createFragment(5,(i+1))
+        }
+    }
+    mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+})
+
+
+//取消收藏
+function cancelCollect(id){
+	console.log(id)
+
+	var btnArray = ['否', '是'];
+    mui.confirm('确定要取消收藏吗?','您好', btnArray, function(e) {
+        //console.log(e.index)
+        if (e.index == 1) {
+            var pro;
+            $.ajax({
+				url:"/ajax/focus?id="+id+"&type="+2,
+				success:function(result){
+					console.log(result)
+					if(result.errno == 0){
+						mui.toast(result.data);
+						mui.openWindow({url:window.location.href})
+					}	
+				}
+			})
+            return pro;
+        }
+    })   
+
+}
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+
+</script>
+{% endblock %}

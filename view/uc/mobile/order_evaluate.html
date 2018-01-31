@@ -1,0 +1,998 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link href="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.css" rel="stylesheet">
+<link href="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/admin/css/app-uc.css" type="text/css" />
+
+
+<script src="/static/admin/js/jquery.min.js"></script>
+<script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
+<script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
+<style>
+    ul,li{
+        list-style: none;
+        padding:0;
+        margin:0;
+    }
+    b{
+        font-weight:normal;
+    }
+    .order-header{
+        background: #1eb6c1;
+    }
+    .back{
+        display: inline-block;
+        width:35px;
+        height:20px;
+        background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+        background-size:35px 20px;
+        border:0;
+    }
+    .order-header span{
+        display: inline-block;
+        margin-top:8.5px;
+        font-size:24px;
+        color:#fff;
+    }
+    .evaluate{
+        padding:0 5.56%;
+    }
+    .order-info{       
+        background:#fff;        
+        padding-top:10px;
+        padding-bottom:10px;
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    }
+    .order-no{
+        font-size:20px;
+        color:#555;
+    }
+    .mui-input-group h3{
+        font-weight:normal;
+        color:#1eb6c1;
+        padding-top:12px;
+        padding-bottom:10px;
+    }
+    .order-img{
+        width:54px;
+        height:54px;
+        margin-right:15px;
+    }
+    .order-img img{
+        width:100%;
+    }
+    .samll-solid{
+        display:inline-block;
+        width:16px;
+        height:13px;
+        background:url(/static/assets/images/mobile/uc/small_solid.png) no-repeat;
+        background-size:100% 100%; 
+    }
+    .samll-heart{
+        display:inline-block;
+        width:16px;
+        height:13px;
+        background:url(/static/assets/images/mobile/uc/small_heart.png) no-repeat;
+        background-size:100% 100%;
+    }
+    .totality{
+        width: 100%;
+        height:95px;
+        background: rgb(242,242,242);
+    }
+    .num-img{
+        width:100%;
+        background: rgb(242,242,242);
+        margin-top:-6px;
+        padding:0 10px;
+    }
+    .show-upload{
+        display: inline-block;
+        width:25px;
+        height:25px;
+        background:url(/static/assets/images/mobile/uc/add_img.png) no-repeat;
+        background-size:100% 100%;
+    }
+    #upload-img{
+        margin-top:15px;
+    }
+    .up-load .placeholder{
+        min-height: 180px;
+        padding-top: 90px;
+    }
+    .write-evaluation{
+        margin-top:10px;
+    }
+
+    .clear:after{
+        content:"";
+        display: block;
+        clear:both;
+    }
+    .out{
+        display: none;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav order-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>评价订单</span>
+</header>
+{% include "./inc/barnav.html" %}
+<section class="mui-content">
+    {% for item in list %}
+    <form id='evaluate-form' class="mui-input-group">
+        <input type="hidden" name="product_id" value="{{item.product_id}}">
+        <div class="order-info evaluate">
+            <span class="order-no">订单编号</span><span class="order-no">{{item.order_no}}</span>
+        </div>
+        <h3 class="order-title evaluate">
+            产品信息
+        </h3>
+        <div class="order-info evaluate clear">
+            <div class="order-img mui-pull-left">
+                <img src="{{info.cover_url}}" alt="">
+            </div>
+            <div class="mui-pull-left padding-top-15">
+                <span class="order-tit">
+                   {{item.title}} 
+                </span>
+                <br>
+                <span class="mui-pull-left">产品总体打分：</span>
+                <div class="comment-evaluate mui-pull-left">
+                    {% if info.commentcount == 0 or info.commentcount == "" or info.commentcount == undefined %}
+                    <div class="mui-pull-left clear">
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>  
+                    </div>                        
+                    <b style="padding-left:5px;">{{info.score_avg}}分</b>
+                    {% elif info.score_avg >= 1 and info.score_avg < 2 %}
+                    <div class="mui-pull-left clear">
+                        <em class="samll-solid"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>  
+                    </div>                          
+                    <b style="padding-left:5px;">{{info.score_avg}}分</b>
+                    {% elif info.score_avg >= 2 and info.score_avg < 3 %}
+                    <div class="mui-pull-left clear">
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                    </div>                              
+                    <b style="padding-left:5px;">{{info.score_avg}}分</b>
+                    {% elif info.score_avg >= 3 and info.score_avg < 4 %}
+                    <div class="mui-pull-left clear">
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>  
+                    </div>                          
+                    <b style="padding-left:5px;">{{info.score_avg}}分</b>
+                    {% elif info.score_avg >= 4 and info.score_avg < 5 %}
+                    <div class="mui-pull-left clear">
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-heart"></em>
+                    </div>                              
+                    <b style="padding-left:5px;">{{info.score_avg}}分</b>
+                    {% elif info.score_avg == 5 %}
+                    <div class="mui-pull-left clear">
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                        <em class="samll-solid"></em>
+                    </div>                              
+                    <b style="padding-left:5px;">{{info.score_avg}}分</b>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <h3 class="order-title evaluate">
+            评价与评分
+        </h3>
+        <div class="order-info evaluate clear">
+            <span class="mui-pull-left">产品总体打分：</span>
+            <div class="mui-pull-left mark">
+                <em class="samll-heart"></em>
+                <em class="samll-heart"></em>
+                <em class="samll-heart"></em>
+                <em class="samll-heart"></em>
+                <em class="samll-heart"></em>
+            </div> 
+            <b style="padding-left:5px;"></b>
+            <input class="hidden-score score-total" name="score_total" value="" type="hidden"/>
+            <div class="write-evaluation">
+                <textarea name="comment_content" id="totality" class="totality" maxlength="500"  onkeyup="javascript:textCounter({{item.product_id}});" onblur="" placeholder=""></textarea>
+                <div class="num-img clear">
+                    <span class="mui-pull-left">还可以输入<a class="word-number" href="javascript:;">500</a>字</span>
+                    <a class="show-upload mui-pull-right"></a>
+                </div>
+
+                {% set pic = "picture"+item.product_id %}
+                <div id="upload-img" class="out">
+                    <input type="hidden" name="comment_img" class="form-control" id="{{pic}}" value="{{data[pic]}}"/>
+                    <div id="uploader{{item.product_id}}" class="wu-example up-load">
+                        <div class="queueList">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker{{item.product_id}}"></div>
+                                <p>或将照片拖到这里，单次可选多张</p>
+                            </div>
+                        </div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div>
+                            <div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2{{item.product_id}}" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                            </div>
+                        </div>
+                    </div>
+                          
+                    <script>
+                          
+                        $(".num-img").on("tap",".show-upload",function(){
+                              $("#upload-img").removeClass("out");
+                              $(this).addClass("out");
+
+                              jQuery(function () {
+                                  var $ = jQuery,    // just in case. Make sure it's not an other libaray.
+
+                                  $wrap = $('#uploader{{item.product_id}}'),
+
+                                  // 图片容器
+                                  $queue = $('<ul class="filelist"></ul>')
+                                  .appendTo($wrap.find('.queueList')),
+
+                                  // 状态栏，包括进度和控制按钮
+                                  $statusBar = $wrap.find('.statusBar'),
+
+                                  // 文件总体选择信息。
+                                  $info = $statusBar.find('.info'),
+
+                                  // 上传按钮
+                                  $upload = $wrap.find('.uploadBtn'),
+
+                                  // 没选择文件之前的内容。
+                                  $placeHolder = $wrap.find('.placeholder'),
+
+                                  // 总体进度条
+                                  $progress = $statusBar.find('.progress').hide(),
+
+                                  // 添加的文件数量
+                                  fileCount = 0,
+
+                                  // 添加的文件总大小
+                                  fileSize = 0,
+
+                                  // 优化retina, 在retina下这个值是2
+                                  ratio = window.devicePixelRatio || 1,
+
+                                  // 缩略图大小
+                                  thumbnailWidth = 110 * ratio,
+                                  thumbnailHeight = 110 * ratio,
+
+                                  // 可能有pedding, ready, uploading, confirm, done.
+                                  state = 'pedding',
+
+                                  // 所有文件的进度信息，key为file id
+                                  percentages = {},
+
+                                  supportTransition = (function () {
+                                      var s = document.createElement('p').style,
+                                      r = 'transition' in s ||
+                                      'WebkitTransition' in s ||
+                                      'MozTransition' in s ||
+                                      'msTransition' in s ||
+                                      'OTransition' in s;
+                                      s = null;
+                                      return r;
+                                  })(),
+
+                                  // WebUploader实例
+                                  uploader;
+
+                                  if (!WebUploader.Uploader.support()) {
+                                      alert('Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
+                                      throw new Error('WebUploader does not support the browser you are using.');
+                                  }
+
+                                  // 实例化
+                                  uploader = WebUploader.create({
+                                      pick: {
+                                          id: '#filePicker{{item.product_id}}',
+                                          label: '点击选择图片'
+                                      },
+                                      dnd: '#uploader{{item.product_id}} .queueList',
+                                      paste: document.body,
+
+                                      accept: {
+                                          title: 'Images',
+                                          extensions: 'gif,jpg,jpeg,bmp,png',
+                                          mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
+                                      },
+
+                                      // swf文件路径
+                                      swf: '/static/js/webuploader/Uploader.swf',
+
+                                      disableGlobalDnd: true,
+
+                                      chunked: true,
+                                      // server: 'http://webuploader.duapp.com/server/fileupload.php',
+                                      server: '/admin/file/uploadpic',
+                                      fileNumLimit: 300,
+                                      fileSizeLimit: 5 * 1024 * 1024,    // 200 M
+                                      fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
+                                  });
+                            
+                                  // 添加“添加文件”的按钮，
+                                  uploader.addButton({
+                                      id: '#filePicker2{{item.product_id}}',
+                                      label: '继续添加'
+                                  });
+                                  uploader.on('uploadSuccess', function (file, res) {
+                                    console.log(res)
+                                      var id = $("#{{pic}}").val();
+                                      var ids;
+                                      if(id){
+                                         ids = id+','+res 
+                                     }else{
+                                      ids = res;
+                                  }
+
+                                      console.log(ids);
+                                      $("#{{pic}}").val(ids);
+                                  });
+                                  //编辑的时候载入图片
+                                  if("{{data[pic]}}".length >0){
+                                      {% for val in data[pic]|strToArray%}
+                                      console.log(val);
+                                      var picobj = {}
+                                      var picurl = "{{val|get_pic('m=1,w=110,h=110')}}";
+                                      picobj.src = picurl;
+                                      picobj.id = {{val}};
+                                      picobj.name = {{val}};
+                                      addpic(picobj);
+                                      {% endfor %}
+                                  }
+                                  function addpic(file){
+                                      $placeHolder.addClass('element-invisible');
+                                      $statusBar.show();
+                                      $queue.parent().addClass('filled');   
+                                      var $li = $('<li id="' + file.id + '" class="up">' +
+                                          '<p class="title">' + file.name + '</p>' +
+                                          '<p class="imgWrap"></p>' +
+                                          '<p class="progress"><span></span></p>' +
+                                          '</li>'),
+
+                                      $btns = $('<div class="file-panel">' +
+                                          '<span class="cancel">删除</span>' +
+                                          '<span class="rotateRight">向右旋转</span>' +
+                                          '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+                                      $prgress = $li.find('p.progress span'),
+                                      $wrap = $li.find('p.imgWrap'),
+                                      $info = $('<p class="error"></p>');
+                                      $li.on('mouseenter', function () {
+                                          $btns.stop().animate({ height: 30 });
+                                      });
+
+                                      $li.on('mouseleave', function () {
+                                          $btns.stop().animate({ height: 0 });
+                                      });
+                                      $btns.on('click', 'span', function () {
+                                          var index = $(this).index(),
+                                          deg;
+                                          var id=$(this).parents("li.up").attr("id");
+                                          switch (index) {
+                                              case 0:
+                                              removepics(id);
+                                                  //removepics()
+                                                  return;
+
+                                                  case 1:
+                                                  //file.rotation += 90;
+                                                  break;
+
+                                                  case 2:
+                                                 // file.rotation -= 90;
+                                                 break;
+                                             }
+
+
+
+
+                                         });
+                                      var img = $('<img src="' + file.src + '">');
+                                      $wrap.empty().append(img);
+                                      $li.appendTo($queue);  
+                                  }
+                                  // 当有文件添加进来时执行，负责view的创建
+                                  function addFile(file) {
+                                      //console.log(file.id);
+                                      var $li = $('<li id="' + file.id + '">' +
+                                          '<p class="title">' + file.name + '</p>' +
+                                          '<p class="imgWrap"></p>' +
+                                          '<p class="progress"><span></span></p>' +
+                                          '</li>'),
+
+                                      $btns = $('<div class="file-panel">' +
+                                          '<span class="cancel">删除</span>' +
+                                          '<span class="rotateRight">向右旋转</span>' +
+                                          '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+                                      $prgress = $li.find('p.progress span'),
+                                      $wrap = $li.find('p.imgWrap'),
+                                      $info = $('<p class="error"></p>'),
+
+                                      showError = function (code) {
+                                          switch (code) {
+                                              case 'exceed_size':
+                                              text = '文件大小超出';
+                                              break;
+
+                                              case 'interrupt':
+                                              text = '上传暂停';
+                                              break;
+
+                                              default:
+                                              text = '上传失败，请重试';
+                                              break;
+                                          }
+
+                                          $info.text(text).appendTo($li);
+                                      };
+
+                                      if (file.getStatus() === 'invalid') {
+                                          showError(file.statusText);
+                                      } else {
+                                          // @todo lazyload
+                                          $wrap.text('预览中');
+                                          uploader.makeThumb(file, function (error, src) {
+                                              if (error) {
+                                                  $wrap.text('不能预览');
+                                                  return;
+                                              }
+
+                                              var img = $('<img src="' + src + '">');
+                                              $wrap.empty().append(img);
+                                          }, thumbnailWidth, thumbnailHeight);
+
+                                          percentages[file.id] = [file.size, 0];
+                                          file.rotation = 0;
+                                      }
+
+                                      file.on('statuschange', function (cur, prev) {
+                                          if (prev === 'progress') {
+                                              $prgress.hide().width(0);
+                                          } else if (prev === 'queued') {
+                                              $li.off('mouseenter mouseleave');
+                                              $btns.remove();
+                                          }
+
+                                          // 成功
+                                          if (cur === 'error' || cur === 'invalid') {
+                                              console.log(file.statusText);
+                                              showError(file.statusText);
+                                              percentages[file.id][1] = 1;
+                                          } else if (cur === 'interrupt') {
+                                              showError('interrupt');
+                                          } else if (cur === 'queued') {
+                                              percentages[file.id][1] = 0;
+                                          } else if (cur === 'progress') {
+                                              $info.remove();
+                                              $prgress.css('display', 'block');
+                                          } else if (cur === 'complete') {
+                                              $li.append('<span class="success"></span>');
+                                          }
+
+                                          $li.removeClass('state-' + prev).addClass('state-' + cur);
+                                      });
+
+                                      $li.on('mouseenter', function () {
+                                          $btns.stop().animate({ height: 30 });
+                                      });
+
+                                      $li.on('mouseleave', function () {
+                                          $btns.stop().animate({ height: 0 });
+                                      });
+
+                                      $btns.on('click', 'span', function () {
+                                          var index = $(this).index(),
+                                          deg;
+
+                                          switch (index) {
+                                              case 0:
+                                              uploader.removeFile(file);
+                                              return;
+
+                                              case 1:
+                                              file.rotation += 90;
+                                              break;
+
+                                              case 2:
+                                              file.rotation -= 90;
+                                              break;
+                                          }
+
+                                          if (supportTransition) {
+                                              deg = 'rotate(' + file.rotation + 'deg)';
+                                              $wrap.css({
+                                                  '-webkit-transform': deg,
+                                                  '-mos-transform': deg,
+                                                  '-o-transform': deg,
+                                                  'transform': deg
+                                              });
+                                          } else {
+                                              $wrap.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + (~~((file.rotation / 90) % 4 + 4) % 4) + ')');
+                                              // use jquery animate to rotation
+                                              // $({
+                                              //     rotation: rotation
+                                              // }).animate({
+                                              //     rotation: file.rotation
+                                              // }, {
+                                              //     easing: 'linear',
+                                              //     step: function( now ) {
+                                              //         now = now * Math.PI / 180;
+
+                                              //         var cos = Math.cos( now ),
+                                              //             sin = Math.sin( now );
+
+                                              //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
+                                              //     }
+                                              // });
+                                          }
+
+
+                                      });
+                                      //console.log($queue)
+                                      $li.appendTo($queue);
+                                      //console.log(percentages);
+                                  }
+                              // 负责view的销毁
+                                  function removepics(file) {
+                                    var $li = $('#' + file);
+                                    //delete percentages[file.id];
+                                    var id = $("#{{pic}}").val();
+                                    var ids=[]
+                                    id.split(",").forEach(function ( v) {
+                                        if(file!=v) {
+                                            ids.push(v)
+                                        }
+                                    });
+
+                                    $("#{{pic}}").val(ids.join(","))
+                                    //console.log(ids);
+                                    updateTotalProgress();
+                                    $li.off().find('.file-panel').off().end().remove();
+                                  }
+                                  // 负责view的销毁
+                                  function removeFile(file) {
+                                    var $li = $('#' + file.id);
+                                    delete percentages[file.id];
+                                    updateTotalProgress();
+                                    $li.off().find('.file-panel').off().end().remove();
+                                  }
+
+                                  function updateTotalProgress() {
+                                      var loaded = 0,
+                                      total = 0,
+                                      spans = $progress.children(),
+                                      percent;
+
+                                      $.each(percentages, function (k, v) {
+                                          total += v[0];
+                                          loaded += v[0] * v[1];
+                                      });
+
+                                      percent = total ? loaded / total : 0;
+
+                                      spans.eq(0).text(Math.round(percent * 100) + '%');
+                                      spans.eq(1).css('width', Math.round(percent * 100) + '%');
+                                      updateStatus();
+                                  }
+
+                                  function updateStatus() {
+                                      var text = '', stats;
+
+                                      if (state === 'ready') {
+                                        
+                                          
+                                      } else if (state === 'confirm') {
+                                          stats = uploader.getStats();
+                                          if (stats.uploadFailNum) {
+                                              
+                                              
+                                          }
+
+                                      } else {
+                                          stats = uploader.getStats();
+                                         
+                                          
+
+                                          if (stats.uploadFailNum) {
+                                             
+                                          }
+                                      }
+
+                                      $info.html(text);
+                                  }
+
+                                  function setState(val) {
+                                      //alert(val)
+                                      var file, stats;
+
+                                      if (val === state) {
+                                          return;
+                                      }
+
+                                      $upload.removeClass('state-' + state);
+                                      $upload.addClass('state-' + val);
+                                      state = val;
+
+                                      switch (state) {
+                                          case 'pedding':
+                                          $placeHolder.removeClass('element-invisible');
+                                          $queue.parent().removeClass('filled');
+                                          $queue.hide();
+                                          $statusBar.addClass('element-invisible');
+                                          uploader.refresh();
+                                          break;
+
+                                          case 'ready':
+                                          $placeHolder.addClass('element-invisible');
+                                          $('#filePicker2{{item.product_id}}').removeClass('element-invisible');
+                                          $queue.parent().addClass('filled');
+                                          $queue.show();
+                                          $statusBar.removeClass('element-invisible');
+                                          uploader.refresh();
+                                          break;
+
+                                          case 'uploading':
+                                          $('#filePicker2{{item.product_id}}').addClass('element-invisible');
+                                          $progress.show();
+                                          $upload.text('暂停上传');
+                                          break;
+
+                                          case 'paused':
+                                          $progress.show();
+                                          $upload.text('继续上传');
+                                          break;
+
+                                          case 'confirm':
+                                          $progress.hide();
+                                          $upload.text('开始上传').addClass('disabled');
+
+                                          stats = uploader.getStats();
+                                          if (stats.successNum && !stats.uploadFailNum) {
+                                              setState('finish');
+                                              return;
+                                          }
+                                          break;
+                                          case 'finish':
+                                          stats = uploader.getStats();
+                                          if (stats.successNum) {
+                                              alert('上传成功');
+                                          } else {
+                                                  // 没有成功的图片，重设
+                                                  state = 'done';
+                                                  location.reload();
+                                              }
+                                              break;
+                                          }
+
+                                          updateStatus();
+                                      }
+
+                                      uploader.onUploadProgress = function (file, percentage) {
+                                          var $li = $('#' + file.id),
+                                          $percent = $li.find('.progress span');
+
+                                          $percent.css('width', percentage * 100 + '%');
+                                          percentages[file.id][1] = percentage;
+                                          updateTotalProgress();
+                                      };
+
+                                      uploader.onFileQueued = function (file) {
+                                          fileCount++;
+                                          fileSize -= file.size;
+
+                                          if (fileCount === 1) {
+                                              $placeHolder.addClass('element-invisible');
+                                              $statusBar.show();
+                                          }
+
+                                          addFile(file);
+                                          setState('ready');
+                                          updateTotalProgress();
+                                      };
+
+                                      uploader.onFileDequeued = function (file) {
+                                          fileCount--;
+                                          fileSize += file.size;
+                                          if (!fileCount && !$('.filelist>li.up')) {
+                                              setState('pedding');
+                                          }
+
+                                          removeFile(file);
+                                          updateTotalProgress();
+
+                                      };
+
+                                      uploader.on('all', function (type) {
+                                          var stats;
+                                          switch (type) {
+                                              case 'uploadFinished':
+                                              setState('confirm');
+                                              break;
+
+                                              case 'startUpload':
+                                              setState('uploading');
+                                              break;
+
+                                              case 'stopUpload':
+                                              setState('paused');
+                                              break;
+
+                                          }
+                                      });
+
+                                      uploader.onError = function (code) {
+                                          alert('Eroor: ' + code);
+                                      };
+
+                                      $upload.on('click', function () {
+                                          if ($(this).hasClass('disabled')) {
+                                              return false;
+                                          }
+
+                                          if (state === 'ready') {
+                                              uploader.upload();
+                                          } else if (state === 'paused') {
+                                              uploader.upload();
+                                          } else if (state === 'uploading') {
+                                              uploader.stop();
+                                          }
+                                      });
+
+                                      $info.on('click', '.retry', function () {
+                                          uploader.retry();
+                                      });
+
+                                      $info.on('click', '.ignore', function () {
+                                          alert('todo');
+                                      });
+
+                                      $upload.addClass('state-' + state);
+                                      updateTotalProgress();
+                                  });
+
+
+                            })
+
+                              
+                          </script>
+                      </div>    
+
+
+
+
+            </div>
+        </div>
+        <h3 class="order-title evaluate">
+            产品满意度评分
+        </h3>
+        <div class="order-info evaluate">
+            <ul class="satisfaction">
+                <li class="clear">
+                    <span class="mui-pull-left">导游讲解：</span>
+                    <div class="mui-pull-left mark">
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                    </div>
+                    <b style="padding-left:5px;"></b>
+                    <input class="hidden-score score-guide" name="score_guide" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_guide" maxlength="70">
+                   <!--  <a class="btn btn-primary guide" href="">评价</a> -->
+                </li>
+                <li class="clear">
+                    <span class="mui-pull-left">领队服务：</span>
+                    <div class="mui-pull-left mark">
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                    </div>
+                    <b style="padding-left:5px;"></b>
+                    <input class="hidden-score score-service" name="score_service" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_service" maxlength="70">
+                    <!-- <a class="btn btn-primary guide" href="">评价</a> -->
+                </li>
+                <li class="clear">
+                    <span class="mui-pull-left">交通路线：</span>
+                    <div class="mui-pull-left mark">
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                    </div>
+                    <b style="padding-left:5px;"></b>
+                    <input class="hidden-score score-traffic" name="score_traffic" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_traffic" maxlength="70">
+                    <!-- <a class="btn btn-primary guide" href="">评价</a> -->
+                </li>
+                <li class="clear">
+                    <span class="mui-pull-left">住宿餐食：</span>
+                    <div class="mui-pull-left mark">
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                        <em class="samll-heart"></em>
+                    </div>
+                    <b style="padding-left:5px;"></b>
+                    <input class="hidden-score score-hotel" name="score_hotel" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_hotel" maxlength="70">
+                    <!-- <a class="btn btn-primary guide" href="">评价</a> -->
+                  </li>
+                </ul>
+        </div>
+    </form>
+    <div class="mui-content-padded text-center">
+        <button id='login' class="mui-btn mui-btn-primary">发表评论</button>
+    </div>
+    {% endfor %}
+</section>
+{% endblock%}
+
+{% block script %}
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.js"></script>
+<script>
+//打分
+$('.mark').on("tap","em",function(){
+    var i = $(this).index();
+    console.log(i);
+    $(this).attr("class","samll-solid");
+    $(this).prevAll().attr("class","samll-solid");
+    $(this).nextAll().attr("class","samll-heart");
+    $(this).parent().siblings("b").html(`${i+1}分`);
+    $(this).parent().siblings(".hidden-score").attr("value" ,`${i+1}`);
+});
+//提交评价
+var btn = document.getElementById("login");
+btn.addEventListener("tap",function(){
+    var score_total = $(".score-total").val();
+    var score_guide = $(".score-guide").val();
+    var score_service = $(".score-service").val();
+    var score_traffic = $(".score-traffic").val();
+    var score_hotel = $(".score-hotel").val();
+    console.log(score_total)
+    if(score_total == "" || score_total == undefined){
+        mui.toast("产品总体打分不能为空！")
+    }else if(score_guide == "" || score_guide == undefined){
+        mui.toast("请完成导游讲解评分！")
+    }else if(score_service == "" || score_service==undefined){
+        mui.toast("请完成领队服务评分！")
+    }else if(score_traffic =="" || score_traffic == undefined){
+        mui.toast("请完成交通路线评分！")
+    }else if(score_hotel == "" || score_hotel ==undefined){
+        mui.toast("请完成住宿餐食评分！")
+    }else{
+        var data = $("#evaluate-form").serialize();
+        mui.ajax({
+            type:"post",
+            url:"/uc/booking/addcomment",
+            data:data,
+            success:function(result){
+                console.log(result)
+                if(result.errno == 0){
+                     mui.toast("评价成功.");
+                     setTimeout(function(){
+                        mui.openWindow({
+                            url: "/uc/order",
+                        });
+                     },1500)
+                }else{
+                    mui.toast("评价失败！");   
+                }
+            }
+        })
+    }
+    console.log(data)
+})
+//取消订单
+function cannelorder(orderid){
+    //console.log(orderid);
+    var btnArray = ['否', '是'];
+    mui.confirm('确定要取消订单吗?','您好', btnArray, function(e) {
+        //console.log(e.index)
+        if (e.index == 1) {
+            //console.log("取消了")
+            var pro;
+            $.ajax({
+                url:"/uc/booking/cannelorder?orderid="+orderid,
+                async:false,
+                success:function(result){
+                    //console.log(result);
+                    if(result.errno == 0){
+                        mui.toast(result.data)
+                        setTimeout(function(){
+                            mui.openWindow({url:window.location.href})
+                        },1500)
+                    }else{
+                        mui.toast(result.errmsg)
+                    }
+                }
+            });
+            //console.log(pro)
+            return pro;
+        }
+    })   
+};
+//删除订单
+function deleteOrder(orderid){
+    var btnArray = ['否','是'];
+    mui.confirm('确定要删除订单吗？','您好',btnArray,function(e){
+        if(e.index==1){
+            var pro;
+            $.ajax({
+                url:"/uc/booking/delorder?orderid="+orderid,
+                async:false,
+                success:function(result){
+                    if(result.errno == 0){
+                        mui.toast(result.data)
+                        setTimeout(function(){
+                            mui.openWindow({url:window.location.href})
+                        },1500)
+                    }else{
+                        mui.toast(result.errmsg)
+                    }
+                }
+            })
+            return pro;
+        }
+    })  
+}
+//动态显示数量
+function textCounter(n) {
+   var length=$('#totality').val().length;
+   //console.log(length)
+   $(".word-number").html(500-length);
+}
+mui.ready(function() {
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#wait"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }
+            mui.openWindow({url: href})
+
+        })
+    }
+});
+</script>
+{% endblock %}

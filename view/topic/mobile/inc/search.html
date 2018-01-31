@@ -1,0 +1,10 @@
+<div class="mui-content peanturoll-selection">
+    <div class="mui-input-row peanturoll-search " >
+        <form action="/search" method="get" class="widget_search">
+            <input type="search" name="q" {% if queryword %} value={{queryword}} {%endif%} class="serch-input">
+            <button class="search_btn" type="submit">
+                <img class="search_logo" src="/static/assets/images/mobile/index/search_logo.png">
+            </button>
+        </form>
+    </div> 
+</div>

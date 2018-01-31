@@ -1,0 +1,51 @@
+<style type="text/css">
+    .mui-bar {
+        z-index: 1000;
+    }
+    .header{
+        background: url(/static/assets/images/mobile/background/header_bg.jpg) no-repeat;
+        background-size:100% 100%;
+    }
+    .user-header{
+        min-width:12%;
+        height:40px;
+        margin-top:2px;
+        color:#fff;
+        line-height: 40px
+    }
+    .user-header img{
+        width:24px;
+        height:24px;
+        margin-top:9px;
+        border-radius: 50%;
+    }
+    .user-header span{
+        margin-left:5px;
+        position: relative;
+        top: 5px;
+        font-size: 13px;
+    }
+    .logo,.logo img{
+        height:100%;
+    }
+    
+    .header .header-btn{
+        color:#fff;
+    }
+</style>
+<header class="header mui-bar mui-bar-nav">
+    <a href="/index" class="logo mui-btn-nav mui-pull-left">
+        <img src="/static/assets/images/mobile/background/mobile_logo.png" alt="">
+    </a>
+    {% if not controller.is_login %}
+    <a href="/uc/public/startregister" class="header-btn mui-btn-nav mui-pull-right mui-btn-link margin-left-30 margin-right-10">注册</a>
+    <a href="/uc/public/login" class="header-btn mui-btn-nav mui-pull-right mui-btn-link">登录</a>
+    {% else %}
+    <a class="mui-pull-right user-header" href="/uc">
+        <img class="mui-media-object mui-pull-left head-img" id="head-img" src="/uc/index/avatar">
+        <span class="mui-media-body">
+            {{controller.user.username}}
+        </span>
+    </a>
+    {% endif %}
+</header> 

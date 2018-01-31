@@ -1,0 +1,16 @@
+{
+  "apps": [{
+    "name": "moscape",
+    "script": "www/production.js",
+    "cwd": "/root/server/moscapemedia/",
+    "exec_mode": "cluster",
+    "instances": 2,
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}

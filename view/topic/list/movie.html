@@ -1,0 +1,231 @@
+{% extends "../inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/css/video.css">
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs = 20px margins
+.page-header-md = 50px margins
+.page-header-lg = 80px margins
+.page-header-xlg= 130px margins
+.dark           = dark page header
+
+.shadow-before-1    = shadow 1 header top
+.shadow-after-1     = shadow 1 header bottom
+.shadow-before-2    = shadow 2 header top
+.shadow-after-2     = shadow 2 header bottom
+.shadow-before-3    = shadow 3 header top
+.shadow-after-3     = shadow 3 header bottom
+-->
+{#
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+        {%column data="cate",pid=category.pid%}
+        {%if cate%}
+        <ul class="page-header-tabs list-inline">
+
+            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            {%for val in cate%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}{{http.config('view.file_ext')}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+        <!-- /page tabs -->
+    </div>
+</section>
+#}
+<!-- /PAGE HEADER -->
+<!-- -->
+{% groups data="groups",cid=category.id%}
+{%set cate = category.id|get_cate()%}
+<section >
+    <div class="container">
+        <!--分类信息-->
+        {%if sort%}
+        {%if sort.types|length >1%}
+        <ul class="nav nav-tabs">
+            {#
+            {%for val in sort.types%}
+            <li class="{%if sortid == val.enable%}active{%endif%}">
+                <a href="{{cate.url}}-{{order}}-{{group_id}}-{{val.enable}}{{http.config('view.file_ext')}}" >{{val.name}}</a>
+            </li>
+            {%endfor%}
+            #}
+            {%for val in sort.types%}
+            <li class="{%if sortid == val.enable%}active{%endif%}">
+                <a href="#" >{{val.name}}</a>
+            </li>
+            {%endfor%}
+
+        </ul>
+        {%endif%}
+        <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+            <table class="table table-hover  m-b-none" style="margin-top: -1px">
+                <tbody>
+                {% set typenum = 1%}
+                {%for val in typevar%}
+                {%if val.search > 1%}
+                <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                    <td style="width: 120px" class="text-right">
+                        {{val.option.title}}:
+                    </td>
+                    <td class="{{val.option.identifier}}">
+                        {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                        <a href="#" class="btn btn-info btn-xs relative" data-type="all">全部</a>
+                        {%else%}
+                        {#
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >全部</a>
+                        #}
+                        <a href="#" class="btn btn-clean btn-xs relative" data-type="all">全部</a>
+                        {%endif%}
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        <a href="#" class="btn btn-info btn-xs relative" data-type="{{v.id}}">{{v.name}}{{val.option.unit}}</a>
+                        {%else%}
+                        <a href="#" class="btn btn-clean btn-xs relative" data-type="{{v.id}}">{{v.name}}{{val.option.unit}}</a>
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+                        <div class="subtsm">
+
+                            {% for v_ in v.children %}
+                            {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                            <a href="#" class="btn btn-info btn-xs relative" >{{v_.name}}{{val.option.unit}}</a>
+                            {%else%}
+                            <a href="#" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+
+                        {% for v_ in v.children %}
+                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v_.children%}
+                        <div class="subtsm">
+                            {% for v__ in v_.children %}
+
+                            {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                            <span class="btn btn-info btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="#" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {% endfor %}
+
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                </tr>
+                {% set typenum = typenum+1%}
+                {%endif%}
+                {%endfor%}
+
+                </tbody>
+            </table>
+            {% if typenum > 4%}
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+            {%endif%}
+        </div>
+
+        {%endif%}
+        <!--/分类信息-->
+        <div class="video-list clear">
+            <ul class="clear video-info">
+                {% for movie in moviedata.data %}
+                <li class="col-xs-4 col-sm-3 col-md-3s">
+                    <div>
+                    	<a href="{{movie.name|get_url(movie.id)}}">
+                    		<dl>
+	                            <dt>
+	                                {% if movie.video_cover == "" or movie.video_cover == undefined %}
+	                                <img src="/static/admin/img/m0.jpg" alt="">
+	                                {% else %}
+	                                <img src="{{movie.video_cover}}" alt="">
+	                                {% endif %}
+	                                <div class="overlay-bg">
+										<i></i>
+									</div>
+	                            </dt>
+	                            <dd>
+	                                <ul>
+                                        {% if movie.title == "" or movie.title == undefined %}
+                                        <li>名称：暂无</li>
+                                        {% else %}
+                                        <li title="{{movie.title}}">名称：{{movie.title}}</li>
+                                        {% endif %}
+	                                    
+	                                   
+                                        {% if movie.main_actor == "" or movie.main_actor == undefined %}
+                                        <li>主演：暂无</li>
+                                        {% else %}
+                                        <li title="{{movie.main_actor}}">
+	                                        主演：{{movie.main_actor}}
+	                                    </li>
+                                        {% endif %}
+	                                    
+	                                 
+                                        {% if movie.director == "" or movie.director == undefined %}
+                                        <li>导演：暂无</li>
+                                        {% else %}
+                                        <li title="{{movie.director}}">
+                                        	导演：{{movie.director}}
+                                        </li>
+                                        {% endif %}	            
+	                                </ul>
+	                            </dd>
+	                        </dl>
+                    	</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="col-md-9 text-right text-center-xs pagelist">
+                {{pagination | safe}}
+            </div>
+        </div>
+    </div>   
+</section>
+
+
+<!-- / -->
+{% endblock %}
+{% block script %}
+<script src="/static/assets/js/movielist.js"></script>
+<script src="/static/admin/js/pages.js"></script>
+{% endblock %}

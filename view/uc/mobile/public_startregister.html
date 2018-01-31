@@ -1,0 +1,624 @@
+
+{% extends "./inc/appbase.html" %}
+{% block style%}
+<style>
+    .area {
+        margin: 20px auto 0px auto;
+    }
+    header.reg-top{
+        background:url(/static/assets/images/mobile/background/mobile_topbg.jpg) no-repeat;
+    }
+    .mui-content{
+        background:url(/static/assets/images/mobile/background/mobile_loginbg.png) no-repeat;
+        width:100%;
+        height:100%;
+        background-size: 100% 100%; 
+    }
+    .mui-input-group {
+        margin-top: 10px;
+    }
+
+    .mui-input-group:first-child {
+        margin-top: 20px;
+    }
+
+    .mui-input-group label {
+        width: 22%;
+    }
+    #reg-form{
+        width:85%;
+        margin:0 auto;
+    }
+    .mui-input-row{
+        margin:0 auto;
+        margin-bottom: 20px;
+        border-radius: 5px;
+
+    }
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+        width: 78%;
+    }
+
+    .mui-checkbox input[type=checkbox],
+    .mui-radio input[type=radio] {
+        top: 6px;
+    }
+
+    .mui-content-padded {
+        margin-top: 25px;/* 
+        text-align:center; */
+        margin-bottom:20px;
+    }
+    .mui-content-padded button{
+        text-align:center;
+    }
+
+    .mui-btn {
+        padding: 10px;
+    }
+
+    .link-area {
+        display: block;
+        margin-top: 25px;
+        text-align: center;
+    }
+
+    .spliter {
+        color: #bbb;
+        padding: 0px 8px;
+    }
+
+    .oauth-area {
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .oauth-area .oauth-btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: 30px 30px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin: 0px 20px;
+        /*-webkit-filter: grayscale(100%); */
+        border: solid 1px #ddd;
+        border-radius: 25px;
+    }
+
+    .oauth-area .oauth-btn:active {
+        border: solid 1px #aaa;
+    }
+
+    .oauth-area .oauth-btn.disabled {
+        background-color: #ddd;
+    }
+
+    /* 以下遮罩层为demo.用户可自行设计实现 */
+    #mask {
+        display: none;
+        position: fixed;
+        text-align: center;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        overflow: auto;
+    }
+
+    /* 可自行设计实现captcha的位置大小 */
+    .popup-mobile {
+        position: relative;
+    }
+
+    #popup-captcha-mobile {
+        position: fixed;
+        display: none;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+    .show {
+        display: block !important;
+    }
+    .hide {
+        display: none;
+    }
+    input::-webkit-input-placeholder { /* WebKit browsers */ 
+        color: #1eb6c1;  
+    } 
+    input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+        color: #1eb6c1;  
+    } 
+    input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+        color: #1eb6c1;  
+    } 
+    input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+        color: #1eb6c1; 
+    } 
+
+
+    .mobile-log,
+    .mobile-reg{
+        display:inline-block;
+        width:50px;
+        height:30px;
+        margin-top:7px;
+        line-height: 30px;
+        text-align:center;
+        color:#fff;
+        margin-left:15px;
+    }
+    .mobile-reg{
+        border:2px solid #fff;
+        border-radius: 5px;
+        line-height:26px;
+    }
+    .back{
+        display: inline-block;
+        width:35px;
+        height:20px;
+        background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+        background-size:35px 20px;
+        border:0;
+    }
+    .login-title{
+        color:#fff;
+        font-size:18px;
+        padding-top:25px;
+    }
+    .link-area{
+       text-align:right;
+        margin-bottom:20px;
+    }
+    #forgetPassword{
+        color:#fff;
+        margin-right:6%;
+    }
+    #login{
+        width:40%;
+    }
+    .mui-table-view-cel{
+        color:#fff;
+    }
+    #reg{
+        float:right;
+        color:#fff;
+        margin-right:4%;
+    }
+    .mui-content>i{
+        display:block;
+        width:85%;
+        height:2px;
+        background:#fff;
+        margin:20px auto;
+    }
+    .mui-col-xs-9,.mui-col-sm-9{
+        width: 73% !important;
+    }
+    .mui-col-xs-8,.mui-col-sm-8{
+        width: 65% !important;
+    }
+    .mui-col-xs-4,.mui-col-sm-4{
+        width: 30% !important;
+    }
+    .mui-col-xs-3,.mui-col-sm-3{
+        width: 25% !important;
+    }
+
+    .tel-set{
+
+    }
+    .instruct-div{
+        color: #fff;
+        font-size: 14px;
+        margin-top: -5px;
+        margin-bottom: 10px;
+    }
+    .mui-input-row .mui-btn{
+        line-height:1.5;
+        background-color:#1eb6c1; 
+    }
+    .vc-btn{
+        background-color: #1eb6ca;
+        border:0;
+        width: 40% !important;
+        margin:0 auto;
+    }
+    .reg-btn{
+        background-color: #1eb6ca;
+        border:0;
+        width: 40% !important;
+        margin:0 30%;
+    }
+    .reg-input{
+        width: 58% !important;
+    }
+    .link-div{
+        position: relative;
+        top: 20px;
+    }
+    .link-lab{
+        color: #fff !important;
+        font-size: 14px;
+    }
+    .link-lab a{
+        color: #1eb6c1;
+        text-decoration: underline;
+    }
+    /* .popover-div{
+    	left: 28px !important; 
+    	top: -320px !important;
+    } */
+    .termsPopover{
+    	line-height:14px;
+		top: -454px !important;
+		width: 98% !important;
+		left: 1% !important;
+    }
+    .termsPopover ul{
+    	margin-top: 5px !important; 
+   		padding-left: 20px !important;
+   		font-size: 12px;
+    }
+    .termsPopover p{
+    	margin-bottom: 0 !important;
+    }
+    .cPopover{
+    	line-height:14px;
+		top: -454px !important;
+		width: 98% !important;
+		left: 1% !important;
+    }
+    .cPopover img{
+    	width: 100% !important;
+    }
+    .tPopover{
+    	line-height:14px;
+		top: -454px !important;
+		width: 98% !important;
+		left: 1% !important;
+    }
+    .tPopover img{
+    	width: 100% !important;
+    }
+    .mui-popover-arrow.mui-bottom{
+		display: none;
+    }
+</style>
+{%endblock%}
+{% block content%}
+{#
+<header class="mui-bar mui-bar-nav">
+    <a href="/index" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>首页</a>
+    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+</header>
+<div class="mui-content">
+    <form id='login-form' class="mui-input-group">
+        <div class="mui-input-row">
+            <label>账号</label>
+            <input id='account' type="text" value="" name="username" class="mui-input-clear mui-input" placeholder="邮箱/手机号/昵称">
+        </div>
+        <div class="mui-input-row">
+            <label>密码</label>
+            <input id='password' type="password" value="" name="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+        </div>
+    </form>
+    <form class="mui-input-group">
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell">
+                自动登录
+                <div id="autoLogin" class="mui-switch">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <div class="mui-content-padded">
+
+        <button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+        <div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+        </div>
+    </div>
+    {%if controller.setup.GEETEST_IS_LOGIN ==1%}
+    <div id="mask" class="hide"></div>
+    <div id="popup-captcha-mobile" class="hide"></div>
+    {%endif%}
+    <div class="mui-content-padded oauth-area">
+        <a  href="/uc/qq" class="oauth-btn" style="background: url('/static/webapp/img/qq.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+        <div class="oauth-btn weixin" style="background: url('/static/webapp/img/weixin.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></div>
+        <a href="/uc/sina" class="oauth-btn" style="background: url('/static/webapp/img/sinaweibo.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+    </div>
+</div>
+#}
+    <header class="mui-bar mui-bar-nav reg-top">
+        <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+        <a href="/uc/public/startregister" class="mobile-reg mui-btn-nav mui-pull-right" >注册</a>
+        <a href="/uc/public/login" class="mobile-log mui-btn-nav mui-pull-right" >登录</a>
+    </header>
+    <div class="mui-content">
+        <div class="text-center login-title">手机注册</div>
+        <i></i>
+        <form id='reg-form' class="">
+            <div class="mui-input-row margin-bottom-0">
+                <select class="mui-col-xs-3 mui-col-sm-3 tel-set ">
+                    <option value="0" selected>+86</option>
+                </select>
+                <input id='account' type="text" value="" name="mobile" class="mui-col-xs-9 mui-col-sm-9 mui-input" placeholder="请输入手机号码">
+            </div>
+           <!--  <input id='password' type="text" value="" name="password" class="mui-input-clear mui-input" placeholder="图片识别码"> -->
+           <div class="mui-input-row margin-bottom-0">
+                <input id='verifycode' type="text" name="verifycode" class="mui-input reg-input" placeholder="请输入验证码">
+                <a href="#" class="mui-btn mui-btn-primary  vc-btn" id="verifycodesend" data-type="1">
+                    <span class="qian">发送验证码</span>
+                    <span class="hou" style="display: none"><m id="waittime" class="">60</m>秒后重新获取</span>
+                </a>
+                <!-- <button id='' class="mui-btn mui-btn-primary mui-col-xs-4 mui-col-sm-4 reg-btn">发送验证码</button> -->
+           </div>
+            <input id='username' type="text" value="" name="username" class="mui-input-clear mui-input" placeholder="起一个具有辨识度的用户名">
+            <div class="instruct-div">注：用户名暂不支持更改</div>
+            <input id='password' type="password" value="" name="password" class="mui-input-clear mui-input" placeholder="输入8-16位密码,需包含字母及数字">
+            
+        </form>
+        <div class="mui-content-padded">
+            
+            <button id='register' class="mui-btn mui-btn-primary ajax-post margin-top-20  margin-bottom-20 reg-btn" target-form="registerpost">注册</button>
+            {%if controller.setup.GEETEST_IS_LOGIN ==1%}
+            <div id="mask" class="hide"></div>
+            <div id="popup-captcha-mobile" class="hide"></div>
+            {%endif%}
+            <div class="link-div "> 
+                
+                <label class="mui-pull-left link-lab">已有花生卷账号？<a id='' href="/uc/public/login">登录</a></label>
+                <label class="mui-pull-right link-lab">同意<a id='openPopover' href="#cPopover">会员条款</a>和<a id='openPopover' href="#tPopover">免责声明</a></label>
+		        
+				<div id="cPopover" class="mui-popover cPopover">
+		            <img src="/static/assets/images/mobile/register/c.png">
+				</div>
+				<div id="tPopover" class="mui-popover tPopover">
+		            <img src="/static/assets/images/mobile/register/t.png">
+				</div>
+                <!-- <span class="mui-pull-left">
+                   
+                </span>
+                <span class="mui-pull-right">
+                    
+                </span> -->
+            </div>
+        </div>
+        {#
+        <form class="mui-input-group">
+            <ul class="mui-table-view mui-table-view-chevron">
+                <li class="mui-table-view-cel">
+                    <div id="autoLogin" class="mui-switch">
+                        <div class="mui-switch-handle"></div>
+                    </div>
+                    自动登录
+
+                    <a id='reg'>立刻注册</a>
+                </li>
+            </ul>
+        </form>
+        #}
+    </div>
+
+{% endblock %}
+{% block script %}
+
+<!-- PAGE LEVEL SCRIPTS -->
+<script type="text/javascript">
+    {% if controller.setup.USER_ALLOW_SMSREGISTER == 1 %}
+    $("#verifycodesend").click(function () {
+        var that = this;
+        var mobile = $("input[name='mobile']").val();
+        var type = $(this).attr("data-type");
+        var myreg = /^1(3|4|5|7|8)\d{9}$/;
+        if(!myreg.test(mobile))
+        {   
+            mui.toast('请输入有效的手机号码');
+            //_toastr('请输入有效的手机号码!',"top-right","error",false);
+            return false;
+        }
+        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        $.ajax({
+            type:"post",
+            url:"/uc/public/verifycodesend",
+            data:{mobile:mobile,type:type,check:1},
+            success:function (data) {
+                if(data.err_code==0){
+                    $(".qian").hide();
+                    $(".hou").show();
+                    var wait = document.getElementById('wait')
+                    var interval = setInterval(function(){
+                        var time = --waittime.innerHTML;
+                        if(time <= 0) {
+                            $(".qian").show();
+                            $(".hou").hide();
+                            $(that).removeClass('disabled').prop('disabled',false);
+                            $("#waittime").text('60');
+                            clearInterval(interval);
+                        };
+                    }, 1000);
+                }else {
+                    if(1000 == data.errno){
+                        $(that).removeClass('disabled').prop('disabled',false);
+                        //mui.toast(data.errmsg);
+                        //_toastr(data.errmsg,"top-right","error",false);
+                    }
+                }
+            }
+        })
+    })
+    {% endif %}
+    {#
+    //Checkbox on "I agree" modal Clicked!
+    jQuery("#terms-agree").click(function(){
+        jQuery('#termsModal').modal('toggle');
+        // Check Terms and Conditions checkbox if not already checked!
+        if(!jQuery("#checked-agree").checked) {
+            jQuery("input.checked-agree").prop('checked', true);
+        }   
+    });
+    #}
+</script>
+
+
+{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+    <!-- 引入封装了failback的接口--initGeetest -->
+    <script src="http://static.geetest.com/static/tools/gt.js"></script>
+
+    <!-- 若是https，使用以下接口 -->
+    <!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+{%endif%}
+<script>
+    var btn = document.getElementById("register"),account = document.getElementById("account"),verifycode = document.getElementById("verifycode"),username = document.getElementById("username"),password = document.getElementById("password");//verifycode
+    var href = "{{http.referrer()}}"==""?"/uc/public/login":"{{http.referrer()}}";
+    //console.log(href);
+    {%if controller.setup.GEETEST_IS_LOGIN ==1%}
+    var pop=document.getElementById("popup-captcha-mobile"),
+            mask=document.getElementById("mask");
+    var show = function (ele) {
+        ele.className = ele.className.replace("hide", "show");
+    };
+    var hide = function (ele) {
+        ele.className = ele.className.replace("show", "hide");
+    };
+
+   
+    mask.addEventListener("tap", function () {
+        hide(mask);
+        hide(pop);
+    });
+   
+
+    btn.addEventListener("tap", function () {
+        if(!account.value){
+            mui.toast("手机号不能为空");
+            return;
+        }
+        if(!verifycode.value){
+            mui.toast("验证码不能为空");
+            return;
+        }
+        if(!username.value){
+            mui.toast("用户名不能为空");
+            return;
+        }
+        if(!password.value){
+            mui.toast("密码不能为空");
+            return;
+        }
+        show(pop);
+        show(mask);
+    });
+    var handlerPopupMobile = function (captchaObj) {
+
+        // 将验证码加到id为captcha的元素里
+        captchaObj.appendTo("#popup-captcha-mobile");
+        //拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
+        captchaObj.onSuccess(function () {
+            var validate = captchaObj.getValidate();
+
+            mui.ajax({
+                url: "/uc/public/register/type/mobile", // 进行二次验证
+                type: "post",
+                dataType: "json",
+                data: {
+                    // 二次验证所需的三个值
+                    username:account.value,
+                    password:password.value,
+                    geetest_challenge: validate.geetest_challenge,
+                    geetest_validate: validate.geetest_validate,
+                    geetest_seccode: validate.geetest_seccode
+                },
+                success: function (data) {
+                    if (data && (data.errno < 0)) {
+                        mui.toast(data.errmsg);
+                        if(data.errno !=  -3){
+                            hide(mask);
+                            hide(pop);
+                        }
+                        captchaObj.refresh();
+                    } else {
+                        hide(mask);
+                        hide(pop);
+                        mui.toast(data.data.name);
+                    setTimeout(function(){
+                        mui.openWindow({url: href})
+
+                    },1500);
+                    }
+                }
+            });
+        });
+        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+    };
+    mui.ajax({
+        // 获取id，challenge，success（是否启用failback）
+        url: "/admin/public/geetest/type/mobile?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+            }, handlerPopupMobile);
+        }
+    });
+    {%else%}
+    btn.addEventListener("tap", function () {
+        if(!account.value){
+            mui.toast("手机号不能为空");
+            return;
+        }
+        if(!verifycode.value){
+            mui.toast("验证码不能为空");
+            return;
+        }
+        if(!username.value){
+            mui.toast("用户名不能为空");
+            return;
+        }
+        if(!password.value){
+            mui.toast("密码不能为空");
+            return;
+        }
+        mui.post('/uc/public/login',{
+            username:account.value,
+            password:password.value
+                },function(msg){
+                    //服务器返回响应，根据响应结果，分析是否登录成功；
+            if(msg.errno < 0){
+                mui.toast(msg.errmsg);
+            }else{
+                //$('#ajaxModal').remove();
+                mui.toast(msg.data.name);
+                setTimeout(function(){
+                    mui.openWindow({url: href})
+
+                },1500);
+            }
+                },'json'
+        );
+
+    });
+
+    {%endif%}
+    
+</script>
+
+{% endblock %}

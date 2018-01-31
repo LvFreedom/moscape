@@ -1,0 +1,328 @@
+{% extends "../../../topic/mobile/inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/webapp/css/feedback.css">
+<link rel="stylesheet" href="/static/webapp/libs/deitor.wang/css/wangEditor-mobile.css">
+<style>
+    *{
+        -webkit-user-select:text;
+    }
+    .sys-add-header{
+        background-color: #1eb6c1;
+    }
+    .sys-add-header a,.sys-add-header h1{
+        color: #fff !important;
+    }
+    .sys-add-head{
+        margin-top:5px;
+        margin-bottom:16px;
+    }
+    .add-btn{
+        background-color: #1eb6c1;
+        color: #fff !important;
+        position: relative !important;
+        top: 47px !important;
+
+    }
+    .add-category{
+        border: 2px solid #1eb6c1;
+        color: #1eb6c1 !important;
+        padding-left:5px;
+        padding-right: 5px;
+    }
+    .add-title{
+        /* border-bottom: 2px solid #000; */
+    }
+    .add-title-input{
+        margin-bottom: 0 !important;  
+    }
+    #class .mui-scroll-wrapper{
+    	height: 300px;
+    }
+</style>
+{% endblock %}
+{%block bodyattr%} class="feedback"{%endblock%}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<header class="mui-bar mui-bar-nav sys-add-header">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    {##}
+    <button id="submit" class="mui-btn mui-btn-blue  mui-pull-right add-btn">保存</button>
+    
+    <h1 class="mui-title">{% if category.id== 124 %}我要发帖{%else%}我要提问{%endif%}</h1>
+</header>
+<div class="mui-content">
+    <form role="form" class="validate" action="/mod/question/sys/update" method="post" >
+	    <div class="mui-content-padded sys-add-head">
+	    	{#
+   			<button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">发布</button>
+            #}
+	        <div class="mui-inline"></div>
+	        {% groups data="groups",cid=category.id%}
+	        <a class="mui-pull-right mui-inline group" href="#group" {%if groups|length == 0%}style="display: none"{%endif%}>
+	            <input type="hidden" value="0" name="group_id">
+	           <span>选择分组</span>
+	            <span class="mui-icon mui-icon-arrowdown"></span>
+	        </a>
+	        <!--快捷输入具体内容，开发者可自己替换常用语-->
+	        <div id="group" class="mui-popover">
+	            <div class="mui-popover-arrow"></div>
+	            <div class="mui-scroll-wrapper">
+	                <div class="mui-scroll">
+	                    <ul class="mui-table-view">
+	                        <li class="mui-table-view-cell" data-value="0"><a href="javascript:;">不分组</a></li>
+	                        {%for v in groups%}
+	                        <li class="mui-table-view-cell" data-value="{{v.id}}"><a href="javascript:;">{{v.name}}</a></li>
+	                        {%endfor%}
+	                    </ul>
+	                </div>
+	            </div>
+
+	        </div>
+
+            <a class="mui-pull-left mui-inline yaso add-category" href="#class">
+                <input type="hidden" value="0" name="class_id">
+                <span>请选择所属版面</span>
+                <span class="mui-icon mui-icon-arrowdown"></span>
+            </a>
+            <div id="class" class="mui-popover">
+                <div class="mui-popover-arrow"></div>
+                <div class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <ul class="mui-table-view">
+
+                            <!-- <li class="mui-table-view-cell" data-value="{{val.id}}"><a href="javascript:;">亚洲</a></li> -->
+
+                            <li class="mui-table-view-cell" data-value="100"><a href="javascript:;">亚&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="mui-table-view-cell" data-value="300"><a href="javascript:;">非&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="mui-table-view-cell" data-value="200"><a href="javascript:;">欧&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="mui-table-view-cell" data-value="400"><a href="javascript:;">南&nbsp;&nbsp;美&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="mui-table-view-cell" data-value="300"><a href="javascript:;">北&nbsp;&nbsp;美&nbsp;&nbsp;洲&nbsp;&nbsp;</a></li>
+                            <li class="mui-table-view-cell" data-value="600"><a href="javascript:;">大&nbsp;&nbsp;洋&nbsp;&nbsp;洲&nbsp;&nbsp;</a></li>
+                            <li class="mui-table-view-cell" data-value="700"><a href="javascript:;">南&nbsp;&nbsp;极&nbsp;&nbsp;洲&nbsp;&nbsp;</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            
+            <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+            {#
+	        <a class="mui-pull-left mui-inline cate add-category margin-left-10" href="#cate">
+	            <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+	            <span>{%if category.allow_publish==0%}选择分类{%else%}{{category.title}}{%endif%}</span>
+	            <span class="mui-icon mui-icon-arrowdown"></span>
+	        </a>
+	        <!--快捷输入具体内容，开发者可自己替换常用语-->
+	        <div id="cate" class="mui-popover">
+	            <div class="mui-popover-arrow"></div>
+	            <div class="mui-scroll-wrapper">
+	                <div class="mui-scroll">
+	                    <ul class="mui-table-view">
+	                        {%column data="column",pid=breadcrumb[0].id%}
+	                        {%if breadcrumb[0].allow_publish==1%}
+	                        <li class="mui-table-view-cell" data-value="{{breadcrumb[0].id}}"><a href="javascript:;">{{breadcrumb[0].title}}</a></li>
+	                        {%endif%}
+	                        {%if column%}
+	                        {%for val in column%}
+	                        <li class="mui-table-view-cell" data-value="{{val.id}}"><a href="javascript:;">{{val.name}}</a></li>
+	                        {%endfor%}
+	                        {%endif%}
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+            #}
+	    </div>
+	    <div class=" mui-input-row add-title">
+	        <input id='title' type="text" name="title" class="mui-input-clear contact add-title-input" placeholder="标题(最多输入50个汉字)" />
+            <div class="add-line" style="margin:0 3%;height: 1px;background-color: #000;"></div>
+	    </div>
+	    {#
+	    <div class="mui-content-padded">
+	        <div class="mui-inline">问题标题</div>
+	    </div>
+	    #}
+	    <div class="mui-input-row" style="height: 250px">
+	        <textarea id='detail' name="detail" class="question" placeholder="请详细描述你的问题..." style="height: 100%;width: 100%">
+                <!-- <p>zz</p> -->
+	        </textarea>
+	    </div>
+	    {#
+	    <div class=" mui-inline anonymous" style="width: 200px">
+	        <div class="mui-table-view-cell">
+	            <span></span>
+	            <div class="mui-switch mui-switch-blue">
+	                <div class="mui-switch-handle"></div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <div class="mui-content-padded">
+	        <div class="mui-inline">应用评分</div>
+	        <div class="icons mui-inline" style="margin-left: 6px;">
+	            <i data-index="1" class="mui-icon mui-icon-star"></i>
+	            <i data-index="2" class="mui-icon mui-icon-star"></i>
+	            <i data-index="3" class="mui-icon mui-icon-star"></i>
+	            <i data-index="4" class="mui-icon mui-icon-star"></i>
+	            <i data-index="5" class="mui-icon mui-icon-star"></i>
+	        </div>
+	    </div>
+	    #}
+	    <br />
+	    <input type="hidden" checked="" name="anonymous" value="0">
+	    <input type="hidden" name="backurl" value="{{http.referrer()}}" >
+	    <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
+    </form>
+</div>
+{#
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">保存</button>
+    <h1 class="mui-title">发布问题</h1>
+</header>
+<div class="mui-content">
+    <form role="form" class="validate" action="/mod/question/sys/update" method="post" >
+    <div class="mui-content-padded">
+        <div class="mui-inline">问题标题</div>
+        {% groups data="groups",cid=category.id%}
+        <a class="mui-pull-right mui-inline group" href="#group" {%if groups|length == 0%}style="display: none"{%endif%}>
+            <input type="hidden" value="0" name="group_id">
+           <span>选择分组</span>
+            <span class="mui-icon mui-icon-arrowdown"></span>
+        </a>
+        <!--快捷输入具体内容，开发者可自己替换常用语-->
+        <div id="group" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell" data-value="0"><a href="javascript:;">不分组</a></li>
+                        {%for v in groups%}
+                        <li class="mui-table-view-cell" data-value="{{v.id}}"><a href="javascript:;">{{v.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <a class="mui-pull-right mui-inline cate" href="#cate" >
+            <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+            <span>{%if category.allow_publish==0%}选择分类{%else%}{{category.title}}{%endif%}</span>
+            <span class="mui-icon mui-icon-arrowdown"></span>
+        </a>
+        <!--快捷输入具体内容，开发者可自己替换常用语-->
+        <div id="cate" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        {%column data="column",pid=breadcrumb[0].id%}
+                        {%if breadcrumb[0].allow_publish==1%}
+                        <li class="mui-table-view-cell" data-value="{{breadcrumb[0].id}}"><a href="javascript:;">{{breadcrumb[0].title}}</a></li>
+                        {%endif%}
+                        {%if column%}
+                        {%for val in column%}
+                        <li class="mui-table-view-cell" data-value="{{val.id}}"><a href="javascript:;">{{val.name}}</a></li>
+                        {%endfor%}
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class=" mui-input-row">
+        <input id='title' type="text" name="title" class="mui-input-clear contact" placeholder="问题标题" />
+
+    </div>
+    <div class="mui-content-padded">
+        <div class="mui-inline">问题标题</div>
+    </div>
+    <div class="mui-input-row" style="height: 250px">
+        <textarea id='detail' name="detail" class="question" placeholder="请详细描述你的问题..." style="height: 100%;width: 100%">
+            <p>请输入内容...</p>
+        </textarea>
+    </div>
+    <div class=" mui-inline anonymous" style="width: 200px">
+        <div class="mui-table-view-cell">
+            <span></span>
+            <div class="mui-switch mui-switch-blue">
+                <div class="mui-switch-handle"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mui-content-padded">
+        <div class="mui-inline">应用评分</div>
+        <div class="icons mui-inline" style="margin-left: 6px;">
+            <i data-index="1" class="mui-icon mui-icon-star"></i>
+            <i data-index="2" class="mui-icon mui-icon-star"></i>
+            <i data-index="3" class="mui-icon mui-icon-star"></i>
+            <i data-index="4" class="mui-icon mui-icon-star"></i>
+            <i data-index="5" class="mui-icon mui-icon-star"></i>
+        </div>
+    </div>
+    <br />
+        <input type="hidden" checked="" name="anonymous" value="0">
+    <input type="hidden" name="backurl" value="{{http.referrer()}}" >
+    <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
+    </form>
+</div>
+#}
+{% endblock%}
+
+{% block script %}
+<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.js"></script>
+<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.touch.js"></script>
+<script src="/static/webapp/libs/deitor.wang/js/wangEditor-mobile.js"></script>
+<script src="/static/webapp/js/question.js"></script>
+<script type="text/javascript">
+    mui.init();
+            $(function () {
+                // ___E 三个下划线
+                var editor = new ___E('detail');
+                // 上传图片
+                editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
+                editor.init();
+            });
+            mui('.anonymous .mui-switch').each(function() { //循环所有toggle
+                //toggle.classList.contains('mui-active') 可识别该toggle的开关状态
+                this.parentNode.querySelector('span').innerText = '匿名：' + (this.classList.contains('mui-active') ? '是' : '否');
+                /**
+                 * toggle 事件监听
+                 */
+
+                this.addEventListener('toggle', function(event) {
+                    //event.detail.isActive 可直接获取当前状态
+                    this.parentNode.querySelector('span').innerText = '匿名：' + (event.detail.isActive ? '是' : '否');
+                    if(event.detail.isActive){
+                        $("input[name='anonymous']").val(1)
+                    }else {
+                        $("input[name='anonymous']").val(0)
+                    }
+                });
+            });
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

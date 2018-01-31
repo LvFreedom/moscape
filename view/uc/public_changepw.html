@@ -1,0 +1,120 @@
+{% extends "./inc/base_resetpw.html" %} {% block content %}
+
+{% block style %}
+<style>
+	.register-box{
+		background:rgba(248, 242, 252, 0.5);
+		min-width:377px;
+	}
+	#verifycodesend{
+		background:#1eb6c1;
+	}
+	#verifycodesend span{
+		color:#fff;
+	}
+
+
+	input::-webkit-input-placeholder { /* WebKit browsers */ 
+		color: #1eb6c1;  
+	} 
+	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+		color: #1eb6c1;  
+	} 
+	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+		color: #1eb6c1;  
+	} 
+	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+		color: #1eb6c1; 
+	} 
+	.gt_holder .gt_guide_tip{
+		color:#1eb6c1;
+	}
+
+
+
+</style>
+
+{% endblock %}
+
+<!-- -->
+<section style="padding: 180px 0;">
+	<div class="container">
+
+		<div class="row">
+
+			<!-- LOGIN -->
+			<div class="col-md-4 col-sm-4 register-box" style="margin-left: auto; margin-right: auto; float: none;">
+
+				<!-- ALERT -->
+                <!--
+							<div class="alert alert-mini alert-danger margin-bottom-30">
+								<strong>Oh snap!</strong> Login Incorrect!
+							</div>
+						-->
+						<!-- /ALERT -->
+						{%if controller.setup.USER_ALLOW_REGISTER ==1%}
+						{%if controller.setup.USER_ALLOW_SMSREGISTER == 1%}
+						<!-- register form 短信密码找回-->
+						<form class="nomargin sky-form boxed findpassword" action="/uc/public/reseting" method="post" autocomplete="off">
+							<header>
+								<!--<i class="fa fa-users"></i>--> {{controller.meta_title}}
+							</header>
+							<fieldset class="nomargin">
+								<label class="input margin-bottom-20">
+									<input type="password" placeholder="需包含字母和数字的8-16为字符" name="firstpw" autocomplete="off">
+									<b class="tooltip tooltip-bottom-right">需包含字母和数字的8-16为字符</b>
+								</label>
+
+								<label class="input margin-bottom-20">
+									<input type="password" placeholder="再次输密码" name="secondpw" autocomplete="off">
+									<b class="tooltip tooltip-bottom-right">再次输密码</b>
+								</label>
+
+
+			                    <div class="margin-top-10" style="height: 34px;">
+			                    	<input type="hidden" name="mobile" value>
+			                    	<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+			                    		<button id="ok" type="submit" class="btn btn-primary ajax-post" target-form="findpassword" style="width: 100%; margin: 0;">重置密码</button>
+			                    	</div>
+			                    	
+			                    </div>
+		                    </fieldset>
+
+                </form>
+				{%endif%}
+
+				{%endif%}
+			</div>
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+	<!-- /MODAL -->
+{% endblock %}
+{% block script %}
+<script>
+function GetRequest() {   
+   var url = location.search; //获取url中"?"符后的字串   
+   var theRequest = new Object();   
+   if (url.indexOf("?") != -1) {   
+      var str = url.substr(1);   
+      strs = str.split("&");   
+      for(var i = 0; i < strs.length; i ++) {   
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+      }   
+   }   
+   return theRequest;   
+}  
+var Request = new Object();
+Request = GetRequest();
+var mobile;
+mobile = Request["mobile"];
+verifycode = Request["verifycode"];
+sms_type = Request["sms_type"];
+$("input[name='mobile']").val(mobile)
+</script>
+
+{% endblock %}

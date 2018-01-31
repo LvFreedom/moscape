@@ -1,0 +1,146 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+    ul,li{
+        list-style: none;
+        padding:0;
+        margin:0;
+    }
+    .trip-header{
+        background: #1eb6c1;
+    }
+    .back{
+        display: inline-block;
+        width:35px;
+        height:20px;
+        background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+        background-size:35px 20px;
+        border:0;
+    }
+    .trip-header span{
+        display: inline-block;
+        margin-top:8.5px;
+        font-size:24px;
+        color:#fff;
+    }
+    .number{
+        padding:10px 2.78% 30px 2.78%;
+    }
+    .wangEditor-txt{
+        background: #fff;
+        margin:0px 2.78% 0 2.78%;
+        padding:12px 2.78% 20px 2.78%;
+    }
+    .mui-content h3{
+        padding:0 2.78% 20px 2.78%;
+    }
+    .more{
+        color:#b2b2b2;
+        padding:10px 2.78%;
+        margin:0 2.78%;
+        background: #fff;
+    }
+    .more a{
+        display: block;
+        width:100%;
+        color:#b2b2b2;
+    }
+    .more a i{
+        display: block;
+        width:30px;
+        height:9px;
+        background: url(/static/assets/images/mobile/uc/trip_down.png) no-repeat;
+        background-size:100% 100%;
+        margin:0 auto;
+    }
+    .more a i.i2{
+        margin-top:-3px;
+    }
+    .wangEditor-txt img{
+        width:100% !important;
+    }
+
+
+    .clear:after{
+        content:"";
+        display: block;
+        clear:both;
+    }
+    .out{
+        display: none;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav trip-header text-center">
+    <a class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>查看行程</span>
+</header>
+{% include "./inc/barnav.html" %}
+<section id="ll" class="mui-content"> 
+    {% for item in list %}
+    <div class="number">
+        订单编号：{{item.order_no}}
+    </div> 
+    <h3>{{item.title}}</h3>         
+    <div  class="wangEditor-txt">
+        {{info.product_route|safe}}
+        
+    </div>
+    <div class="more text-center">
+        <a>
+            <span>加载更多</span>
+            <i class="i1"></i>
+            <i class="i2"></i>
+        </a>   
+    </div>
+    {% endfor %}
+</section>
+{% endblock%}
+
+{% block script %}
+<script>
+    mui.ready(function(){
+        var array = $(".wangEditor-txt").children()
+        console.log(array)
+        for(var i=0;i<array.length;i++){
+            console.log(array[i])
+            if(i>9){
+                console.log(i)
+                var a = array[i];
+                console.log($(a))
+                $(a).addClass("out");
+            }
+        }
+        if(array.length<=9){
+            $(".more").addClass("out")
+        }
+    })
+    mui(".more").on("tap","a",function(){
+        var array = $(".wangEditor-txt").children();
+        for(var i=0;i<array.length;i++){
+            var a = array[i];
+            console.log($(a))
+            if($(a).hasClass("out")){
+                $(a).removeClass("out");
+                $(".more").addClass("out")
+            }  
+        }
+    })
+    mui.ready(function() {
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#wait"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }
+            mui.openWindow({url: href})
+
+        })
+    }
+});
+</script>
+{% endblock %}

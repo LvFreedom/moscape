@@ -1,0 +1,429 @@
+{% extends "../../topic/inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css"/>
+<link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<link href="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css"  rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<style type="text/css">
+.page_header{
+    width: 100%;
+    height:445px ;
+    background:url(/static/assets/images/backgrounds/release_head.png) 50% 50% / cover no-repeat;
+}
+.page_header2{
+    width: 100%;
+    height:445px ;
+    background:url(/static/assets/images/backgrounds/communitybc.jpg) 50% 50% / cover no-repeat;
+}
+.page_header3{
+    width: 100%;
+    height:445px ;
+}
+.webuploader-pick{
+    background: transparent;
+}
+.form-group h2{
+    margin-bottom:15px;
+}
+.title_label{
+    font-size: 16px;
+    margin-bottom:15px;
+}
+.area_select{
+    position: absolute;
+    top:-42px;
+    right: 151px;
+}
+{% if category.id== 124 %}
+input[type=file] {
+    display: none;
+}
+{% endif %}
+</style>
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs = 20px margins
+.page-header-md = 50px margins
+.page-header-lg = 80px margins
+.page-header-xlg= 130px margins
+.dark           = dark page header
+
+.shadow-before-1    = shadow 1 header top
+.shadow-after-1     = shadow 1 header bottom
+.shadow-before-2    = shadow 2 header top
+.shadow-after-2     = shadow 2 header bottom
+.shadow-before-3    = shadow 3 header top
+.shadow-after-3     = shadow 3 header bottom
+-->
+{#
+<section class="page-header page-header-xs" >
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        <ul class="page-header-tabs list-inline">
+            <li class="active"><a href="#"><i class="et-pencil"></i> 编辑</a></li>
+            <li class=""><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
+            <!--<li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>-->
+            <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
+
+        </ul>
+
+        <!-- /page tabs -->
+    </div>
+</section>
+#}
+<!-- /PAGE HEADER -->
+{% if category.id== 124 %}
+    {% if info.cover_id.length==0 %}
+    <section class="page_header page-header page-header-xs" >
+        <!-- <div style="width:100%;height: 445px;"></div> -->
+        <img class="cover_img" src="" style="margin-top: -20px;width: 100%;position: absolute;">
+        
+        
+        <div class="uploader_pic" style="position: absolute;left: 33.33%;top: 42.86%;">
+            <!-- <input type="hidden" name="cover_id" id="cover_id"/> -->
+            <!-- <input type="text" name="coverid" id="coverid"/> -->
+            <div id="fileList_sortid_cover" class="uploader-list" style="display: none;"></div>
+            <div style="width: 470px;margin: 0 auto;">
+                <div id="filePicker_sortid_cover" style="display: inline-block;background: transparent;"> 
+                    <img src="/static/assets/images/add_picture.png">
+                </div>
+                <div style="color:#fff;display: inline-block;float:right;margin-top:10px;">
+                    <h2 style="color:#fff;margin-bottom: 0px;"> 设置封面标题</h2>
+                    图片建议选择尺寸大于1680px的高清大图，例如相机原图。
+                </div>
+            <div>
+       
+        </div>
+
+    </section>
+    {%else%}
+    <section class="page_header3 page-header page-header-xs" style="background:url({{info.cover_id|get_pic('')}}) 50% 50% / cover no-repeat">
+        <!-- <div style="width:100%;height: 445px;"></div> -->
+        <img class="cover_img" src="" style="margin-top: -20px;width: 100%;position: absolute;">
+        
+        
+        <div class="uploader_pic" style="position: absolute;left: 33.33%;top: 42.86%;">
+            <!-- <input type="hidden" name="cover_id" id="cover_id"/> -->
+            <!-- <input type="text" name="coverid" id="coverid"/> -->
+            <div id="fileList_sortid_cover" class="uploader-list" style="display: none;"></div>
+            <div style="width: 470px;margin: 0 auto;">
+                <div id="filePicker_sortid_cover" style="display: inline-block;background: transparent;"> 
+                    <img src="/static/assets/images/add_picture.png">
+                </div>
+                <div style="color:#fff;display: inline-block;float:right;margin-top:10px;">
+                    <h2 style="color:#fff;margin-bottom: 0px;"> 设置封面标题</h2>
+                    图片建议选择尺寸大于1680px的高清大图，例如相机原图。
+                </div>
+            <div>
+       
+        </div>
+
+    </section>
+    {%endif%}
+
+{% else %}
+<section class="page_header2 page-header page-header-xs" >
+    
+</section>
+{% endif %}
+<!-- -->
+<section >
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-9 col-sm-9">
+                <form role="form" class="validate" action="/mod/question/sys/update" method="post" >
+                    <div class="form-group">
+                        <!-- <h2>辑</h2> -->
+                        {#                      
+                        {% if category.id== 124 %}
+                        <label for="title">攻略游记:</label>
+                        {% else %}
+                        <label for="title">问答:</label>
+                        {% endif %}
+                        #}
+
+                        <label for="title">编辑 :</label>
+
+                        <div class="input-group">
+                            <div class=" input-group-btn">
+                                <div class="input-group-btn question_select">
+                                    <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <span class="name">
+                                        {#
+                                        {%if category.allow_publish==0%}
+                                        选择分类
+                                        {%else%}
+                                        {{category.title}}
+                                        {%endif%}
+                                        #}
+                                        {{category.title}}
+                                        </span> 
+                                        {#
+                                        <span class="caret"></span>
+                                        #}
+                                    </button>
+                                    {#
+                                    <ul class="dropdown-menu" role="menu">
+                                        {%column data="column",pid=breadcrumb[0].id%}
+                                        {%if breadcrumb[0].allow_publish==1%}
+                                        <li data-value="{{breadcrumb[0].id}}"><a href="javascript:;">{{breadcrumb[0].title}}</a></li>
+                                        {%endif%}
+                                        {%if column%}
+                                        {%for val in column%}
+                                        <li data-value="{{val.id}}"><a href="javascript:;">{{val.name}}</a></li>
+                                        {%endfor%}
+                                        {%endif%}
+                                    </ul>
+                                    #}
+                                </div><!-- /btn-group -->
+                                {% groups data="groups",cid=category.id%}
+                                <div class="input-group-btn question_select {%if groups|length == 0%}hide{%endif%}" id="group">
+                                    <input type="hidden" value="{%if group|length >0 %}{{group[0].id}}{%else%}0{%endif%}" name="group_id">
+                                    <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown"><span class="name">{%if group|length >0 %}{{group[0].name}}{%else%}选择分组{%endif%}</span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li data-value="0"><a href="javascript:;">不分组</a></li>
+                                        {%for v in groups%}
+                                        <li data-value="{{v.id}}"><a href="javascript:;">{{v.name}}</a></li>
+                                        {%endfor%}
+                                    </ul>
+                                </div><!-- /btn-group -->
+
+                            </div>
+                            <input type="text" class="form-control noradius required" name="title" id="title" value="{{info.title}}">
+                            <div class="input-group-btn question_select area_select" id="group">
+                                <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown" style="width: 160px;">
+                                    <span class="name" >
+                                    {%if info.class_id == 100 %}
+                                    亚&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;
+                                    {%elseif info.class_id == 300 %}
+                                    非&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;
+                                    {% elseif info.class_id == 200 %}
+                                    欧&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;
+                                    {% elseif info.class_id == 500 %}
+                                    南&nbsp;&nbsp;美&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;
+                                    {% elseif info.class_id == 400 %}
+                                    北&nbsp;&nbsp;美&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;
+                                    {% elseif info.class_id == 600 %}
+                                    大&nbsp;&nbsp;洋&nbsp;&nbsp;洲&nbsp;&nbsp;
+                                    {% elseif info.class_id == 700 %}
+                                    南&nbsp;&nbsp;极&nbsp;&nbsp;洲&nbsp;&nbsp;
+                                    {% else %}
+                                    请选择所属版面 
+                                    {%endif%}
+                                    </span>
+                                    <span class="caret"></span>
+                                    <input type="hidden" value="{%if info.class_id!=0%}{{info.class_id}}{%else%}0{%endif%}" name="class_id">
+                                </button>
+                                <ul class="dropdown-menu" role="menu">                                 
+                                    <li data-value="100"><a href="javascript:;">亚&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                                    <li data-value="300"><a href="javascript:;">非&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                                    <li data-value="200"><a href="javascript:;">欧&nbsp;&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                                    <li data-value="500"><a href="javascript:;">南&nbsp;&nbsp;美&nbsp;&nbsp;洲&nbsp;&nbsp;&nbsp;</a></li>
+                                    <li data-value="400"><a href="javascript:;">北&nbsp;&nbsp;美&nbsp;&nbsp;洲&nbsp;&nbsp;</a></li>
+                                    <li data-value="600"><a href="javascript:;">大&nbsp;&nbsp;洋&nbsp;&nbsp;洲&nbsp;&nbsp;</a></li>
+                                    <li data-value="700"><a href="javascript:;">南&nbsp;&nbsp;极&nbsp;&nbsp;洲&nbsp;&nbsp;</a></li>
+                                </ul>
+                            </div>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="form-group">
+                        {% if category.id== 124 %}
+                        <label>正文补充 (选填):</label>
+                        <input type="hidden" name="cover_id" id="cover_id" value="{{info.cover_id}}" />
+                        {% else %}
+                        <label>问题补充 (选填):</label>
+                        {% endif %}
+                        <textarea name="detail" id="detail" style="height:400px;max-height:500px;display: none">{{info.detail|safe}}</textarea>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>添加话题: 当一个话题输入完成后，按 <code>回车键</code> 确认</label>
+                        <input type="text" class="form-control" id="keywords" name="keyname" value="{{keyword}}" >
+                    </div> -->
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <!-- primary -->
+                            <!-- <label class="switch switch-primary margin-top-20">
+                                <input type="checkbox" checked="" name="anonymous" value="0">
+                                <span class="switch-label" data-on="不匿" data-off="匿名"></span>
+                            </label> -->
+
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                            <input type="hidden" name="backurl" value="{{http.referrer()}}" >
+                            <input type="hidden" name="mod_id" value="{{category.model}}">
+                            <input type="hidden" name="id" value="{{info.id}}">
+                            <button class="btn btn-primary btn-lg" >提交修改</button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+                {#
+                <h3 class="hidden-xs size-16 margin-bottom-10">问题发起指南</h3>
+                <div class="mod-body">
+                    <p class="margin-bottom-20"><b>• 问题标题:</b> 请用准确的语言描述您发布的问题思想</p>
+                    <p class="margin-bottom-20"><b>• 问题补充:</b> 详细补充您的问题内容, 并提供一些相关的素材以供参与者更多的了解您所要问题的主题思想</p>
+                    <p class="margin-bottom-20"><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的问题得到更多有相同兴趣的人参与. 所有人可以在您发布问题之后添加和编辑该问题所属的话题</p>
+                </div>
+                #}
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+<script src="/static/assets/js/question.js"></script>
+<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+{% if category.id== 124 %}
+<script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
+<script type="text/javascript">
+        jQuery(function() {
+            var $ = jQuery,
+            $list_sortid_cover = $('#fileList_sortid_cover'),
+            // 优化retina, 在retina下这个值是2
+            ratio_sortid_cover = window.devicePixelRatio || 1,
+
+            // 缩略图大小
+            //thumbnailWidth_sortid_cover = 100 * ratio_sortid_cover,
+            //thumbnailHeight_sortid_cover = 100 * ratio_sortid_cover,
+            thumbnailWidth_sortid_cover =1600 * ratio_sortid_cover,
+            thumbnailHeight_sortid_cover = 445 * ratio_sortid_cover,
+
+            // Web Uploader实例
+            uploader_sortid_cover;
+
+            // 初始化Web Uploader
+            // 初始化Web Uploader
+            var uploader_sortid_cover = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: true,
+                // swf文件路径
+                swf: '/static/admin/js/webuploader/Uploader.swf',
+                // 文件接收服务端。
+                server: '/uc/file/uploadpic',
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: {
+                    id:'#filePicker_sortid_cover',
+                    multiple: false
+                },
+                // 只允许选择图片文件。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                   // mimeTypes: 'image/*'
+                    imeTypes: 'image/jpg,image/jpeg,image/png'
+                }
+            });
+            // 当有文件添加进来的时候
+            uploader_sortid_cover.on( 'fileQueued', function( file ) {
+                var $li = $(
+                                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                '<img>' +
+                                '<div class="info">' + file.name + '</div>' +
+                                '</div>'
+                        ),
+                        $img = $li.find('img');
+
+                $list_sortid_cover.html( $li );
+
+            // 创建缩略图
+            uploader_sortid_cover.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'src', src );
+                $(".cover_img"). attr( 'src', src );
+                $(".cover_img").css({"width":"100%","height":"100%"});
+            }, thumbnailWidth_sortid_cover, thumbnailHeight_sortid_cover );
+            });
+
+            // 文件上传过程中创建进度条实时显示。
+            uploader_sortid_cover.on( 'uploadProgress', function( file, percentage ) {
+
+                var $li = $( '#'+file.id ),
+                        $percent = $li.find('.progress span');
+
+                // 避免重复创建
+                if ( !$percent.length ) {
+                    $percent = $('<p class="progress"><span></span></p>')
+                            .appendTo( $li )
+                            .find('span');
+                }
+
+                $percent.css( 'width', percentage * 100 + '%' );
+            });
+
+            // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+            uploader_sortid_cover.on( 'uploadSuccess', function( file,res ) {
+                $( '#'+file.id ).addClass('upload-state-done');
+                //$("#coverid").val(res);
+                $("#cover_id").val(res);
+                console.log("success");
+            });
+
+            // 文件上传失败，现实上传出错。
+            uploader_sortid_cover.on( 'uploadError', function( file ) {
+                var $li = $( '#'+file.id ),
+                        $error = $li.find('div.error');
+
+                // 避免重复创建
+                if ( !$error.length ) {
+                    $error = $('<div class="error"></div>').appendTo( $li );
+                }
+
+                $error.text('上传失败');
+                console.log("error");
+            });
+
+            // 完成上传完了，成功或者失败，先删除进度条。
+            uploader_sortid_cover.on( 'uploadComplete', function( file ) {
+                $( '#'+file.id ).find('.progress').remove();
+            });
+        });
+</script>
+<script type="text/javascript">
+    $(function(){
+        //console.log("124");
+    });
+</script>
+{%endif%}
+{%endblock%}

@@ -1,0 +1,1981 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+<link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+    .progress_bar {
+        width: 100%;
+        padding: 150px 0 10px;
+    }
+    ol, ul {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    ul li, ol li {
+        list-style: none;
+    }
+    .progress_bar li {
+        float: left;
+        width: 25%;
+        border-top: 6px solid #b8d7d9;
+        text-align: center;
+        color: #b8d7d9;
+        position: relative;
+        line-height: 42px;
+    }
+    .progress_bar li {
+        width: 33.33% !important;
+    }
+    .progress_bar .complete {
+        color: #1eb6c1;
+        border-top: 6px solid #1eb6c1;
+    }
+    .progress_bar li i {
+        position: absolute;
+        left: 50%;
+        margin-left: -10px;
+        top: -13px;
+        height: 20px;
+        width: 20px;
+
+        background: url(http://pic.c-ctrip.com/vacation_v1/un_base_common.png?20131118.png) -64px 0 no-repeat;
+    }
+    .progress_bar .complete i {
+        background-position: -36px 0;
+        background: #1eb6c1;
+        border-radius: 50%;
+    }
+    .progress_bar li p {
+        position: absolute;
+        left: 50%;
+        margin-left: -6px;
+        top: -10px;
+        height: 12px;
+        width: 12px;
+    }
+    .progress_bar .complete p {
+        background: #fff;
+        border-radius: 50%;
+    }
+    .progress_bar .disabled i {
+        background-position: -36px 0;
+        background: #b8d7d9;
+        border-radius: 50%;
+    }
+    .progress_bar .disabled p {
+        background: #fff;
+        border-radius: 50%;
+    }
+
+    .book_product {
+        position: relative;
+        background-color: #fff;
+        border: 5px solid #1eb6c1;
+        margin-bottom: 20px;
+        padding: 20px;
+        margin-top: 50px;
+    }
+    .book_product h2 {
+        font: bold 20px/26px "Microsoft Yahei",simsun;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .book_product .book_detail {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #1eb6c1;
+        padding: 2px 5px;
+        color: #fff;
+    }
+    .book_product .book_detail i {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        line-height: 0;
+        cursor: pointer;
+        vertical-align: middle;
+        margin-left: 2px;
+        margin-top: 8px;
+    }
+    .book_product .book_detail i.close {
+        border-style: none dashed solid dashed;
+        border-width: 0 5px 5px 5px;
+        border-color: transparent transparent #fff transparent;
+    }
+    :root .book_product .book_detail i.close {
+        border-width: 0 4px 4px 4px;
+    }
+    .book_product .book_detail i.up {
+        border-style: solid dashed none dashed;
+        border-width: 4px 4px 0 4px;
+        border-color: #fff transparent transparent transparent;
+    }
+    .book_product_content {
+        border-top: solid 1px #DFDDDD;
+        padding: 5px 0;
+    }
+    .book_product_name {
+        float: left;
+        width: 100px;
+        color: #333;
+        font: 20px/26px "Microsoft Yahei",simsun;
+    }
+    .book_table_list {
+        float: right;
+        width: 790px;
+        table-layout: fixed;
+    }
+    .book_width_all04 .width01 {
+        width: 90px;
+    }
+    .book_table_list td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    .basefix:after, .layoutfix:after {
+        clear: both;
+        content: '.';
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .input_info {
+        background-color: #fff;
+        /*border: 1px solid #D5D5D5;*/
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    .input_info h3 {
+        position: relative;
+        z-index: 3;
+        background-color: #dff4f4;
+        font: 18px/32px "Microsoft Yahei",simsun;
+        font-weight: bold;
+        height: 32px;
+        padding: 0 20px;
+        margin-bottom: 0px;
+    }
+    .input_info .product_input {
+        margin: -1px 20px 0 20px;
+        padding: 25px 0 10px;
+        position: relative;
+        border-top: #D5D5D5 solid 1px;
+    }
+    .input_info .product_input h4 {
+        float: left;
+        font: 16px/20px "Microsoft Yahei",simsun;
+        width: 120px;
+    }
+    .input_info .input_box {
+        float: left;
+        width: 770px;
+    }
+    .input_info .input_box li {
+        padding-bottom: 15px;
+    }
+    .input_info .input_box .point {
+        color: #999;
+        font-size: 12px;
+    }
+    .show_all_info {
+        clear: both;
+        padding-bottom: 10px;
+        padding-left: 120px;
+    }
+    .show_all_info .btn_item {
+        cursor: pointer;
+    }
+    .show_all_info a, .show_all_info i {
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+    }
+    .show_all_info a {
+        margin-right: 4px;
+    }
+    .icon_arrow_down {
+        cursor: pointer;
+        width: 0;
+        height: 0;
+        border-width: 6px 6px 0;
+        border-color: #0065bb transparent transparent;
+        border-style: solid dashed dashed;
+    }
+    .input_info .promotion_code {
+        margin: 0 20px 0 138px;
+        border: 0 none;
+        padding: 10px;
+        /*background: #f7f7f7;*/
+    }
+    .input_info .product_input .except_tit {
+        width: 178px;
+    }
+    .input_info .promotion_code h4.except_tit {
+        font: 14px/20px "Microsoft Yahei",simsun;
+    }
+    .input_info .except_list {
+        width: 550px;
+    }
+    .input_info .coupons li {
+        vertical-align: top;
+        padding-bottom: 10px;
+    }
+    .input_info .promotion_code .coupons li {
+        /*padding-bottom: 0;*/
+    }
+    input[type="text"], input[type="number"] {
+        padding: 3px;
+        border: solid 1px #CCC;
+        box-shadow: 1px 1px 3px #DDDDDD inset;
+    }
+    .input_info .input_box input, .input_info .ticket_search {
+        _height: 14px;
+        _padding: 2px;
+    }
+    .input_info .input_box input {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .input_info .input_box input.input_sale {
+        margin-left: 5px;
+        width: 130px;
+    }
+    .input_info .input_box input.btn_submit {
+        height: 23px;
+        line-height: 20px;
+        background-color: #f8f9f8;
+        color: #333;
+        border: 1px solid #bbb;
+        text-align: center;
+        display: inline-block;
+        width: 60px;
+        border-radius: 3px;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+    .input_info .input_box li:after {
+        clear: both;
+        content: ".";
+        display: block;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .linkman_tips {
+        font-size: 12px;
+        font-weight: normal;
+        color: #999;
+        margin-left: 35px;
+    }
+    .linkman_info {
+        margin-left: 120px;
+        _display: inline;
+    }
+    .input_info .product_label {
+        float: left;
+        padding-right: 10px;
+        text-align: right;
+        width: 76px;
+    }
+    .frm_required {
+        color: #F00;
+        text-align: center;
+        font-family: Arial;
+    }
+    .input_box li .frm_required {
+        float: left;
+        width: 10px;
+        margin-left: -10px;
+    }
+    .input_info .input_box .input_m {
+        width: 270px;
+    }
+    .input_info .input_box .hrs {
+        color: #999;
+        margin-left: 8px;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0; 
+    }
+
+    .input_info h3 .title {
+        float: left;
+        color: #414141;
+    }
+    .input_info h3 .tips_txt {
+        float: left;
+        font-size: 12px;
+        font-weight: normal;
+        color: #999;
+        margin-left: 35px;
+    }
+    .input_info .input_box input, .input_info .ticket_search {
+        _height: 14px;
+        _padding: 2px;
+    }
+    .input_info .ticket_search {
+    	background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book.png?20150619.png);
+        _background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book_ie.png?20150619.png);
+        background-repeat: no-repeat;
+        background-position: 124px -64px;
+        margin-left: 30px;
+        margin-top: 4px;
+        vertical-align: 3px;
+        width: 140px;
+        background-color: #fff;
+        color: #999;
+        border: 1px solid #ccc;
+        height: 24px;
+        padding: 3px;
+        font-size: 12px;
+        font-weight: normal;
+    }
+    .input_info .product_input_border {
+        border-bottom: 1px solid #eaeaea;
+    }
+    .warm_Tip {
+        padding: 0 20px;
+        line-height: 30px;
+        background: #e8f4ff;
+        margin-bottom: 20px;
+        color: #666;
+    }
+    .input_info .product_input h4 {
+        float: left;
+        font: 16px/20px "Microsoft Yahei",simsun;
+        width: 120px;
+    }
+    .input_info .product_input h4 span {
+        display: inline-block;
+        border-radius: 2px;
+        font: 12px/14px simsun;
+        padding: 2px;
+        color: #fff;
+    }
+    .input_info .product_input h4 .adult {
+        background-color: #60B7FF;
+    }
+    .input_info .product_input h4 .child {
+        background-color: #FFB947;
+        margin-right: 6px;
+    }
+    .input_info .input_box a.explain {
+        padding-left: 10px;
+        text-decoration: underline;
+    }
+    select {
+        padding: 1px;
+        font-family: Arial,Simsun,sans-serif;
+        border: 1px solid #CCC;
+        background-color: #FFF;
+    }
+    .input_info .input_box select {
+        width: 100px;
+        vertical-align: middle;
+        display: inline-block;
+        height: 29px;
+        border-radius: 0px;
+    }
+    .input_info .input_box input.input_s {
+        margin-left: 7px;
+        width: 160px;
+    }
+    .input_info .input_box li .help_block {
+        background: #E8F4FF;
+        border: 1px solid #67A1E2;
+        color: #333;
+        display: block;
+        margin-left: 76px;
+        margin-top: 8px;
+        padding: 2px 6px 3px 20px;
+        position: relative;
+        text-align: left;
+        width: 430px;
+        font-size: 12px;
+    }
+    .help_block .ico, .help_block_i .ico {
+    	background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book.png?20150619.png);
+        _background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book_ie.png?20150619.png);
+        background-repeat: no-repeat;
+        left: 4px;
+        position: absolute;
+        top: 6px;
+        background-position: 0 -119px;
+        display: block;
+        overflow: hidden;
+        width: 12px;
+        height: 12px;
+    }
+    .input_radio {
+        color: #333;
+        margin-right: 10px;
+        display: inline-block;
+    }
+    .input_radio i {
+        background: url(http://pic.c-ctrip.com/vacation_v1/input_radio.png?20150619.png) no-repeat 0 0;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: bottom;
+        padding-right: 3px;
+        cursor: pointer;
+    }
+    .input_info .save_wrap {
+        float: left;
+        margin-left: -100px;
+        overflow: hidden;
+        width: 100px;
+        line-height: 16px;
+    }
+    .input_info .save_wrap .save {
+        color: #333;
+        float: left;
+        height: 16px;
+        line-height: 16px;
+        margin-right: 20px;
+    }
+    #product_issave{
+        float:left;
+        margin:0 3px;
+        width:14px;
+        height:14px;
+    }
+    .input_info .save_wrap .save i, .input_info .save_wrap .selected i {
+    	background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book.png?20150619.png);
+        _background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book_ie.png?20150619.png);
+        background-repeat: no-repeat;
+    }
+    .input_info .save_wrap .save i {
+        background-position: -55px -46px;
+        display: inline-block;
+        float: left;
+        height: 16px;
+        margin-right: 4px;
+        width: 16px;
+    }
+    .input_info .save_wrap .selected i {
+        background-position: -37px -46px;
+    }
+    .input_info .input_box input.input_englishname {
+    	width: 130px;
+    }
+    .reserve_limited {
+        line-height: 20px;
+        color: #6a6a6a;
+        margin: 20px 0;
+        padding: 0 20px;
+    }
+    .reserve_limited h4 {
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: normal;
+        font-family: 'microsoft yahei';
+        margin-bottom: 5px;
+    }
+    .input_info .product_input h4 {
+        float: left;
+        font: 16px/20px "Microsoft Yahei",simsun;
+        width: 120px;
+    }
+    .input_info .input_box .point {
+        color: #999;
+        font-size: 12px;
+    }
+    .input_info .input_box li.default {
+        padding-left: 80px;
+    }
+    .input_info .input_box li.default .revise {
+        float: left;
+        margin-left: -80px;
+    }
+    .input_info .input_box li .invoice_box_con {
+        line-height: 20px;
+    }
+    .input_info .input_box li.default span {
+        margin-right: 10px;
+    }
+    .input_info .product_input .more_close, .input_info .product_input .more_close:hover {
+        display: inline-block;
+        padding-bottom: 10px;
+        color: #333;
+        text-decoration: underline;
+    }
+    .extras_box {
+        float: left;
+        width: 770px;
+    }
+    .extras_box textarea {
+        width: 460px;
+        height: 70px;
+        margin-top: 10px;
+        padding: 0 5px;
+        font-size: 12px;
+    }
+    .defray_box {
+        zoom: 1;
+        position: relative;
+        min-height: 56px;
+        _height: 56px;
+        margin-bottom: 20px;
+        background-color: #FFF;
+        /*border: 1px solid #e9eaeb;*/
+    }
+    .defray_shop_box {
+        height: 56px;
+        line-height: 56px;
+        float: left;
+        width: inherit;
+        border-right: 0 none;
+        overflow: hidden;
+    }
+    .defray_box .defray_shop_box {
+        float: left;
+    }
+    .defray_shop_box .prev_stop {
+        float: left;
+        width: 100px;
+        display: inline-block;
+        padding-left: 35px;
+        position: relative;
+        color: #1eb6c1;
+    }
+    .defray_shop_box .prev_stop b {
+    	background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book.png?20150619.png);
+        _background-image: url(http://pic.c-ctrip.com/vacation_v1/bg_book_ie.png?20150619.png);
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 22px;
+        left: 17px;
+        width: 15px;
+        height: 16px;
+        background-position: 0 -220px;
+        overflow: hidden;
+    }
+    .defray_box form .prev_stop {
+        float: left;
+        width: 100px;
+        display: inline-block;
+        padding-left: 35px;
+        position: relative;
+        height: 56px;
+        line-height: 56px;
+        color: #1eb6c1;
+    }
+    .defray_shop_box .total {
+        display: none;
+        float: right;
+        border-left: 1px solid #ffeab8;
+        background-color: #fff8df;
+        height: 56px;
+        width: 173px;
+    }
+    .btn_proess_big, .btn_proess_big:hover, .btn_proess_big_disabled, .btn_proess_big_disabled:hover {
+        height: 56px;
+        padding: 0 10px;
+        font: 20px/56px 'microsoft yahei',simsun,sans-serif;
+    }
+    .btn_proess_big {
+        display: inline-block;
+        background-color: #1eb6c1;
+        background-image: -webkit-linear-gradient(top, #1eb6c1, #1eb6c1);
+        background-image: -moz-linear-gradient(top, #1eb6c1, #1eb6c1);
+        background-image: -ms-linear-gradient(top, #1eb6c1, #1eb6c1);
+        background-image: -o-linear-gradient(top, #1eb6c1, #1eb6c1);
+        background-image: linear-gradient(top, #1eb6c1, #1eb6c1);
+        color: #fff;
+        text-align: center;
+        border: 1px solid #1eb6c1;
+        -webkit-box-shadow: inset 0 1px 0 0 #1eb6c1;
+        box-shadow: inset 0 1px 0 0 #1eb6c1;
+    }
+    .btn_proess_big {
+        float: left;
+        width: 240px;
+        margin-right: -4px;
+        border-radius: 4px;
+    }
+    .defray_box .btn_proess_big {
+        position: absolute;
+        right: -1px;
+        bottom: 0px;
+        margin: 0;
+    }
+    a.btn_proess_big:hover, a.btn_proess_big:focus {
+    	color: #fff;
+    }
+    .special_tips {
+        font-size: 16px;
+        font-weight: bold;
+        color: #444;
+        padding: 20px 20px 0;
+    }
+    .input_info .content_box {
+        margin: 20px;
+        max-height: 400px;
+        _height: 400px;
+        overflow-y: scroll;
+        line-height: 180%;
+    }
+    .input_radio.selected i {
+        background-position: 0 -16px;
+    }
+
+    .tuna_jmpinfo {
+        margin: 20px;
+        color: #333;
+        font: 12px/2 Arial,Tahoma,simsun;
+        -webkit-text-size-adjust: none;
+    }
+    .tuna_jmpinfo .jmp_alert {
+        border: 1px solid #ffb533;
+        background: #fff5d1;
+    }
+    .tuna_jmpinfo .base_jmp_l {
+        margin-left: 18px;
+    }
+    .tuna_jmpinfo .base_jmp b {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background-image: url(http://pic.c-ctrip.com/common/un_jmp_tri.png);
+        background-repeat: no-repeat;
+        overflow: hidden;
+        border-top: none;
+    }
+    .tuna_jmpinfo .base_jmp_l b {
+        margin-top: 10px;
+        left: 9px;
+    }
+    .tuna_jmpinfo .jmp_alert .tri_l {
+        background-position: -16px -48px;
+    }
+    .tuna_jmpinfo .jmp_bd {
+        padding: 2px 3px;
+    }
+    .input_info .product_input h4 .adult{
+        background-color:#dff4f4;
+        color:#414141;
+    }
+    .select-trave{
+        padding-left:20px;
+        height:118px;
+        overflow: auto;
+    }
+    .select-trave li input,
+    .select-trave li label{
+        float:left;
+    }
+    .select-trave li label{
+        margin-left:12px;
+        margin-bottom: 0;
+        color:#6a6a6a;
+    }
+    .select-trave li{
+        float:left;
+        width:20%;
+        margin-top:14px;
+    }
+
+    .clear:after{
+        content:"";
+        display:block;
+        clear:both;
+    }
+    .adult1,
+    .child1{
+        display: inline-block;
+        border-radius: 2px;
+        font: 12px/14px simsun;
+        padding: 2px;
+        color: #414141;
+        margin-left:25px;
+    }
+    .adult1{
+        background-color: #dff4f4;
+    }
+    .child1{
+         background-color: #FFB947;
+    }
+
+
+</style>
+{% endblock %}
+{% block content %}
+{#
+    	<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+			<section class="page-header page-header-xs">
+				<div class="container">
+
+					<!--<h1>{{controller.meta_title}}</h1>-->
+
+					<!-- breadcrumbs -->
+					<ol class="breadcrumb breadcrumb-inverse">
+						<li><a href="/">首页</a></li>
+						<li class="active">{{controller.meta_title}}</li>
+					</ol><!-- /breadcrumbs -->
+
+				</div>
+			</section>
+			<!-- /PAGE HEADER -->
+
+#}
+
+
+			<!-- CART -->
+             <!-- <form class = "form-post" method="post" action="/uc/booking/createorder" style="background: #eff7f9;"> -->
+			<section style="background: #eff7f9;">
+				<div class="container">
+{#
+<div class="row process-wizard process-wizard-primary">
+
+	<div class="col-xs-3 process-wizard-step complete">
+		<div class="text-center process-wizard-stepnum">第一步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">购物车</div>
+	</div>
+
+	<div class="col-xs-3 process-wizard-step active"><!-- complete -->
+		<div class="text-center process-wizard-stepnum">第二步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">确认订单信息</div>
+	</div>
+
+	<div class="col-xs-3 process-wizard-step disabled"><!-- complete -->
+		<div class="text-center process-wizard-stepnum">第三步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">选择支付</div>
+	</div>
+
+	<div class="col-xs-3 process-wizard-step disabled"><!-- active -->
+		<div class="text-center process-wizard-stepnum">第四步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">订购完成</div>
+	</div>
+
+</div>
+#}
+	<ol class="progress_bar">
+        <li class="complete"><i></i><p></p>选择产品</li>
+        <li class="complete"><i></i><p></p>填写与核对</li>
+        <li class="disabled"><i></i><p></p>成功提交</li>
+    </ol>
+
+	<div class="book_product" id="productID">
+		<h2>{{amountinfo.title}}</h2>
+		<a href="###" class="book_detail" id="js_options_book">隐藏明细<i class="close"></i></a>
+		<div id="js_options_product">
+			<div class="book_product_content basefix" style="display: block;">
+				<div class="book_product_name">行程</div>
+				<table class="book_table_list book_width_all04">
+					<colgroup>
+						<col class="width01">
+						<col class="width02">
+					</colgroup>
+					<tbody>
+						<tr>
+							<td>{{amountinfo.start_date}}</td>
+							<td><span class="duration"></span>日游套餐</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+<div class="input_info" id="couponID">
+    <h3>优惠信息</h3>
+    <div class="product_input layoutfix" id="J_cplistcnt">
+        <h4>优惠券</h4>
+        <ul class="input_box sale" role="coupon" style="margin: 0; padding: 0;">
+        	<li class="point" style="display:none">温馨提示：优惠券与限额抵用券无法同时使用</li>
+        </ul>
+        <div class="show_all_info" id="J_showallinfo" style="display:none">
+        	<span class="btn_item">
+        		<a href="javascript:void(0)" id="J_coupondown" title="展开更多">展开更多</a>
+        		<i class="icon_arrow_down"></i>
+        	</span>
+        </div>
+    </div>
+    <div class="product_input promotion_code layoutfix" id="J_couponcnt" style="margin-top: -54px;">                        
+    	<h4 class="except_tit">如果您有优惠代码，请输入</h4>                        
+    	<ul class="input_box coupons except_list">                            
+    		<li role="code">                                
+    			<input type="text" value="" class="input_sale" extend="1" id="J_couponCodeInput" role="couponCode" name="discount_code">
+    			<input type="button" value="确定" class="btn_submit" role="checkcode">                                
+    			<span class="tip" style="color:#ff7a17" role="tip"></span>
+    		</li>                        
+    	</ul>                    
+    </div>
+</div>
+
+<div class="input_info">
+    <h3>
+        联系人信息<span class="linkman_tips">**为方便及时与您联系，请准确填写联系人信息（手机号码，Email）</span>
+    </h3>
+    <div class="product_input layoutfix" id="linkManID">
+    	<ul class="input_box linkman_info" role="contact" style="display: block;">                        
+    		<li>                            
+    			<label class="product_label">姓名</label>                            
+    			<span class="frm_required">*</span>                            
+    			<input type="text" value="{{connectinfo.connect_name}}" role="ctname" required="" regex="checkName" class="input_m" name="connect_name">                        
+    		</li>                        
+    		<li>                            
+    			<label for="" class="product_label">手机号码</label>                            
+    			<span class="frm_required">*</span>                            
+    			<input type="number" value="{{connectinfo.connect_phone}}" role="ctmphone" required="" regex="checkMobile" class="input_m" name="connect_phone">                        
+    		</li>                        
+    		<li>                            
+    			<label for="" class="product_label">Email</label>                            
+    			<input type="text" value="{{connectinfo.connect_email}}" role="ctemail" regex="checkEmail" placeholder="非必填，用于接收订单确认信息" class="input_m" name="connect_email">                            
+    			<span class="hrs">如不填写，也可至订单详情中查看相关信息。</span>                        
+    		</li>                     
+    	</ul>
+    	<div class="clear:both" style="display: block;"></div>
+    </div>
+</div>
+
+<div style="" id="J_forminfocnt">
+    <!--订单信息填写-->
+    <div class="input_info" id="fillsetID" style="">
+        <h3>
+            <span class="title">旅客信息</span>
+            <span class="tips_txt">为了您能顺利出行，请准确填写以下信息</span>
+            <input type="text" id="searchID" class="ticket_search cq" _cqnotice="查找常用旅客">
+        </h3>
+        <div id="commonersID">
+            <ul class="select-trave clear">
+                {% for v in travellerlist %}
+                    <li style="position:relative">
+                        <input class="users" type="checkbox">
+                        <label class="clear">{% if v.name_zh != "" %}{{v.name_zh}}{% endif %} {% if v.name_zh == "" %} {{v.name_en_first}}{{v.name_en_last}}{% endif %}</label>
+                        {% if v.type == 0 %} 
+                        <br>                                           
+                        <div><span class="adult1">成人</span></div>                                                
+                        {% elif v.type == 1 %} 
+                        <br>                                              
+                        <div><span class="child1 children1">儿童</span></div>                                                
+                        {% else %}  
+                        <br>                                             
+                        <div><span class="child1 baby1">婴儿</span></div>         
+                        {% endif %}                                       
+                                                                                                                             
+
+                         <input type="hidden" data-type="name" class="input_m cq uname-zh" _cqnotice="证件的中文姓名" role="nameCN" egex="checkCnName" value="{{v.name_zh}}" name="name_zh">
+
+                         <input type="hidden" data-type="name" class="input_englishname cq uname-en-last" _cqnotice="姓（拼音或英文）" value="{{v.name_en_last}}" role="nameEnLast" regex="checkEnNameLast" style="text-transform:Uppercase; margin-right: 7px;" name="name_en_last">
+                        <input type="hidden" data-type="name" class="input_englishname input_engnomar cq uname-en-first" _cqnotice="名（拼音或英文）" value="{{v.name_en_first}}" role="nameEnFirst" regex="checkEnNameFirst" style="text-transform:Uppercase" name="name_en_first">
+
+                        <input type="hidden" class="adult-baby" value="{{v.type}}">
+
+                        <input mod_value="" type="hidden" value="{{v.country}}" regex="checkNationality" role="national" class="input_m cq nationality nation" _cqnotice="中文/拼音" autocomplete="on" name="country">
+                               
+                       
+
+                        <input type="hidden" value="{{v.credentials_type}}" role="idCardType" regex="checkIdCardType" class="cre-type" name="credentials_type"> 
+                        <input type="hidden" value="{{v.credentials_value}}" role="idCardNo" class="input_s later cq cre-number" regex="checkIdCard" _cqnotice="证件号码" note="" name="credentials_value">
+
+                        <input type="hidden" class="sex" value="{{v.sexual}}" name="sexual" >
+
+                        <input mod_value="" type="hidden" value="{{v.birthday}}" regex="checkNationality" role="national" class="input_m cq nationality fete" _cqnotice="中文/拼音" autocomplete="on" name="birthday">
+
+                        <input type="hidden" class="input_m phon" value="{{v.phone}}" role="mobileNo" regex="checkMobile" name="phone">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="travellersID">
+        	{% if amountinfo.status == 1 %}
+            {% for info in travellerlist %}
+            <div class="product_input product_input_border layoutfix" ptype="1" filled="f" index="" role="youren">
+                <div class="warm_Tip"></div>                                                
+                <h4>旅客{{loop.index}}
+                    {% if info.type == 1 %}                                            
+                    <div><span class="adult">成人</span></div>                                                
+                    {% elif info.type == 2 %}                                            
+                    <div><span class="child children">儿童</span></div>                                                
+                    {% else %}                                            
+                    <div><span class="child baby">婴儿</span></div>         
+                    {% endif %} 
+                </h4>                        
+                <ul class="input_box">
+                    <li>                                
+                        <label for="" class="product_label">中文姓名</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input type="text" data-type="name" class="input_m cq name-zh" _cqnotice="证件的中文姓名" role="nameCN" egex="checkCnName" required="" value="{{info.name_zh}}" name="name_zh">
+                        <a href="javascript:;" class="explain">填写说明</a>
+                    </li>
+                    <li class="optional">                                
+                        <label for="" class="product_label">英文姓名</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input type="text" data-type="name" class="input_englishname cq name-en-last" _cqnotice="姓（拼音或英文）" value="{{info.name_en_last}}" role="nameEnLast" regex="checkEnNameLast" required="" style="text-transform:Uppercase; margin-right: 7px;" name="name-en-last">
+                        <input type="text" data-type="name" class="input_englishname input_engnomar cq name_en_first" _cqnotice="名（拼音或英文）" value="{{info.name_en_first}}" role="nameEnFirst" regex="checkEnNameFirst" required="" style="text-transform:Uppercase" name="name-en-first">
+                        <span style="margin-left:10px;color:#999;">请核对姓名确保与证件一致</span>                            
+                    </li>
+                    <li class="optional later" style="">                                
+                        <label for="" class="product_label">国籍</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input mod_value="" type="text" value="{{info.country}}" regex="checkNationality" role="national" class="input_m cq nationality country" _cqnotice="中文/拼音" required="" autocomplete="on" name="country">
+                    </li>
+                    <li>                                
+                        <label for="" class="product_label">证件类型</label>                                
+                        <span class="frm_required">*</span>                                
+                        <select value="{{info.credentials_type}}" class="sel-credentials" role="idCardType" regex="checkIdCardType" required="" name="credentials_type">
+                            <option selected="" value="0">护照</option>
+                            <option value="1">港澳通行证</option>
+                            <option value="2">台湾通行证</option>
+                            <!-- <option value="100">稍后提供</option> -->
+                        </select>                                
+                        <input type="text" value="{{info.credentials_value}}" role="idCardNo" class="input_s later cq credential-num" regex="checkIdCard" _cqnotice="证件号码" note="" required="" name="credentials_value">
+                        <span class="hrs" role="passportType" style="">因私护照</span>
+                        <div class="help_block J_notice" style="">
+                            <span class="ico"></span>特别提醒：为了您能顺利出行，请确保旅行结束日期至少比证件有效期早6个月，并准确填写真实、有效的证件号码，订单提交后将无法进行修改。
+                        </div>                                                            
+                    </li>
+                    <!--
+                    <li class="optional" style="">                                
+                        <label for="" class="product_label">性别</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input type="radio" role="gender" regex="checkSex" value="{{info.sexual}}"  required=""  style="opacity:0;filter:alpha(opacity=0);height:1px;width:1px;position:absolute" name="sexual">
+                        <div class="gdcnt" style="float:left;padding:0 4px 1px 0">                                
+                            <a href="###" class="J_gender input_radio selected {% if info.sexual == 0 %}selected{% endif %}" data-value="0"><i></i> 男</a>
+                            <a href="###" class="J_gender input_radio {% if info.sexual == 1 %}selected{% endif %}" data-value="1"><i></i> 女</a>
+                        </div>                                                            
+                    </li>-->
+                    <li class="optional" style="">                                
+                         <form action="">
+                            <label for="" class="product_label">性别</label>                                
+                            <span class="frm_required">*</span>   
+
+                            <label class="radio-inline i-checks">
+                                <input type="radio" class="sexuality" value="1" name="sexual" {% if info.sexual == 1 %}checked{%endif%} >男
+                            </label> 
+                            <label class="radio-inline i-checks">
+                                <input type="radio" class="sexuality" value="2" name="sexual" {% if info.sexual == 2 %}checked{%endif%} >女
+                            </label> 
+                        </form> 
+                                                           
+                    </li>
+                    <li class="optional later" style="">                                
+                        <label for="" class="product_label">出生日期</label>                                
+                        <input mod_value="" type="text" value="{{info.birthday}}" regex="checkNationality" role="national" class="input_m cq nationality birthday" _cqnotice="中文/拼音" autocomplete="on" name="birthday">
+                        <span style="margin-left:10px;color:#999;">（可稍后提供）</span>                            
+                    </li>
+                    <li class="J_loginPhone">                            
+                        <label for="" class="product_label">手机号码</label>                            
+                        <span class="frm_required">*</span>                            
+                        <input type="number" class="input_m pho-num" value="{{info.phone}}" role="mobileNo" regex="checkMobile" required="" name="phone">
+                        <span style="margin-left:10px;color:#999;">请至少输入一位出行旅客的手机号码</span>                        
+                    </li> 
+                    <!-- <input type="hidden" id="product_issave" name="issave" value="1" > -->
+                    <input type="hidden" id="product_type" name="type" value="{{info.type}}" >
+                </ul>
+                <div class="save_wrap"> 
+                    <input type="checkbox" id="product_issave" name="issave" value="0" >                           
+                    <a href="###" class="save selected" role="saveId">保存</a>
+                    <a href="###" class="clear" role="clear">清空</a>
+                </div>                   
+            </div>
+            {% endfor %}
+        	{% else %}
+        	{% for i in range(0, amountinfo.totol_quantity, 1) -%}
+            <div class="product_input product_input_border layoutfix" ptype="1" filled="f" index="" role="youren">
+                <div class="warm_Tip"></div>                                                
+                <h4>旅客{{i+1}}
+                    {% if i < amountinfo.adult_quantity %}                                            
+                    <div><span class="adult age">成人</span></div>                                                
+                    {% elif i < amountinfo.adult_quantity + amountinfo.kid_quantity %}                                            
+                    <div><span class="child children age">儿童</span></div>                                                
+                    {% else %}                                            
+                    <div><span class="child baby age">婴儿</span></div>         
+                    {% endif %}                                       
+                </h4>                        
+                <ul class="input_box">
+                    <li>                                
+                        <label for="" class="product_label">中文姓名</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input type="text" data-type="name" class="input_m cq name-zh" _cqnotice="证件的中文姓名" value="" role="nameCN" egex="checkCnName" required="" name="name_zh">
+                        <a href="javascript:;" class="explain">填写说明</a>
+                    </li>
+                    <li class="optional">                                
+                        <label for="" class="product_label">英文姓名</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input type="text" data-type="name" class="input_englishname cq name-en-last" _cqnotice="姓（拼音或英文）" value="" role="nameEnLast" regex="checkEnNameLast" required="" style="text-transform:Uppercase; margin-right: 7px;" name="name_en_last">
+                        <input type="text" data-type="name" class="input_englishname input_engnomar cq name-en-first" _cqnotice="名（拼音或英文）" value="" role="nameEnFirst" regex="checkEnNameFirst" required="" style="text-transform:Uppercase" name="name_en_first">
+                        <span style="margin-left:10px;color:#999;">请核对姓名确保与证件一致</span>                            
+                    </li>
+                    <li class="optional later" style="">                                
+                        <label for="" class="product_label country">国籍</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input mod_value="" type="text" value="" regex="checkNationality" role="national" class="input_m cq country" _cqnotice="中文/拼音" required="" autocomplete="on" name="country">
+                    </li>
+                    <li>                                
+                        <label for="" class="product_label">证件类型</label>                                
+                        <span class="frm_required">*</span>                                
+                        <select value="0" role="idCardType" class="sel-credentials" regex="checkIdCardType" required="" name="credentials_type">
+                            <option selected="" value="0">护照</option>
+                            <option value="1">港澳通行证</option>
+                            <option value="2">台湾通行证</option>
+                            <!-- <option value="100">稍后提供</option>                                                                 -->
+                        </select>                                
+                        <input type="text" value="" role="idCardNo" class="input_s later cq credential-num" regex="checkIdCard" _cqnotice="证件号码" note="" required="" name="credentials_value">
+                        <span class="hrs" role="passportType" style="">因私护照</span>
+                        <div class="help_block J_notice" style="">
+                            <span class="ico"></span>特别提醒：为了您能顺利出行，请确保旅行结束日期至少比证件有效期早6个月，并准确填写真实、有效的证件号码，订单提交后将无法进行修改。
+                        </div>                                                            
+                    </li>
+                   <!--
+                    <li class="optional" style="">                                
+                        <label for="" class="product_label">性别</label>                                
+                        <span class="frm_required">*</span>                                
+                        <input type="radio" role="gender" regex="checkSex" value="{{info.sexual}}"  required=""  style="opacity:0;filter:alpha(opacity=0);height:1px;width:1px;position:absolute" name="sexual">
+                        <div class="gdcnt" style="float:left;padding:0 4px 1px 0">                                
+                            <a href="###" class="J_gender input_radio selected {% if info.sexual == 0 %}selected{% endif %}" data-value="0"><i></i> 男</a>
+                            <a href="###" class="J_gender input_radio {% if info.sexual == 1 %}selected{% endif %}" data-value="1"><i></i> 女</a>
+                        </div>                                                            
+                    </li>-->
+                    <li class="optional" style="">
+                        <form action="">
+                            <label for="" class="product_label">性别</label>                                
+                            <span class="frm_required">*</span>   
+
+                            <label class="radio-inline i-checks">
+                                <input type="radio" class="sexuality" value="1" name="sexual" {% if info.sexual == 1 %}checked{%endif%} >男
+                            </label> 
+                            <label class="radio-inline i-checks">
+                                <input type="radio" class="sexuality" value="2" name="sexual" {% if info.sexual == 2 %}checked{%endif%} >女
+                            </label> 
+                        </form>                                
+                       
+                                                           
+                    </li>
+                    <li class="optional later" style="">                                
+                        <label for="" class="product_label">出生日期</label>                                
+                        <input mod_value="" type="text" value="" regex="checkNationality" role="national" class="input_m cq nationality birthday" _cqnotice="中文/拼音" autocomplete="on" name="birthday">
+                        <span style="margin-left:10px;color:#999;">（可稍后提供）</span>                            
+                    </li>
+                    <li class="J_loginPhone">                            
+                        <label for="" class="product_label">手机号码</label>                            
+                        <span class="frm_required">*</span>                            
+                        <input type="number" class="input_m pho-num" value="" role="mobileNo" regex="checkMobile" required="" name="phone">
+                        <span style="margin-left:10px;color:#999;">请至少输入一位出行旅客的手机号码</span>                        
+                    </li>                                                                        
+                    <!-- <input type="hidden" id="product_issave" name="issave" value="1" > -->
+                    <input type="hidden" id="product_type" name="type" value="{% if i < amountinfo.adult_quantity %}1{% elif i < amountinfo.adult_quantity + amountinfo.kid_quantity %}2{% else %}3{% endif %}" >
+                </ul>
+                <div class="save_wrap"> 
+                    <input type="checkbox" id="product_issave" name="issave" value="0" >                           
+                    <a href="###" class="save selected" role="saveId">保存</a>                            
+                    <a href="###" class="clear" role="clear">清空</a>                        
+                </div>                   
+            </div>
+            {%- endfor %}
+        	{% endif %}
+	    </div>
+    	<div class="reserve_limited">
+    		<h4>因服务能力有限，请您核实以下情况，以免造成出行不便。</h4>
+    		<p>★本产品不接受非大陆籍客人预订，敬请谅解！</p>
+    		<p>★本产品适合12岁（含）至17岁（不含）儿童/学生参与。</p>
+    		<p>★报价是按照2人入住1间房计算的价格，如您的订单产生单房，将安排您与其他客人拼房入住。如您要求享受单房，请在后续附加产品页面中选择单人房差选项。</p>
+    	</div>
+    </div>
+
+    <!-- 发票配送信息Start -->
+    <div class="input_info" id="bookInfoID" style="">
+        <h3>预订信息</h3>
+        <div class="product_input layoutfix" id="invoiceID">
+            <h4>供应商联系方式</h4>
+        	<div class="input_box">
+                {#
+			    <ul class="input_box" style="zoom: 1; display: block;">        
+			    	<li class="point">礼品卡等消费券支付的金额不提供报销凭证</li>
+			        <li class="default">
+			            <a href="javascript:;" class="revise">【修改】</a> 
+			            <div class="invoice_box_con">
+			            	<span>不需要发票</span> 
+			            </div>
+			        </li>
+			    </ul>
+			    <div class="invoice_content" style="display: none;">
+				    <ul class="bill_box" role="invoice" style="float:none">
+				        <li class="point">礼品卡等消费券支付的金额不提供报销凭证</li>
+				        <li>
+				            <label for="" class="product_label">是否需要发票</label>
+				            <label for="invoice01" class="radio">
+				                <input role="selectInvo" type="radio" value="1" name="invoice" checked="checked" id="invoice01">是
+				            </label>
+				            <label for="invoice02" class="radio">
+				                <input role="cancelInvo" type="radio" value="0" name="invoice" id="invoice02">否
+				            </label>
+				        </li>
+				    </ul>
+				    
+				    <div class="delivery_content" data-ref="normal">
+				        <div class="delivery">
+				            <b class="tab_00"></b>
+				            <ul class="bill_boxii">
+				                <li role="invoiceli">
+				                    <label for="" class="product_label">发票抬头</label>
+				                    <select id="J_InvoiceType" data-bind="val:InvoiceType">
+										<option value="1">个人</option>
+										<option value="2">公司</option>
+									</select>
+				                    <input type="text" class="num01" value="" placeholder="请输入发票抬头" role="getInvoice" data-bind="val:Title">
+				                </li>
+				                <li role="invoiceli">
+				                    <label for="" class="product_label">发票明细</label>
+				                    <select name="" role="invoiceDetail" data-bind="val:Detail">
+					                    <option value="旅游服务费">旅游服务费</option>
+				                    </select>
+				                </li>
+				                <li id="J_RatepayerCode" style="display:none">
+									<label for="" class="product_label">纳税人识别号</label>
+									<input type="text" class="input_m" value="" id="J_getRatepayerCode" placeholder="选填" data-bind="val:RatepayerCode">
+								</li>
+				            </ul>
+				        </div>
+				        <p class="info_bot" id="J_invoiceTip">*普通发票将于返程后5个工作日开具并邮寄给您，请注意查收。</p>
+				    </div>
+			    </div>
+                #}
+                <div class="col-md-6 col-sm-6">
+                    <h4>名称: {{amountinfo.vender_name}}</h4>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h4>手机号码: {{amountinfo.vender_phone}}</h4>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h4>联系人: {{amountinfo.vender_linkman}}</h4>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h4>地址: {{amountinfo.vender_addr}}</h4>
+                </div>
+			</div>
+	    </div>
+	    <!--配送信息 -->
+	    <div class="product_input layoutfix" style="display: none;">
+	        <h4> 配送方式</h4>
+	        <div class="input_box" id="deliveryID"></div>
+	    </div>
+	    <div class="product_input layoutfix" id="extrasID">
+	        <h4><a href="###" class="more_close" role="mores">备注</a></h4>
+	        <ul class="extras_box" style="display:block;" role="extrasInputs">
+	            <li class="default">
+	                <div>
+	                    <textarea role="Remark" class="cq" id="other_remark" _cqnotice="其他特殊说明可以在这里填写"></textarea>
+	                    <p>您的特殊需求，我们会尽量协调。如无法满足，我们不会另行通知，请您见谅！</p>
+	                </div>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+    <!-- 发票配送信息End -->
+
+    <div id="singleConponID" style="display: none"></div>
+    <!-- 去支付-->
+    <div class="defray_box layoutfix">
+        <div class="defray_shop_box">
+            <a href="" class="prev_stop" id="js_prev_stop"><b></b>上一步</a>
+            {#
+            <div class="total">
+                <span class="tit_price">总价</span>
+                <span class="total_price"><dfn>¥</dfn><span id="totalID">185800</span></span>
+            </div>
+            <div class="corp_account" style="display:" id="MultiPay">
+                <label>
+                    <i class="icon_check"></i>
+                    <span class="account_txt">分笔支付</span>
+                </label>
+                <i class="icon_tips" data-params="{options:{type:'jmp_alert',classNames:{boxType:'jmp_alert'},template:'#jmp_alert', content:{txt:'支付额度不够怎么办？您可以将订单分成多笔支付。'},css:{maxWidth:'470'},alignTo:'cursor'}}" data-role="jmp"></i>
+            </div>
+            #}
+        </div>
+        <form class = "form-post" id="form-order" method="post" action="/uc/booking/createorder">
+			<input type="hidden" id="product_amountinfo" name="amountinfo" value="{{amountinfo | dump}}" />
+			<input type="hidden" id="product_connectinfo" name="connectinfo" value="{{connectinfo | dump}}" />
+			<input type="hidden" id="product_travellersinfo" name="travellersinfo" value="{{travellerlist | dump}}" />
+			<input type="hidden" id="product_discount_code" name="discount_code" value="" >
+			<input type="hidden" id="product_user_remark" name="user_remark" value="" >
+			<input type="hidden" id="product_temp_order" name="temp_order" value="0" >
+            <button type="submit" class="prev_stop" onclick="submit_order(1);return false;">暂存订单</button>
+        	<button type="submit" class="btn_proess_big" id="submitID" onclick="submit_order(0);return false;">同意以下条款，去支付</button>
+        </form>
+    </div>
+</div>
+
+<div class="input_info mt0" id="J_term">
+    <h3>预订须知</h3>
+    <div class="special_tips">
+    	<span class="">为支持绿色环保，我同意接受电子合同并默认其合法有效性，如需签署纸质合同将另行致电花生卷客服。</span>
+    </div>
+    <div class="content_box"></div>
+</div>
+
+{#
+<div class="panel panel-default margin-bottom-0">
+	<div class="panel-body ">
+		<div class="heading-title heading-dotted text-center margin-bottom-15">
+			<h4>填写并核对 <span>[订单信息]</span></h4>
+		</div>
+		<section class="padding-bottom-15 padding-top-0">
+        <div class="heading-title heading-line-single margin-bottom-20">
+						<h5>收货人信息</h5>
+			<a class="btn btn-danger btn-xs add-addr-btn noradius pull-right margin-top-0" data-toggle="modal" data-target=".add-addr-dialog"> <i class="fa fa-plus-square"></i>  新增收货地址</a>
+
+		</div>
+                    <div class="addr-box">
+         {% for val in addrlist %}
+        
+		<div class="icheck addr-list m-b">
+            <div class="item">
+            <input type="radio"  name="address" value="{{val.id}}" {% if val.is_default == 1 %} checked {% endif%} >
+                            <label ><ul class="text-left list-inline list-separator margin-bottom-0">
+                                {% if val.is_default == 1 %} 
+								<li class="label label-info">
+									默认地址
+								</li>
+                                {% endif%}
+								<li>
+									{{val.accept_name}}
+								</li>
+                                <li>
+									{{val.province}} 
+								</li>
+                                <li>
+									{{val.city}} 
+								</li>
+								<li>{{val.county}}</li>
+                                <li>
+									{{val.addr}}
+								</li>
+                                <li>{{val.mobile}} </li>
+							</ul>     </label>
+                            </div> 
+                          <div class="item">
+                                        {% if val.is_default == 0 %}  <a href="#" class="btn btn-default btn-xs is_d" data-addr-id = "{{val.id}}" ><i class="fa fa-check white"></i> 设为默认 </a>  {% endif%}
+										<a href="/uc/address/editaddrmodal/id/{{val.id}}" class="btn btn-default btn-xs edit"  data-toggle="ajaxModal"> <i class="fa fa-edit white"  ></i> 编辑 </a>
+										<a href="#" class="btn btn-default btn-xs del swal"  data-addr-id = "{{val.id}}"><i class="fa fa-times white"></i> 删除 </a>
+						  </div>   
+                            
+         </div>
+						{%else%}
+						<div class="alert alert-mini alert-warning margin-bottom-0"><!-- WARNING -->
+							<button type="button" class="close" data-dismiss="alert">
+								<span aria-hidden="true">×</span>
+								<span class="sr-only">Close</span>
+							</button>
+							<strong>提示!</strong> 您还没有收货地址，请先添加.
+						</div>
+         {% endfor %}
+            
+                    </div>
+        </section>
+        <section class="padding-bottom-15 padding-top-15">
+        <div class="heading-title heading-line-single margin-bottom-20">
+						<h5>支付方式</h5>
+					</div>
+		  <div class="pay-box">
+        
+        
+		<div class="icheck pay-list m-b">
+             {% for val in paylist %}
+            <div class="item">
+            <input type="radio"  name="payment" value="{{val.id}}" {% if val.sort == 1 %} checked {% endif%}>
+                            <label ><img src="{{val.logo}}" /> {{val.title}} </label>
+                            </div> 
+                           {% endfor %}
+			{% if controller.setup.PREPAID == 0 %}
+			<div class="item">
+				<input type="radio" name="payment" value="100" {% if paylist|length == 0 %} checked {% endif%}>
+				<label><img src="/static/admin/img/pingxx/yfk.png"/> 预付款支付 </label>
+			</div>
+			{% endif %}
+			{% if controller.setup.COD == 0 %}
+			<div class="item">
+				<input type="radio" name="payment" value="1001" {% if paylist|length == 0 and controller.setup.PREPAID == 1 %} checked {% endif%}>
+				<label><img src="/static/admin/img/pingxx/hdfk.png"/> 货到付款 </label>
+			</div>
+			{% endif %}
+         </div>
+        
+            
+                    </div>
+        </section>
+          <section class="padding-bottom-0 padding-top-15">
+        <div class="heading-title heading-line-single margin-bottom-20">
+						<h5>送货清单</h5>
+                       <a href="/uc/cart" class="btn btn-info btn-xs add-addr-btn noradius pull-right margin-top-0"> <i class="fa fa-opencart"></i> 返回修改购物车</a>
+					</div>
+		<div class="table-responsive">
+	<table class="table table-hover margin-bottom-0">
+		<thead>
+			<tr class="active">
+				<th style="width: 60px">商品</th>
+				<th style="width: 350px">名称</th>
+				<th>规格</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>优惠</th>
+                <th>小计</th>
+			</tr>
+		</thead>
+		<tbody>
+            {% for val in check_goods%}
+			<tr>
+				<td><img src="{{val.pic}}" alt="" width="45" class="img-responsive img-thumbnail" /></td>
+				<td>{{val.title}}</td>
+				<td>{% if val.type%}{{val.type}}{%endif%}</td>
+                <td>¥{{val.unit_price|formatCurrency}}</td>
+                <td>{{val.qty}}</td>
+                <td>无</td>
+                <td>¥{{val.price|formatCurrency}}</td>
+			</tr>
+            {% endfor %}
+		</tbody>
+	</table>
+</div>
+        </section>
+
+		{%if controller.setup.IS_INVOICE == 1%}
+         <section class="padding-bottom-15 padding-top-15">
+        <div class="heading-title heading-line-single margin-bottom-20">
+						<h5>发票信息</h5>
+					</div>
+		<div class="table-responsive">
+	<table class="table">
+		
+		<tbody>
+			<tr class="success">
+				<td>Value 1</td>
+				<td>Value 2</td>
+				<td>Value 3</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
+        </section>
+
+              <section class="padding-bottom-15 padding-top-15">
+        <div class="heading-title heading-line-single margin-bottom-20">
+						<h5>订单促销活动</h5>
+					</div>
+		<div class="table-responsive">
+	<table class="table">
+		
+		<tbody>
+			<tr class="success">
+				<td>Value 1</td>
+				<td>Value 2</td>
+				<td>Value 3</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
+        </section>
+		{%endif%}
+		<section class="padding-bottom-15 padding-top-15">
+			<div class="heading-title heading-line-single margin-bottom-20">
+				<h5>订单备注</h5>
+			</div>
+			<div class="fancy-form">
+				<textarea class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="订单备注" name="user_remark"></textarea>
+
+				<i class="fa fa-comments"><!-- icon --></i>
+
+	<span class="fancy-hint size-11 text-muted">
+		<strong>限:</strong> 200字以内!
+		<span class="pull-right">
+			<span id="textarea-words-info">0/200</span> 字
+		</span>
+	</span>
+
+			</div>
+		</section>
+	</div>
+    
+</div>
+<div class="row">
+    <div class="col-md-8 hidden-xs"></div>
+    <div class="col-md-4 col-xs-12">
+        <div class="table-responsive margin-top-20">
+		<table class="table margin-bottom-0">
+			
+			<tbody>
+				<tr >
+					<td class="text-right"><span class="text-danger">{{nums}}</span> 件商品，总商品金额：</td>
+					<td>¥ <span class="text-danger">{% if real_amount %}{{real_amount|formatCurrency}}{%else%}0.00{%endif%}</span></td>
+					
+				</tr>
+				<tr >
+					<td class="text-right">优惠：</td>
+					<td><span class="text-success">- </span> ¥<span class="text-success">0.00</span></td>
+					
+				</tr>
+				<tr >
+					<td class="text-right">运费：</td>
+					<td id="real_freight">¥ <span class="text-danger">{%if real_freight%}{{real_freight|formatCurrency}}{%else%}0.00{%endif%}</span></td>
+					
+				</tr>
+				<tr class="danger">
+					<td class="text-right text-danger size-18">应付总额：</td>
+					<td class="text-danger size-18" id="order_amount">¥{{order_amount|formatCurrency}}</td>
+					
+				</tr>
+				
+			</tbody>
+		</table>
+	  
+		</div>	
+	</div>	
+
+
+</div>
+<div class="callout alert alert-default  margin-bottom-60">
+
+	<div class="row">
+
+		<div class="col-md-8 col-sm-8 showaddr"><!-- left text -->
+			{% for val in addrlist %}
+			{% if val.is_default == 1 %}
+			<p class="size-14 margin-bottom-6"><strong>寄送至：</strong>{{val.province}} {{val.city}} {{val.county}} {{val.addr}}  </p>
+				<p class="size-14"><strong>收货人：</strong>{{val.accept_name}} {{val.mobile}}</p>
+			{%endif%}
+			{%endfor%}
+			
+		</div><!-- /left text -->
+
+		
+		<div class="col-md-4 col-sm-4 text-right"><!-- right btn -->
+             <input type="hidden" value="{{check_goods|jsonToStr}}" name="goodslist">
+			<button  target-form="form-post" class="btn btn-danger btn-lg ajax-post" type="submit">提交订单</button>
+       
+		</div><!-- /right btn -->
+
+	</div>
+
+</div>
+#}
+
+					</div>
+			</section>
+      <!-- </form> -->
+			<!-- /CART -->
+
+<div id="order_warning" class="tuna_jmpinfo" group="no_group" style="min-width: 120px; max-width: 260px; display: none; z-index: 999; margin: 0px; padding: 0px; left: 31%; top: 18px; overflow: hidden; position: absolute; width: auto !important; border-radius: 5px;">
+	<div class="base_jmp jmp_alert base_jmp_l" id="boxId" style="border-radius: 5px;">
+		<b class="tri_l" id="arrowId" style="display: block; left: 12px; margin-top: 10px;"></b>
+		<div class="" id="loadingId"></div>
+		<div class="jmp_content" id="contentId">
+			<div class="jmp_bd">输入不能为空</div>
+		</div>
+	</div>
+</div>
+
+{#
+<div class="modal fade add-addr-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- header modal -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title " id="myLargeModalLabel">新增收货人信息</h4>
+			</div>
+
+			<!-- body modal -->
+			<div class="modal-body">
+				<form  method="post"  class="add-addr" >
+									<fieldset>
+										<!-- required [php action request] -->
+										<div class="row">
+											<div class="form-group" id="areas">
+												<div class="col-md-3 col-sm-12">
+													<label>所在地区（省份/直辖市） *</label>
+													<select class="form-control pointer " id="province" name="province" required>
+														<option value="">--- 省份/直辖市 ---</option>
+														
+													</select>
+												</div>
+                                                <div class="col-md-3 col-sm-12">
+													<label>（市） *</label>
+													<select class="form-control pointer " id="city" name="city" required>
+														<option value="">--- 市 ---</option>
+														
+													</select>
+												</div>
+                                                <div class="col-md-3 col-sm-12">
+													<label>（县/区） *</label>
+													<select class="form-control pointer " id="county" name="county" required>
+														<option value="">--- 县/区 ---</option>
+													</select>
+												</div>
+											</div>
+										</div>
+                                          <div class="row">
+											<div class="form-group">
+												<div class="col-md-12 col-sm-12">
+													<label>街道地址 *</label>
+													<textarea class="form-control required" name="addr" required></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6">
+													<label>邮政编码 *</label>
+													<input type="text" class="form-control required" value="" name="zip" required>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<label>手机号码 *</label>
+													<input type="text" class="form-control required" value="" name="mobile" required>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6">
+													<label>收货人姓名 *</label>
+													<input type="text" class="form-control required" value="" name="accept_name" required>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<label>电话号码 </label>
+													<input type="text" class="form-control " value="" name="phone">
+												</div>
+											</div>
+										</div>
+
+										
+
+										<div class="row">
+											<div class="form-group">
+												<div class="col-md-12 col-sm-12">
+													<label>
+														设为默认地址
+														
+													</label>
+													<!-- checkbox -->
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="1" name="is_default">
+                                            <i></i> 设置为默认收货地址
+                                        </label>
+												</div>
+											</div>
+										</div>
+
+									</fieldset>
+									<div class="row">
+										<div class="col-md-12">
+											<button class="btn btn-3d btn-teal btn-lg btn-block margin-top-30" type="submit">
+												保存收货人地址
+											</button>
+										</div>
+									</div>
+
+				</form>	
+			</div>
+  
+		</div>
+	</div>
+</div>
+#}
+{% endblock %}
+
+{% block script%}
+<!-- PAGE LEVEL SCRIPTS -->
+		<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+
+<script type="text/javascript">
+    $(".save_wrap").on("click","#product_issave",function(){
+        if($(this).is(":checked")){
+            $(this).val(1)
+        }else{
+            $(this).val(0)
+        }
+    })
+        //游学时长
+    $(document).ready(function(){
+        var tourdays;
+        $.ajax({
+            url:"/uc/booking/tourdays?tid="+{{amountinfo.product_id}},
+            async:false,
+            success:function(result){
+                tourdays = result[0].tourdays;
+                $(".duration").html(tourdays)
+            }
+        })
+    })
+    $("#commonersID").on("click","input[type='checkbox']",function(){
+        var adultcheck = $(".adult1").parent().siblings(".users:checked").length,
+            adult = $(".adult").length,
+            childcheck = $(".children1").parent().siblings(".users:checked").length,
+            child = $(".children").length,
+            babycheck = $("baby1").parent().siblings(".users:checked").length,
+            baby = $(".baby").length;
+        // console.log(child)
+        if(adultcheck <= adult && childcheck <= child && babycheck <= baby){
+            if($(this).is(":checked")){
+                console.log($(this));
+                //console.log($(this).siblings("input"));
+                var zhname =  $(this).siblings("input.uname-zh").val(),
+                    ennamelast = $(this).siblings("input.uname-en-last").val(),
+                    ennamefirst = $(this).siblings("input.uname-en-first").val(),
+                    type = $(this).siblings("input.adult-baby").val(),
+                    nation = $(this).siblings("input.nation").val(),
+                    cretype = $(this).siblings("input.cre-type").val(),
+                    crenumber = $(this).siblings("input.cre-number").val(),
+                    sex = $(this).siblings("input.sex").val(),
+                    fete = $(this).siblings("input.fete").val(),
+                    phon = $(this).siblings("input.phon").val()
+                    console.log(zhname,ennamelast,ennamefirst,type,nation,cretype,crenumber,sex,fete,phon)
+                    console.log(type)
+                if(type == 0){
+                    var arr = $("#travellersID span.adult").parent().parent().siblings("ul");
+                    for(var i=0;i<arr.length;i++){
+                        var a = arr[i];
+                        console.log(a)
+                        if($(a).find(".credential-num").val() == ""){
+                            $(a).find(".name-zh").val(zhname);
+                            $(a).find(".name-en-last").val(ennamelast);
+                            $(a).find(".name-en-first").val(ennamefirst);
+                            $(a).find(".country").val(nation);
+                            $(a).find(".sel-credentials").find("option[value="+cretype+"]").prop("selected",true);
+                            $(a).find(".credential-num").val(crenumber);
+                            $(a).find(".sexuality[value="+sex+"]").prop("checked",true);
+                            $(a).find(".birthday").val(fete);
+                            $(a).find(".pho-num").val(phon);
+                            break;
+                        }
+                    }
+                }else if(type == 1){
+                    var arr = $("#travellersID span.children").parent().parent().siblings("ul");
+                    for(var i=0;i<arr.length;i++){
+                        var a = arr[i];
+                        console.log(a)
+                        if($(a).find(".credential-num").val() == ""){
+                            $(a).find(".name-zh").val(zhname);
+                            $(a).find(".name-en-last").val(ennamelast);
+                            $(a).find(".name-en-first").val(ennamefirst);
+                            $(a).find(".country").val(nation);
+                            $(a).find(".sel-credentials").find("option[value="+cretype+"]").prop("selected",true);
+                            $(a).find(".credential-num").val(crenumber);
+                            $(a).find(".sexuality[value="+sex+"]").prop("checked",true);
+                            $(a).find(".birthday").val(fete);
+                            $(a).find(".pho-num").val(phon);
+                            break;
+                        }
+                    }
+                }else if(type == 2){
+                    var arr = $("#travellersID span.baby").parent().parent().siblings("ul");
+                    for(var i=0;i<arr.length;i++){
+                        var a = arr[i];
+                        console.log(a)
+                        if($(a).find(".credential-num").val() == ""){
+                            $(a).find(".name-zh").val(zhname);
+                            $(a).find(".name-en-last").val(ennamelast);
+                            $(a).find(".name-en-first").val(ennamefirst);
+                            $(a).find(".country").val(nation);
+                            $(a).find(".sel-credentials").find("option[value="+cretype+"]").prop("selected",true);
+                            $(a).find(".credential-num").val(crenumber);
+                            $(a).find(".sexuality[value="+sex+"]").prop("checked",true);
+                            $(a).find(".birthday").val(fete);
+                            $(a).find(".pho-num").val(phon);
+                            break;
+                        }
+                    }
+                }
+            }else{
+                var crenumber = $(this).siblings("input.cre-number").val(),
+                    sex = $(this).siblings("input.sex").val(),
+                    cretype = $(this).siblings("input.cre-type").val()
+                var arr = $("#travellersID span.age").parent().parent().siblings("ul");
+                for(var i=0;i<arr.length;i++){
+                    var a = arr[i];
+                    if($(a).find(".credential-num").val() == crenumber){
+                        $(a).find(".name-zh").val("");
+                            $(a).find(".name-en-last").val("");
+                            $(a).find(".name-en-first").val("");
+                            $(a).find(".country").val("");
+                            $(a).find(".sel-credentials").find("option[value=0]").prop("selected",true);
+                            $(a).find(".credential-num").val("");
+                            $(a).find(".sexuality[value="+sex+"]").prop("checked",false);
+                            $(a).find(".birthday").val("");
+                            $(a).find(".pho-num").val("");
+                    }
+                }
+            }
+        }else{
+            if(adultcheck > adult){
+                $("#order_warning .jmp_bd").html("成人人数过多");
+            }else if(childcheck > child){
+                $("#order_warning .jmp_bd").html("儿童人数过多");
+            }else if(babycheck > baby){
+                 $("#order_warning .jmp_bd").html("婴儿人数过多");
+            }
+            warning_left = $(this).offset().left + $(this).width() + $(this).siblings("label").width();
+            warning_top = $(this).offset().top;
+            $("#order_warning").show();
+            $("#order_warning").css("left", warning_left + "px");
+            $("#order_warning").css("top", warning_top + "px");
+            $('html,body').animate({scrollTop: warning_top - 100}, 400, 'easeInOutExpo');
+           
+            return false;
+        }
+            // if($(this).is(":checked")){
+            //     console.log($(this));
+            //     //console.log($(this).siblings("input"));
+            //     var zhname =  $(this).siblings("input.uname-zh").val(),
+            //         ennamelast = $(this).siblings("input.uname-en-last").val(),
+            //         ennamefirst = $(this).siblings("input.uname-en-first").val(),
+            //         type = $(this).siblings("input.adult-baby").val(),
+            //         nation = $(this).siblings("input.nation").val(),
+            //         cretype = $(this).siblings("input.cre-type").val(),
+            //         crenumber = $(this).siblings("input.cre-number").val(),
+            //         sex = $(this).siblings("input.sex").val(),
+            //         fete = $(this).siblings("input.fete").val(),
+            //         phon = $(this).siblings("input.phon").val()
+            //         console.log(zhname,ennamelast,ennamefirst,type,nation,cretype,crenumber,sex,fete,phon)
+            //         console.log(type)
+            //     if(type == 0){
+            //         var arr = $("#travellersID span.adult").parent().parent().siblings("ul");
+            //         for(var i=0;i<arr.length;i++){
+            //             var a = arr[i];
+            //             console.log(a)
+            //             if($(a).find(".credential-num").val() == ""){
+            //                 $(a).find(".name-zh").val(zhname);
+            //                 $(a).find(".name-en-last").val(ennamelast);
+            //                 $(a).find(".name-en-first").val(ennamefirst);
+            //                 $(a).find(".country").val(nation);
+            //                 $(a).find(".sel-credentials").find("option[value="+cretype+"]").prop("selected",true);
+            //                 $(a).find(".credential-num").val(crenumber);
+            //                 $(a).find(".sexuality[value="+sex+"]").prop("checked",true);
+            //                 $(a).find(".birthday").val(fete);
+            //                 $(a).find(".pho-num").val(phon);
+            //                 break;
+            //             }
+            //         }
+            //     }else if(type == 1){
+            //         var arr = $("#travellersID span.children").parent().parent().siblings("ul");
+            //         for(var i=0;i<arr.length;i++){
+            //             var a = arr[i];
+            //             console.log(a)
+            //             if($(a).find(".credential-num").val() == ""){
+            //                 $(a).find(".name-zh").val(zhname);
+            //                 $(a).find(".name-en-last").val(ennamelast);
+            //                 $(a).find(".name-en-first").val(ennamefirst);
+            //                 $(a).find(".country").val(nation);
+            //                 $(a).find(".sel-credentials").find("option[value="+cretype+"]").prop("selected",true);
+            //                 $(a).find(".credential-num").val(crenumber);
+            //                 $(a).find(".sexuality[value="+sex+"]").prop("checked",true);
+            //                 $(a).find(".birthday").val(fete);
+            //                 $(a).find(".pho-num").val(phon);
+            //                 break;
+            //             }
+            //         }
+            //     }else if(type == 2){
+            //         var arr = $("#travellersID span.baby").parent().parent().siblings("ul");
+            //         for(var i=0;i<arr.length;i++){
+            //             var a = arr[i];
+            //             console.log(a)
+            //             if($(a).find(".credential-num").val() == ""){
+            //                 $(a).find(".name-zh").val(zhname);
+            //                 $(a).find(".name-en-last").val(ennamelast);
+            //                 $(a).find(".name-en-first").val(ennamefirst);
+            //                 $(a).find(".country").val(nation);
+            //                 $(a).find(".sel-credentials").find("option[value="+cretype+"]").prop("selected",true);
+            //                 $(a).find(".credential-num").val(crenumber);
+            //                 $(a).find(".sexuality[value="+sex+"]").prop("checked",true);
+            //                 $(a).find(".birthday").val(fete);
+            //                 $(a).find(".pho-num").val(phon);
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // }else{
+            //     var crenumber = $(this).siblings("input.cre-number").val(),
+            //         sex = $(this).siblings("input.sex").val(),
+            //         cretype = $(this).siblings("input.cre-type").val()
+            //     var arr = $("#travellersID span.age").parent().parent().siblings("ul");
+            //     for(var i=0;i<arr.length;i++){
+            //         var a = arr[i];
+            //         if($(a).find(".credential-num").val() == crenumber){
+            //             $(a).find(".name-zh").val("");
+            //                 $(a).find(".name-en-last").val("");
+            //                 $(a).find(".name-en-first").val("");
+            //                 $(a).find(".country").val("");
+            //                 $(a).find(".sel-credentials").find("option[value=0]").prop("selected",true);
+            //                 $(a).find(".credential-num").val("");
+            //                 $(a).find(".sexuality[value="+sex+"]").prop("checked",false);
+            //                 $(a).find(".birthday").val("");
+            //                 $(a).find(".pho-num").val("");
+            //         }
+            //     }
+            // }
+    })
+	$(document).ready(function() {
+		// console.log({{travellerlist.length}});
+		// console.log("status: " + {{status}});
+	});
+	var isInputValid = true;
+	var warning_left;
+	var warning_top;
+	function submit_order(order) {
+		isInputValid = true;
+		$("#product_temp_order").val(order);
+		$("#product_discount_code").val($("#J_couponCodeInput").val());
+		$("#product_user_remark").val($("#other_remark").val());
+
+		var array = $("#linkManID input");
+		var str_data = "";
+		$.each(array, function(index){
+			// console.log("required = " + $(this).attr("required"));
+			if($(this).attr("required") == 'required') {
+				// console.log("required: required, " + "name = " + $(this).attr("name"));
+				if($(this).val() == '') {
+					// console.log("empty");
+					isInputValid = false;
+					warning_left = $(this).offset().left + $(this).width();
+					warning_top = $(this).offset().top;
+					console.log("left: " + warning_left + ", top: " + warning_top);
+					return false;
+				}
+			}
+			str_data = str_data + ('"' + $(this).attr("name") + '":"' + $(this).val() + '"');
+			if(index < array.length - 1) {
+				str_data = str_data + ",";
+			}
+		});
+		event.stopPropagation();
+		if(!isInputValid) {
+			// console.log("isInputValid");
+            $("#order_warning .jmp_bd").html("输入不能为空");
+			$("#order_warning").show();
+			$("#order_warning").css("left", warning_left + "px");
+			$("#order_warning").css("top", warning_top + "px");
+			$('html,body').animate({scrollTop: warning_top - 100}, 400, 'easeInOutExpo');
+			// $(window).offset.top = warning_top;
+			return false;
+		}
+		console.log("str_data: " + "{" + str_data + "}");
+		$("#product_connectinfo").val("{" + str_data + "}");
+        console.log($("#product_connectinfo").val())
+
+		array = $("#travellersID .product_input");
+		// console.log("array.length = " + array.length);
+		str_data = "";
+		$.each(array, function(index) {
+			var inputs = $(this).find("select,input");
+			var str = "";
+			$.each(inputs, function(index1){
+				// console.log("name = " + $(this).attr("name"));
+				if($(this).attr("required") == 'required') {
+					// console.log("required: required, " + "name = " + $(this).attr("name"));
+					if($(this).val() == '') {
+						// console.log("empty");
+						isInputValid = false;
+						warning_left = $(this).offset().left + $(this).width();
+						warning_top = $(this).offset().top;
+						console.log("left: " + warning_left + ", top: " + warning_top);
+						return false;
+					}
+				}
+				str = str + ('"' + $(this).attr("name") + '":"' + $(this).val() + '"');
+				if(index1 < inputs.length - 1)
+					str = str + ",";
+			});
+			if(!isInputValid)
+				return false;
+			str_data = str_data + "{" + str + "}";
+			if(index < array.length - 1)
+				str_data = str_data + ",";
+		});
+		if(!isInputValid) {
+			// console.log("isInputValid");
+            $("#order_warning .jmp_bd").html("输入不能为空");
+			$("#order_warning").show();
+			$("#order_warning").css("left", warning_left + "px");
+			$("#order_warning").css("top", warning_top + "px");
+			$('html,body').animate({scrollTop: warning_top - 100}, 400, 'easeInOutExpo');
+			// $(window).offset.top = warning_top;
+			return false;
+		}
+		console.log("str_data: " + "[" + str_data + "]");
+		$("#product_travellersinfo").val("[" + str_data + "]");
+        console.log($("#product_travellersinfo").val())
+
+		$("#form-order").submit();
+	}
+
+	$(function(){ 
+		$(document).bind("click",function(e){ 
+			// console.log("click");
+			var target = $(e.target); 
+			if(target.closest("#order_warning").length == 0){ 
+				// console.log("hide");
+				$("#order_warning").hide(); 
+			} 
+		});
+
+        $('.gdcnt').on('click', 'a', function(e) {
+            var btn = $(e.target).parent();
+            // console.log(e);
+            // console.log(e.target);
+            // console.log(btn);
+            if(!btn.hasClass('selected')) {
+                btn.siblings().removeClass('selected');
+                btn.addClass('selected');
+                btn.parent().prev().val(btn.attr('data-value'));
+            }
+        });
+
+        $('.promotion_code').on('click', 'input[role="checkcode"]', function(e) {
+            var btn = $(e.target).prev();
+            // console.log(e);
+            // console.log(e.target);
+            // console.log(btn);
+            warning_left = btn.offset().left + btn.width();
+            warning_top = btn.offset().top;
+            $.ajax({
+                url: "/uc/booking/discountcheck?code=" + btn.val(),
+                type: "GET",
+                success: function (res) {
+                    console.log(res);
+                    if(res.errno == 0)
+                        $("#order_warning .jmp_bd").html("优惠券可使用");
+                    else
+                        $("#order_warning .jmp_bd").html(res.errmsg);
+                    $("#order_warning").show();
+                    $("#order_warning").css("left", warning_left + "px");
+                    $("#order_warning").css("top", warning_top + "px");
+                }
+            });
+        });
+	})
+</script>
+{% endblock %}

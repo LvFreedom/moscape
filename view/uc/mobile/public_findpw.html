@@ -1,0 +1,546 @@
+{% extends "./inc/appbase.html" %}
+
+{% block style %}
+<style>
+	.area {
+		margin: 20px auto 0px auto;
+	}
+	header.login-top{
+		background:url(/static/assets/images/mobile/background/mobile_topbg.jpg) no-repeat;
+	}
+	.mui-content{
+		background:url(/static/assets/images/mobile/background/mobile_loginbg.png) no-repeat;
+		width:100%;
+		height:100%;
+	}
+	.mui-input-group {
+		margin-top: 10px;
+	}
+
+	.mui-input-group:first-child {
+		margin-top: 20px;
+	}
+
+	.mui-input-group label {
+		width: 22%;
+	}
+	#login-form{
+		width:85%;
+		margin:0 auto;
+	}
+	.mui-input-row{
+		margin:0 auto;
+		margin-bottom: 20px;
+		border-radius: 5px;
+
+	}
+	.mui-input-row select{
+		padding-left:10px;
+	}
+	.mui-input-row label~select,
+	.mui-input-row label~textarea {
+		width: 78%;
+	}
+
+	.mui-checkbox input[type=checkbox],
+	.mui-radio input[type=radio] {
+		top: 6px;
+	}
+
+	.mui-content-padded {
+		margin-top: 25px;
+		text-align:center;
+		margin-bottom:20px;
+	}
+
+	.mui-btn {
+		padding: 10px;
+	}
+
+	.link-area {
+		display: block;
+		margin-top: 25px;
+		text-align: center;
+	}
+
+	.spliter {
+		color: #bbb;
+		padding: 0px 8px;
+	}
+
+	.oauth-area {
+		position: absolute;
+		bottom: 20px;
+		left: 0px;
+		text-align: center;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	.oauth-area .oauth-btn {
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		background-size: 30px 30px;
+		background-position: center center;
+		background-repeat: no-repeat;
+		margin: 0px 20px;
+		/*-webkit-filter: grayscale(100%); */
+		border: solid 1px #ddd;
+		border-radius: 25px;
+	}
+
+	.oauth-area .oauth-btn:active {
+		border: solid 1px #aaa;
+	}
+
+	.oauth-area .oauth-btn.disabled {
+		background-color: #ddd;
+	}
+
+	/* 以下遮罩层为demo.用户可自行设计实现 */
+	#mask {
+		display: none;
+		position: fixed;
+		text-align: center;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		overflow: auto;
+	}
+
+	/* 可自行设计实现captcha的位置大小 */
+	.popup-mobile {
+		position: relative;
+	}
+
+	#popup-captcha-mobile {
+		position: fixed;
+		display: none;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
+		z-index: 9999;
+	}
+	.show {
+		display: block !important;
+	}
+	.hide {
+		display: none;
+	}
+
+
+	.mobile-log,
+	.mobile-reg{
+		display:inline-block;
+		width:50px;
+		height:30px;
+		margin-top:7px;
+		line-height: 30px;
+		text-align:center;
+		color:#fff;
+		margin-left:15px;
+	}
+	.mobile-log{
+		border:2px solid #fff;
+		border-radius: 5px;
+		line-height:26px;
+	}
+	.back{
+		display: inline-block;
+		width:35px;
+		height:20px;
+		background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+		background-size:35px 20px;
+		border:0;
+	}
+	.login-title{
+		color:#fff;
+		font-size:18px;
+		padding-top:25px;
+	}
+	.link-area{
+		text-align:right;
+		margin-bottom:20px;
+	}
+	#forgetPassword{
+		color:#fff;
+		margin-right:6%;
+	}
+	#validate-submit{
+		width:40%;
+	}
+	.mui-table-view-cel{
+		color:#fff;
+	}
+	#reg{
+		float:right;
+		color:#fff;
+		margin-right:4%;
+	}
+	.mui-content>i{
+		display:block;
+		width:85%;
+		height:2px;
+		background:#fff;
+		margin:20px auto;
+	}
+	input::-webkit-input-placeholder { /* WebKit browsers */ 
+		color: #1eb6c1;  
+	} 
+	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+		color: #1eb6c1;  
+	} 
+	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+		color: #1eb6c1;  
+	} 
+	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+		color: #1eb6c1; 
+	} 	
+
+
+	.sel-country{
+		width:20%;
+		float:left;
+		margin:0;
+		color:#1eb6c1;
+	}
+	#mobile{
+		width:79%;
+		float:right;
+		border-radius: 3px;
+	}
+	#verifycode{
+		width:68%;
+		border-radius: 3px;
+	}
+	.mui-input-row .get-veri{
+		width:30%;
+		padding:0;
+		height:100%;
+		line-height: 40px;
+	}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<header class="mui-bar mui-bar-nav login-top">
+	<a href="/index" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+</header>
+<section class="mui-content">
+	<div class="text-center login-title">找回密码</div>
+	<i></i>
+	<form id='login-form' class="mui-input-group">
+		<div class="mui-input-row">
+			<select class="sel-country">
+				<option value="0" selected>+86</option>
+			</select>
+		  <!--   <input id='account' type="text" value="" name="username" class="mui-input-clear mui-input" placeholder="输入用于登录的手机号码"> -->
+			<input id="mobile" class="mui-input-clear mui-input" type="text" maxlength="11" placeholder="输入用于登录的手机号" name="mobile" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();">
+		</div>
+		{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+		<div id="mask" class="hide"></div>
+		<div id="popup-captcha-mobile" class="hide"></div>
+		{%endif%}
+
+
+		<div class="mui-input-row">
+			<!-- <input id='password' type="password" value="" name="password" class="mui-input-clear mui-input" placeholder="请输入密码"> -->
+			<input id="verifycode" class="mui-input-clear mui-input " type="text" placeholder="验证码" name="verifycode">
+
+			<a  href="#" class="mui-btn mui-btn-primary btn-reveal get-veri" id="verifycodesend" data-type="2">
+				<!-- <i class="fa fa-send-o"></i> -->
+				<span class="qian">发送验证码</span>
+				<span class="hou" style="display: none"><m id="waittime" class="">60</m>秒后重新获取</span>
+			</a>
+		</div>
+		<input type="hidden" name="sms_type" value="2">
+	</form>
+	<div class="mui-content-padded">
+	   <!--  <button id='login' class="mui-btn mui-btn-primary">登录</button> -->
+		<button id="validate-submit" type="submit" class="mui-btn mui-btn-primary ajax-post">完成验证</button>       
+	</div>
+</section>
+
+{% endblock %}
+
+{% block script %}
+{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+	<!-- 引入封装了failback的接口--initGeetest -->
+	<script src="http://static.geetest.com/static/tools/gt.js"></script>
+
+	<!-- 若是https，使用以下接口 -->
+	<!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+{%endif%}
+<script>
+	var btn = document.getElementById("verifycodesend"),mobile = document.getElementById("mobile"),verifycode = document.getElementById("verifycode"),sub = document.getElementById("validate-submit");
+	var href = "{{http.referrer()}}"==""?"/uc/public/login":"{{http.referrer()}}";
+
+	{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+	var pop=document.getElementById("popup-captcha-mobile"),
+			mask=document.getElementById("mask");
+	var show = function (ele) {
+		ele.className = ele.className.replace("hide", "show");
+	};
+	var hide = function (ele) {
+		ele.className = ele.className.replace("show", "hide");
+	};
+	mask.addEventListener("tap", function () {
+		hide(mask);
+		hide(pop);
+	});
+	btn.addEventListener("tap", function () {
+			var that = this;
+			console.log(that)
+			var mobile = $("input[name='mobile']").val();
+			console.log(mobile)
+			var type = $(this).attr("data-type");
+			var myreg = /^1(3|4|5|7|8)\d{9}$/;
+			if(!myreg.test(mobile))
+			{
+				mui.toast('请输入有效的手机号码!');
+				return false;
+			}
+			$(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+			mui.ajax({
+				type:"post",
+				url:"/uc/public/verifycodesend",
+				data:{mobile:mobile,type:type,check:1},
+				success:function (data) {
+					console.log(data)
+					if(data.err_code==0){
+						$(".qian").hide();
+						$(".hou").show();
+						//var wait = document.getElementById('wait')
+						var interval = setInterval(function(){
+							var time = --waittime.innerHTML;
+							if(time <= 0) {
+								$(".qian").show();
+								$(".hou").hide();
+								$(that).removeClass('disabled').prop('disabled',false);
+								$("#waittime").text('60');
+								clearInterval(interval);
+							};
+						}, 1000);
+					}else {
+						if(1000 == data.errno){
+							$(that).removeClass('disabled').prop('disabled',false);
+							mui.toast(data.errmsg);
+						}
+					}
+				}
+			})
+	});
+	sub.addEventListener("tap", function () {
+
+		var mobile = $("input[name='mobile']").val()
+		var verifycode = $("input[name='verifycode']").val()
+
+		var type = $(this).attr("data-type");
+		var myreg = /^1(3|4|5|7|8)\d{9}$/;
+		if(!myreg.test(mobile)){
+			mui.toast('请输入有效的手机号码!');
+			return;
+		}
+		if(!verifycode){
+			mui.toast('请输入验证码!');
+			return;
+		}
+		show(pop);
+        show(mask);
+	})
+	var handlerPopupMobile = function (captchaObj) {
+		
+		// 将验证码加到id为captcha的元素里
+		captchaObj.appendTo("#popup-captcha-mobile");
+		
+		
+		//拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
+		captchaObj.onSuccess(function () {
+			var validate = captchaObj.getValidate();
+			var that = this;
+			mui.ajax({
+				url: "/uc/public/forgotpw", // 进行二次验证
+				type: "post",
+				dataType: "json",
+				data: {
+					mobile:$("input[name='mobile']").val(),
+					verifycode:$("input[name='verifycode']").val(),
+					sms_type:$("input[name='sms_type']").val()
+				},
+				success: function (data) {
+					console.log(data)
+					if (data.errno==0) {
+						if (data.data.url) {
+							hide(mask);
+							hide(pop);
+						   mui.toast(data.data.name + ' 页面即将自动跳转~');
+						}else{
+							hide(mask);
+							hide(pop);
+							mui.toast(data.data.name);
+						}
+						setTimeout(function(){
+							$(that).removeClass('disabled').prop('disabled',false);
+							if (data.data.url) {
+								mui.openWindow({url:data.data.url})
+							}else if( $(that).hasClass('no-refresh')){
+								//toastr.clear()
+							}else{
+								captchaObj.refresh();
+							}
+						},1500);
+					}else{
+						if(data.errno==1001){
+							$.each(data.errmsg,function(i,n){
+								hide(mask);
+								hide(pop);
+								mui.toast(n);
+								//toastr.error(n);
+							})
+						}else {
+							hide(mask);
+							hide(pop);
+							mui.toast(data.errmsg);
+							//toastr.error(data.errmsg);
+						}
+						console.log(data);
+
+						setTimeout(function(){
+							$(that).removeClass('disabled').prop('disabled',false);
+							if (data.data) {
+							   mui.openWindow({url:data.data})
+							}else{
+								//toastr.clear()
+							}
+						},1500);
+					}
+				}
+			});
+		});
+		// 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+	};
+	mui.ajax({
+		// 获取id，challenge，success（是否启用failback）
+		url: "/admin/public/geetest/type/mobile?t=" + (new Date()).getTime(), // 加随机数防止缓存
+		type: "get",
+		dataType: "json",
+		success: function (data) {
+			// 使用initGeetest接口
+			// 参数1：配置参数
+			// 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+			initGeetest({
+				gt: data.gt,
+				challenge: data.challenge,
+				offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+				// 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+			}, handlerPopupMobile);
+		}
+	});
+	{%else%}
+	sub.addEventListener("tap", function () {
+		var mobile = $("input[name='mobile']").val();
+		console.log(mobile)
+		var type = $(this).attr("data-type");
+		var myreg = /^1(3|4|5|7|8)\d{9}$/;
+		if(!myreg.test(mobile))
+		{
+			mui.toast('请输入有效的手机号码!');
+			return false;
+		}
+			mui.ajax({
+				url: "/uc/public/forgotpw", // 进行二次验证
+				type: "post",
+				dataType: "json",
+				data: {
+					mobile:$("input[name='mobile']").val(),
+					verifycode:$("input[name='verifycode']").val()
+				},
+				success: function (data) {
+					console.log(data)
+					if (data.errno==0) {
+						if (data.data.url) {
+							hide(mask);
+							hide(pop);
+						   mui.toast(data.data.name + ' 页面即将自动跳转~');
+						}else{
+							hide(mask);
+							hide(pop);
+							mui.toast(data.data.name);
+						}
+						setTimeout(function(){
+							$(that).removeClass('disabled').prop('disabled',false);
+							if (data.data.url) {
+								mui.openWindow({url:data.data.url})
+							}else if( $(that).hasClass('no-refresh')){
+								//toastr.clear()
+							}else{
+								captchaObj.refresh();
+							}
+						},1500);
+					}else{
+						if(data.errno==1001){
+							$.each(data.errmsg,function(i,n){
+								hide(mask);
+								hide(pop);
+								mui.toast(n);
+								//toastr.error(n);
+							})
+						}else {
+							hide(mask);
+							hide(pop);
+							mui.toast(data.errmsg);
+							//toastr.error(data.errmsg);
+						}
+						console.log(data);
+
+						setTimeout(function(){
+							$(that).removeClass('disabled').prop('disabled',false);
+							if (data.data) {
+							   mui.openWindow({url:data.data})
+							}else{
+								//toastr.clear()
+							}
+						},1500);
+					}
+					// if (data && (data.errno < 0)) {
+					//     mui.toast(data.errmsg);
+					//     if(data.errno !=  -3){
+					//         hide(mask);
+					//         hide(pop);
+					//     }
+					//     captchaObj.refresh();
+					// } else {
+					//     hide(mask);
+					//     hide(pop);
+					//     mui.toast(data.data.name);
+					// setTimeout(function(){
+					//     mui.openWindow({url: href})
+
+					// },1500);
+					// }
+				}
+			});
+
+	});
+
+	{%endif%}
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

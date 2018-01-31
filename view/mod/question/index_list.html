@@ -1,0 +1,794 @@
+{% extends "../../topic/inc/base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+
+<style type="text/css">
+.page_header{
+    width: 100%;
+    height:445px ;
+    background:url(/static/assets/images/backgrounds/communitybc.jpg) 50% 50% / cover no-repeat;
+}
+section#destination {
+    background-color: transparent;
+    padding: 0px 0px 0px 0px;
+    border: 0px;
+}
+a#destination-change:hover{
+	color: #1eb6c1;
+}
+img.img-responsive {
+    width: 100%;
+    height: 272px;
+}
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+#destination ul#destination-ul .destination-item-1 {
+    width: 35.5%;
+    padding-left: 0px;
+    padding-right: 5px;
+    height: 272px;
+}
+#destination ul#destination-ul .destination-item-2 {
+    width: 29%;
+    padding-left: 5px;
+    padding-right: 5px;
+    height:272px;
+}
+#destination ul#destination-ul .destination-item-3 {
+    width: 35.5%;
+    padding-left: 5px;
+    padding-right: 0px;
+    height: 272px;
+}
+
+.portfolio .item-box-overlay-title h4 {
+    font-size: 20px;
+}
+.portfolio header {
+    height: 60px;
+}
+.portfolio header h3 {
+    font-size: 34px;
+    float: left;
+    color: #62605e;
+}
+.portfolio header a {
+    margin-top: 20px;
+    float: right;
+    font-size: 13.5px;
+    color: #565656
+}
+.thumbnail{
+    border:0px;
+}
+
+section.content-section{
+	/* background-color: #EFF7F9; */
+}
+.phb{
+    padding:0px;
+    margin-left:0px;
+    width:728px;
+    height:85px;
+    font-size: 25px;
+    color: #fff;
+    border-radius: 5px;
+    background: url('/static/assets/images/search_nav.png') no-repeat;  
+}
+.phb li{
+    width: 50%;
+    height: 85px;
+    margin-right:-7px;
+    padding:0;
+
+    padding-top:30px;
+    text-align: center;
+}
+.phb li a,.phb li a:link,.phb li a:visited,.phb li a:hover,.phb li a:active{
+    color:#fff !important;
+}
+
+.phb:hover{
+    cursor: pointer;
+}
+.phb li:hover div{
+    background-color: #fff !important;
+}
+.linea{
+    height: 3px;
+    width: 100%;
+    background-color: #896B63;
+    margin:0px auto;
+}
+.strategy{
+	width: 740px;
+	min-height:400px;
+	padding-top: 21px;
+}
+.qsn-awr{
+	width: 740px;
+	min-height:400px;
+	display: none;
+	padding-top: 21px;
+}
+.community{
+	width: 700px;
+	min-height:400px;
+	display: none;
+}
+.search_bt{
+	width:80px; 
+	margin-left: 20px;
+}
+.search-box{
+	width: 728px;
+}
+.country-box{
+	padding-left: 39px;
+}
+#community ul#community-ul .community-item-1 {
+    padding-left: 0px;
+    padding-right: 6px;
+    height: 434px;
+}
+#community ul#community-ul .community-item-2 {
+    padding-left: 6px;
+    padding-right: 6px;
+    height: 434px;
+}
+#community ul#community-ul .community-item-3 {
+    padding-left: 6px;
+    padding-right: 0px;
+    height: 434px;
+}
+#community ul#community-ul .community-item-4 {
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 514px;
+}
+.clear:after{
+	content:"";
+	display:table;;
+	clear:both;
+}
+.heading-title a,.community-ul li a{
+	color:#403d39;
+	font-size:15.5px;
+}
+.community-ul li{
+	padding:0;
+}   
+.community-ul>li>div{
+	background:transparent;
+}
+
+.title_country,.title_country a{
+	color:#403d39;
+	font-size:18.5px;
+	margin-bottom:22px;
+	margin-top:21px;
+	/* margin-left: 19.5px; */
+}
+/* .country-box ul:nth-child(even){
+	background:rgba(239,247,249,0.9);
+} */
+.nav_noboder{
+	border: 0px;
+}
+.co{
+	padding: 0px;
+	margin:0px;
+} 
+.blog_post_item{
+	border: 0px;
+}
+.blog_post_item:hover{
+	cursor: pointer;
+}
+.figure_float{
+	display: inline;
+	float:left;
+}
+.immg{
+	width: 233px;height: 160px;
+}
+.blog_item_content{
+	display: inline-block;
+	width: 475px;
+	margin-left: 20px;
+}
+.qa_blog_congtent{
+
+	display: inline-block;
+	width: 650px;
+	margin-left: 40px;
+}
+.blog_item_content h2{
+	height: auto;
+	font-size: 16px;
+	margin-top: 15px;
+	margin-bottom:10px;
+	background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(102, 102, 102, 1)), to(rgba(51, 51, 51, 1)));
+    -webkit-background-clip: text;
+    /* -webkit-text-fill-color: transparent; */
+}
+ul#studytour-ul{
+	list-style-type:none; 
+}
+ul#studytour-ul li .item-box-overlay-title h4 {
+	font-size: 12px;
+}
+ul#studytour-ul li .item-box {
+	box-shadow: none;
+}
+.auto_content{
+	width: 1008px;
+	 margin-left: auto;
+	 margin-right: auto;
+}
+.right_content{
+	float:left; 
+	width:262px;
+	margin-left: 0px;
+	margin-top:50px;
+	display: inline;
+}
+.con_pro{
+	width:740px;
+}
+.peanutRoll_a{
+	color: #565656;
+}
+.peanutRoll_a:hover{
+	color:#1eb6c1; 
+}
+.btn-dropbox:hover, .btn-dropbox:focus, .btn-dropbox:active, .btn-dropbox.active,.btn-dropbox{
+	background-color: #1eb6c1;
+}
+.btn-dropbox{
+	border: 0px;
+}
+.nav-tabs.nav-bottom-border>li.active>a, .nav-tabs.nav-bottom-border>li.active>a:hover {
+    border-bottom-color: #1eb6c1 !important;
+}
+.nav-tabs.nav-bottom-border>li.active>a, .nav-tabs.nav-bottom-border>li.active>a:hover {
+    border-bottom-color: #1eb6c1 !important;
+}
+.nav-tabs>li.active>a {
+    color: #1eb6c1 !important;
+}
+.order a{
+    color: #666666 !important;
+}
+.order a:hover,.order a:focus{
+    color: #1eb6c1;
+}
+ul.blog-post-info li a:after {
+    content:none;
+}
+.blog-post-info>li+li:before {
+    content: none;
+}
+.span_userName{
+    margin: 0px 6px;
+    font-weight: bold;
+}
+.studynote div a{
+	color: #3e3e3e;
+}
+.tq_addmore a,.sn_addmore a{
+	color: #8a8e8f;
+}
+.tq_addmore a:hover,.sn_addmore a:hover,.tq_addmore a:focus,.sn_addmore a:focus{
+	color: #1eb6c1;
+}
+.blog_post_item:hover{
+	cursor: pointer;
+}
+.blog_post_item:hover .blog_item_content h2{
+	color: #1eb6c1 !important;
+}
+.studynote a, a:focus:not(.btn){
+	color: #666;
+}
+.qa_blog_congtent>h2>a:hover{
+	color: #1eb6c1;
+}
+.title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.end-single{
+    position: absolute;
+    height: 140px;
+    top: -10px;
+    right: 14px;
+}
+.small-end-single{
+    position: absolute;
+    top: 0px;
+    right: 6px;
+}
+.blog-post-item h2 {
+	height: auto;
+}
+</style>
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs = 20px margins
+.page-header-md = 50px margins
+.page-header-lg = 80px margins
+.page-header-xlg= 130px margins
+.dark           = dark page header
+
+.shadow-before-1    = shadow 1 header top
+.shadow-after-1     = shadow 1 header bottom
+.shadow-before-2    = shadow 2 header top
+.shadow-after-2     = shadow 2 header bottom
+.shadow-before-3    = shadow 3 header top
+.shadow-after-3     = shadow 3 header bottom
+-->
+<section class="page_header page-header page-header-xs" >
+    
+</section>
+    
+
+<!-- 热门 -->
+<section class="alternate" id="destination">
+    <div class="container portfolio" style="width:1008px">
+        <header class="section-header margin-bottom-0">
+            <div class="heading-title">
+                <h3>热门</h3>
+               	<a class="peanutRoll" href="javascript:getHotTour();" id="destination-change">换一换 <img src="/static/assets/images/change.png"></a>
+            </div>
+        </header>
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="destination-ul" style="padding-left: 0px;">
+                    
+                    {% hotrecommend data = "list", position="1",limit= "3", issub=1, ischild=1, page=0 %}
+                    {%set i = 1%}
+                    {% for v in list %}
+                
+                    <li class="mix development 	col-md-3 col-sm-3 destination-item-{{i}}"><!-- item -->
+                
+                        <div class="item-box thumbnail">
+                        <a href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                            <figure>
+                                {% if v.favflag == 1 %}  
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%}
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    {#
+                                    <span class="inner">
+                
+                                        <!-- lightbox -->
+                                        <a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+                                            <span class="glyphicon glyphicon-qrcode size-20"></span>
+                                        </a>
+                
+                                        <!-- details -->
+                                        <a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+                                            <span class="glyphicon glyphicon-option-horizontal size-20"></span>
+                                        </a>
+                
+                                    </span>
+                                    #}
+                                </span>
+                
+                                <!-- overlay title -->
+                                <div class="item-box-overlay-title text-center text-title">
+                                    <h4 class="nomargin title">{{v.title}}</h4>
+                                </div><!-- /overlay title -->
+                                {% if i == 1 or i == 3 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=334,h=272')}}"  alt="">
+                                {% elif i == 2 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=265,h=272')}}"  alt="">
+                                {#
+                                {% elif i == 4 or i == 6 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=438,h=319')}}"  alt="">
+                                {% elif i == 5 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=244,h=319')}}"  alt="">
+                                #}
+                                {% endif %}
+                            </figure>
+                        </a>
+                        </div>
+                
+                    </li><!-- /item -->
+                    {% set i = i + 1 %}
+                    {% endfor %}
+                
+                </ul>
+
+            </div>
+        </div>
+        <!--
+        <div class="more-info text-center margin-top-20">
+            <a href="/youxue{{http.config('view.file_ext')}}">点击查看更多》</a>
+        </div>-->
+
+    </div>
+</section>
+<!-- / -->
+
+<!-- -->
+<section class="content-section">
+	
+	<div class="row auto_content" style=""><!-- main content                col-md-3 col-sm-3-->
+		
+ 		<div class=" portfolio  con_pro" style="background-color:transparent;float:left;padding-left:15px">
+			<header class="section-header margin-bottom-0">
+		    	<div class="heading-title margin-bottom-0">
+		        	<h3>社区</h3>
+		        </div>
+		    </header>
+	        <ul class="phb page-header-tabs list-inline margin-bottom-0 margin-top-70" id="phb">
+	            <li class="cgy" id="select1" ><a class="aaa" href="javascript:;">游记攻略</a><div class="linea" style="background-color: #fff;"></li>
+	            <li class="cgy" id="select2"><a href="javascript:;">问答</a><div class="linea"></li>
+	            <!--<li class="cgy" id="select3"><a href="javascript:;">社区版块</a><div class="linea" ></li>-->
+	        </ul>
+				
+
+	        <div class="strategy row"  id="page1">
+	        	<!-- 搜索框-->
+				<div class="search-box" style="margin-bottom: 15px;">
+
+					{#<form action="/search" method="get" class="widget_search">#}
+	                    <input id="searchTourNote" type="search" placeholder="  搜索游记攻略" name="q" {% if queryword %} value={{queryword}}{%endif%} class="serch-input" style="color: black;width: 584px;height: 50px;font-size:18px;border: 3px solid #95734D;border-radius: 5px;">
+	                    <button type="submit" style="background-color:#1EB6C1;color: #fff;width:120px;height: 50px;margin-left: 20px;font-size:18px;border-radius: 5px;" onclick="updateTourNoteSearchWord();">
+	                        搜    索
+	                    </button>
+	                {#</form>#}
+				</div>
+				<!--/搜索框-->			
+	            <!-- LEFT -->
+	            <div class="co col-md-12 col-sm-12 studynote" >   
+	            {#            
+	                <div class="studynote_page1">
+	                	
+	                    {% for val in list %}
+	                    {% set categoryname = val.category_id|get_cate %}
+	                    {% if val.imgs|length >= 1 %}
+	                    <!-- POST ITEM -->
+	                    <div class="blog_post_item blog-post-item blog-post-item-inverse padding-top-10 padding-bottom-10 margin-bottom-0 clearfix" >
+	                        <!-- IMAGE -->
+	                        <figure class="figure_float margin-bottom-0" >
+	                            <img class="immg" src="{{val.imgs[0]}}" alt="">
+	                        </figure>
+	                       
+	                        <div class="blog_item_content blog-item-small-content">
+								<p>&nbsp;</p>
+	                            <h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+	                            <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+	                        </div>
+	                    </div>
+	                    <!-- /POST ITEM -->
+	                    {% endif %}
+	                    {%endfor%}
+	                   
+
+	                </div>
+	                 #}
+	                <!--<div class="studynote_page2"></div>-->
+
+
+	               
+					<!-- PAGINATION -->
+					<!--
+	                <div class="text-center margin-top-20 margin-bottom-20">
+	                 	 <a href="javascript:;">点击加载更多</a>
+	                </div>-->
+	                <!-- /PAGINATION -->
+	             
+	            </div>
+				<!-- /LEFT -->
+	        </div>
+
+	        <div class="qsn-awr" id="page2"> 
+	        	<!-- 搜索框-->
+				<div class="search-box" style="margin-bottom: 15px;">
+					{#<form action="/search" method="get" class="widget_search">#}
+	                    <input id="searchTourQuestion" type="search" placeholder="  问答" name="q" {% if queryword %} value={{queryword}}{%endif%}class="serch-input" style="color: black;width: 584px;height: 50px;font-size:18px;border: 3px solid #95734D;border-radius: 5px;">
+	                    <button type="submit" style="background-color:#1EB6C1;color: #fff;width:120px;height: 50px;margin-left: 20px;font-size:18px;border-radius: 5px;" onclick="updateTourQuestionSearchWord()">
+	                        搜    索
+	                    </button>
+	                </form>
+				</div>
+				<!--/搜索框-->
+				<!-- 筛选框-->
+				<div>
+					{#
+	                <ul class="nav_noboder nav nav-tabs nav-bottom-border" style="height: 0px;">
+	                    <li class="{%if order ==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}" >最新的</a></li>
+	                    <li class="{%if order ==1%}active{%endif%}"><a href="{{cate.url}}-1{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >最热的</a></li>
+	                    <li class="{%if order ==2%}active{%endif%}"><a href="{{cate.url}}-2{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >推荐的</a></li>
+	                    <li class="{%if order ==3%}active{%endif%}"><a href="{{cate.url}}-3{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >等待回复</a></li>
+	                </ul>
+					#}
+					<ul class="nav_noboder nav nav-tabs nav-bottom-border" style="height: 0px;">
+	                    <li class="order active" onclick="javascript:updateTourQuestionOrder(0);"><a href="javascript:;" >最新问题</a></li>
+	                    <li class="order" onclick="updateTourQuestionOrder(1)"><a href="javascript:;" >热门问题</a></li>
+	                    <li class="order" onclick="updateTourQuestionOrder(3)">
+	                    	<a href="javascript:;" >
+	                    		待回答问题
+	                    		<img src="/static/assets/images/SOS.png">
+	                    	</a>
+	                    </li>
+	                </ul>
+
+				</div>
+	             <!--/筛选框-->
+	              <!-- LEFT -->
+	            <div class="co col-md-12 col-sm-12 tourquestion" >
+					{#
+                    {% for val in list %}
+                    {% set categoryname = val.category_id|get_cate %}
+                    {% if val.imgs|length < 1 %}
+                    <!-- POST ITEM -->
+	                    <div class="blog-post-item blog-post-item-inverse padding-top-10 padding-bottom-10 margin-bottom-0 clearfix" style="border: #eee 1px solid;margin-top: 20px;" >
+	                       
+	                      
+	                        <div class="qa_blog_congtent blog-item-small-content">
+	                            <ul class="blog-post-info list-inline padding-bottom-10" style="border: 0px;">
+	                                <li>
+	                                
+	                                    <a class="" href="{{categoryname.url}}">
+	                                        <span class="label label-light">{{categoryname.name}}</span>
+	                                    </a>
+	                                </li>
+
+	                                <li>
+	                                	<a href="javascript:;"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top:5px"></a>
+	                                	{%if val.answer_users>0%}
+	                                    <a href="javascript:;">
+	                                        <span class="font-lato">{{val.answer_users|get_nickname}}</span>
+	                                    </a>
+	                                    <span class="font-lato"> 回复了一个问题</span>
+	                                    {%else%}
+	                                    <a href="javascript:;">
+	                                        <span class="font-lato span_userName">{{val.uid|get_nickname}}</span>
+	                                    </a>
+	                                    <span class="font-lato">提了一个问题</span>
+	                                    {%endif%}
+	                                </li>
+	                                <li>
+	                                    <span class="font-lato"> {{val.update_time|moment}}</span>
+	                                </li>
+	                                <li>
+                                    	<div style="background-color: #1eb6c1;color: #fff;border-radius:3px;">&nbsp;待回答&nbsp;
+                                    	</div>
+                                	</li>
+	                                <li>
+	                                <span class="font-lato">
+	                                	{{val.focus_count}} 人关注
+	                                </span>
+	                                </li>
+	                                <li>
+	                                    <span class="font-lato">{{val.answer_count}} 个回答</span>
+
+	                                </li>
+	                                <li>
+	                                    <span class="font-lato">{{val.view}} 人浏览</span>
+	                                </li>
+	                                
+
+	                            </ul>
+	                           	
+	                            <p>&nbsp;</p>
+	                            <h2 style="margin-top: 5px;"><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+	                            <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+	                            <ul class="blog-post-info list-inline margin-top-10" style="border: 0px;width: 200px;margin-left:62%">
+	                                <li>
+	                                    <img src="static/assets/images/reply.png" style="width: 16px;height: 16px;margin-top:-4px;" />
+	                                    <span class="font-lato"> {{val.answer_count}} 个回答 </span>
+	                                </li>
+	                                <li style="margin:0px 10px;">
+	                                    <div style="width:2px;height:13px ;background-color: black;"></div>
+	                                </li>
+	                                <li>
+	                                    <img src="static/assets/images/browse.png" style="width: 16px;height: 16px;margin-top:-4px;"/>
+	                                    <span class="font-lato">{{val.view}} 人浏览</span>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+                    <!-- /POST ITEM -->
+                    {% endif %}
+                    {%endfor%}
+					<!-- PAGINATION -->
+	                <div class="text-center margin-top-20 margin-bottom-20">
+	                 	 <a href="javascript:;">点击加载更多</a>
+	                </div>
+	                <!-- /PAGINATION -->
+	                 #}
+	            </div>
+				<!-- /LEFT -->
+	        </div>
+			
+	        <div class="community" id="page3"> 
+				<!-- 国家 -->
+			    <div class="portfolio">
+			    	{% topic data = "list", limit= "200", cid=135, issub=1, isstu=1, pid=0, type="level", page=0 %}
+			        <div  class=" portfolio-title-over">
+			            <div class="row mix-grid country-box">
+			            	{% for v in list %}
+			                <ul id="community-ul{{v.id}}" style="padding-left: 0px;" class="clear community-ul">
+			                	<div class="title_country">
+									<a href="">
+										{{v.title}} 
+									</a>
+			                	</div>
+			                    {% topic data = "list", limit= "200", cid=135, pid=v.id,type="none",page=0 %}
+			                    {% for v in list %}
+			                    <li class="mix development col-xs-6 col-sm-3 destination-item-{{i}}"><!-- item -->
+			          
+			                        <div class="item-box thumbnail">
+			                        <a href="/search.html?q=&value=youxue-0-0-17-tourdest_{{v.place_id}}|tourfeature_0|tourtype_0|tourmonth_0">
+			                            {{v.title}}
+			                        </a>
+			                        </div>
+			                    </li><!-- /item -->
+			                    {% endfor %}
+
+			                </ul>
+			                {% endfor %}
+
+			            </div>
+			        </div>
+			        <!--
+			        <div class="more-info text-center margin-top-10">
+			            <a href="/question">点击查看更多》</a>
+			        </div>-->
+
+			    </div>
+				<!-- / -->	
+	        </div>
+	    </div><!-- container div-->
+
+
+				
+		   		
+
+		<div class="right_content col-md-2 col-sm-2 ">
+			<div style="margin-left: 14px;">
+				{% if controller.is_login %}
+				<div>
+						<img src="/static/assets/images/tournote.png" style="width: 64px;height: 64px;">
+						<a href="/mod/question/sys/add/cid/124" class="btn btn-primary btn-3d btn-block" style="font-size: 24px;width:132px;display: inline-block;margin-left: 0px;">
+							我要发帖
+			    		</a>
+				</div>
+				<div class="margin-bottom-10">
+						<img src="/static/assets/images/question.png" style="width: 64px;height: 64px;">
+						<a href="/mod/question/sys/add/cid/125" class="btn btn-primary btn-3d btn-block" style="font-size: 24px;width:132px;display: inline-block;margin-left: 0px;">
+							我要提问
+			    		</a>
+				</div>
+				{%else%}
+				<div>
+						<img src="/static/assets/images/tournote.png" style="width: 64px;height: 64px;">
+						<a href="/uc/public/loginmodal"  data-toggle="ajaxModal" class="btn btn-primary btn-3d btn-block" style="font-size: 24px;width:132px;display: inline-block;margin-left: 0px;">
+							我要发帖
+			    		</a>
+				</div>
+				<div class="margin-bottom-10">
+						<img src="/static/assets/images/question.png" style="width: 64px;height: 64px;">
+						<a href="/uc/public/loginmodal"  data-toggle="ajaxModal" class="btn btn-primary btn-3d btn-block" style="font-size: 24px;width:132px;display: inline-block;margin-left: 0px;">
+							我要提问
+			    		</a>
+				</div>
+				{%endif%}
+			    <!-- <a href="/mod/question/sys/add/cid/125" class="btn btn-primary btn-3d btn-block margin-top-10" style="font-size: 24px;width:132px;display: inline-block;margin-left: 33px;margin-bottom:20px;">
+			    					<img src="/static/assets/images/question.png">我要提问
+			    </a> -->
+		        
+
+				{#
+		        {% if controller.is_login %}
+		        <div class="margin-bottom-20"><!-- INFO -->
+		            <a href="/mod/question/sys/add/cid/124" class="btn btn-primary btn-3d btn-block margin-top-10"><i class="fa fa-sign-in"></i>我要发帖</a>
+		        </div>
+		        <div class="margin-bottom-20"><!-- INFO -->
+		            <a href="/mod/question/sys/add/cid/125" class="btn btn-primary btn-3d btn-block margin-top-10"><i class="fa fa-sign-in"></i>我要提问</a>
+		        </div>
+		        {%else%}
+		        <div class="margin-bottom-20">
+		            <a class="btn btn-block btn-social btn-dropbox margin-top-10" href="/uc/public/login">
+		                <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+		            </a>
+		        </div>
+		        {%endif%}
+		        #}
+		        
+				{#
+				<div>
+		        {% if controller.is_login %}
+		        <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+		            今天，你遇到了什么问题呢？
+		            <a href="/mod/question/sys/add/cid/{{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+		        </div>
+		        {%else%}
+		        <!-- <div class="alert alert-info margin-bottom-20"> --><!-- INFO -->
+		        <div class="alert alert-info margin-bottom-20">
+		            你好! 你还没有登录，请先登录.
+		            <a class="btn btn-block btn-social btn-dropbox margin-top-10" href="/uc/public/login">
+		                <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+		            </a>
+		        </div>
+		        {%endif%}   
+		   		</div>
+				#}
+		       
+		        <div style="height: 200px;">
+		        	<div style="background:url('/static/assets/images/search_nav.png') no-repeat;width:220px;height:85px;margin:0px auto;margin-bottom: 15px;padding-left: 60px;padding-top: 23px;border-radius: 5px; ">
+						<h3 class="bold" style="color: #fff;font-size:24px;">专属推荐</h3>
+		        	</div>
+					<ul id="studytour-ul" style="padding-left: 0px;">
+						{% topic data = "lst", limit= "3", cid=130, issub=1, ischild=1, type="level", page=0 %}
+						{%set i = 1%}
+						{% for v in lst %}
+
+						<li class="mix development col-md-12 col-sm-12" style="padding: 0; margin-bottom: 14px;"><!-- item -->
+
+							<div class="item-box thumbnail" style="">
+							<a href="{{v.name|get_url(v.id)}}">
+								<figure style="width: auto;">
+									<div class="col-lg-12 col-sm-12" style="padding: 0 10px;">
+										{% if v.favflag == 1 %} 
+		                                <img class="small-end-single"  src="/static/assets/images/small_end_single.jpg" /> 
+		                                {% endif%} 
+										<img class="img-responsive" style="height: 120px;" src="{{v.cover_id|get_pic('m=1,w=190,h=120')}}"  alt="">
+									</div>
+									<div class="col-lg-12 col-sm-12" style="padding: 0 4px;">
+										<span class="item-hover" >
+											<!-- <span class="overlay dark-5"></span> -->
+										</span>
+
+										<!-- overlay title -->
+										<div class="item-box-overlay-title text-center" >
+											<h3 class="nomargin" style="font-size: 15px;">{{v.title}}</h3>
+										</div><!-- /overlay title -->
+
+									</div>
+								</figure>
+							</a>
+							</div>
+
+						</li><!-- /item -->
+						{% set i = i + 1 %}
+						{% endfor %}
+
+					</ul>
+		        </div>
+		    </div>
+		
+		</div>
+		
+	
+
+
+	</div><!-- /main content -->
+	
+</section>
+
+
+<!-- PEANUT ROLL -->   
+<section style="padding: 0; border-bottom: none;">
+	<img src="/static/assets/images/home_logo1.jpg" style="width: 100%;height: 100%;">
+</section>
+<!-- /PEANUT ROLL -->
+{% endblock %}
+{% block script %}  
+<script src="/static/assets/js/exchange.js"></script> 
+<script src="/static/assets/js/question_list.js"></script> 
+{% endblock %}

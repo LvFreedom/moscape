@@ -1,0 +1,128 @@
+{% extends "./inc/appbase.html" %}
+{% block style%}
+<style type="text/css">
+    ul,li{
+        list-style:none;
+        margin:0;
+        padding:0;
+    }
+     header.book-header{
+        background:#1eb6c1;
+    }
+    .back{
+        display: inline-block;
+        width:35px;
+        height:20px;
+        background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+        background-size:35px 20px;
+        border:0;
+    }
+    .book-header span{
+        display: inline-block;
+        margin-top:8.5px;
+        font-size:24px;
+        color:#fff;
+    }
+    .mui-content{
+        background:#eff7f9;
+    }
+    .content{
+        padding:60px 5.56% 50px 5.56%;
+    }
+    .title-detail>div>span{
+        font-size:24px;
+    }
+    .title-detail>div>b{
+        font-size:34px;
+        font-weight:normal;
+        color:#1eb6c1;
+    }
+    .title-detail>div>p>span{
+        display: inline-block;
+        font-size:18px;
+        padding-top:10px;
+        color:#000;
+    }
+    .title-detail>div>div>span{
+        font-size:18px;
+        padding-top:10px;
+    }
+    .cue-information i{
+        display: inline-block;
+        width:80px;
+        height:80px;
+        background: url(/static/assets/images/mobile/background/success.png) no-repeat;
+        background-size:100% 100%; 
+        margin:60px auto;
+    }
+    .cue-information>span{
+        display: inline-block;
+        width:100px;
+        height:100px;
+        background: url(/static/assets/images/mobile/background/qr_code.jpg) no-repeat;
+        background-size:100% 100%; 
+        margin:20px auto;
+    }
+    .cue-information>div{
+        color:#1eb6c1;
+        font-size:24px;
+    }
+    .cue-information>div>span{
+        padding-left:10px;
+    }
+    .cue-information>ul,
+    .cue-information>ul li{
+        padding-top:15px;
+        color:#666;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<header class="mui-bar mui-bar-nav book-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>提交成功</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+    <div class="content">
+        <div class="title-detail clear">
+            <div>
+                <span>订单金额：</span>
+                <b>¥{{orderinfo.order_amount}}</b>
+            </div>                       
+            <div>
+                <p>
+                    <span>{{orderinfo.title}}</span>
+                </p>                        
+                <div>
+                    <span class="num">人数：{{orderinfo.totol_quantity}}</span>
+                    <span>出发日期：{{orderinfo.start_date}}</span>
+                </div>
+            </div>                        
+        </div>
+        <div class="cue-information text-center">
+            <i></i>
+            <div>您的报名信息已经<span>提交成功</span></div>
+            <ul>
+                <li>
+                    将有客服与您联系确认报名，并通知您付款
+                </li>
+                <li>
+                    请您留意，感谢您的支持
+                </li>
+                <li>客服电话：025-123456789</li>
+            </ul>
+            <span></span>
+        </div>            
+    </div>
+</section>
+
+
+
+
+{% endblock %}
+
+{% block script%}
+
+
+{% endblock %}

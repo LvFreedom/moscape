@@ -1,0 +1,247 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
+<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+header.archives-header{
+        background:#1eb6c1;
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.archives-header span{
+    display: inline-block;
+    margin-top:8.5px;
+    font-size:24px;
+    color:#fff;
+}
+.mui-input-group .area,
+.mui-input-group .extension{
+	width:20%;
+}
+.mui-input-group .telephone{
+	width:25%;
+}
+.mui-input-group .mui-input-row{
+	height: 60px;
+}
+#archives-form{
+	background: #fff;
+	margin-top:15px;
+	padding:0 2.78%;
+}
+.mui-input-row label{
+	padding:11px 0;
+}
+.mui-content .mui-input-group .mui-input-row input{
+	border:1px solid #b2b2b2;
+	text-align: right;
+}
+.mui-content .mui-input-group .mui-input-row select{
+	border:1px solid #b2b2b2 !important;
+	direction: rtl;
+	padding-right:15px;
+}
+.mui-input-row{
+	padding:10px 0;
+}
+.mui-content-padded p{
+	padding:15px 2.78%;
+	color:#b2b2b2;
+	font-size:17px;
+}
+#save{
+	width:28.93%;
+	margin:0 auto;
+	font-size:20px;
+	padding:10px 0;
+}
+
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav archives-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>个人档案</span>
+</header>
+{% include "./inc/barnav.html" %}
+<section class="mui-content">
+	<form action="" id='archives-form' class="mui-input-group">
+		<div class="mui-input-row">
+			<label>手机</label>
+			<input type="text" class="mobile-num" name="mobile" value="{{info.mobile}}" onblur="phoneBlur()" placeholder="手机号码" maxlength="11">
+		</div>
+		<div class="mui-input-row">
+			<label>昵称</label>
+			<input type="text" name="username" value="{{info.username}}">
+		</div>
+		<div class="mui-input-row">
+			<label>姓名</label>
+			<input type="text" name="real_name" value="{{info.real_name}}">
+		</div>
+		<div class="mui-input-row">
+			<label>性别</label>
+			<select name="sex" id="">
+				<option {% if info.sex == 1 %}selected{% endif %} value="1">男</option>
+				<option {% if info.sex == 2 %}selected{% endif %} value="2">女</option>
+			</select>
+		</div>
+		<div class="mui-input-row">
+			<label>生日</label>
+			<input id="birth" type="text" name="birthday" value="" class="bir" placeholder="年-月-日">
+		</div>
+		<div class="mui-input-row">
+			<label>固定电话</label>
+			<input type="text" name="phone_ext" value="{{info.phone_ext}}" class="extension" placeholder="分机">
+			<input type="text" name="phone_number" value="{{info.phone_number}}" class="telephone" placeholder="电话">
+			<input type="text" name="phone_zone" value="{{info.phone_zone}}" class="area" placeholder="区号">
+		</div>
+		<div class="mui-input-row">
+			<label>常用出发城市</label>
+			<input id="province" type="text" value="{{start_province}} {{start_city}}">
+			<input id="start_province" type="hidden" name="start_province" value="{{info.start_province}}">
+			<input id="start_city" type="hidden" name="start_city" value="{{info.start_city}}">
+		</div>	
+			
+		</div>
+	</form>
+	<div class="mui-content-padded">
+		<p>为了更好地帮助您查询、使用花生卷提供的产品，您可以在此设置您的常用出发城市。</p>
+        <button id='save' class="mui-btn mui-btn-block mui-btn-primary">保存</button>
+        </div>
+    </div>
+</section>
+{% endblock%}
+	
+{% block script %}
+<script src="/static/webapp/js/mui.picker.min.js"></script>
+<script src="/static/webapp/js/mui.poppicker.js"></script>
+<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script>
+//更改日期格式
+mui.ready(function(){
+	var newdate = new Date({{info.birthday}})
+	var y = newdate.getFullYear();  
+	var m = newdate.getMonth() + 1;  
+	m = m < 10 ? ('0' + m) : m;  
+	var d = newdate.getDate();  
+	d = d < 10 ? ('0' + d) : d;  
+	var h = newdate.getHours();  
+	var minute = newdate.getMinutes();  
+		minute = minute < 10 ? ('0' + minute) : minute;  
+	//var time = y + '-' + m + '-' + d+' '+h+':'+minute;
+	var time = y + '-' + m + '-' + d
+	$("#birth").val(time)
+})
+
+var dtpicker = new mui.DtPicker({  
+    type: "date",//设置日历初始视图模式  
+    beginDate: new Date(1900, 01, 01),//设置开始日期  
+    endDate: new Date(2100, 12, 31),//设置结束日期  
+    labels: ['年', '月', '日', 'Hour', 'min'],//设置默认标签区域提示语  
+    customData: {  
+        h: [{  
+            value: 'AM',  
+            text: 'AM'  
+        }, {  
+            value: 'PM',  
+            text: 'PM'  
+        }]  
+    }//时间/日期别名  
+})  
+
+var birth = document.getElementById("birth");
+birth.addEventListener("tap",function(){
+	dtpicker.show(function(selectItems) {
+		// console.log(selectItems)  
+	 //    console.log(selectItems.y);//{text: "2016",value: 2016} 
+	 //    console.log(selectItems.m);//{text: "05",value: "05"} 
+	 //    console.log(selectItems.d)
+	    birth.value = selectItems
+	})  
+})
+
+
+
+var provincePicker = new mui.PopPicker({
+        layer: 2
+    });
+provincePicker.setData(cityData3);
+var province = document.getElementById('province');
+var start_province = document.getElementById("start_province");
+var start_city = document.getElementById("start_city");
+province.addEventListener('tap', function(event) {
+    provincePicker.show(function(items) {
+        //alert("你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text) ;
+        province.value= (items[0] || {}).text + " " + (items[1] || {}).text + " " ;
+        //返回 false 可以阻止选择框的关闭
+        //return false;
+        start_province.value = (items[0] || {}).value;
+        start_city.value = (items[1] || {}).value;
+    });
+}, false);
+
+
+//手机号码验证
+function phoneBlur(){
+	var ph = $(".mobile-num").val();
+	var reg = /^1[3|4|5|7|8][0-9]{9}$/
+	if(ph == ""){
+		mui.toast("请输入手机号码")
+	}else if(!reg.test(ph)){
+		mui.toast("请输入正确的手机号码")
+	}else{
+		return true;
+	}
+}
+
+
+var save = document.getElementById("save");
+save.addEventListener("tap",function(){
+	var data = $("#archives-form").serialize();
+	console.log(data)
+	if(!phoneBlur()){
+		mui.toast("请输入正确的手机号")
+	}else{
+		$.ajax({
+			type:"POST",
+			url:"/uc/seting/updateinfo",
+			data:data,
+			success:function(data){
+				console.log(data)
+				if(data.errno == 0){
+					mui.toast(data.data.name)
+					setTimeout(function(){
+	                    mui.openWindow({url:"/uc"})
+	                },1500)
+				}else{
+					mui.toast("更新用户资料失败！")
+				}
+			}
+		})
+	}
+	
+})
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

@@ -1,0 +1,306 @@
+{% extends "./inc/base_resetpw.html" %} {% block content %}
+
+{% block style %}
+<style>
+	.register-box{
+		background:rgba(248, 242, 252, 0.5);
+		min-width:377px;
+	}
+	#verifycodesend{
+		background:#1eb6c1;
+	}
+	#verifycodesend span{
+		color:#fff;
+	}
+	.gt_holder .gt_ajax_tip{
+		right:-82px;
+	}
+
+
+	input::-webkit-input-placeholder { /* WebKit browsers */ 
+		color: #1eb6c1;  
+	} 
+	input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+		color: #1eb6c1;  
+	} 
+	input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+		color: #1eb6c1;  
+	} 
+	input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+		color: #1eb6c1; 
+	} 
+	.gt_holder .gt_guide_tip{
+		color:#1eb6c1;
+	}
+
+
+
+</style>
+
+{% endblock %}
+
+<!-- -->
+<section style="padding: 180px 0;">
+	<div class="container">
+
+		<div class="row">
+
+			<!-- LOGIN -->
+			<div class="col-md-4 col-sm-4 register-box" style="margin-left: auto; margin-right: auto; float: none;">
+
+				<!-- ALERT -->
+                <!--
+							<div class="alert alert-mini alert-danger margin-bottom-30">
+								<strong>Oh snap!</strong> Login Incorrect!
+							</div>
+						-->
+						<!-- /ALERT -->
+						{%if controller.setup.USER_ALLOW_REGISTER ==1%}
+						{%if controller.setup.USER_ALLOW_SMSREGISTER == 1%}
+						<!-- register form 短信密码找回-->
+						<form class="nomargin sky-form boxed" action="/uc/public/forgotpw" method="post" autocomplete="off">
+							<header>
+								<!--<i class="fa fa-users"></i>--> {{controller.meta_title}}
+							</header>
+							<fieldset class="nomargin">
+								<div class="row" style="margin-bottom: 0px;">
+									<div class="col-md-3">
+										<select style="height: 40px; border-width: 1px; padding: 6px; color: #49b9bb;">
+											<option value="0" selected>+86</option>
+										</select>
+									</div>
+									<div class="col-md-9" style="padding-left: 0px;">
+										<label class="input">
+											<i class="ico-append fa fa-mobile"></i>
+											<input type="text" maxlength="11" placeholder="输入用于登录的手机号" name="mobile" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();">
+											<b class="tooltip tooltip-bottom-right">输入用于登录的手机号</b>
+										</label>
+									</div>
+								</div>
+
+								<!--是否开启验证码-->
+								{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+								<div class="form-group" style="margin-top: 16px !important;">
+									<div id="captcha"></div>
+									<p id="wait" class="show">正在加载验证码......</p>
+									<p id="notice" class="hide">请先拖动验证码到相应位置</p>
+								</div>
+								{%endif%}
+
+								<div class="row">
+									<div class="col-md-6">
+										<label class="input margin-bottom-10">
+											<i class="ico-append fa fa-barcode"></i>
+											<input type="text" placeholder="验证码" name="verifycode">
+											<b class="tooltip tooltip-bottom-right">点击右侧按钮获取验证码</b>
+										</label>
+									</div>
+									<div class="col-md-6">
+
+										<a href="#" class="btn btn-3d btn-sm btn-reveal " style="margin-left: 0; padding-left: 35px; padding-right: 35px;" id="verifycodesend" data-type="2">
+											<!-- <i class="fa fa-send-o"></i> -->
+											<span class="qian">获取短信验证码</span>
+											<span class="hou" style="display: none"><m id="waittime" class="">60</m>秒后重新获取</span>
+										</a>
+									</div>
+								</div>
+
+			                    <div class="margin-top-10" style="height: 34px;">
+			                    	<input type="hidden" name="sms_type" value="2">
+			                    	<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+			                    		<button id="validate-submit" type="submit" class="btn btn-primary" style="width: 100%; margin: 0;">完成验证</button>
+			                    	</div>
+			                    	
+			                    </div>
+		                    </fieldset>
+
+                </form>
+				{%endif%}
+
+				{%endif%}
+			</div>
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+
+	{% endblock %}
+	{% block script %}
+	<!-- PAGE LEVEL SCRIPTS -->
+	<script type="text/javascript">
+		{% if controller.setup.USER_ALLOW_SMSREGISTER == 1 %}
+		$("#verifycodesend").click(function () {
+			var that = this;
+			var mobile = $("input[name='mobile']").val();
+			var type = $(this).attr("data-type");
+			var myreg = /^1(3|4|5|7|8)\d{9}$/;
+			if(!myreg.test(mobile))
+			{
+				_toastr('请输入有效的手机号码!',"top-right","error",false);
+				return false;
+			}
+			$(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+			$.ajax({
+				type:"post",
+				url:"/uc/public/verifycodesend",
+				data:{mobile:mobile,type:type,check:1},
+				success:function (data){
+					console.log(data)
+					if(data.err_code==0){
+						$(".qian").hide();
+						$(".hou").show();
+						var wait = document.getElementById('wait')
+						var interval = setInterval(function(){
+								var time = --waittime.innerHTML;
+								if(time <= 0) {
+									$(".qian").show();
+									$(".hou").hide();
+									$(that).removeClass('disabled').prop('disabled',false);
+									$("#waittime").text('60');
+									clearInterval(interval);
+								};
+						}, 1000);
+					}else {
+						if(1000 == data.errno){
+							$(that).removeClass('disabled').prop('disabled',false);
+							_toastr(data.errmsg,"top-right","error",false);
+						}
+					}
+				}
+			})
+		})
+		{% endif %}
+			/**
+				Checkbox on "I agree" modal Clicked!
+				**/
+				jQuery("#terms-agree").click(function(){
+					jQuery('#termsModal').modal('toggle');
+
+				// Check Terms and Conditions checkbox if not already checked!
+				if(!jQuery("#checked-agree").checked) {
+					jQuery("input.checked-agree").prop('checked', true);
+				}
+				
+			});
+		</script>
+
+		{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+		<!-- 引入封装了failback的接口--initGeetest -->
+
+		<!-- 引入封装了failback的接口--initGeetest -->
+		<script src="//static.geetest.com/static/tools/gt.js"></script>
+
+		<!-- 若是https，使用以下接口 -->
+		<!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+		<script>
+			$(function () {
+				var handlerEmbed = function (captchaObj) {
+					var success = false;
+					$("#validate-submit").click(function () {
+						var that = this;
+						var validate = captchaObj.getValidate();
+						if (!validate) {
+							_toastr("请先完成验证!","top-right","error",false);
+							return false;
+						}
+						$.ajax({
+		                    url: "/uc/public/forgotpw", // 进行二次验证
+		                    type: "post",
+		                    dataType: "json",
+		                    data: {
+		                        mobile:$("input[name='mobile']").val(),
+		                        verifycode:$("input[name='verifycode']").val(),
+		                        sms_type:$("input[name='sms_type']").val()
+		                    },
+                    		success: function (data) {
+
+                   				if (data.errno==0) {
+					            	if (data.data.url) {
+					            		_toastr(data.data.name + ' 页面即将自动跳转~',"top-right","success",false);
+					                   // toastr.success(data.data.name + ' 页面即将自动跳转~');
+					               }else{
+					               	_toastr(data.data.name,"top-right","success",false);
+					                    //toastr.success(data.data.name);
+					                }
+					                setTimeout(function(){
+					                	$(that).removeClass('disabled').prop('disabled',false);
+					                	//alert(data.data.url);
+					                	if (data.data.url) {
+					                		//console.log(data.data.url);
+					                		location.href=data.data.url;
+					                	}else if( $(that).hasClass('no-refresh')){
+					                        //toastr.clear()
+					                    }else{
+					                    	location.reload();
+					                    }
+					                },1500);
+					            }else{
+					            	if(data.errno==1001){
+					            		$.each(data.errmsg,function(i,n){
+					            			_toastr(n,"top-right","error",false);
+					                        //toastr.error(n);
+					                    })
+					            	}else {
+					            		_toastr(data.errmsg,"top-right","error",false);
+					                    //toastr.error(data.errmsg);
+					                }
+					                console.log(data);
+
+					                setTimeout(function(){
+					                	$(that).removeClass('disabled').prop('disabled',false);
+					                	if (data.data) {
+					                		location.href=data.data;
+					                	}else{
+					                        //toastr.clear()
+					                    }
+					                },1500);
+					            }
+                    		}
+                		});
+						return false;
+					});
+
+            // 将验证码加到id为captcha的元素里
+            captchaObj.appendTo("#captcha");
+
+            captchaObj.onReady(function () {
+            	$("#wait")[0].className = "hide";
+            });
+
+            // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+        };
+        $("#captcha").ready(function(){
+        	setTimeout(function(){
+        		$.ajax({
+                    // 获取id，challenge，success（是否启用failback）
+                    url: "/admin/public/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+
+                        // 使用initGeetest接口
+                        // 参数1：配置参数
+                        // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+                        initGeetest({
+                        	gt: data.gt,
+                        	challenge: data.challenge,
+                            product: "float", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                            offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                        }, handlerEmbed);
+                    }
+                });
+
+        	},1000);
+        });
+    })
+
+</script>
+{%else%}
+<script>
+</script>
+{%endif%}
+
+{% endblock %}

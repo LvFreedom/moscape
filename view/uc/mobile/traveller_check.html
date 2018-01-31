@@ -1,0 +1,140 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+ul,ul li{
+	margin:0;
+	padding:0;
+}
+.traveller-header{
+	background: #1eb6c1
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.traveller-header span{
+    display: inline-block;
+    margin-top:10.5px;
+    font-size:24px;
+    color:#fff;
+}
+.mui-content{
+	padding-bottom:50px;
+}
+.mui-content h3{
+	color:#1eb6c1;
+	font-weight:normal;
+	padding:10px 5.56%;
+}
+.mui-table-view{
+	margin:0 2.78%;
+	margin-bottom:15px;
+	background:#fff;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.mui-table-view-cell:after{
+	height:0;
+}
+.specific-info .mui-table-view-cell span{
+	display: inline-block;
+	width:30%;
+	text-align:right;
+}
+.specific-info .mui-table-view-cell b{
+	display: inline-block;
+	width:65%;
+	margin-left:5%;
+}
+
+
+
+.clear:after{
+    content:"";
+    display: block;
+    clear:both;
+}
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>查看常用旅客信息</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+{% for item in list %}
+	<h3>旅客信息</h3>
+	<ul class="specific-info mui-table-view">
+		<li class="mui-table-view-cell">
+			<span>中文名</span><b>{% if item.name_zh %} {{item.name_zh}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>英文名</span><b>{% if item.name_en_first %} {{item.name_en_first}} {{item.name_en_last}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>国籍</span><b>{% if item.country %} {{item.country}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>性别</span><b>{% if item.sexual == 1 %} 男 {% elif item.sexual == 2 %} 女 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>生日</span><b>{% if item.birthday %} {{item.birthday}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>出生地</span><b>{% if item.birthplace %} {{item.birthplace}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>手机号码</span><b>{% if item.phone %} {{item.phone}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>联系电话</span><b>{% if item.tel_number %} {{item.tel_zone}} {{item.tel_number}} {{item.tel_ext}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>传真号码</span><b>{% if item.fax_number %} {{item.fax_zone}} {{item.fax_number}} {{item.fax_ext}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>Email</span><b>{% if item.email %} {{item.email}} {% else %} 未设置 {% endif %}</b>
+		</li>
+	</ul>
+	<h3>证件信息</h3>
+	<ul class="specific-info mui-table-view">
+		<li class="mui-table-view-cell">
+			<span>证件类型</span><b>{% if item.credentials_type_name %}  {{item.credentials_type_name}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>证件号码</span><b>{% if item.credentials_value %}  {{item.credentials_value}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>有效期</span><b>{% if item.credentials_validity %}  {{item.credentials_validity}} {% else %} 未设置 {% endif %}</b>
+		</li>
+	</ul>
+{% endfor %}
+</section>
+
+{% endblock%}
+
+{% block script %}
+<script>
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

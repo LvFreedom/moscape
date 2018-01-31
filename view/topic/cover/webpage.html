@@ -1,0 +1,359 @@
+{% extends "../inc/base.html" %}
+
+{% block content %}
+<style>
+	#cont{
+		width: 688px;
+		height: auto;
+		min-height:300px;
+		background:#fff;
+		margin: 0px auto;
+		margin-top: 144px;
+		margin-bottom: 80px;
+		padding-right: 0px;
+		padding-left: 0px;
+		border: 2px solid #C9E3E2;
+		filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;  /*IE FIREFOX CHROME*/
+
+	}
+	#sRow{
+		margin-left: 0px;
+		float:left;
+		width:auto;
+	}
+	#colm{
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-top: 0px;
+		width:auto;
+
+	}
+	#sideNav{
+		width: 120px;
+		margin: 0px;
+		padding: 0px;
+		float: left;
+		text-align:center;
+	}
+	#sa{
+		height: 32px;
+		width: 120px;
+		padding: 0px;
+		margin: 0px;
+		margin-top: 8px;
+		font-weight:bold;
+		font-size: 18px;
+		text-align: center; 
+		border-bottom: 2px solid #C9E3E2;
+		position: relative;
+
+	}
+	#srank1{
+		width:auto:;
+		height:40px;
+		border-bottom:2px solid #C9E3E2;
+		font-size: 25px;
+		font-weight: bolder;
+	}
+	#srank2{
+		width:100%;
+		mix-height:800px;
+	}
+	#slili{
+		width: auto;
+		padding: 0px;
+		margin: 0px;
+	}
+	.sect{
+		width: 100%;
+		height: auto;
+		padding: 0px;
+		margin: 0px;
+		border-bottom: none;
+		background:url(static/assets/images/backgrounds/webpagebc.jpg);
+	}
+	.webpagebc{
+		width:100%;
+		visibility:hidden;
+	}
+	.ang1 {
+		position: absolute;
+		top:-29px;
+		left:-29px; 
+	}
+	.ang2 {
+		position: absolute;
+		top:-29px;
+		right:-29px;  
+	}
+	.ang3 {
+		position: absolute;
+		bottom:-29px;
+		right:-29px; 
+	}
+	.ang4 {
+		position: absolute;
+		bottom:-29px;
+		left:-29px; 
+	}
+	.suli a{
+		width: 120px;
+		margin: 0px;
+		/* margin-left: 10px; */
+		padding:0px;
+		text-indent:0.5em;
+		text-align: left;
+		border-bottom: 2px solid #C9E3E2;
+	}
+	.rank{
+		float:left;
+		min-height:300px; 
+		height: auto;
+		width: 565px;
+		padding: 0px;
+		margin-left:14px;
+		border-left: 2px solid #C9E3E2;
+	}
+	.srank{
+		float:left;
+		width:100%;
+		height:auto;
+	}
+	.srankn{
+		float:left;
+		width:100%;
+		min-height: 500px;
+		height:auto;
+		display: none;
+	}
+	.rank .srank .wangEditor-container .wangEditor-txt{
+		margin:0px 15px 10px 15px;/*1*/
+		
+		height: auto;
+	}
+	.rank .srank .wangEditor-container .wangEditor-txt p {
+		padding:0px;
+		height: auto;
+	}
+	.rank .srank .wangEditor-container .wangEditor-txt p img{
+		width:100% !important; 
+	}
+	li.sli>a, a:focus:not(.btn),ul.side-nav ul li a:hover,ul.side-nav>li:hover>a, ul.side-nav>li a:hover {
+		color: black;
+		
+	
+	}
+	ul.side-nav ul li a:hover{
+		filter:alpha(Opacity=90);-moz-opacity:0.9;opacity:0.999;
+		background-color: #C4C4CB;
+	}
+	.bg{
+		background-color: #C4C4CB;
+	}
+	.rank .srank .wangEditor-container .wangEditor-txt p img{
+		width: auto !important;
+	}
+</style>
+                
+			<section class="sect">
+			<!-- <img class="webpagebc" src="static/assets/images/backgrounds/webpagebc.jpg"> -->
+				<input type="hidden" class="webpage-contact">
+				<div id="cont" class="container">
+					<img class="ang1" src="static/assets/images/angle1.png">
+					<img class="ang2" src="static/assets/images/angle2.png">
+					<div class="row" id="sRow">
+						<!-- LEFT -->
+						<div class="col-md-9 col-sm-9" id="colm">
+						<!--
+                                controlls-over		= navigation buttons over the image
+                                buttons-autohide 	= navigation buttons visible on mouse hover only
+
+                                data-plugin-options:
+                               		"singleItem": true
+                                    "autoPlay": true (or ms. eg: 4000)
+                                    "navigation": true
+                                    "pagination": true
+                                     "transitionStyle":"fadeUp" (fade,backSlide,goDown,fadeUp)
+                        -->
+                        
+							<!-- side navigation -->
+							<ul class="side-nav list-group" id="sideNav"> 
+															
+								{% column data="cates",cid=category.id%} 
+								{% set i=0 %}
+								{%for val in cates%}
+								{#
+								{% set i=i+1 %}
+								{% if i==1%}
+								<li id="sli" class="sli {% if http.action == 'publish' %}active{%endif%} ">  
+								 <!-- NOTE: "active" to be open on page load -->
+									<a id="sa" data-toggle="collapse" data-parent="#sidebar-nav" href="#tab{{val.id}}">{{val.name}}<!-- <i class="fa fa-angle-left"></i> -->
+									</a>
+									
+									<ul id="tab{{val.id}}" class="margin-bottom-0 collapse in"  ><!-- NOTE: "collapse in" to be open on page load -->
+										{% topic data = "list",limit= "10",cid=val.id, isstu=1 %}
+										{% for val in list %}	
+										{% set categoryname = val.category_id|get_cate %}
+											{% if val.id == 565 %}
+
+											
+												<li class="suli bg" id="slili" >
+												<a id="t{{ val.id }}" class="titleA {% if http.action == 'publish' %}text-danger{%endif%}"><i class="fa fa-angle-right  text-muted "></i>   {{val.title}}</a>
+											</li>
+											{%else%}
+											<li class="suli" id="slili" >
+												<a id="t{{ val.id }}" class="titleA {% if http.action == 'publish' %}text-danger{%endif%}" ><i class="fa fa-angle-right "></i>
+												  {{val.title}}</a>
+											</li>
+											{% endif %}		                         
+										{%endfor%}										
+									</ul>
+																		
+								</li>
+								{%else%}
+								{%endif%}
+								#}
+								<li id="sli" class="sli {% if http.action == 'publish' %}active{%endif%} ">  
+								 <!-- NOTE: "active" to be open on page load -->
+									<a id="sa" data-toggle="collapse" data-parent="#sidebar-nav" href="#tab{{val.id}}">{{val.name}}<!-- <i class="fa fa-angle-left"></i> -->
+									</a>
+									
+									<ul id="tab{{val.id}}" class="margin-bottom-0 collapse "  ><!-- NOTE: "collapse in" to be open on page load -->
+										{% topic data = "list",limit= "10",cid=val.id, isstu=1 %}
+										{% for val in list %}	
+										{% set categoryname = val.category_id|get_cate %}
+											{% if val.id == 565 %}
+
+											
+												<li class="suli bg" id="slili" >
+												<a id="t{{ val.id }}" class="titleA {% if http.action == 'publish' %}text-danger{%endif%}"><i class="fa fa-angle-right  text-muted "></i>   {{val.title}}</a>
+											</li>
+											{%else%}
+											<li class="suli" id="slili" >
+												<a id="t{{ val.id }}" class="titleA {% if http.action == 'publish' %}text-danger{%endif%}" ><i class="fa fa-angle-right "></i>
+												  {{val.title}}</a>
+											</li>
+											{% endif %}		                         
+										{%endfor%}										
+									</ul>
+																		
+								</li>
+																
+								{%endfor%} 
+							</ul>
+						</div>
+					</div>
+					
+					<!-- RIGHT -->
+					<div class="rank">
+						{% column data="cates",cid=category.id %} 
+						{%for val in cates%}
+						{% topic data = "list",limit= "10",cid=val.id, isstu=1 %}
+							{% for val in list %}	
+							{% set categoryname = val.category_id|get_cate %}	
+								{% if val.id == 565 %}								
+						<div id="s{{val.id}}" name="s{{val.id}}" class="srank">
+							<div id="srank1">
+								&nbsp;&nbsp;{{val.title}}
+							</div>
+							<div  id="srank2" class="wangEditor-container cmswing-container">
+								<div class="wangEditor-txt nopadding">
+									{{val.content|safe}}									
+								</div>									
+							</div>							
+						</div> 
+								{%else%}
+						<div id="s{{val.id}}" class="srankn" >
+						
+							<div id="srank1" >
+								&nbsp;&nbsp;{{val.title}}
+							</div>
+							<div  id="srank2" class="wangEditor-container cmswing-container " >
+								<div  class="wangEditor-txt nopadding" style="margin:0px 15px 10px 15px">
+									{{val.content|safe}}
+								</div>									
+							</div>
+							
+						</div> 		
+								{% endif %}
+								
+							{%endfor%}
+						{%endfor%}
+					</div>
+					<img class="ang4" src="static/assets/images/angle4.png">
+					<img class="ang3" src="static/assets/images/angle3.png">
+				</div>
+				<!-- <a href="#s565">点击我就会跳s565</a> -->			
+			</section>
+
+			<section style="padding: 0; border-bottom: none;width: 100%;">
+				<img src="static/assets/images/home_logo1.jpg" style="width:100%;height:143;">
+			</section>
+
+			
+			
+{% endblock %}
+{% block script %}
+		
+<script type="text/javascript">
+	$(".sli").on("click",function(){
+		$(this).siblings().children("ul").removeClass("in");
+	})
+	$(".suli").on("click",function(){
+		$(".side-nav").find(".suli").removeClass("bg");
+		$(this).addClass("bg");
+		var id = $(this).find(".titleA").attr("id").split("t")[1];
+		$(".rank").children("div").removeClass('srank srankn');
+		$("#s"+id).siblings().addClass("srankn");
+		$("#s"+id).addClass("srank");
+	})
+	$(".footer-links").on("click","li a",function(){
+		var id = $(this).attr("href").split("#s")[1];
+		$(".rank").children("div").removeClass('srank srankn');
+		$("#s"+id).siblings().addClass("srankn");
+		$("#s"+id).addClass("srank");
+
+
+		$(".side-nav").children("li").children("ul").removeClass("in");
+		$("#t"+id).parents(".collapse").addClass("in");
+		$(".side-nav").find(".suli").removeClass("bg");
+		$("#t"+id).parent("li").addClass("bg");
+
+
+	})
+
+
+</script>
+
+<script>
+	window.onload=function(){
+		id=location.href.split("webpage.html#s")[1];
+		if (null!=id) {
+			console.log(id);
+			$(document).ready(function(){
+
+				$(".rank").children("div").removeClass('srank srankn');
+				$("#s"+id).siblings().addClass("srankn");
+				$("#s"+id).addClass("srank");
+
+
+				$(".side-nav").children("li").children("ul").removeClass("in");
+				$("#t"+id).parents(".collapse").addClass("in");
+				$(".side-nav").find(".suli").removeClass("bg");
+				$("#t"+id).parent("li").addClass("bg");
+
+
+			});
+		}else{
+			console.log("null");
+			$(document).ready(function(){
+				$("#tab137").parent("li").siblings().children("ul").removeClass("in");
+			});
+
+		}
+		
+	}
+	
+</script>
+
+{% endblock %}

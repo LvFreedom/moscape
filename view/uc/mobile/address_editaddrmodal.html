@@ -1,0 +1,545 @@
+{#
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
+<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+    .original {
+        border: 1px solid #999;
+        font-size: 10px !important;
+        border-radius: 4px;
+        line-height: 14px;
+        width: 30px;
+        color: #505050;
+        text-align: center;
+        margin-right: 5px;
+        top: -2px;
+        position: relative;
+        padding: 0 1px;
+    }
+    .mui-bar-tab .mui-tab-item.mui-active {
+        color: #929292;
+    }
+    .mui-table h4 ,.mui-media-body h4{
+        line-height: 21px;
+        font-weight: 400;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+
+
+
+</header>
+
+<div class="mui-content">
+    <form action="/uc/address/addaddr" method="post" class="form-post" >
+<div class="mui-input-group mui-table-view">
+    <div class="mui-input-row">
+        <label>姓名</label>
+        <input type="text" placeholder="收货人姓名" name="accept_name" value="{{info.accept_name}}">
+    </div>
+    <div class="mui-input-row">
+        <label>手机号码</label>
+        <input type="number" placeholder="手机号码" value="{{info.mobile}}" name="mobile" >
+    </div>
+    <div class="mui-input-row">
+        <label>邮政编码</label>
+        <input type="number" placeholder="邮政编码(选填)" value="{{info.zip}}" name="zip" >
+    </div>
+        <div class="mui-input-row">
+            <label>所在地区</label>
+            <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+        </div>
+
+    <li class="mui-table-view-divider">街道地址</li>
+    <div style="margin: 5px;">
+        <textarea class="margin-bottom-0" id="textarea" rows="3" placeholder="填写详细地址，例如街道名称，楼层和门牌号等" name="addr">{{info.addr}}</textarea>
+    </div>
+    <li class="mui-table-view-cell">
+        设为默认地址
+        <input type="hidden"  name="is_default" value="{{info.is_default}}">
+        <div class="mui-switch ">
+            <div class="mui-switch-handle"></div>
+        </div>
+    </li>
+</div>
+        <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+            <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
+            <button  type="button" class="mui-btn mui-btn-primary mui-btn-block addr">{% if info.id %}编辑地址{%else%}添加新地址{%endif%}</button>
+            {% if info.id %}
+            <input type="hidden" value="{{info.id}}" name="id" class="id">
+            <a  class="mui-btn mui-btn-danger mui-btn-block deladdr" >删除地址</a>
+            {%endif%}
+        </div>
+    </form>
+</div>
+
+{% endblock%}
+
+{% block script %}
+<script src="/static/webapp/js/mui.picker.min.js"></script>
+<script src="/static/webapp/js/mui.poppicker.js"></script>
+<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    mui.init();
+    //-----------------------------------------
+    //                  //级联示例
+    var cityPicker3 = new mui.PopPicker({
+        layer: 3
+    });
+    cityPicker3.setData(cityData3);
+    var showCityPickerButton = document.getElementById('city-picker');
+    showCityPickerButton.addEventListener('tap', function(event) {
+        cityPicker3.show(function(items) {
+            //alert("你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text) ;
+            showCityPickerButton.value= (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+            //返回 false 可以阻止选择框的关闭
+            //return false;
+        });
+    }, false);
+    /**
+     * toggle 事件监听
+     */
+    mui('.mui-switch')[0].addEventListener('toggle', function(event) {
+        //event.detail.isActive 可直接获取当前状态
+        if(event.detail.isActive){
+            $("input[name='is_default']").val(1)
+        }else {
+            $("input[name='is_default']").val("")
+        }
+        //this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
+    });
+    var falg = false;
+
+     $("a.deladdr").on("tap",function () {
+         if(falg){
+             return false;
+         }
+         var that = this;
+         var btnArray = ['否', '是'];
+         mui.confirm('删除后不能恢复!', '确认删除?', btnArray, function(e) {
+             if (e.index == 1) {
+                 $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+                 falg = true;
+                 mui.post("/uc/address/deladdr",{resurl:'{{http.referrer()}}',id:'{{info.id}}'},function(data){
+                     if (data.errno==0) {
+                         if (data.data.url) {
+                             mui.toast(data.data.name + ' 即将跳转~');
+                         }else{
+                             mui.toast(data.data.name);
+                         }
+                         setTimeout(function(){
+                             $(that).removeClass('disabled').prop('disabled',false);
+                             falg=false;
+                             if (data.data.url) {
+                                 mui.openWindow({url: data.data.url})
+                             }else{
+                                 location.reload();
+                             }
+                         },1500);
+                     }else{
+                         if(data.errno==1001){
+                             $.each(data.errmsg,function(i,n){
+                                 mui.toast(n);
+                             })
+                         }else {
+                             mui.toast(data.errmsg);
+                         }
+
+                         setTimeout(function(){
+                             $(that).removeClass('disabled').prop('disabled',false);
+                             falg=false;
+                             if (data.data) {
+                                 mui.openWindow({url: data.data})
+                             }
+                         },1500);
+                     }
+                 },'json');
+             } else {
+                 return false;
+             }
+         })
+         return false;
+     })
+
+    $("button.addr").on("tap",function () {
+        if(falg){
+            return false;
+        }
+        var that = this;
+        var form =$(".form-post")
+        var query = form.serialize();
+        var target = form.get(0).action;
+        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        falg = true;
+
+        mui.post(target,query,function(data){
+            if (data.errno==0) {
+                if (data.data.url) {
+                    mui.toast(data.data.name + ' 即将跳转~');
+                }else{
+                    mui.toast(data.data.name);
+                }
+                setTimeout(function(){
+                    $(that).removeClass('disabled').prop('disabled',false);
+                    falg=false;
+                    if (data.data.url) {
+                        mui.openWindow({url: data.data.url})
+                    }else{
+                        location.reload();
+                    }
+                },1500);
+            }else{
+                if(data.errno==1001){
+                    $.each(data.errmsg,function(i,n){
+                        mui.toast(n);
+                    })
+                }else {
+                    mui.toast(data.errmsg);
+                }
+
+                setTimeout(function(){
+                    $(that).removeClass('disabled').prop('disabled',false);
+                    falg=false;
+                    if (data.data) {
+                        mui.openWindow({url: data.data})
+                    }
+                },1500);
+            }
+        },'json');
+        return false;
+    })
+
+</script>
+{% endblock %}
+#}
+
+
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
+<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+ul,ul li{
+    margin:0;
+    padding:0;
+}
+.traveller-header{
+    background: #1eb6c1
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.traveller-header span{
+    display: inline-block;
+    margin-top:10.5px;
+    font-size:24px;
+    color:#fff;
+}
+.mui-content{
+    padding-bottom:50px;
+}
+.mui-table-view{
+    margin-top:30px;
+    background: #fff;
+}
+.mui-table-view-cell span{
+    display: inline-block;
+    width:30%;
+}
+.mui-table-view-cell b{
+    display: inline-block;
+    width:70%;
+    font-weight:normal;
+    font-size:15px;
+    color:#b2b2b2;
+}
+.mui-table-view-cell input{
+    width:50%;
+    border:1px solid #b2b2b2;
+    border-radius: 3px;
+}
+.mui-table-view-cell input.addr-det{
+    width:60%;
+}
+.mui-table-view-cell input.area,
+.mui-table-view-cell input.extension{
+    width:20.67%;
+}
+.mui-table-view-cell input.telephone{
+    width:22.83%;
+}
+.mui-table-view-cell:after{
+    height:0;
+}
+.mui-table-view-cell{
+    border-bottom:1px solid #c8c7cc;
+}
+.sub{
+    margin-top:20px;
+    margin-bottom:20px;
+    text-align: center;
+}
+.sub a{
+    display: inline-block;
+    width:24%;
+    height:32px;
+    background: #1eb6c1;
+    text-align: center;
+    line-height: 32px;
+    color:#fff;
+    border-radius: 5px;
+    margin-left:20px;
+}
+
+
+.clear:after{
+    content:"";
+    display: block;
+    clear:both;
+}
+</style>
+{%endblock%}
+{% block content %}
+{% if type and type == 1 %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>编辑常用地址</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+    <form id='editaddr-form' class="mui-input-group">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <span>地址简称</span><input class="addr-confir" onblur="addrBlur()" type="text" placeholder='如"家"，"我的公司"等' name="sortname" value="{{info.sortname}}">
+            </li>
+            <li class="mui-table-view-cell">
+                <span>收件人姓名</span><input class="acc-confir" onblur="acceptBlur()" type="text" placeholder=""  name="accept_name" value="{{info.accept_name}}">
+            </li>
+            <li class="mui-table-view-cell">
+                <span>所在地区</span><input id="area" type="text" value="{{province}} {{city}}">
+                <input id="province" type="hidden" name="province" value="{{info.province}}">
+                <input id="city" type="hidden" name="city" value="{{info.city}}">
+            </li>
+            <li class="mui-table-view-cell">
+                <span>详细地址</span>
+                <input class="masked addr-det" onblur="addressBlur()" type="text" placeholder=""  name="addr" value="{{info.addr}}">
+            </li>
+            <li class="mui-table-view-cell">
+                <span>邮政编码</span>
+                <input class="zip-confir" onblur="zipBlur()" type="text" maxlength="6" placeholder=""  name="zip" value="{{info.zip}}">
+            </li>
+            <li class="mui-table-view-cell">
+                <span></span><b>手机号码与联系电话两者必须填一项</b>
+            </li>
+            <li class="mui-table-view-cell">
+                <span>手机号码</span><input type="text" maxlength="11" name="mobile" value="{{info.mobile}}" class="form-control masked phone-confir" placeholder="大陆手机">
+            </li>
+            <li class="mui-table-view-cell">
+                <span>联系电话</span>
+                <input type="text" name="phone_zone" maxlength="4" value="{{info.phone_zone}}" class="area" placeholder="区号">
+                <input type="text" name="phone_number" maxlength="8" value="{{info.phone_number}}" class="telephone" placeholder="电话">
+                <input type="text" name="phone_ext" maxlength="4" value="{{info.phone_ext}}" class="extension" placeholder="分机">
+                <input type="hidden" name="id" value="{{info.id}}">
+            </li>
+        </ul>
+    </form>
+    <form class="mui-input-group">
+        <div class="sub">
+            <a id="save">保存</a>
+            <a href="/uc/address">取消</a>
+        </div>
+    </form>
+</section>
+{% else %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>新增常用地址</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+    <form id='editaddr-form' class="mui-input-group">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <span>地址简称</span><input class="masked addr-confir" onblur="addrBlur()" type="text" placeholder='如"家"，"我的公司"等' name="sortname" value>
+            </li>
+            <li class="mui-table-view-cell">
+                <span>收件人姓名</span><input class="acc-confir" onblur="acceptBlur()" type="text" placeholder=""  name="accept_name" value>
+            </li>
+            <li class="mui-table-view-cell">
+                <span>所在地区</span><input id="area" type="text">
+                <input id="province" type="hidden" name="province" value>
+                <input id="city" type="hidden" name="city" value>
+            </li>
+            <li class="mui-table-view-cell">
+                <span>详细地址</span>
+                <input class="masked addr-det" onblur="addressBlur()" type="text" placeholder=""  name="addr" value>
+            </li>
+            <li class="mui-table-view-cell">
+                <span>邮政编码</span>
+                <input class="zip-confir" onblur="zipBlur()" type="text" maxlength="6" placeholder=""  name="zip" value>
+            </li>
+            <li class="mui-table-view-cell">
+                <span></span><b>手机号码与联系电话两者必须填一项</b>
+            </li>
+            <li class="mui-table-view-cell">
+                <span>手机号码</span><input type="text" maxlength="11" name="mobile" value class="form-control masked phone-confir" placeholder="大陆手机">
+            </li>
+            <li class="mui-table-view-cell">
+                <span>联系电话</span>
+                <input type="text" name="phone_zone" maxlength="4" value class="area" placeholder="区号">
+                <input type="text" name="phone_number" maxlength="8" value class="telephone" placeholder="电话">
+                <input type="text" name="phone_ext" maxlength="4" value class="extension" placeholder="分机">
+                <!-- <input type="hidden" name="id" value=""> -->
+            </li>
+        </ul>
+    </form>
+    <form class="mui-input-group">
+        <div class="sub">
+            <a id="save">保存</a>
+            <a href="/uc/address">取消</a>
+        </div>
+    </form>
+</section>
+{% endif %}
+{% endblock%}
+
+{% block script %}
+<script src="/static/webapp/js/mui.picker.min.js"></script>
+<script src="/static/webapp/js/mui.poppicker.js"></script>
+<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script>
+var provincePicker = new mui.PopPicker({
+        layer: 2
+    });
+provincePicker.setData(cityData3);
+var area = document.getElementById('area');
+var province = document.getElementById("province");
+var city = document.getElementById("city");
+area.addEventListener('tap', function(event) {
+    provincePicker.show(function(items) {
+        //alert("你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text) ;
+        area.value= (items[0] || {}).text + " " + (items[1] || {}).text + " " ;
+        //返回 false 可以阻止选择框的关闭
+        //return false;
+        province.value = (items[0] || {}).value;
+        city.value = (items[1] || {}).value;
+    });
+}, false);
+
+/****
+*地址表单验证
+**/
+//地址简称
+function addrBlur(){
+    var addr = $(".addr-confir").val();
+    if(addr == ""){
+        mui.toast("请输入地址简称")
+    }else{
+        return true;
+    }
+}
+//收件人
+function acceptBlur(){
+    var acce = $(".acc-confir").val();
+    if(acce == ""){
+        mui.toast("请输入收件人姓名")
+    }else{
+        return true;
+    }
+}
+//详细地址
+function addressBlur(){
+    var addr = $(".addr-det").val();
+    if(addr == ""){
+        mui.toast("请输入详细地址")
+    }else{
+        return true;
+    }
+}
+//邮编
+function zipBlur(){
+    var zip = $(".zip-confir").val();
+    if(zip == ""){
+        mui.toast("请输入邮编")
+    }else{
+        return true;
+    }
+}
+//手机号码验证
+function phoneBlur(){
+    var ph = $(".phone-confir").val();
+    var reg = /^1[3|4|5|7|8][0-9]{9}$/
+    if(ph == ""){
+        mui.toast("请输入手机号码")
+    }else if(!reg.test(ph)){
+        mui.toast("请输入正确的手机号码")
+    }else{
+        return true;
+    }
+}
+
+//表单提交
+var save = document.getElementById("save");
+save.addEventListener("tap",function(){
+    var province = $("#province").val()
+    if(!addrBlur()){
+        mui.toast("请输入地址简称")
+    }else if(!acceptBlur()){
+       mui.toast("请输入收件人姓名")
+    }else if(province==""||province==undefined||province==null){
+        mui.toast("请输入所在地区")
+    }else if(!addressBlur()){
+        mui.toast("请输入详细地址")
+    }else if(!zipBlur()){
+        mui.toast("请输入邮编")
+    }else if(!phoneBlur() && $(".telephone").val() == ""){
+        mui.toast("请正确输入手机号码与联系电话中的一项")
+    }else{
+        var data = $("#editaddr-form").serialize();
+        //console.log(data);
+        $.ajax({
+             type: "POST", 
+             url: "/uc/address/addaddr",
+             data: data,
+             success: function(msg){ 
+                console.log(msg)
+               if(msg.errno == 0){
+                    mui.toast("保存成功");
+                    setTimeout(function(){
+                        mui.openWindow({url:"/uc/address"})
+                    },1000)                
+               }else{
+                   mui.toast("编辑失败！"); 
+               }
+            } 
+        });
+    }
+})
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

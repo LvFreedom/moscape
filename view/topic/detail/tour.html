@@ -1,0 +1,2049 @@
+{% extends "../inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+<link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+<link href="/static/assets/plugins/fullcalendar-3.2.0/lib/cupertino/jquery-ui.min.css" rel="stylesheet" />
+<link href="/static/assets/plugins/fullcalendar-3.2.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="/static/assets/plugins/fullcalendar-3.2.0/fullcalendar.print.min.css" rel="stylesheet"  media='print' />
+<link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+<link rel="stylesheet" href="/static/assets/css/tour.css">
+<!--glDatePicker-->
+<link href="/static/assets/js/glDatePicker-2.0/styles/glDatePicker.default.css" rel="stylesheet" type="text/css">
+<link href="/static/assets/js/glDatePicker-2.0/styles/glDatePicker.flatwhite.css" rel="stylesheet" type="text/css">
+<!--/glDatePicker-->
+<style type="text/css">
+	.end-single{
+	    position: absolute;
+	    height: 120px;
+	    width: 70;
+	    top: 0px;
+	    right: -10px;
+	}
+	.small-end-single{
+        position: absolute;
+        top: 0px;
+        right: -2px;
+	}
+	.retrun-div{
+		width: 1014px;
+		height: 55px;
+		margin: 0 auto;
+	}
+	.btn-return{
+		margin-left:30px;
+	}
+	.btn-return.btn-primary:active:focus, .btn-return.btn-primary:active:hover{
+		background-color: #1eb6c1;
+		border: none;
+	}
+	.gldp-flatwhite .core{
+		/* cursor:default !important; */
+	}
+	.gldp-flatwhite .dow{
+		background-color: #1eb6c1 !important;
+		cursor:default !important;
+	}
+	.gldp-flatwhite .selected{
+		/* border: -1px !important; */
+		/* border-color: #1eb6c1 !important; */
+		border-color:#fff !important;
+		background-color: #1eb6c1 !important;
+	}
+	.gldp-flatwhite .sat{
+		/* border-color: #1eb6c1 !important; */
+		color: #fff !important;
+    	font-weight: bold;
+		background-color: #1eb6c1 !important;
+	}
+	.gldp-flatwhite .noday{
+		cursor:default !important;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+{#
+<section class="page-header dark page-header-xs parallax parallax-2" style="background-image:url('/static/assets/images/demo/thematics/lawyer/slider_bg_4-min.jpg')">
+	<div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
+	<div class="container">
+
+		<h1>{{category.title}}</h1>
+
+		<!-- breadcrumbs -->
+		<ol class="breadcrumb f-14">
+			<li><a href="/">首页</a></li>
+			{%for val in breadcrumb %}
+			<li><a href="{{val.url}}">{{val.title}}</a></li>
+			{% endfor %}
+		</ol><!-- /breadcrumbs -->
+
+		<!-- page tabs -->
+		{%column data="cate",pid=category.pid%}
+		{%if cate%}
+		<ul class="page-header-tabs list-inline">
+
+			<!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+			{%for val in cate%}
+			<li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+			{%endfor%}
+		</ul>
+		{%endif%}<!-- /page tabs -->
+	</div>
+</section>
+<!-- /PAGE HEADER -->
+#}
+
+<!-- SLIDER -->
+<section id="slider" class="" style="height: 600px;background-position: center center">
+	<span class="overlay dark-2"><!-- dark overlay [0 to 9 opacity] --></span>
+
+	<div class="display-table">
+		<div class="display-table-cell vertical-align-middle">
+
+            <!-- REVOLUTION SLIDER -->
+            <div class="slider fullwidthbanner-container roundedcorners margin-bottom-30">
+                <div class="fullwidthbanner" data-height="600" data-shadow="3" data-navigationStyle="">
+                    <ul class="">
+					{% set pic = info.pics|strToArray %}
+					{% for val in pic %}
+                        <!-- SLIDE data-transition: boxslide，boxfade，slotzoom-horizontal，slotslide-horizontal，slotfade-horizontal，slotzoom-vertical，slotslide-vertical，slotfade-vertical，curtain-1，curtain-2，curtain-3，slideleft，slideright，slideup，slidedown，fade-->
+                        <li data-transition="slotfade-vertical" data-slotamount="7" data-masterspeed="0"  data-saveperformance="off" delay="0">
+                            <!--<img src="{{val|get_pic('m=3,w=1140,h=450')}}" data-lazyload="{{val|get_pic('m=3,w=1140,h=450')}}" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />-->
+                            <img data-lazyload="{{val|get_pic('m=3,w=1140,h=450')}}" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <div class="tp-bannertimer"><!-- progress bar --></div>
+                </div>
+            </div>
+		</div>
+	</div>
+
+</section>
+<!-- /SLIDER -->
+
+<!-- -->
+<section>
+	<!--
+	<div class="retrun-div">
+		<button class="btn  btn-primary btn-return" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+	</div>-->
+	<div class="container">
+
+		<div class="row tour-box">
+
+			<!-- RIGHT -->
+			<div class="col-lg-12 col-md-12 col-sm-12 {#col-lg-push-3 col-md-push-3 col-sm-push-3#}">
+				<div class="row">
+
+<div class="col-lg-6 col-sm-6" id="calendar-box">
+	<div id='calendar'></div>
+</div>
+
+<!-- ITEM DESC -->
+<div class="col-lg-6 col-sm-6" id="detail-list">
+
+	<div class="row margin-bottom-10">
+		<div class="col-lg-6 col-sm-6 num-place">
+			<div class="pull-left text-left">编号：{{info.id}}</div>
+		</div>
+		<div class="col-lg-6 col-sm-6 num-place">
+			<div class="pull-right text-right">出发地：{{info.departure_place_name}}</div>
+		</div>
+	</div>
+	<h1 class="blog-post-title size-25 bold margin-bottom-10">{{info.title}}</h1>
+
+
+	<div class="row margin-bottom-10" style="padding-left:15px;">
+		<div class="col-lg-6 col-sm-6 price-num">
+			<div class="shop-item-price">
+				{#
+                {% if info.price|get_price_format('2') %}<span class="line-through nopadding-left">¥{{info.price|get_price_format('2')}}</span>{%endif%} 
+                #}
+
+				{% set itemPrice = info.price|get_price_format('1') %}
+				<price class="text-danger">¥{{itemPrice | replace(",","") | round(0, "floor")}}</price><span>/人起
+				</span>							
+				{% if info.favflag == 1 %}
+					{% set originalPrice = info.price|get_price_format('2') %}
+					<s>¥{{originalPrice | replace(",","") | round(0, "floor")}}<i></i></s>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-lg-2 col-sm-2 price-num">
+			<div class="score">{{ info.score_avg }}<span>分</span></div>
+			{#
+				{% if info.score!== 0 and info.score!== '' and info.commentcount !== 0 and info.commentcount !== '' %}
+					{% set score = info.score/info.commentcount %}
+					
+				{% else %}
+					<div class="score">{{info.score}}<span>分</span></div>
+				{% endif %}
+			#}
+		</div>
+		<div class="col-lg-2 col-sm-2 price-num">
+			<div class="score"><span>{{info.commentcount}}条点评</span></div>
+		</div>
+		<div class="col-lg-2 col-sm-2 price-num">
+			<div class="score"><span>{{info.ordercount}}人出游</span></div>
+		</div>
+	</div>
+	<hr class="price">
+	<div class="clearfix margin-bottom-10" >
+		<div class="pull-right" id="stock">
+			{% if info.available_stock != 0%}
+		{#
+			<span class=" text-success" ><i class="fa fa-check"></i> 有货 <span class="badge badge-aqua btn-xs ">
+		
+			{{info.available_stock}}</span></span>
+		#}
+			{% else%}
+			<span class="pull-right text-danger" style="font-size: 20px !important;"><i class="glyphicon glyphicon-remove"></i> 无货</span>
+			{% endif %}
+		</div>
+		<!--<strong>商家编码:</strong> {{info.id}}-->
+	</div>
+	{% if not controller.is_login %}
+	<div class="row margin-bottom-10" style="margin-left: 0px; margin-right: 0px; font-size: 13px;">
+		<div class="pull-left text-left">（<a class="" data-toggle="ajaxModal" href="/uc/public/loginmodal">登录</a>后查看更多优惠）</div>
+	</div>
+	{% endif %}
+	<div class="row">
+		<div class="col-lg-3 col-sm-3">
+			<div class="pull-left text-left bold">产品特色</div>
+		</div>
+		<div class="col-lg-9 col-sm-9">
+			<div class="introduce">{{info.productshortfeature}}</div>
+		</div>
+	</div>
+
+	{% if info.serviceguarantee %}
+	<div class="row">
+		<div class="col-lg-3 col-sm-3">
+			<div class="pull-left text-left bold">服务保障</div>
+		</div>
+		<div class="col-lg-9 col-sm-9">
+			<div class="introduce">{{info.serviceguarantee}}</div>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="row">
+		<div class="col-lg-3 col-sm-3">
+			<div class="pull-left text-left bold" style="letter-spacing: 0.5em;">供应商</div>
+		</div>
+		<div class="col-lg-9 col-sm-9">
+			<div class="introduce">{{info.vendor_name}}</div>
+		</div>
+	</div>
+
+	<div class="row margin-top-20 recommend">
+	{% if info.description!=='' and info.description!=='' and info.description!=='' %}
+		<div class="col-lg-3 col-sm-3 vertical-center">
+			<img src="/static/assets/images/head1.png">
+		</div>
+
+		{#
+			<div class="col-lg-9 col-sm-9">
+						<div class="">{{info.editorrecommend}}</div>
+			</div>
+		#}
+
+		
+		<p>产品经理推荐</p>
+		<ul>
+			{% if info.description|get_text_line(0) %}
+			<li>
+				<i class="glyphicon glyphicon-star"></i>
+				{{info.description | get_text_line(0)}}
+			</li>
+			{% endif %}
+			{% if info.description|get_text_line(1) %}
+			<li>
+				<i class="glyphicon glyphicon-star"></i>
+				{{info.description | get_text_line(1)}}
+			</li>
+			{% endif %}
+			{% if info.description|get_text_line(2)%}
+			<li>
+				<i class="glyphicon glyphicon-star"></i>
+				{{info.description | get_text_line(2)}}
+			</li>
+			{% endif %}
+		</ul>
+	{% endif %}
+	</div>
+
+
+	{% if info.description %}
+	<!-- short description -->
+	<!-- <small class="text-muted">{{info.description}}</small> -->
+	<!-- /short description -->
+	{% endif %}
+
+
+</div>
+<!-- /ITEM DESC -->
+
+</div>
+
+<input type="hidden" id="price-adult" value="{{info.price_adult|get_price('1')}}" />
+<input type="hidden" id="price-kid" value="{{info.price_kid|get_price('1')}}" />
+<input type="hidden" id="price-baby" value="{{info.price_baby|get_price('1')}}" />
+<input type="hidden" id="price-differences" value="{{info.price_differences|get_price('1')}}" />
+
+<div id="js_order" class="margin-top-20">
+	<ul class="resource_price_wrap basefix">  
+		<li class="start_date abc_start_date"> 
+			<label for="">出发</label> 
+			<div class="input_wrap">  
+				<input readonly="readonly" type="text" class="date" id="datetimepicker" value="请选择出发日期"> 
+				{#
+				<input readonly="readonly" id="js-depature-date-real" type="text" style="position:absolute;left:0;top:0;z-index:1;filter:alpha(opacity=0);opacity:0;" value="请选择出发日期">  
+				#}
+				<b></b> 
+			</div> 
+		</li>  
+		{% set price_adult = info.price_adult|get_price_format('1')|replace(",","")|round(0, "floor") %}
+		{% if price_adult and price_adult>0 %}
+		<li class="tourist_num"> 
+			<label for="">成人</label> 
+			<div class="input_wrap">
+				{#
+				<button type="button" class="btn btn-default dropdown-toggle product-qty-dd noradius" data-toggle="dropdown">
+					<span class="caret"></span>
+					<small id="product-selected-qty"><span>1</span></small>
+				</button>
+				#}
+				<input type="number" id="product-selected-qty" class="dropdown-toggle product-qty-dd noradius" data-toggle="dropdown" value="0"> 
+				<b></b> 
+
+				<ul id="product-qty-dd" class="product-qty-dd dropdown-menu clearfix" role="menu">
+					<li class="active"><a data-val="0" href="#">0</a></li>
+					<li><a data-val="1" href="#">1</a></li>
+					<li><a data-val="2" href="#">2</a></li>
+					<li><a data-val="3" href="#">3</a></li>
+					<li><a data-val="4" href="#">4</a></li>
+					<li><a data-val="5" href="#">5</a></li>
+					<li><a data-val="6" href="#">6</a></li>
+					<li><a data-val="7" href="#">7</a></li>
+					<li><a data-val="8" href="#">8</a></li>
+					<li><a data-val="9" href="#">9</a></li>
+					<li><a data-val="10" href="#">10</a></li>
+				</ul>
+			</div><!-- /btn-group -->
+			{#
+			<div class="input_wrap"> 
+				<input type="number" value="0"> 
+				<b></b> 
+				<p style="display:none">   
+					<a href="javascript:void(0)">0</a>     
+					<a href="javascript:void(0)">1</a>     
+					<a href="javascript:void(0)">2</a>     
+					<a href="javascript:void(0)">3</a>     
+					<a href="javascript:void(0)">4</a>     
+					<a href="javascript:void(0)">5</a>     
+					<a href="javascript:void(0)">6</a>     
+					<a href="javascript:void(0)">7</a>     
+					<a href="javascript:void(0)">8</a>     
+					<a href="javascript:void(0)">9</a>      
+					<a href="javascript:void(0)">&gt;9</a>   
+				</p> 
+			</div> 
+			#}
+			<span class="base_price" id="J_adusprice" style="display:none"></span> 
+		</li> 
+		{% endif %}
+		{% set price_kid = info.price_kid|get_price_format('1')|replace(",","")|round(0, "floor") %}
+		{% if price_kid and price_kid>0 %}
+		<li class="children_num">  
+			<label for="">儿童</label> 
+			<div class="input_wrap"> 
+				<input type="number" id="product-selected-qty-child" class="dropdown-toggle product-qty-dd noradius" data-toggle="dropdown" value="0"> 
+				<b></b> 
+
+				<ul id="product-qty-dd-child" class="product-qty-dd dropdown-menu clearfix" role="menu">
+					<li class="active"><a data-val="0" href="#">0</a></li>
+					<li><a data-val="1" href="#">1</a></li>
+					<li><a data-val="2" href="#">2</a></li>
+					<li><a data-val="3" href="#">3</a></li>
+					<li><a data-val="4" href="#">4</a></li>
+					<li><a data-val="5" href="#">5</a></li>
+					<li><a data-val="6" href="#">6</a></li>
+					<li><a data-val="7" href="#">7</a></li>
+					<li><a data-val="8" href="#">8</a></li>
+					<li><a data-val="9" href="#">9</a></li>
+					<li><a data-val="10" href="#">10</a></li>
+				</ul>
+				{#
+				<input type="number" value="0"> 
+				<b></b> 
+				<p style="display:none">   
+					<a href="javascript:void(0)">0</a>     
+					<a href="javascript:void(0)">1</a>     
+					<a href="javascript:void(0)">2</a>     
+					<a href="javascript:void(0)">3</a>     
+					<a href="javascript:void(0)">4</a>     
+					<a href="javascript:void(0)">5</a>     
+					<a href="javascript:void(0)">6</a>     
+					<a href="javascript:void(0)">7</a>     
+					<a href="javascript:void(0)">8</a>     
+					<a href="javascript:void(0)">9</a>      
+					<a href="javascript:void(0)">&gt;9</a>   
+				</p> 
+				#}
+			</div> 
+			<span class="child_tip" id="J_childtip" style="text-decoration: none; cursor: auto;"><i></i>(2-12岁)</span>  
+			<span class="base_price" id="J_chdsprice" style="display:none"></span> 
+		</li> 
+		{% endif %}
+		{% set price_baby = info.price_baby|get_price_format('1')|replace(",","")|round(0, "floor") %}
+		{% if price_baby and price_baby > 0 %}
+		<li class="baby_num">  
+			<label for="">婴儿</label> 
+			<div class="input_wrap"> 
+				<input type="number" id="product-selected-qty-baby" class="dropdown-toggle product-qty-dd noradius" data-toggle="dropdown" value="0"> 
+				<b></b> 
+
+				<ul id="product-qty-dd-baby" class="product-qty-dd dropdown-menu clearfix" role="menu">
+					<li class="active"><a data-val="0" href="#">0</a></li>
+					<li><a data-val="1" href="#">1</a></li>
+					<li><a data-val="2" href="#">2</a></li>
+					<li><a data-val="3" href="#">3</a></li>
+					<li><a data-val="4" href="#">4</a></li>
+					<li><a data-val="5" href="#">5</a></li>
+					<li><a data-val="6" href="#">6</a></li>
+					<li><a data-val="7" href="#">7</a></li>
+					<li><a data-val="8" href="#">8</a></li>
+					<li><a data-val="9" href="#">9</a></li>
+					<li><a data-val="10" href="#">10</a></li>
+				</ul>
+			</div> 
+			<span class="child_tip" id="J_childtip" style="text-decoration: none; cursor: auto;"><i></i>(0-2岁)</span>  
+			<span class="base_price" id="J_chdsprice" style="display:none"></span> 
+		</li> 
+		{% endif %}
+		<li class="total_price" id="J_priceBox"> 
+			<span class="price_name">总价</span> 
+			<span class="price" id="total-price">--</span> 
+			<i class="price_icon" id="J_acpricetip" style="display:none"></i> 
+			<form class="form-inline nomargin ichecks pull-right" id="form-tour"  data-icheck-info ="{{info.suk}}" method="post" action="/uc/booking">
+				<input type="hidden" name="product_id" value="{{info.id}}" />
+				<input type="hidden" id="product_type" name="type" value="" />
+				<!-- see assets/js/view/demo.shop.js -->
+
+				<!-- <input type="hidden" id="qty" name="qty" value="1" /> -->
+				<input type="hidden" id="adult_quantity" name="adult_quantity" value="0" />
+				<input type="hidden" id="kid_quantity" name="kid_quantity" value="0" />
+				<input type="hidden" id="baby_quantity" name="baby_quantity" value="0" />
+				<input type="hidden" id="differences_quantity" name="differences_quantity" value="0" />
+				<input type="hidden" id="start_date" name="start_date" value="" />
+				<button class="btn btn-primary" id="js-submit" style="font-size: 18px; margin-top: 3px; padding: 6px 24px;" onclick="submit_tour();return false;">  开始预订  </button> 
+			</form>
+			<div class="price_alert" id="J_pricealert" style="display:none"></div> 
+		</li> 
+		<div id="tour_warning" class="tuna_jmpinfo" group="no_group" style="min-width: 170px; max-width: 260px; display: none; z-index: 999; margin: 0px; padding: 0px; left: 31%; top: 18px; overflow: hidden; position: absolute; width: auto !important; border-radius: 5px;">
+			<div class="base_jmp jmp_alert base_jmp_l" id="boxId" style="border-radius: 5px;">
+				<b class="tri_l" id="arrowId" style="display: block; left: 12px; margin-top: 10px;"></b>
+				<div class="" id="loadingId"></div>
+				<div class="jmp_content" id="contentId">
+					<div class="jmp_bd">订单总人数不可少于1人</div>
+				</div>
+			</div>
+		</div>
+	</ul> 
+	<div class="resource_wrap" id="resource_wrap-temp">  </div> 
+	<div class="resource_wrap" id="resource_wrap" style="display: none;">   
+		<div class="all_resource">   
+			{% if info.price_differences|get_price_format('1') %} 
+			<div class="flt_htl_resource basefix">    
+				<div class="other_resource_detail"> 
+					<!-- <h4 class="resource_detail_title2">可选资源</h4> --> 
+					<table class="other_resource_table"> 
+						<tbody>      
+							<tr class="js-optional" data-only-date="2017-07-23T00:00:00" data-index-in-data="0" data-resource-id="15823316" data-category-id="30" data-price=""> 
+								<td class="col_01" rowspan="1">
+									<h4 class="other_product">单房差</h4> 
+								</td> 
+								<td class="col_02"> 
+									<i class="free_gift" style="display:none"></i>  
+									<div class="other_name_unclick">单房差</div>  
+								</td> 
+								<td class="col_03">  
+									<div><span class="js-ctrip-price other_price"><dfn>¥</dfn>{{info.price_differences|get_price_format('1')}}</span></div>  
+								</td> 
+								<td class="col_04">  --  </td> 
+								<td class="col_05"> 
+									<div class="room_num"> 
+										<div class="num_input_wrap">   
+						    				<input type="number" id="product-selected-qty-qperson" class="dropdown-toggle product-qty-dd noradius" data-toggle="dropdown" value="0"> 
+						    				<b></b> 
+
+											<ul id="product-qty-dd-qperson" class="product-qty-dd dropdown-menu clearfix" role="menu">
+												<li class="active"><a data-val="0" href="#">0</a></li>
+												<li><a data-val="1" href="#">1</a></li>
+												<li><a data-val="2" href="#">2</a></li>
+											</ul>
+										</div>
+										人 
+									</div> 
+								</td> 
+								<td class="col_06"> 
+									<div><span class="other_price js-total-price" id="total-differences-price">--</span></div> 
+								</td> 
+								<td class="col_07">  
+									<div class="room_selected" style=""> 
+										<a href="javascript:void(0);">选择</a> 
+									</div>  
+								</td> 
+								<td class="col_btn" rowspan="1">    
+								</td> 
+							</tr>   
+							<tr class="js-baoxian-notice" style="display:none"> 
+								<td colspan="8"> 
+									<div class="luggage_limit_info"><i></i>旅游保险能够给您的出行安全或行程预订带来保障，如您放弃购买，则行程中的风险和损失将由您自行承担。
+									</div> 
+								</td> 
+							</tr>  
+						</tbody> 
+					</table> 
+				</div>  
+			</div>      
+			{% endif %}
+			<div id="js-money-contain" class="flt_htl_resource basefix">     
+				<div class="cost_detail" id="cost_detail" style="border-bottom:0;margin-bottom:0;padding-bottom:0">  
+					{{info.product_expenses | safe}}
+				</div>     
+			</div>  
+		</div>  
+	</div>
+	<div class="seckill_pop" id="J_countdown" style="display:none"> 
+		<div class="left_txt"> 
+			<p> 
+				<span id="J_countips"></span> 
+			</p> 
+		</div> 
+		<div class="right_txt"> 
+			<div class="c_box_ico"><i></i></div> 
+			<p id="J_countime"></p> 
+		</div> 
+		<b></b> 
+	</div>
+</div>
+    
+<div id="product_detail" class="margin-top-20">
+	{% if info.outlinehotel == '' and info.outlineview == '' and info.outlinetraffic == '' and info.outlinedinner == '' and info.outlineactive == '' and info.outlineplane == ''%}
+	<div class="abc_detail_col"></div>
+	{% else %}
+	<div class="abc_detail_col">
+	    <dl class="abc_detail">
+	        <dt>产品概要</dt>
+	        <dd>
+	            <ul class="abc_summary basefix">
+	                <li>
+	                    <span class="abc_icon"><i class="abc_icon_hotel"></i></span>
+	                    {% if info.outlinehotel == '' %}
+	                    <p><em>暂无酒店信息</em></p>
+	                    {% else %}
+	                    <p><em>{{info.outlinehotel}}</em></p>
+	                    {% endif %}
+	                </li>
+	                <li>
+	                    <span class="abc_icon"><i class="abc_icon_scenic"></i></span>
+	                    {% if info.outlineview == '' %}
+	                    <p><em>暂无景点信息</em></p>
+	                    {% else %}
+	                    <p><em>{{info.outlineview}}</em></p>
+	                    {% endif %}
+	                </li>
+	                <li>
+	                    <span class="abc_icon"><i class="abc_icon_drive"></i></span>
+	                    {% if info.outlinetraffic == '' %}
+	                    <p><em>暂无交通信息</em></p>
+	                    {% else %}
+	                    <p><em>{{info.outlinetraffic}}</em></p>
+	                    {% endif %}
+	                </li>
+	                <li>
+	                    <span class="abc_icon"><i class="abc_icon_repast"></i></span>
+	                    {% if info.outlinedinner == '' %}
+	                    <p><em>暂无用餐信息</em></p>
+	                    {% else %}
+	                    <p><em>{{info.outlinedinner}}</em></p>
+	                    {% endif %}
+	                </li>
+	                <li>
+	                    <span class="abc_icon"><i class="abc_icon_free"></i></span>
+	                    {% if info.outlineactive == '' %}
+	                    <p><em>暂无自由活动信息</em></p>
+	                    {% else %}
+	                    <p><em>{{info.outlineactive}}</em></p>
+	                    {% endif %}
+	                </li>
+	                <li>
+	                    <span class="abc_icon"><i class="abc_icon_fly"></i></span>
+	                    {% if info.outlineplane == '' %}
+	                    <p><em>暂无航班信息</em></p>
+	                    {% else %}
+	                    <p><em>{{info.outlineplane}}</em></p>
+	                    {% endif %}
+	                </li>
+	            </ul>
+	        </dd>
+	    </dl>
+	</div>
+	{% endif %}
+	<div class="detail_tab_div" style="height: 40px;">
+        <div class="detail_tab basefix" style="z-index: 1;">
+            <ul class="detail_tab_col" id="js_detail_tab">
+                <li><a href="#xcjs" class="current">行程介绍</a></li>
+                <!-- <li id="J_zyld" style="display: none"><a href="#zyld">专业领队</a></li> -->
+                {% if info.product_expenses  %}
+                <li style=""><a href="#fy" class="">费用</a></li>
+                {% endif %}
+                {% if info.product_booking_info  %} 
+                <li style=""><a href="#ydxz" class="">预订须知</a></li>
+                {% endif %}
+                {% if info.product_visainfo  %}  
+                <li style=""><a href="#qz" class="">签证/签注</a></li>
+                {% endif %}
+                <li style=""><a href="#pj" class="">用户评价</a></li>
+              
+            </ul>
+        </div>
+    </div>
+    <div>
+	    <div class="col-lg-9 col-sm-9 clear">
+			<div class="under_tab_detail clear">
+		      	<i class="under_tab_anchor" id="xcjs"></i>
+		        <i class="under_tab_anchor_abc" id="xcjs_abc"></i> 
+		    	{% if info.product_recommend or info.product_route %}   
+		        <div id="js_detail" class="detail_content" style="border-top: none;">
+					<!--产品特色-->
+				    <h3 class="resource_title">
+				        产品特色<i class="icon_b icon_b_01 ce-product"></i>
+				    </h3>
+				    <div class="product_feature" id="product_feature">
+				    	{{info.product_recommend | safe}}
+				    </div>
+				    <div class="" id="js_detail_travelCtrip">
+				    	{{info.product_route | safe}}
+				    </div> 
+				    {#
+					<div class="fate_link" id="js_route_days" data-mapday="simpleDay2" style="position: fixed; display: block; top: 221px; z-index: 99; left: 105.5px;">
+			            <!--详细行程日期导航-->
+			            <div class="detail">
+				            <a class="" href="#route_day1">第1天<i></i></a>
+				            <a class="" href="#route_day2">第2天<i></i></a>
+				            <a class="" href="#route_day3">第3天<i></i></a>
+				            <a class="" href="#route_day4">第4天<i></i></a>
+				            <a class="" href="#route_day5">第5天<i></i></a>
+				            <a class="" href="#route_day6">第6天<i></i></a>
+				            <a class="" href="#route_day7">第7天<i></i></a>
+				            <a class="" href="#route_day8">第8天<i></i></a>
+				            <a class="" href="#route_day9">第9天<i></i></a>
+				            <a class="" href="#route_day10">第10天<i></i></a>
+				            <a class="" href="#route_day11">第11天<i></i></a>
+				            <a class="" href="#route_day12">第12天<i></i></a>
+				            <a class="" href="#route_day13">第13天<i></i></a>
+
+			            </div>
+			            <!--简单行程日期导航-->
+			            <div style="display: none;" class="simple">
+			                <a class="" href="#simpleDay1">第1天<i></i></a>
+			                <a class="current" href="#simpleDay2">第2天<i></i></a>
+			                <a class="" href="#simpleDay3">第3天<i></i></a>
+			                <a class="" href="#simpleDay4">第4天<i></i></a>
+			                <a class="" href="#simpleDay5">第5天<i></i></a>
+			                <a class="" href="#simpleDay6">第6天<i></i></a>
+			                <a class="" href="#simpleDay7">第7天<i></i></a>
+			                <a class="" href="#simpleDay8">第8天<i></i></a>
+			                <a class="" href="#simpleDay9">第9天<i></i></a>
+			                <a class="" href="#simpleDay10">第10天<i></i></a>
+			                <a class="" href="#simpleDay11">第11天<i></i></a>
+			                <a class="" href="#simpleDay12">第12天<i></i></a>
+			                <a class="" href="#simpleDay13">第13天<i></i></a>
+			            </div>
+			        </div>
+			        #}
+				    
+			    </div>  
+				{% endif %}	
+
+			    <!-- 费用包含占位 -->
+			    {% if info.product_expenses  %}   
+		        <i class="under_tab_anchor" id="fy"></i>
+		        <i class="under_tab_anchor_abc" id="fy_abc"></i>
+		        <div id="js_expense" class="detail_content">
+					<h3 class="resource_title"> 费&nbsp;&nbsp;用<i class="icon_b icon_b_03 ce-charge"></i> </h3>
+				    <div class="product_feature" id="product_expense">
+				    	{{info.product_expenses | safe}}
+				    </div>
+			    </div> 
+			    {% endif %}	
+			    <!-- 预订须知占位 -->
+			    {% if info.product_booking_info  %}   
+		        <i class="under_tab_anchor" id="ydxz"></i>
+		        <i class="under_tab_anchor_abc" id="ydxz_abc"></i>
+		        <div id="js_order_needknow" class="detail_content">
+					<h3 class="resource_title">预订须知<i class="icon_b icon_b_06 ce-reserve"></i></h3>
+				    <div class="product_feature" id="product_booking">
+				    	{{info.product_booking_info | safe}}
+				    </div>
+			    </div> 
+			    {% endif %}	
+			    <!-- 签证占位 -->
+			    {% if info.product_visainfo  %}   
+		        <i id="qz" class="under_tab_anchor" ></i>
+		        <i class="under_tab_anchor_abc" id="qz_abc"></i>
+		        <div id="js_visa" class="detail_content">
+					<h3 class="resource_title">签证/签注<i class="icon_b icon_b_07"></i></h3>
+				    <div class="product_feature" id="product_visa">
+				    	{{info.product_visainfo | safe}}
+				    </div>
+			    </div> 
+			    {% endif %}	
+				
+
+
+
+				<!-- 用户点评占位 --> 
+			    <i id="pj" class="under_tab_anchor" ></i>
+		        <i class="under_tab_anchor_abc" id="qz_abc"></i>
+				{% if info.score!== 0 and info.score!== '' and info.commentcount !== 0 and info.commentcount !== '' %}			
+		        <div id="js_review" class="detail_content">	
+					<h3 class="resource_title">用户评价<i class="icon_b icon_b_08 ce-comment"></i></h3>
+					<div class="product_feature" id="product_review">
+						<!--  {% model data="list",table="tour_comment",where='{"product_id":'+info.id+'}',order="add_time DESC",limit="8"%}
+						  {% for v in list %}
+
+				        <h3 class="evaluate">点评{{info.score | safe }}{{info.commentcount}}分</h3>
+				        {% endfor %} -->
+				    	<!--<div class="evaluate-number"></div>
+				        {% for v in list %}
+				        <div class="clearfix" style="height: auto; background: #fff; margin-bottom: 15px; padding: 4px 6px 0 6px;">
+					        <p class="margin-bottom-20"> {{v.comment_content | safe }}</p>
+					        <span class="pull-left">{{v.uid|get_nickname}}</span>
+					        <p class="pull-right text-right"> {{v.score_total | safe }}分</p>
+				        </div>
+				        {% endfor %} -->
+				        <!--
+				        <div class="more-info text-center margin-top-20">
+							<a href="">点击查看更多》</a>
+						</div>-->
+						<div class="col-sm-5 global-score">	
+						{#
+							{% set score = info.score/info.commentcount %}
+						#}
+							<p>{{ info.score_avg }}</p>
+							<span>总体评分</span>
+							<input class="proid" type="hidden" value="{{info.id}}">
+						</div>
+						<div class="col-sm-7 score-detail">
+							<table>
+								<tr class="clear">
+									<td>
+										<b>5分</b>
+										<b class="count count5"></b>
+									</td>
+									<td>
+										<span>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>										
+										</span>
+									</td>
+									<td>
+										<b>非常好</b>
+									</td>
+									
+								</tr>
+								<tr class="clear">
+									<td>
+										<b>4分</b>
+										<b class="count count4"></b>
+									</td>
+									<td>
+										<span>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-heart"></i>										
+										</span>
+									</td>
+									<td>
+										<b>很好</b>
+									</td>
+
+								</tr>
+								<tr class="clear">
+									<td>
+										<b>3分</b>
+										<b class="count count3"></b>
+									</td>
+									<td>
+										<span>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-heart"></i>
+											<i class="big-heart"></i>										
+										</span>
+									</td>
+									<td>
+										<b>一般</b>
+									</td>
+								</tr>
+								<tr class="clear">
+									<td>
+										<b>2分</b>
+										<b class="count count2"></b>
+									</td>
+									<td>
+										<span>
+											<i class="big-solid"></i>
+											<i class="big-solid"></i>
+											<i class="big-heart"></i>
+											<i class="big-heart"></i>
+											<i class="big-heart"></i>										
+										</span>
+									</td>
+									<td>
+										<b>差</b>
+									</td>
+								</tr>
+								<tr class="clear">
+									<td>
+										<b>1分</b>
+										<b class="count count1"></b>
+									</td>
+									<td>
+										<span>
+											<i class="big-solid"></i>
+											<i class="big-heart"></i>
+											<i class="big-heart"></i>
+											<i class="big-heart"></i>
+											<i class="big-heart"></i>										
+										</span>
+									</td>
+									<td>
+										<b>很糟</b>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>					
+		        </div>
+				<div class="evaluate-kind clear">
+					<a href="javascript:allevaluate();">全部点评<span class="allCount"></span></a>
+					<a href="javascript:evaluate5();">5分<span class="count5"></span></a>
+					<a href="javascript:evaluate4();">4分<span class="count4"></span></a>
+					<a href="javascript:evaluate3();">3分<span class="count3"></span></a>
+					<a href="javascript:evaluate2();">2分<span class="count2"></span></a>
+					<a href="javascript:evaluate1();">1分<span class="count1"></span></a>
+					<a href="javascript:evaluateimg();">图片<span class="imgcount"></span></a>
+				</div>
+				<div class="evaluate-box">
+					
+				</div>
+				{% else %}
+				 <div id="js_review" class="detail_content">	
+					<h3 class="resource_title">用户评价<i class="icon_b icon_b_08 ce-comment"></i></h3>
+					<div class="product_feature" id="product_review">
+					暂无该产品评价！
+					</div>				
+		        </div>
+				{% endif %}
+
+		    </div> 
+	    </div>
+
+	    <div class="col-lg-3 col-sm-3">
+	    	<div class="float-box">
+			<h3 class="bold">专属推荐</h3>
+			<ul id="studytour-ul" style="padding-left: 0px;">
+				{% topic data = "list", limit= "4", cid=130, issub=1, ischild=1, type="level", page=0 %}
+				{%set i = 1%}
+				
+				{% for v in list %}
+				<li class="mix development float-banner col-md-12 col-sm-12"><!-- item -->
+
+					<div class="item-box thumbnail">
+					<a href="{{v.name|get_url(v.id)}}">
+						<figure>
+							<div class="col-lg-6 col-sm-6" style="padding: 0;">
+								{% if v.favflag == 1 %} 
+                                <img class="small-end-single"  src="/static/assets/images/small_end_single.jpg" alt=""/> 
+                                {% endif%} 
+								<img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=200,h=120')}}"  alt="">
+							</div>
+							<div class="col-lg-6 col-sm-6 banner-right" style="padding: 0;">
+							{#
+								<span class="item-hover">
+	    								<span class="overlay"></span>
+									
+									<span class="inner">
+
+										<!-- lightbox -->
+										<a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+											<span class="glyphicon glyphicon-qrcode size-20"></span>
+										</a>
+
+										<!-- details -->
+										<a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+											<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+										</a>
+
+									</span>
+									
+								</span>
+							#}
+								<!-- overlay title -->
+								<div class="item-box-overlay-title">
+									<h4 class="nomargin">{{v.title}}</h4>
+									<h4 class="nomargin">{{v.price|get_price('1')}}起</h4>
+								</div><!-- /overlay title -->
+								
+							</div>
+						</figure>
+					</a>
+					</div>
+
+				</li><!-- /item -->
+				{% set i = i + 1 %}
+				{% endfor %}
+				<li class="mix development float-share col-md-12 col-sm-12">
+					{% if not controller.is_login %}
+					<a class="col-xs-4" data-toggle="ajaxModal" href="/uc/public/loginmodal">
+						收藏
+						<i class="collect"></i>
+					</a>	
+					{% else %}
+					<a class="col-xs-4" href="javascript:collect({{info.id}})">
+						收藏
+						<i class="collect"></i>
+					</a>
+					{% endif %}
+					<a class="col-xs-4" href="javascript:share()">
+						分享
+						<i class="share"></i>
+					</a>
+					{% if info.vendor_qq!="" and info.vendor_qq!=null and info.vendor_qq!=undefined%}
+					<a class="col-xs-4"  target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin={{info.vendor_qq}}&site=qq&menu=yes" alt="点击这里给我发消息" title="点击这里给我发消息">
+						在线客服
+						<i class="custom-service"></i>
+					</a>
+					{% else %}
+					<a class="col-xs-4"  target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=306420988&site=qq&menu=yes" alt="点击这里给我发消息" title="点击这里给我发消息">
+						在线客服
+						<i class="custom-service"></i>
+					</a>
+					{% endif %}
+				</li>
+			</ul>
+			<!-- SHARE POST -->
+	        <div class="clearfix share-box margin-top-20 out">
+	            <div class="bdsharebuttonbox">
+	            	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+	            	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	            	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	            </div>
+	            <script>
+	            	window._bd_share_config={"common":{"bdSnsKey":{"tqq":"wx32e38113a4d73758 "},"bdText":"","bdMini":"2","bdMiniList":true,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}
+	            	// ,"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}
+	            };
+	            	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+	            </script>
+	            <!-- <script>
+	            	window._bd_share_config= {
+	            		"common":{
+	            			"bdSnsKey":{"tqq":"wx32e38113a4d73758 "},
+	            			"bdText":"",
+	            			"bdMini":"2",
+	            			"bdMiniList":false,
+	            			"bdPic":"",
+	            			"bdStyle":"0",
+	            			"bdSize":"24",
+	            			"onBeforeClick": function(cmd, cfg) {
+	            												console.log(cmd);
+	            												console.log(cfg);
+	            												var l = location.href;
+	            												if (cmd === "weixin") {
+	            												cfg.bdUrl = l.indexOf("?") !== -1 ? l + "&wx" : l + "?wx";
+	            												console.log(cfg.bdUrl);
+	            												}
+	            												return cfg;
+	            											}
+	            		},
+	            		"share":{}
+	            	// ,"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}
+	            };
+	            	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+	            </script> -->
+	           <!-- <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script> -->
+	        <!-- JiaThis Button BEGIN -->
+	        <!-- <div id="ckepop">
+	        				<span class="jiathis_txt">分享到：</span>
+	        				<a class="jiathis_button_weixin">微信</a> 
+	        				<a href="http://www.jiathis.com/share"  class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	        				<a class="jiathis_counter_style"></a> </div> 
+	        				<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1" charset="utf-8"></script>
+	        			</div>  -->
+	        <!-- JiaThis Button END -->
+	        </div>
+			
+			</div>
+	    	{#
+	    	<h3 class="evaluate bold">用户评价</h3>
+		    <div class="col-md-12 col-sm-12 evaluate-box" style="background: #eff7f9; padding-top: 15px;">
+		    	
+		        {% model data="list",table="tour_comment",where='{"product_id":'+info.id+'}',order="add_time DESC",limit="4"%}
+		        <h3 class="evaluate">点评4.5分</h3>
+		    	<div class="evaluate-number"></div>
+		        {% for v in list %}
+		        <div class="clearfix" style="height: auto; background: #fff; margin-bottom: 15px; padding: 4px 6px 0 6px;">
+			        <p class="margin-bottom-20"> {{v.comment_content | safe }}</p>
+			        <span class="pull-left">{{v.uid|get_nickname}}</span>
+			        <p class="pull-right text-right"> {{v.score_total | safe }}分</p>
+		        </div>
+		        {% endfor %}
+		        <!--
+		        <div class="more-info text-center margin-top-20">
+					<a href="">点击查看更多》</a>
+				</div>-->
+		    </div>
+			#}
+	    </div>
+
+		<div class="row">
+
+			<!-- RIGHT -->
+			<div class="col-md-9 col-sm-9">
+			
+			<div class="under_tab_detail"> 
+				<i class="under_tab_anchor" id="zx"></i>
+		        <i class="under_tab_anchor_abc" id="zx_abc"></i>
+
+		        <div id="js_expense" class="detail_content">
+
+				<h3 class="resource_title"> 咨&nbsp;&nbsp;询<i class="icon_b icon_b_03 ce-consult"></i> </h3>
+                {#
+				<div class="timeline">
+					<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
+					{%model data="list",table="question", cid=132, where='{"has_img":1}',order="update_time DESC",limit="10"%}
+					{% for val in list %}
+					{% set categoryname = val.category_id|get_cate %}
+					{% set imgs= val.detail|img_text_view(200,120)%}
+					<!-- POST ITEM -->
+					<div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+						<div class="timeline-entry" ><!-- .rounded = entry -->
+							<a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+							<div class="timeline-vline"><!-- vertical line --></div>
+						</div>
+						<!-- IMAGE -->
+						{% if imgs|length==1 %}
+						<figure class="blog-item-small-image margin-bottom-0">
+							<img class="img-responsive" src="{{imgs[0]}}" alt="">
+						</figure>
+						{% endif %}
+						<div class="blog-item-small-content">
+							<h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+							<ul class="blog-post-info list-inline padding-bottom-10">
+								<li>
+
+									<a class="" href="{{categoryname.url}}">
+										<span class="label label-light">{{categoryname.name}}</span>
+									</a>
+								</li>
+								<li>{%if val.answer_users>0%}
+									<a href="#">
+										<span class="font-lato">{{val.answer_users|get_nickname}}</span>
+									</a>
+									<span class="font-lato"> 回复了问题</span>
+									{%else%}
+									<a href="#">
+										<span class="font-lato">{{val.uid|get_nickname}}</span>
+									</a>
+									<span class="font-lato"> 发起了问题</span>
+									{%endif%}
+								</li>
+								<li>
+                                <span class="font-lato">
+                                {{val.focus_count}} 人关注
+                                    </span>
+								</li>
+								<li>
+									<span class="font-lato">{{val.answer_count}} 个回复</span>
+
+								</li>
+								<li>
+									<span class="font-lato">{{val.view}} 次浏览</span>
+								</li>
+								<li>
+									<span class="font-lato"> {{val.update_time|moment}}</span>
+								</li>
+
+							</ul>
+							{% if imgs|length>1 %}
+							<div class="row margin-bottom-10">
+								{%set i = 0%}
+								{%for img in imgs%}
+								{%if i< 4 %}
+								<div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+								{%endif%}
+								{%set i=i+1%}
+								{%endfor%}
+							</div>
+							{%endif%}
+							<p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+						</div>
+
+					</div>
+					<!-- /POST ITEM -->
+					{%endfor%}
+
+				</div>
+                #}
+                <!--评论================================-->
+                <div class="box-light margin-top-20 "><!-- .box-light OR .box-dark -->
+				
+                    <div class="box-inner">
+
+                     
+                        {%model data="list",table="question_answer", page=1, where='{"question_id":'+info.id+',"category_id":'+info.category_id+'}',limit="10"%}
+                        {% for a in list %}
+                        <!-- <div class="divider divider-dotted " style="margin:10px -15px"> --><!-- divider --><!-- </div> -->
+                        <!-- COMMENT -->
+                        <ul class="comment list-unstyled clear margin-bottom-20">
+                            <li class="comment margin-bottom-0">
+
+                                <!-- avatar -->
+                                <!-- <img class="avatar" src="/uc/index/avatar/uid/{{a.uid}}" width="50" height="50" alt="avatar"> -->
+
+                                <!-- comment body -->
+                                <!-- <div class="comment-body"> -->
+                                <div class="tourist-question">
+                                    <a href="#" class="comment-author" style="position: relative;z-index: 10;background-color: #fff">
+                                        <!-- <small class="text-muted pull-right">{{a.add_time|dateformat('Y-m-d H:i:s')}} </small> -->
+                                        <span>{{a.uid|get_nickname}}</span>
+                                        <small class="text-mutedd">{{a.add_time|dateformat('Y-m-d H:i:s')}} </small>
+                                    </a>
+                                    <div class="wangEditor-container cmswing-container" style="position: relative;z-index: 9;border: none; top: -10px">
+                                        <div class="wangEditor-txt nopadding">
+                                            {{a.answer_content|safe}}
+                                        </div>
+                                    </div>
+                                </div><!-- /comment body -->
+
+                                <!-- options -->
+                                <ul class="list-inline size-11 margin-top-10">
+                                   
+                                    {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
+                                    
+                                    <li class="pull-right">
+                                        <a href="/mod/question/ajax/delanswer/qid/{{info.id}}/id/{{a.answer_id}}" class="edit-delete confirm ajax-get">删除</a>
+                                    </li>
+                                    <li class="pull-right">
+                                        <a href="/mod/question/ajax/editanswer/id/{{a.answer_id}}" class="edit-delete lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
+                                    </li>
+                                    <li  class="pull-right">
+                                       <a href="javascript:;"  class="text-info comment-reply commentary" data-comment="write-reply-{{a.answer_id}}">
+                                        	<i class="fa fa-reply"></i> <span id="oc-{{a.answer_id}}">回复</span>
+                                        </a>
+                                    </li>
+
+                                    {%endif%}
+                                </ul>
+                            </li><!-- /options -->
+                            </ul>
+                            <div id="comment-reply-{{a.answer_id}}" class="margin-top-10">
+
+                         	{% model data="list",table="question_answer_comments",where='{"answer_id":'+a.answer_id+'}'%}
+                         	{% for c in list %}
+								<li class="comment comment-reply">
+									<b class="triangle"></b>
+									<img class="avatar" src="/uc/index/avatar/uid/1" style="width:50px;height:50px" alt="avatar">
+									<div class="comment-body">
+										<a href="#" class="comment-author">
+											
+											<span>admin</span>
+											<small class="text-muted">{{c.time|dateformat('Y-m-d H:i:s')}}</small>
+										</a>
+										<p>{{c.message}}</p>
+									</div>
+
+									 {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
+									 <ul class="list-inline size-11 margin-top-10 clear">
+                                        <li class="pull-right">
+                                            <a href="/mod/question/ajax/delcomments/id/+{{c.id}}" class="edit-delete confirm ajax-get">删除</a>
+                                        </li>
+                                	</ul>
+
+									{% endif %}
+
+								</li>
+				
+								{% endfor %}
+
+                         </div>
+                        </ul>
+
+                        <!-- /COMMENT -->
+                        {% endfor %}
+
+
+
+                    </div>
+
+                </div>
+
+				</div>
+				</div>
+
+                <!--评论结束============================-->
+                {#
+                {%if controller.is_login %}
+                #}
+                <form method="post" action="/mod/question/sys/updatetouranswer" class="box-light margin-top-20  validate"><!-- .box-light OR .box-dark -->
+                    <div class="box-inner">
+                        <h4 class=" padding-bottom-0 clearfix margin-bottom-0 noborder row">  <div class="col-md-9 col-sm-9"><div class="clearfix margin-bottom-0"><!-- rounded item -->
+                            {% if controller.user.uid %}
+                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{controller.user.uid}}" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding"><a class="tours">{{controller.user.uid|get_nickname}}</a></h4>
+                            {% else%}
+                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/0" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding"><a class="tours">遊客</a></h4>
+                            
+                            {%endif%}
+                           <!--  <span class="size-12 text-muted">....</span> -->
+                        </div>   </div><div class="col-md-3 col-sm-3">
+                        <!--<label class="switch switch-primary margin-top-10 pull-right">
+                            <input type="checkbox" checked="" name="anonymous" value="0">
+                            <span class="switch-label" data-on="不匿" data-off="匿名"></span>
+                        </label>--></div></h4>
+
+                        <textarea id="detail" name="answer_content"  class="form-control required" style="height: 280px"  placeholder="Type your message here..."></textarea>
+
+                        <input type="hidden" name="question_id" value="{{info.id}}">
+                        <input type="hidden" name="category_id" value="{{info.category_id}}">
+                        <input type="hidden" name="backurl" value="{{http.url}}">
+                        <button type="submit" class="btn btn-primary pull-right margin-top-20"><i class="fa fa-check"></i> 咨询</button>
+                    </div>
+                </form>
+                {#
+                {%else%}
+                #}
+
+				
+                {#
+                <div class="alert alert-success margin-bottom-30" style="margin-top: 70px;"><!-- SUCCESS -->
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    要咨询问题请先 <a class="" href="/uc/public/login">登录</a> 或 <a href="/uc/public/register">注册</a>
+                </div>
+				#}
+
+                {#
+                {%endif%}
+                #}
+
+			</div>
+
+		</div>
+	</div>
+<!-- -->
+
+<!-- / -->
+
+
+{#
+<ul id="myTab" class="nav nav-tabs nav-top-border margin-top-40" role="tablist">
+	<li role="presentation" class="active"><a href="#description" role="tab" data-toggle="tab">商品介绍</a></li>
+	<li role="presentation"><a href="#specs" role="tab" data-toggle="tab">规格参数</a></li>
+	<li role="presentation"><a href="#reviews" role="tab" data-toggle="tab">商品评价 (2)</a></li>
+</ul>
+
+<div class="tab-content padding-top-20">
+	<!-- DESCRIPTION -->
+	<div role="tabpanel" class="tab-pane fade in active" id="description">
+		{{info.content[0]|safe}}
+	</div>
+
+	<!-- SPECIFICATIONS -->
+	<div role="tabpanel" class="tab-pane fade" id="specs">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Column name</th>
+						<th>Column name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Size</td>
+						<td>2XL</td>
+					</tr>
+					<tr>
+						<td>Color</td>
+						<td>Red</td>
+					</tr>
+					<tr>
+						<td>Weight</td>
+						<td>132lbs</td>
+					</tr>
+					<tr>
+						<td>Height</td>
+						<td>74cm</td>
+					</tr>
+					<tr>
+						<td>Bluetooth</td>
+						<td><i class="fa fa-check text-success"></i> YES</td>
+					</tr>
+					<tr>
+						<td>Wi-Fi</td>
+						<td><i class="glyphicon glyphicon-remove text-danger"></i> NO</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- REVIEWS -->
+	<div role="tabpanel" class="tab-pane fade" id="reviews">
+		<!-- REVIEW ITEM -->
+		<div class="block margin-bottom-60">
+
+			<span class="user-avatar"><!-- user-avatar -->
+				<img class="pull-left media-object" src="/static/assets/images//avatar2.jpg" width="64" height="64" alt="">
+			</span>
+
+			<div class="media-body">
+				<h4 class="media-heading size-14">
+					John Doe &ndash; 
+					<span class="text-muted">June 29, 2014 - 11:23</span> &ndash;
+					<span class="size-14 text-muted"><!-- stars -->
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+					</span>
+				</h4>
+
+				<p>
+					Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
+				</p>
+
+			</div>
+
+		</div>
+		<!-- /REVIEW ITEM -->
+
+		<!-- REVIEW ITEM -->
+		<div class="block margin-bottom-60">
+
+			<span class="user-avatar"><!-- user-avatar -->
+				<img class="pull-left media-object" src="/static/assets/images//avatar2.jpg" width="64" height="64" alt="">
+			</span>
+
+			<div class="media-body">
+				<h4 class="media-heading size-14">
+					John Doe &ndash; 
+					<span class="text-muted">June 29, 2014 - 11:23</span> &ndash;
+					<span class="size-14 text-muted"><!-- stars -->
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+					</span>
+				</h4>
+
+				<p>
+					Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. Pellentesque in ipsum id orci porta dapibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.
+				</p>
+
+			</div>
+
+		</div>
+		<!-- /REVIEW ITEM -->
+
+
+		<!-- REVIEW FORM -->
+		<h4 class="page-header margin-bottom-40">ADD A REVIEW</h4>
+		<form method="post" action="#" id="form">
+
+			<div class="row margin-bottom-10">
+
+				<div class="col-md-6 margin-bottom-10">
+					<!-- Name -->
+					<input type="text" name="name" id="name" class="form-control" placeholder="Name *" maxlength="100" required="">
+				</div>
+
+				<div class="col-md-6">
+					<!-- Email -->
+					<input type="email" name="email" id="email" class="form-control" placeholder="Email *" maxlength="100" required="">
+				</div>
+
+			</div>
+
+			<!-- Comment -->
+			<div class="margin-bottom-30">
+				<textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment" maxlength="1000"></textarea>
+			</div>
+
+			<!-- Stars -->
+			<div class="product-star-vote clearfix">
+
+				<label class="radio pull-left">
+					<input type="radio" name="product-review-vote" value="1" />
+					<i></i> 1 Star
+				</label>
+
+				<label class="radio pull-left">
+					<input type="radio" name="product-review-vote" value="2" />
+					<i></i> 2 Stars
+				</label>
+
+				<label class="radio pull-left">
+					<input type="radio" name="product-review-vote" value="3" />
+					<i></i> 3 Stars
+				</label>
+
+				<label class="radio pull-left">
+					<input type="radio" name="product-review-vote" value="4" />
+					<i></i> 4 Stars
+				</label>
+
+				<label class="radio pull-left">
+					<input type="radio" name="product-review-vote" value="5" />
+					<i></i> 5 Stars
+				</label>
+
+			</div>
+
+			<!-- Send Button -->
+			<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
+
+		</form>
+		<!-- /REVIEW FORM -->
+
+	</div>
+</div>
+
+
+<hr class="margin-top-80 margin-bottom-80" />
+
+
+<h2 class="owl-featured"><strong>Related</strong> products:</h2>
+<div class="owl-carousel featured nomargin owl-padding-10" data-plugin-options='{"singleItem": false, "items": "4", "stopOnHover":false, "autoPlay":4500, "autoHeight": false, "navigation": true, "pagination": false}'>
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p13.jpg" alt="shop first image" />
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p14.jpg" alt="shop hover image" />
+			</a>
+			<!-- /product image(s) -->
+
+			<!-- product more info -->
+			<div class="shop-item-info">
+				<span class="label label-success">NEW</span>
+				<span class="label label-danger">SALE</span>
+			</div>
+			<!-- /product more info -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Cotton 100% - Pink Shirt</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				<span class="line-through">$98.00</span>
+				$78.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<!-- CAROUSEL -->
+				<div class="owl-carousel owl-padding-0 nomargin" data-plugin-options='{"singleItem": true, "autoPlay": 3000, "navigation": false, "pagination": false, "transitionStyle":"fadeUp"}'>
+					<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p5.jpg" alt="">
+					<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p1.jpg" alt="">
+				</div>
+				<!-- /CAROUSEL -->
+			</a>
+			<!-- /product image(s) -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Pink Dress 100% Cotton</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				$44.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p2.jpg" alt="shop first image" />
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p12.jpg" alt="shop hover image" />
+			</a>
+			<!-- /product image(s) -->
+
+			<!-- product more info -->
+			<div class="shop-item-info">
+				<span class="label label-success">NEW</span>
+				<span class="label label-danger">SALE</span>
+			</div>
+			<!-- /product more info -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Black Fashion Hat</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				<span class="line-through">$77.00</span>
+				$65.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p8.jpg" alt="shop first image" />
+			</a>
+			<!-- /product image(s) -->
+
+			<!-- countdown -->
+			<div class="shop-item-counter">
+				<div class="countdown" data-from="December 31, 2017 08:22:01" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+			</div>
+			<!-- /countdown -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Beach Black Lady Suit</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				$56.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p7.jpg" alt="shop first image" />
+			</a>
+			<!-- /product image(s) -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Town Dress - Black</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				$154.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p6.jpg" alt="shop first image" />
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p14.jpg" alt="shop hover image" />
+			</a>
+			<!-- /product image(s) -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Chick Lady Fashion</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-4 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				$167.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+	<!-- item -->
+	<div class="shop-item nomargin">
+
+		<div class="thumbnail">
+			<!-- product image(s) -->
+			<a class="shop-item-image" href="shop-single-left.html">
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p11.jpg" alt="shop hover image" />
+				<img class="img-responsive" src="/static/assets/images//demo/shop/products/300x450/p3.jpg" alt="shop first image" />
+			</a>
+			<!-- /product image(s) -->
+		</div>
+
+		<div class="shop-item-summary text-center">
+			<h2>Black Long Lady Shirt</h2>
+
+			<!-- rating -->
+			<div class="shop-item-rating-line">
+				<div class="rating rating-0 size-13"><!-- rating-0 ... rating-5 --></div>
+			</div>
+			<!-- /rating -->
+
+			<!-- price -->
+			<div class="shop-item-price">
+				$128.00
+			</div>
+			<!-- /price -->
+		</div>
+
+		<!-- buttons -->
+		<div class="shop-item-buttons text-center">
+			<a class="btn btn-default" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+		</div>
+		<!-- /buttons -->
+	</div>
+	<!-- /item -->
+
+</div>
+
+</div>
+#}
+
+
+</section>
+
+
+<section class="alternate" id="destination">
+<div class="container">
+	<div class="portfolio">
+		<header class="section-header margin-bottom-20">
+			<div class="heading-title">
+				<h3>热门</h3>
+				<a href="javascript:getPopular();" id="destination-change">换一换 <img src="/static/assets/images/change.png"></a>
+			</div>
+		</header>
+		<div  class=" portfolio-title-over">
+			<div class="row mix-grid">
+				<ul id="destination-ul" style="padding-left: 0px;">
+					{% topic data = "list", limit= "8", cid=130, isstu=1, issub=1, ischild=1, type="level", page=0 %}
+					{%set i = 1%}
+					{% for v in list %}
+
+					<li class="mix development col-md-3 col-sm-3"><!-- item -->
+
+						<div class="item-box thumbnail">
+						<!-- <a href="/youxue-0-0-17-tourdest_{{v.place_id}}|tourfeature_0|tourtype_0|tourmonth_0{{http.config('view.file_ext')}}"> -->
+						<a href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+							<figure> 
+								{% if v.favflag == 1 %} 
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%} 
+								<span class="item-hover">
+									<span class="overlay dark-5"></span>
+									
+									<span class="inner">
+										{#
+										<!-- lightbox -->
+										<a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+											<span class="glyphicon glyphicon-qrcode size-20"></span>
+										</a>
+
+										<!-- details -->
+										<a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+											<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+										</a>
+										#}
+									</span>
+									
+								</span>
+
+								<!-- overlay title -->
+								<div class="item-box-overlay-title text-center text-title">
+									<h4 class="nomargin title">{{v.title}}</h4>
+								</div><!-- /overlay title -->
+								<img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=222,h=317')}}"  alt="">
+							</figure>
+							<!-- <div class="item-box-overlay-title text-center" style="height: 42px;background-color:#fff ">
+                                <h5 style="margin-bottom: 0px;">{{v.description}}</h5>
+                            </div> -->
+						</a>
+						</div>
+
+					</li><!-- /item -->
+					{% set i = i + 1 %}
+					{% endfor %}
+
+				</ul>
+
+			</div>
+		</div>
+		<div class="more-info text-center">
+			<a href="/search{{http.config('view.file_ext')}}" style="color: #75716b;">点击查看更多》</a>
+		</div>
+	</div>
+	</div>
+</section>
+
+
+
+
+
+
+
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<script src="/static/assets/plugins/fullcalendar-3.2.0/lib/moment.min.js"></script>
+<script src="/static/assets/plugins/fullcalendar-3.2.0/fullcalendar.min.js"></script>
+<script src="/static/assets/plugins/fullcalendar-3.2.0/gcal.min.js"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<!--glDatePicker-->
+<script src="/static/assets/js/glDatePicker-2.0/glDatePicker.min.js"></script>
+<!--/glDatePicker-->
+<script src="/static/assets/js/tour.js"></script>
+<script src="/static/assets/js/exchange.js"></script>
+<script>
+	// var HtmlUtil = {
+	//     /*1.用浏览器内部转换器实现html转码*/
+	//     htmlEncode:function (html){
+	//         //1.首先动态创建一个容器标签元素，如DIV
+	//         var temp = document.createElement ("div");
+	//         //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+	//         (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+	//         //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+	//         var output = temp.innerHTML;
+	//         temp = null;
+	//         return output;
+	//     },
+	//     /*2.用浏览器内部转换器实现html解码*/
+	//     htmlDecode:function (text){
+	//         //1.首先动态创建一个容器标签元素，如DIV
+	//         var temp = document.createElement("div");
+	//         //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+	//         temp.innerHTML = text;
+	//         //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+	//         var output = temp.innerText || temp.textContent;
+	//         temp = null;
+	//         return output;
+	//     }
+	// };
+	
+
+	$(document).ready(function() {
+	let str = "{{info.price|get_price_format('1')}}";
+	let price = parseInt(str.replace(",",""));
+	let dat = "{{info.start_date}}";
+	//console.log('-----'+price);
+	//console.log(dat);
+	let dates =  dat.split(',');
+	let defaultDate = parseInt(dates[0]);
+	let eventsArray = new Array(); //FullCalendar 事件对象数组
+	let defaultDat = new Date(parseInt(dates[0]));//FullCalendar 默认日期
+	for (let onedate of dates){
+		//console.log(onedate);
+		let eventobject = new Object(); 
+		let selectobject = new Object();
+		eventobject.title = '¥'+price+'起';
+		eventobject.allDay = true;
+		eventobject.start = new Date(parseInt(onedate));
+		eventsArray.push(eventobject);
+	}
+	//console.log(eventsArray);
+		$('#calendar').fullCalendar({
+			theme: true,
+			header: {
+				left: 'prev',
+				center: 'title',
+				right: 'next'
+			},
+			buttonIcons: true,
+			monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+            dayNamesShort: ["日", "一", "二", "三", "四", "五", "六"],
+            titleFormat: 'YYYY年MM月',
+			defaultDate: defaultDat,
+			// navLinks: true, // can click day/week names to navigate views
+			// editable: true,
+			// eventLimit: true, // allow "more" link when too many events
+			events: eventsArray
+			/*
+			[
+				{
+					title: '¥'+price+'起',
+                    allDay: true,
+					start: new Date({{info.start_date}})
+				}
+			]*/
+		});
+		
+    	// var feature_str = $("#product_feature").html();
+    	// $("#product_feature").html(HtmlUtil.htmlDecode(feature_str));
+    	// $("#product_feature").show();
+
+    	// var route_str = $("#js_detail_travelCtrip").html();
+    	// $("#js_detail_travelCtrip").html(HtmlUtil.htmlDecode(route_str));
+    	// $("#js_detail_travelCtrip").show();
+
+    	// var expense_str = $("#product_expense").html();
+    	// $("#product_expense").html(HtmlUtil.htmlDecode(expense_str));
+    	// $("#product_expense").show();
+
+    	// var booking_str = $("#product_booking").html();
+    	// $("#product_booking").html(HtmlUtil.htmlDecode(booking_str));
+    	// $("#product_booking").show();
+
+    	// var visa_str = $("#product_visa").html();
+    	// $("#product_visa").html(HtmlUtil.htmlDecode(visa_str));
+    	// $("#product_visa").show();
+
+	});
+
+	uParse('#content', {
+		rootPath: '/static/admin/js/udeitor/'
+	})
+
+
+	
+	let selectArray = new Array();
+	let str = "{{info.price|get_price_format('1')}}";
+	let price = parseInt(str.replace(",",""));
+	let dat = "{{info.start_date}}";
+	let dates =  dat.split(',');
+	let defaultDate = new Date(parseInt(dates[0]));
+	//console.log(defaultDate) 
+	let selectJson = "";
+	for (let onedate of dates){
+		let selectobject = new Object();
+		selectobject.date = new Date(parseInt(onedate));
+		//console.log(selectobject.date);
+		selectArray.push(selectobject);
+	}
+	$('#datetimepicker').glDatePicker({
+		cssName: 'flatwhite',
+     	allowYearSelect: false,
+     	selectedDate:defaultDate ,
+	    selectableDates:selectArray,
+	    dowNames:[ '日','一', '二', '三', '四', '五', '六'],
+	    monthNames:[ '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+	    onClick: function(target, cell, date, data) {
+	    	console.log(">?????????????");
+	    	console.log(date);
+	    	console.log();
+	        $('#datetimepicker').val(date.getFullYear() + '-' +
+	                    (date.getMonth() +1) + '-' +
+	                    date.getDate());
+	          /* var data_val = $('#datetimepicker').val();
+	           console.log(data_val);*/
+	        //console.log( $('#datetimepicker').val())
+	        $('#start_date').val($('#datetimepicker').val());
+	        //console.log( $('#start_date').val());
+	        if(data != null) {
+	            alert(data.message + '\n' + date);
+	        }
+	    }
+     });
+
+	/*var dateChanged = false;
+    $('#datetimepicker').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        initialDate:new Date({{info.start_date}}),
+        startDate:new Date({{info.start_date}}),
+        endDate:new Date({{info.start_date}}),
+        autoclose:true
+    }).on('changeDate', function(ev){
+    	var date = $('#datetimepicker').val();
+    	console.log("changeDate: " + date);
+    	$("#start_date").val(date);
+    	if(!dateChanged) {
+	    	dateChanged = true;
+	    	$("#resource_wrap").show();
+	    	$("#resource_wrap-temp").hide();
+	    	// $(".resource_price_wrap").css("border", "none");
+	    	// $("#js_order").css("border", "2px solid #1eb6c1");
+	    	// var detail_str = $("#cost_detail").html();
+	    	// console.log(detail_str);
+	    	// $("#cost_detail").html(HtmlUtil.htmlDecode(detail_str));
+    	}
+    }).on('hide', function(ev){
+    	console.log("hide: " + ev);
+    	if(!dateChanged) {
+    		$('#datetimepicker').val("请选择出发日期");
+    	}
+    });*/
+
+	function submit_tour() {
+		var count_adult = parseInt($("#adult_quantity").val());
+		var count_kid = parseInt($("#kid_quantity").val());
+		var count_baby = parseInt($("#baby_quantity").val());
+		var total_count = count_adult + count_kid + count_baby;
+		console.log("total_count: " + total_count);
+		if(total_count > 0 && dateChanged)
+			$("#form-tour").submit();
+		else {
+			if (total_count == 0) {
+				$("#tour_warning").show();
+				event.stopPropagation();
+			}
+			else {
+				$("#datetimepicker").datetimepicker("show");
+				$(".datetimepicker").css({"left":"241.5px", "top":"1083px"});
+			}
+		}
+	}
+
+	$(function(){ 
+		$(document).bind("click",function(e){ 
+			// console.log("click");
+			var target = $(e.target); 
+			if(target.closest("#tour_warning").length == 0){ 
+				// console.log("hide");
+				$("#tour_warning").hide(); 
+			} 
+		}) 
+	})
+
+</script>
+
+<!-- PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+<script src="/static/assets/plugins/insertContent.js"></script>
+<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/assets/js/question.js"></script>
+
+{% endblock %}

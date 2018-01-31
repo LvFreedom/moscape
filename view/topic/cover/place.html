@@ -1,0 +1,2984 @@
+{% extends "../inc/base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .tp-bullets.simplebullets.round {
+        bottom:130px !important;
+    }
+    #destination ul#destination-ul li {
+        margin-bottom: 10px !important;
+    }
+    #studytour ul#studytour-ul li {
+        margin-bottom: 20px !important;
+    }
+    #community ul#community-ul li {
+        margin-bottom: 12px !important;
+    }
+    section.alternate {
+        border-bottom: none;
+    }
+    section.alternate .item-box {
+        width: 100%;
+        height: 100%;
+    }
+    section#destination {
+        background-color: transparent;
+    }
+    section#studytour {
+        background-color: rgba(239,247,249,0.9);
+    }
+    section#community {
+        background-color: transparent;
+    }
+    .item-box figure {
+        height: 100%;
+    }
+    .thumbnail {
+        padding: 0px;
+        border: none;
+        cursor: pointer;
+        background: transparent;
+    }
+    img.img-responsive {
+        width: 100%;
+        height: 100%;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    #destination ul#destination-ul .destination-item-1 {
+        width: 27.4%;
+        padding-left: 0px;
+        padding-right: 5px;
+        height: 392px;
+    }
+    #destination ul#destination-ul .destination-item-2 {
+        width: 45.2%;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 392px;
+    }
+    #destination ul#destination-ul .destination-item-3 {
+        width: 27.4%;
+        padding-left: 5px;
+        padding-right: 0px;
+        height: 392px;
+    }
+    #destination ul#destination-ul .destination-item-4 {
+        width: 38.8%;
+        padding-left: 0px;
+        padding-right: 5px;
+        height: 273px;
+    }
+    #destination ul#destination-ul .destination-item-5 {
+        width: 22.4%;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 273px;
+    }
+    #destination ul#destination-ul .destination-item-6 {
+        width: 38.8%;
+        padding-left: 5px;
+        padding-right: 0px;
+        height: 273px;
+    }
+    .portfolio .item-box-overlay-title h4 {
+        font-size: 28px;
+    }
+    .portfolio header {
+        height: 60px;
+    }
+    .portfolio header a {
+    	display:block;
+        margin-top: 20px;
+        float: right;
+        padding:0 10px 0 10px;
+    }
+    .portfolio header a.country-list {
+        display:block;
+        margin-top: 0;
+        /*float: left;*/
+        padding:0 10px 0 10px;
+    }
+    #studytour ul#studytour-ul .studytour-item {
+        width: 25%;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 332px;
+    }
+    #studytour ul#studytour-ul .studytour-item-2 {
+        width: 25.71%;
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 332px;
+    }
+    #studytour ul#studytour-ul .studytour-item-3 {
+       width: 25.71%;
+        padding-left: 0px;
+        padding-right: 28px;
+        height: 332px;
+    }
+    #studytour ul#studytour-ul .studytour-item-4 {
+        width: 25.71%;
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 332px;
+    }
+    #community ul#community-ul .community-item-1 {
+        padding-left: 0px;
+        padding-right: 6px;
+        height: 434px;
+    }
+    #community ul#community-ul .community-item-2 {
+        padding-left: 6px;
+        padding-right: 6px;
+        height: 434px;
+    }
+    #community ul#community-ul .community-item-3 {
+        padding-left: 6px;
+        padding-right: 0px;
+        height: 434px;
+    }
+    #community ul#community-ul .community-item-4 {
+        padding-left: 0px;
+        padding-right: 0px;
+        height: 514px;
+    }
+    .clear:after{
+    	content:"";
+    	display:table;;
+    	clear:both;
+    }
+    .heading-title a{
+    	font-size:13.5px;
+    	color:#565656
+    }
+    .heading-title a:hover,.heading-title a:focus{
+    	color: #1EB6C1 !important;
+    }
+    .community-ul li a{
+    	color:#403d39;
+    	font-size:15.5px; 
+    }
+    .community-ul li{
+    	padding:0;
+    }
+    .community-ul>li>div{
+    	background:transparent;
+    }
+    .title_country,
+    .title_country a{
+    	color:#403d39;
+    	font-size:18.5px;
+    	margin-bottom:25px;
+    }
+    .country-box>div:nth-child(even){
+    	background:rgba(239,247,249,0.9);
+    }
+    #destination{
+    	padding-bottom:75px;
+    }
+    #studytour{
+    	padding-bottom:55px;
+    }
+    .community-ul{
+    	padding:30px 0 40px 0;
+    }
+    .show-one{
+        display:block;
+        white-space:nowrap; 
+        overflow:hidden; 
+        text-overflow:ellipsis;
+    }
+    .show-two{
+        overflow : hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .title{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+    }
+    .end-single{
+        position: absolute;
+        height: 140px;
+        top: -10px;
+        right: 14px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!-- SLIDER -->
+<section id="slider" class="" style="height: 600px;background-position: center center">
+    <span class="overlay dark-2"><!-- dark overlay [0 to 9 opacity] --></span>
+
+    <div class="display-table">
+        <div class="display-table-cell vertical-align-middle">
+
+            <!-- REVOLUTION SLIDER -->
+            <div class="slider fullwidthbanner-container roundedcorners margin-bottom-30">
+                <div class="fullwidthbanner" data-height="600" data-shadow="3" data-navigationStyle="">
+                    <ul class="">
+                        <!-- SLIDE  -->
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000" data-saveperformance="off">
+                            <img src="/static/assets/images/slider_pic1.jpg" data-lazyload="/static/assets/images/slider_pic1.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000" data-saveperformance="off" >
+                            <img src="/static/assets/images/slider_pic2.jpg" data-lazyload="/static/assets/images/slider_pic2.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000" data-saveperformance="off" >
+                            <img src="/static/assets/images/slider_pic3.jpg" data-lazyload="/static/assets/images/slider_pic3.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000" data-saveperformance="off" >
+                            <img src="/static/assets/images/slider_pic4.jpg" data-lazyload="/static/assets/images/slider_pic4.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                    </ul>
+                    <div class="tp-bannertimer"><!-- progress bar --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-search-bar" style="position: absolute; left: 50%; bottom: 40px; height: 50px; width: 414px; z-index: 100; margin-left: -207px;">
+        <!-- INLINE SEARCH -->
+            <div class="inline-search clearfix" style="border: 10px solid rgba(26,21,31,0.5);border-radius: 5px;">
+                <form action="/search" method="get" class="widget_search">
+                    <input type="search" style="background: #fff;color: #111;" placeholder="" name="q" {% if queryword %} value={{queryword}} {%endif%}class="serch-input" style="color: black;">
+                    <button type="submit" style="background-color:#1EB6C1 ">
+                        <i class="fa fa-search" style="color: #fff;"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- /INLINE SEARCH -->
+    </div>
+
+</section>
+<!-- /SLIDER -->
+
+<!-- -->
+<section class="alternate" id="destination">
+    <div class="container portfolio">
+        <header class="section-header margin-bottom-20">
+            <div class="heading-title">
+                <h3 style="font-size:34px;color:#62605e">热门</h3>
+                <!-- <a href="javascript:getHot()" style="font-size:13.5px;color:#565656">换一换 <img src="/static/assets/images/change.png"></a> -->
+            </div>
+        </header>
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="destination-ul" style="padding-left: 0px;">
+                    {% hotrecommend data = "list", position="1",limit= "6", issub=1, ischild=1, page=0 %}
+                    {%set i = 1%}
+                    {% for v in list %}
+
+                    <li class="mix development col-xs-3 destination-item-{{i}}"><!-- item -->
+
+                        <div class="item-box thumbnail">
+                        <a href="{{v.name|get_url(v.id)}}"  title="{{v.title}}">
+                            <figure>
+                                {% if v.favflag == 1 %}  
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%}
+                                <!-- <% if  == 1 %>
+                                <%endif%> -->
+                                <!-- <img src="" /> -->
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    {#
+                                    <span class="inner">
+
+                                        <!-- lightbox -->
+                                        <a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+                                            <span class="glyphicon glyphicon-qrcode size-20"></span>
+                                        </a>
+
+                                        <!-- details -->
+                                        <a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+                                            <span class="glyphicon glyphicon-option-horizontal size-20"></span>
+                                        </a>
+
+                                    </span>
+                                    #}
+                                </span>
+
+                                <!-- overlay title -->
+                                <div class="item-box-overlay-title text-center text-title">
+                                    <h4 class="nomargin title">{{v.title}}</h4>
+                                </div><!-- /overlay title -->
+                                {% if i == 1 or i == 3 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=264,h=392')}}"  alt="">
+                                {% elif i == 2 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=434,h=392')}}"  alt="">
+                                {% elif i == 4 or i == 6 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=375,h=273')}}"  alt="">
+                                {% elif i == 5 %}
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=212,h=273')}}"  alt="">
+                                {% endif %}
+                            </figure>
+                        </a>
+                        </div>
+
+                    </li><!-- /item -->
+                    {% set i = i + 1 %}
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        <!--
+        <div class="more-info text-center margin-top-20">
+            <a href="/youxue{{http.config('view.file_ext')}}">点击查看更多》</a>
+        </div>
+        -->
+
+    </div>
+</section>
+<!-- / -->
+
+<!-- -->
+<section class="alternate" id="studytour">
+    <div class="container portfolio">
+        <header class="section-header margin-bottom-20">
+            <div class="heading-title">
+                <h3 style="font-size:34px;color:#62605e;background:transparent">热门产品</h3>
+                <a href="javascript:getHotProduct();" id="studytour-change">换一换 <img src="/static/assets/images/change.png"></a>
+            </div>
+        </header>
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="studytour-ul" style="padding-left: 0px;">
+                    {% topic data = "list", limit= "8", cid=130, issub=1, ischild=1, type="level", page=0 %}
+                    {%set i = 1%}
+                    {% for v in list %}
+
+                    <li class="mix development col-xs-3 studytour-item"><!-- item -->
+
+                        <div class="item-box thumbnail">
+                        <a href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                            <figure>
+                                {% if v.favflag == 1 %}  
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%}
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    {#
+                                    <span class="inner">
+
+                                        <!-- lightbox -->
+                                        <a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+                                            <span class="glyphicon glyphicon-qrcode size-20"></span>
+                                        </a>
+
+                                        <!-- details -->
+                                        <a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+                                            <span class="glyphicon glyphicon-option-horizontal size-20"></span>
+                                        </a>
+
+                                    </span>
+                                    #}
+                                </span>
+								<!-- overlay title -->
+                                <div class="item-box-overlay-title text-center text-title">
+                                    <h4 class="nomargin title">{{v.title}}</h4>
+                                </div><!-- /overlay title -->
+                                
+
+                            
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=226,h=332')}}"  alt="">
+                           
+                            </figure>
+                            <!-- overlay title -->
+                                <!-- <div class="item-box-overlay-title " style="height: 100px;background-color:#fff ">
+                                    <h4 class="nomargin show-two text-center" style="font-size: 14px; color: #414141; text-overflow:ellipsis;font-weight: 600;height: 24px;">{{v.title}}</h4>
+                                </div> --><!-- /overlay title -->
+                        </a>
+                        </div>
+
+                    </li><!-- /item -->
+                    {% set i = i + 1 %}
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        <!--
+        <div class="more-info text-center margin-top-10">
+            <a href="/youxue{{http.config('view.file_ext')}}">点击查看更多》</a>
+        </div>
+        -->
+    </div>
+</section>
+<!-- / -->
+
+<!-- -->
+<section class="alternate" id="community">
+    <div class="portfolio">
+    <div class="container">
+    	{% topic data = "list", limit= "200", cid=135, issub=1, isstu=1, pid=0, type="level", page=0 %}
+        <header class="section-header margin-bottom-20 header-country">
+            <div class="heading-title heading_title">
+                <h3>国家列表</h3>
+                <a href="" id="community-change899" class="country-list">南极洲</a>
+                <a href="" id="community-change874" class="country-list">大洋洲</a>
+                <a href="" id="community-change859" class="country-list">南美</a>
+                <a href="" id="community-change818" class="country-list">北美</a>
+                <a href="" id="community-change757" class="country-list">非洲</a>
+                <a href="" id="community-change710" class="country-list">欧洲</a>
+                <a href="" id="community-change661" class="country-list">亚洲</a>
+               <a href="" id="all" class="country-list"> 全部 </a>
+            </div>
+        </header>
+    </div>
+    
+<!--         <div  class=" portfolio-title-over">
+            <div class="row mix-grid country-box">
+            	{% for v in list %}
+                <div id="community-ul{{v.id}}" class="community-ul">
+                <div class="container" >
+                <ul style="padding-left: 0px;" class="clear">
+                	<div class="title_country">
+						<a href="/search.html?q=&value=youxue-0-0-17-tourdest_{{v.place_id}}|tourfeature_0|tourtype_0|tourmonth_0">
+							{{v.title}} {{v.name_en}}
+                            
+						</a>
+                	</div>
+                    {% topic data = "list", limit= "200", cid=135, isstu=1, pid=v.id,type="none",page=0 %}
+                    {% for v in list %}
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-{{i}}">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&value=youxue-0-0-17-tourdest_{{v.place_id}}|tourfeature_0|tourtype_0|tourmonth_0">
+                            {{v.title}} {#
+                            {{v.name_en}}
+                            #}
+                        </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+                </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div> -->
+    
+        <!--
+        <div class="more-info text-center margin-top-10">
+            <a href="/question">点击查看更多》</a>
+        </div>-->
+        
+       
+
+        <div class=" portfolio-title-over">
+            <div class="row mix-grid country-box">
+
+                <div id="community-ul661" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100|tourfeature_0|tourtype_0|tourmonth_0">
+                            亚洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.101|tourfeature_0|tourtype_0|tourmonth_0">
+                            中国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.102|tourfeature_0|tourtype_0|tourmonth_0">
+                            蒙古 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.103|tourfeature_0|tourtype_0|tourmonth_0">
+                            朝鲜 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.104|tourfeature_0|tourtype_0|tourmonth_0">
+                            韩国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.105|tourfeature_0|tourtype_0|tourmonth_0">
+                            日本 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.106|tourfeature_0|tourtype_0|tourmonth_0">
+                            菲律宾 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.107|tourfeature_0|tourtype_0|tourmonth_0">
+                            越南 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.108|tourfeature_0|tourtype_0|tourmonth_0">
+                            老挝 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.109|tourfeature_0|tourtype_0|tourmonth_0">
+                            柬埔寨 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.110|tourfeature_0|tourtype_0|tourmonth_0">
+                            缅甸 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.111|tourfeature_0|tourtype_0|tourmonth_0">
+                            泰国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.112|tourfeature_0|tourtype_0|tourmonth_0">
+                            马来西亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.113|tourfeature_0|tourtype_0|tourmonth_0">
+                            文莱 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.114|tourfeature_0|tourtype_0|tourmonth_0">
+                            新加坡 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.115|tourfeature_0|tourtype_0|tourmonth_0">
+                            印度尼西亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.116|tourfeature_0|tourtype_0|tourmonth_0">
+                            东帝汶 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.117|tourfeature_0|tourtype_0|tourmonth_0">
+                            尼泊尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.118|tourfeature_0|tourtype_0|tourmonth_0">
+                            不丹 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.119|tourfeature_0|tourtype_0|tourmonth_0">
+                            孟加拉国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.120|tourfeature_0|tourtype_0|tourmonth_0">
+                            印度 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.121|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴基斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.122|tourfeature_0|tourtype_0|tourmonth_0">
+                            斯里兰卡 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.123|tourfeature_0|tourtype_0|tourmonth_0">
+                            马尔代夫 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.124|tourfeature_0|tourtype_0|tourmonth_0">
+                            哈萨克斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.125|tourfeature_0|tourtype_0|tourmonth_0">
+                            吉尔吉斯斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.126|tourfeature_0|tourtype_0|tourmonth_0">
+                            塔吉克斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.127|tourfeature_0|tourtype_0|tourmonth_0">
+                            乌兹别克斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.128|tourfeature_0|tourtype_0|tourmonth_0">
+                            土库曼斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.129|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿富汗 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.130|tourfeature_0|tourtype_0|tourmonth_0">
+                            伊拉克 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.131|tourfeature_0|tourtype_0|tourmonth_0">
+                            伊朗 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.132|tourfeature_0|tourtype_0|tourmonth_0">
+                            叙利亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.133|tourfeature_0|tourtype_0|tourmonth_0">
+                            约旦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.134|tourfeature_0|tourtype_0|tourmonth_0">
+                            黎巴嫩 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.135|tourfeature_0|tourtype_0|tourmonth_0">
+                            以色列 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.136|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴勒斯坦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.137|tourfeature_0|tourtype_0|tourmonth_0">
+                            沙特阿拉伯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.138|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴林 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.139|tourfeature_0|tourtype_0|tourmonth_0">
+                            卡塔尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.140|tourfeature_0|tourtype_0|tourmonth_0">
+                            科威特 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.141|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿拉伯联合酋长国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.142|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿曼 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.143|tourfeature_0|tourtype_0|tourmonth_0">
+                            也门 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.144|tourfeature_0|tourtype_0|tourmonth_0">
+                            格鲁吉亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.145|tourfeature_0|tourtype_0|tourmonth_0">
+                            亚美尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.146|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿塞拜疆 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.147|tourfeature_0|tourtype_0|tourmonth_0">
+                            土耳其 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_100.148|tourfeature_0|tourtype_0|tourmonth_0">
+                            塞浦路斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+                </div>
+                </div>
+                
+                <div id="community-ul710" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200|tourfeature_0|tourtype_0|tourmonth_0">
+                            欧洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.201|tourfeature_0|tourtype_0|tourmonth_0">
+                            芬兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.202|tourfeature_0|tourtype_0|tourmonth_0">
+                            瑞典 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.203|tourfeature_0|tourtype_0|tourmonth_0">
+                            挪威 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.204|tourfeature_0|tourtype_0|tourmonth_0">
+                            冰岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.205|tourfeature_0|tourtype_0|tourmonth_0">
+                            丹麦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.206|tourfeature_0|tourtype_0|tourmonth_0">
+                            法罗群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.207|tourfeature_0|tourtype_0|tourmonth_0">
+                            爱沙尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.208|tourfeature_0|tourtype_0|tourmonth_0">
+                            拉脱维亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.209|tourfeature_0|tourtype_0|tourmonth_0">
+                            立陶宛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.210|tourfeature_0|tourtype_0|tourmonth_0">
+                            白俄罗斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.211|tourfeature_0|tourtype_0|tourmonth_0">
+                            俄罗斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.212|tourfeature_0|tourtype_0|tourmonth_0">
+                            乌克兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.213|tourfeature_0|tourtype_0|tourmonth_0">
+                            摩尔多瓦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.214|tourfeature_0|tourtype_0|tourmonth_0">
+                            波兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.215|tourfeature_0|tourtype_0|tourmonth_0">
+                            捷克 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.216|tourfeature_0|tourtype_0|tourmonth_0">
+                            斯洛伐克 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.217|tourfeature_0|tourtype_0|tourmonth_0">
+                            匈牙利 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.218|tourfeature_0|tourtype_0|tourmonth_0">
+                            德国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.219|tourfeature_0|tourtype_0|tourmonth_0">
+                            奥地利 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.220|tourfeature_0|tourtype_0|tourmonth_0">
+                            瑞士 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.221|tourfeature_0|tourtype_0|tourmonth_0">
+                            列支敦士登 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.222|tourfeature_0|tourtype_0|tourmonth_0">
+                            英国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.223|tourfeature_0|tourtype_0|tourmonth_0">
+                            爱尔兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.224|tourfeature_0|tourtype_0|tourmonth_0">
+                            荷兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.225|tourfeature_0|tourtype_0|tourmonth_0">
+                            比利时 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.226|tourfeature_0|tourtype_0|tourmonth_0">
+                            卢森堡 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.227|tourfeature_0|tourtype_0|tourmonth_0">
+                            法国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.228|tourfeature_0|tourtype_0|tourmonth_0">
+                            摩纳哥 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.229|tourfeature_0|tourtype_0|tourmonth_0">
+                            罗马尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.230|tourfeature_0|tourtype_0|tourmonth_0">
+                            保加利亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.231|tourfeature_0|tourtype_0|tourmonth_0">
+                            塞尔维亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.232|tourfeature_0|tourtype_0|tourmonth_0">
+                            马其顿 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.233|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿尔巴尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.234|tourfeature_0|tourtype_0|tourmonth_0">
+                            希腊 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.235|tourfeature_0|tourtype_0|tourmonth_0">
+                            斯洛文尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.236|tourfeature_0|tourtype_0|tourmonth_0">
+                            克罗地亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.237|tourfeature_0|tourtype_0|tourmonth_0">
+                            黑山 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.238|tourfeature_0|tourtype_0|tourmonth_0">
+                            马耳他 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.239|tourfeature_0|tourtype_0|tourmonth_0">
+                            波黑 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.240|tourfeature_0|tourtype_0|tourmonth_0">
+                            意大利 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.241|tourfeature_0|tourtype_0|tourmonth_0">
+                            梵蒂冈 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.242|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣马力诺 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.243|tourfeature_0|tourtype_0|tourmonth_0">
+                            西班牙 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.244|tourfeature_0|tourtype_0|tourmonth_0">
+                            葡萄牙 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.245|tourfeature_0|tourtype_0|tourmonth_0">
+                            安道尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_200.246|tourfeature_0|tourtype_0|tourmonth_0">
+                            直布罗陀 
+                        </a>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+                </div>
+                </div>
+                
+                <div id="community-ul757" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300|tourfeature_0|tourtype_0|tourmonth_0">
+                            非洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.301|tourfeature_0|tourtype_0|tourmonth_0">
+                            埃及 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.302|tourfeature_0|tourtype_0|tourmonth_0">
+                            利比亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.303|tourfeature_0|tourtype_0|tourmonth_0">
+                            突尼斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.304|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿尔及利亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.305|tourfeature_0|tourtype_0|tourmonth_0">
+                            摩洛哥 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.306|tourfeature_0|tourtype_0|tourmonth_0">
+                            亚速尔群岛（葡） 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.307|tourfeature_0|tourtype_0|tourmonth_0">
+                            马德拉群岛（葡） 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.308|tourfeature_0|tourtype_0|tourmonth_0">
+                            加那利群岛（西） 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.309|tourfeature_0|tourtype_0|tourmonth_0">
+                            苏丹 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.310|tourfeature_0|tourtype_0|tourmonth_0">
+                            南苏丹 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.311|tourfeature_0|tourtype_0|tourmonth_0">
+                            埃塞俄比亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.312|tourfeature_0|tourtype_0|tourmonth_0">
+                            厄立特里亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.313|tourfeature_0|tourtype_0|tourmonth_0">
+                            索马里 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.314|tourfeature_0|tourtype_0|tourmonth_0">
+                            吉布提 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.315|tourfeature_0|tourtype_0|tourmonth_0">
+                            肯尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.316|tourfeature_0|tourtype_0|tourmonth_0">
+                            坦桑尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.317|tourfeature_0|tourtype_0|tourmonth_0">
+                            乌干达 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.318|tourfeature_0|tourtype_0|tourmonth_0">
+                            卢旺达 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.319|tourfeature_0|tourtype_0|tourmonth_0">
+                            布隆迪 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.320|tourfeature_0|tourtype_0|tourmonth_0">
+                            塞舌尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.321|tourfeature_0|tourtype_0|tourmonth_0">
+                            乍得 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.322|tourfeature_0|tourtype_0|tourmonth_0">
+                            中非 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.323|tourfeature_0|tourtype_0|tourmonth_0">
+                            喀麦隆 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.324|tourfeature_0|tourtype_0|tourmonth_0">
+                            赤道几内亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.325|tourfeature_0|tourtype_0|tourmonth_0">
+                            加蓬 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.326|tourfeature_0|tourtype_0|tourmonth_0">
+                            刚果（布） 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.327|tourfeature_0|tourtype_0|tourmonth_0">
+                            刚果（金） 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.328|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣多美和普林西比 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.329|tourfeature_0|tourtype_0|tourmonth_0">
+                            毛里塔尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.330|tourfeature_0|tourtype_0|tourmonth_0">
+                            西撒哈拉 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.331|tourfeature_0|tourtype_0|tourmonth_0">
+                            塞内加尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.332|tourfeature_0|tourtype_0|tourmonth_0">
+                            冈比亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.333|tourfeature_0|tourtype_0|tourmonth_0">
+                            马里 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.334|tourfeature_0|tourtype_0|tourmonth_0">
+                            布基纳法索 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.335|tourfeature_0|tourtype_0|tourmonth_0">
+                            几内亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.336|tourfeature_0|tourtype_0|tourmonth_0">
+                            几内亚比绍 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.337|tourfeature_0|tourtype_0|tourmonth_0">
+                            佛得角 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.338|tourfeature_0|tourtype_0|tourmonth_0">
+                            塞拉利昂 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.339|tourfeature_0|tourtype_0|tourmonth_0">
+                            利比里亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.340|tourfeature_0|tourtype_0|tourmonth_0">
+                            科特迪瓦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.341|tourfeature_0|tourtype_0|tourmonth_0">
+                            加纳 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.342|tourfeature_0|tourtype_0|tourmonth_0">
+                            多哥 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.343|tourfeature_0|tourtype_0|tourmonth_0">
+                            贝宁 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.344|tourfeature_0|tourtype_0|tourmonth_0">
+                            尼日尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.345|tourfeature_0|tourtype_0|tourmonth_0">
+                            尼日利亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.346|tourfeature_0|tourtype_0|tourmonth_0">
+                            赞比亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.347|tourfeature_0|tourtype_0|tourmonth_0">
+                            安哥拉 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.348|tourfeature_0|tourtype_0|tourmonth_0">
+                            津巴布韦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.349|tourfeature_0|tourtype_0|tourmonth_0">
+                            马拉维 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.350|tourfeature_0|tourtype_0|tourmonth_0">
+                            莫桑比克 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.351|tourfeature_0|tourtype_0|tourmonth_0">
+                            博茨瓦纳 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.352|tourfeature_0|tourtype_0|tourmonth_0">
+                            纳米比亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.353|tourfeature_0|tourtype_0|tourmonth_0">
+                            南非 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.354|tourfeature_0|tourtype_0|tourmonth_0">
+                            斯威士兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.355|tourfeature_0|tourtype_0|tourmonth_0">
+                            莱索托 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.356|tourfeature_0|tourtype_0|tourmonth_0">
+                            马达加斯加 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.357|tourfeature_0|tourtype_0|tourmonth_0">
+                            科摩罗 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.358|tourfeature_0|tourtype_0|tourmonth_0">
+                            毛里求斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.359|tourfeature_0|tourtype_0|tourmonth_0">
+                            留尼汪岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_300.360|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣赫勒拿岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+                </div>
+                </div>
+
+                <div id="community-ul818" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400|tourfeature_0|tourtype_0|tourmonth_0">
+                            北美洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.401|tourfeature_0|tourtype_0|tourmonth_0">
+                            加拿大 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.402|tourfeature_0|tourtype_0|tourmonth_0">
+                            美国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.403|tourfeature_0|tourtype_0|tourmonth_0">
+                            墨西哥 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.404|tourfeature_0|tourtype_0|tourmonth_0">
+                            格陵兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.405|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣皮埃尔和密克隆 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.406|tourfeature_0|tourtype_0|tourmonth_0">
+                            危地马拉 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.407|tourfeature_0|tourtype_0|tourmonth_0">
+                            伯利兹 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.408|tourfeature_0|tourtype_0|tourmonth_0">
+                            萨尔瓦多 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.409|tourfeature_0|tourtype_0|tourmonth_0">
+                            洪都拉斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.410|tourfeature_0|tourtype_0|tourmonth_0">
+                            尼加拉瓜 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.411|tourfeature_0|tourtype_0|tourmonth_0">
+                            哥斯达黎加 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.412|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴拿马 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.413|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴哈马 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.414|tourfeature_0|tourtype_0|tourmonth_0">
+                            古巴 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.415|tourfeature_0|tourtype_0|tourmonth_0">
+                            牙买加 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.416|tourfeature_0|tourtype_0|tourmonth_0">
+                            海地 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.417|tourfeature_0|tourtype_0|tourmonth_0">
+                            多米尼加共和国 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.418|tourfeature_0|tourtype_0|tourmonth_0">
+                            安提瓜和巴布达 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.419|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣基茨和尼维斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.420|tourfeature_0|tourtype_0|tourmonth_0">
+                            多米尼克 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.421|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣卢西亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.422|tourfeature_0|tourtype_0|tourmonth_0">
+                            圣文森特和格林纳丁斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.423|tourfeature_0|tourtype_0|tourmonth_0">
+                            格林纳达 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.424|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴巴多斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.425|tourfeature_0|tourtype_0|tourmonth_0">
+                            特立尼达和多巴哥 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.426|tourfeature_0|tourtype_0|tourmonth_0">
+                            波多黎各 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.427|tourfeature_0|tourtype_0|tourmonth_0">
+                            英属维尔京群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.428|tourfeature_0|tourtype_0|tourmonth_0">
+                            美属维尔京群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.429|tourfeature_0|tourtype_0|tourmonth_0">
+                            安圭拉 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.430|tourfeature_0|tourtype_0|tourmonth_0">
+                            蒙特塞拉特 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.431|tourfeature_0|tourtype_0|tourmonth_0">
+                            瓜德罗普 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.432|tourfeature_0|tourtype_0|tourmonth_0">
+                            马提尼克 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.433|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿鲁巴 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.434|tourfeature_0|tourtype_0|tourmonth_0">
+                            荷属安的列斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.435|tourfeature_0|tourtype_0|tourmonth_0">
+                            特克斯和凯科斯群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.436|tourfeature_0|tourtype_0|tourmonth_0">
+                            开曼群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.437|tourfeature_0|tourtype_0|tourmonth_0">
+                            百慕大 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.438|tourfeature_0|tourtype_0|tourmonth_0">
+                            法属圣马丁 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.439|tourfeature_0|tourtype_0|tourmonth_0">
+                            南格鲁吉亚岛与南桑威奇群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_400.440|tourfeature_0|tourtype_0|tourmonth_0">
+                            纳瓦萨岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+                </div>
+                </div>
+                
+                <div id="community-ul859" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500|tourfeature_0|tourtype_0|tourmonth_0">
+                            南美洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.501|tourfeature_0|tourtype_0|tourmonth_0">
+                            哥伦比亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.502|tourfeature_0|tourtype_0|tourmonth_0">
+                            委内瑞拉 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.503|tourfeature_0|tourtype_0|tourmonth_0">
+                            圭亚那 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.504|tourfeature_0|tourtype_0|tourmonth_0">
+                            苏里南 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.505|tourfeature_0|tourtype_0|tourmonth_0">
+                            法属圭亚那 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.506|tourfeature_0|tourtype_0|tourmonth_0">
+                            厄瓜多尔 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.507|tourfeature_0|tourtype_0|tourmonth_0">
+                            秘鲁 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.508|tourfeature_0|tourtype_0|tourmonth_0">
+                            玻利维亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.509|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴西 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.510|tourfeature_0|tourtype_0|tourmonth_0">
+                            智利 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.511|tourfeature_0|tourtype_0|tourmonth_0">
+                            阿根廷 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.512|tourfeature_0|tourtype_0|tourmonth_0">
+                            乌拉圭 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.513|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴拉圭 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_500.514|tourfeature_0|tourtype_0|tourmonth_0">
+                            马尔维纳斯群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+                </div>
+                </div>
+                
+                <div id="community-ul874" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600|tourfeature_0|tourtype_0|tourmonth_0">
+                            大洋洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.601|tourfeature_0|tourtype_0|tourmonth_0">
+                            澳大利亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.602|tourfeature_0|tourtype_0|tourmonth_0">
+                            新西兰 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.603|tourfeature_0|tourtype_0|tourmonth_0">
+                            帕劳 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.604|tourfeature_0|tourtype_0|tourmonth_0">
+                            密克罗尼西亚联邦 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.605|tourfeature_0|tourtype_0|tourmonth_0">
+                            马绍尔群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.606|tourfeature_0|tourtype_0|tourmonth_0">
+                            基里巴斯 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.607|tourfeature_0|tourtype_0|tourmonth_0">
+                            瑙鲁 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.608|tourfeature_0|tourtype_0|tourmonth_0">
+                            北马里亚纳 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.609|tourfeature_0|tourtype_0|tourmonth_0">
+                            关岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.610|tourfeature_0|tourtype_0|tourmonth_0">
+                            巴布亚新几内亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.611|tourfeature_0|tourtype_0|tourmonth_0">
+                            所罗门群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.612|tourfeature_0|tourtype_0|tourmonth_0">
+                            瓦努阿图 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.613|tourfeature_0|tourtype_0|tourmonth_0">
+                            斐济群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.614|tourfeature_0|tourtype_0|tourmonth_0">
+                            新喀里多尼亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.615|tourfeature_0|tourtype_0|tourmonth_0">
+                            图瓦卢 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.616|tourfeature_0|tourtype_0|tourmonth_0">
+                            萨摩亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.617|tourfeature_0|tourtype_0|tourmonth_0">
+                            汤加 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.618|tourfeature_0|tourtype_0|tourmonth_0">
+                            库克群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.619|tourfeature_0|tourtype_0|tourmonth_0">
+                            纽埃 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.620|tourfeature_0|tourtype_0|tourmonth_0">
+                            托克劳 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.621|tourfeature_0|tourtype_0|tourmonth_0">
+                            法属波利尼西亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.622|tourfeature_0|tourtype_0|tourmonth_0">
+                            瓦利斯和富图纳 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.623|tourfeature_0|tourtype_0|tourmonth_0">
+                            皮特凯恩群岛 
+                        </a>
+                        </div>
+                    </li>
+                    
+                    <li class="mix development col-xs-6 col-sm-4 destination-item-9 mix_all" style="display: block;  opacity: 1;">
+          
+                        <div class="item-box thumbnail">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_600.624|tourfeature_0|tourtype_0|tourmonth_0">
+                            美属萨摩亚 
+                        </a>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+                </div>
+                </div>
+                
+                <div id="community-ul899" class="community-ul">
+                <div class="container">
+                <ul style="padding-left: 0px;" class="clear">
+                    <div class="title_country">
+                        <a href="/search.html?q=&amp;value=youxue-0-0-17-tourdest_700|tourfeature_0|tourtype_0|tourmonth_0">
+                            南极洲 
+                            
+                        </a>
+                    </div>
+                    
+                    
+
+                </ul>
+                </div>
+                </div>
+                
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{#
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- RIGHT -->
+            <div class="col-md-9 col-sm-9">
+                <h3 class="page-header weight-300 margin-top-0 margin-bottom-0">
+                    <a href="/question.html" data-toggle="tooltip" title="" data-original-title="互帮互助有问题必达"><i class="fa fa-plus-square-o"></i></a>
+                    社区 <strong>问答</strong>
+                </h3>
+                <div class="timeline">
+                    <div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
+                    {%model data="list",table="question",where='{"has_img":1}',order="update_time DESC",limit="10"%}
+                    {% for val in list %}
+                    {% set categoryname = val.category_id|get_cate %}
+                    {% set imgs= val.detail|img_text_view(200,120)%}
+                    <!-- POST ITEM -->
+                    <div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+                        <div class="timeline-entry" ><!-- .rounded = entry -->
+                            <a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+                            <div class="timeline-vline"><!-- vertical line --></div>
+                        </div>
+                        <!-- IMAGE -->
+                        {% if imgs|length==1 %}
+                        <figure class="blog-item-small-image margin-bottom-0">
+                            <img class="img-responsive" src="{{imgs[0]}}" alt="">
+                        </figure>
+                        {% endif %}
+                        <div class="blog-item-small-content">
+                            <h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+                            <ul class="blog-post-info list-inline padding-bottom-10">
+                                <li>
+
+                                    <a class="" href="{{categoryname.url}}">
+                                        <span class="label label-light">{{categoryname.name}}</span>
+                                    </a>
+                                </li>
+                                <li>{%if val.answer_users>0%}
+                                    <a href="#">
+                                        <span class="font-lato">{{val.answer_users|get_nickname}}</span>
+                                    </a>
+                                    <span class="font-lato"> 回复了问题</span>
+                                    {%else%}
+                                    <a href="#">
+                                        <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                    </a>
+                                    <span class="font-lato"> 发起了问题</span>
+                                    {%endif%}
+                                </li>
+                                <li>
+                                <span class="font-lato">
+                                {{val.focus_count}} 人关注
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="font-lato">{{val.answer_count}} 个回复</span>
+
+                                </li>
+                                <li>
+                                    <span class="font-lato">{{val.view}} 次浏览</span>
+                                </li>
+                                <li>
+                                    <span class="font-lato"> {{val.update_time|moment}}</span>
+                                </li>
+
+                            </ul>
+                            {% if imgs|length>1 %}
+                            <div class="row margin-bottom-10">
+                                {%set i = 0%}
+                                {%for img in imgs%}
+                                {%if i< 4 %}
+                                <div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+                                {%endif%}
+                                {%set i=i+1%}
+                                {%endfor%}
+                            </div>
+                            {%endif%}
+                            <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                        </div>
+
+                    </div>
+                    <!-- /POST ITEM -->
+                    {%endfor%}
+
+                </div>
+
+                <!-- PAGINATION -->
+                <a class="btn btn-featured btn-default btn-inverse" href="/question.html" >
+                    <span>今天，你遇到了什么问题呢？进入社区寻求答案！</span>
+                    <i class="et-happy"></i>
+                </a>
+                <!-- /PAGINATION -->
+
+            </div>
+            <!-- LEFT -->
+            <div class="col-md-3 col-sm-3">
+
+                {% if controller.is_login %}
+                <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+                    今天，你遇到了什么问题呢？
+                    <a href="/mod/question/sys/add/cid/123" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                </div>
+                {%else%}
+                <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+                    你好! 你还没有登录，请先登录.
+                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login">
+                        <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+                    </a>
+                </div>
+                {%endif%}
+
+                <div class="box-inner nopadding  margin-bottom-20">
+                    <h3>
+                        <a class="pull-right size-11 text-warning" href="/topic">更多</a>
+                        热门话题
+                    </h3>
+                    <div class="" >
+                        {% keywords data ="topic",type="hot",limit="5" %}
+                        {%for k in topic%}
+                        <div class="clearfix margin-bottom-10"><!-- discussion item -->
+                            {%if k.pic==0%}
+                            <i class="ico-light ico-60 ico-hover et-chat pull-left margin-bottom-0 margin-top-0" ></i>
+                            {%else%}
+                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
+                            {%endif%}
+                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="{{k.url}}">
+                                <span class="txt">{{k.keyname}}</span>
+                                <span class="num"><i class="fa fa-fire"></i></span>
+                            </a>
+                            </h4>
+                            <span class="size-13 text-muted">
+                                {{k.videonum}} 个主题, {{k.focus_count}} 人关注
+                                                </span>
+                        </div><!-- /discussion item -->
+                        {%endfor%}
+
+
+                    </div>
+                </div>
+
+
+                {%model data="data",table="question_user",cache='1000',order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
+                {%if data.length>0%}
+                <div class="box-inner nopadding  margin-bottom-20">
+                    <h3>
+                        <a class="pull-right size-11 text-warning" href="#">更多</a>
+                        热门用户
+                    </h3>
+                    <div class="" >
+                        {%for user in data%}
+                        <div class="clearfix margin-bottom-10"><!-- squared item -->
+                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{user.uid}}" width="40" height="40" alt="" />
+                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{user.username}}</a></h4>
+                            <span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
+                        </div><!-- /squared item -->
+                        {%endfor%}
+
+                    </div>
+                </div>
+
+                {%endif%}
+             
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</section>
+#}
+
+<section style="padding: 0; border-bottom: none;">
+    <img src="/static/assets/images/home_logo1.jpg" style="width: 100%;height: 100%;">
+</section>
+
+{% endblock %}
+
+{%block script%}
+<script src="/static/assets/js/exchange.js"></script>
+    <script type="text/javascript">
+        /*jQuery(window).ready(function () {
+            $("#destination ul#destination-ul").children("li").eq(0).addClass("col-md-3 col-sm-3 destination-item-1");
+            $("#destination ul#destination-ul").children("li").eq(1).addClass("col-md-6 col-sm-6 destination-item-2");
+            $("#destination ul#destination-ul").children("li").eq(2).addClass("col-md-3 col-sm-3 destination-item-3");
+            $("#destination ul#destination-ul").children("li").eq(3).addClass("col-md-5 col-sm-5 destination-item-4");
+            $("#destination ul#destination-ul").children("li").eq(4).addClass("col-md-2 col-sm-2 destination-item-5");
+            $("#destination ul#destination-ul").children("li").eq(5).addClass("col-md-5 col-sm-5 destination-item-6");
+
+            $("#studytour ul#studytour-ul").children("li").eq(0).addClass("col-md-7 col-sm-3 studytour-item-1");
+            $("#studytour ul#studytour-ul").children("li").eq(1).addClass("col-md-5 col-sm-6 studytour-item-2");
+            $("#studytour ul#studytour-ul").children("li").eq(2).addClass("col-md-5 col-sm-3 studytour-item-3");
+            $("#studytour ul#studytour-ul").children("li").eq(3).addClass("col-md-7 col-sm-5 studytour-item-4");
+
+            $("#community ul#community-ul").children("li").eq(0).addClass("col-md-4 col-sm-4 community-item-1");
+            $("#community ul#community-ul").children("li").eq(1).addClass("col-md-4 col-sm-4 community-item-2");
+            $("#community ul#community-ul").children("li").eq(2).addClass("col-md-4 col-sm-4 community-item-3");
+            $("#community ul#community-ul").children("li").eq(3).addClass("col-md-12 col-sm-12 community-item-4");
+        });*/
+
+        var destination_page = 0;
+        $("#destination-change").bind("click",function() {
+            console.log("destination-change click");
+            destination_page++;
+            if(destination_page == 10)
+                destination_page = 0;
+            var data = "list&limit=6&cid=135&issub=1&ischild=1&type=level&page=" + destination_page;
+            // $.post("http://180.168.129.230:8360/ajax/topic", "list&limit=6&cid=135&issub=1&ischild=1&type=level&page=" + destination_page, function(result) {
+            //  console.log(result);
+            //  $("#destination-ul").html(result);
+            // }, "application/x-www-form-urlencoded");
+            $.ajax({ 
+                type: "POST", 
+                url: "/ajax/topic",
+                data: data,
+                success: function(result){
+                    console.log(result);
+                } 
+            });
+
+        });
+        // //文字过多改为+"..."
+        // let sub = $(".nomargin");
+
+        // //console.log(sub);
+
+        // for(var i=0;i<sub.length;i++){
+        // 	let arr = sub[i].innerHTML;
+        // 	if(arr.length>23){
+        // 		arr = arr.substring(0,23)+"......";
+        // 	}
+        // 	sub[i].innerHTML = arr;
+        // }
+
+
+        //绑定单击事件
+        $(".heading_title").on("click","a",function(e){
+        	if(e&&e.preventDefault)
+        		e.preventDefault();
+        	window.event.returnValues=false;
+        	let id=$(this).attr("id")
+        	if($(this).attr("id")=="community-change661"){
+        		//var m = $("#community-ul320").siblings();
+        		//console.log(m)
+        		$("#community-ul661").css("display","block");
+        		$("#community-ul661").siblings().css("display","none");
+        	}else if($(this).attr("id")=="community-change710"){
+        		$("#community-ul710").css("display","block");
+        		$("#community-ul710").siblings().css("display","none");	
+        	}else if($(this).attr("id")=="community-change757"){
+        		$("#community-ul757").css("display","block");
+        		$("#community-ul757").siblings().css("display","none");	
+        	}else if($(this).attr("id")=="community-change818"){
+        		$("#community-ul818").css("display","block");
+        		$("#community-ul818").siblings().css("display","none");	
+        	}else if($(this).attr("id")=="community-change859"){
+        		$("#community-ul859").css("display","block");
+        		$("#community-ul859").siblings().css("display","none");	
+        	}else if($(this).attr("id")=="community-change874"){
+        		$("#community-ul874").css("display","block");
+        		$("#community-ul874").siblings().css("display","none");	
+        	}else if($(this).attr("id")=="community-change899"){
+        		$("#community-ul899").css("display","block");
+        		$("#community-ul899").siblings().css("display","none");	
+        	}else if($(this).attr("id")=="all"){
+        		$("#community-ul899").css("display","block");
+        		$("#community-ul899").siblings().css("display","block");	
+        	}
+
+        	let sub1 = $(".country-box>div");
+        	var n=0;
+        	for(var i=0;i<sub1.length;i++){
+        		 if(sub1[i].style.display=="block"){
+        		 	n++;
+        		 }
+        	}
+        	if(n!==1){
+               let m = $(".community-ul:odd").css("background","rgba(239,247,249,0.9)")
+            }else{
+                 
+               $(".community-ul").css("background","#fff")
+            }
+   
+        })
+
+
+    </script>
+{%endblock%}

@@ -1,0 +1,1039 @@
+{% extends "../inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+<style>
+.mui-bar-tab~.mui-content{
+	padding-bottom:0;
+}
+.peanturoll-footer{
+	padding-top:0 !important;
+}
+	ul,li{
+		list-style: none;
+		margin:0;
+		padding:0;
+	}
+    .mui-bar{
+    	z-index:100;
+    }
+    .theme-img{
+        position:relative;
+    }
+    .theme-img div img{
+        height:200px;
+    }
+    .text-title{
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 10px 15px;
+        color: #fff;
+        background-color: rgba(4,5,5,0.5);
+        z-index: 100;
+    }
+    .text-title .start-place{
+        width:70%;
+        white-space:pre-wrap;
+        line-height: 1.4;
+    }
+    .serial-number{
+        width:30%;
+    }
+    .collect-share{
+    	width:45%;
+    	display: block;
+        position: absolute;
+        left: 0;
+    	bottom:48px;
+        height:50px;
+        background-color:#fff;
+        z-index: 100;
+    }
+	.collect-share a.service{
+		display: inline-block;
+		height:100%;
+		color:#999999;
+		font-size:14px;
+		text-align:center;
+		line-height: 85px
+	}
+	.collect-share a .collect{
+		display: inline-block;
+	    width: 29px;
+	    height: 29px;
+	    position: absolute;
+	    left: 28%;
+	    top: 4px;
+	    background: url(/static/assets/images/tour/collection.png) no-repeat -2px -3px;
+	}
+	.collect-share a .share{
+		display: inline-block;
+	    width: 29px;
+	    height: 30px;
+	    position: absolute;
+	    left: 28%;
+	    top: 4px;
+	    background: url(/static/assets/images/tour/share.png) no-repeat -2px -1px;
+	}
+	.collect-share a .custom-service{
+		display: inline-block;
+	    width: 29px;
+	    height: 30px;
+	    position: absolute;
+	    left: 30%;
+	    top: 4px;
+	    background: url(/static/assets/images/tour/custom_service.png) no-repeat -2px -1px;
+	}
+	div.shop-item-price>s{
+		position: relative;
+	    font-size: 17px;
+	    font-weight: bold;
+	    font-family: "Microsoft Yahei";
+	    color: #7d7d7d;
+	    margin-left:8px;
+	}
+	div.shop-item-price>s>i {
+    display: inline-block;
+    width: 57px;
+    height: 20px;
+    position: absolute;
+    left: 4px;
+    top: -15px;
+    background: url(/static/assets/images/tour/end_single.png) no-repeat 0 0;
+	}
+	div.shop-item-price>div{
+		margin-top:3px;
+	}
+	.product-information{
+		padding-left:2.78%;
+		padding-right:2.78%;
+	}
+	.text-danger{
+		color: #ff441c !important;
+    	font-size: 30px !important;
+	}
+	.score{
+		color: #1eb6c1 !important;
+	    font-size: 30px !important;
+	    font-weight: bold;
+	}
+	.score span{
+		color: #b2b2b2 !important;
+	    font-size: 15px !important;
+	    font-weight: normal;
+	    margin-left:5px;
+	}
+	.preferential{
+		padding:10px 2.78%;
+		background:#dcf1f3;
+	}
+	.preferential span{
+		width:20%;
+		height:40px;
+		line-height:40px;
+		color:#fff;
+		background:#1eb6c1;
+		text-align:center;
+		font-size:20px;
+		border-radius:10px;
+	}
+	.preferential i{
+		display:inline-block;
+		width:8px;
+		height:8px;
+		border-radius: 50%;
+		background:#1eb6c1;
+		margin:0 5.56%;
+		margin-top:14.5px;
+	}
+	.preferential>div>div{
+		color:#b2b2b2;
+	}
+	.select-date{
+		padding:20px 0;
+		background:#fff;
+	}
+	.select-date>a{
+		display: block;
+		width:100%;
+		height:100%;
+	}
+	.select-date>a>b{
+		display:inline-block;
+		width:75%;
+		padding:13px 0 13px 2.78%;
+		font-size:20px;
+		background:#1eb6c1;
+		color:#fff;
+		border-radius: 0 30px 30px 0;
+	}
+	.select-date>a>b>span{
+		margin-top:8px;
+		margin-left:3%;
+	}
+	.select-date a b i{
+		display:inline-block;
+		width:38px;
+		height:35px;
+		background:url(/static/assets/images/mobile/background/select-data.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.select-date>a>span{
+		display:inline-block;
+		width:22px;
+		height:42px;
+		margin-top:10px;
+		margin-right:8.89%;
+		background: url(/static/assets/images/mobile/background/arrow.png) no-repeat;
+	}
+	.product-detail,
+	.product-introduce,
+	.consult{
+		width:100%;
+		margin-top:24px;
+		background:#fff;
+	}
+	.product-detail table,
+	.product-introduce table,
+	.#js_detail table{
+		width:100% !important;
+		height:auto !important;
+	}
+	.product-detail img,
+	.product-introduce img,
+	#js_detail img{
+		width:100% !important;
+		height:auto !important;
+	}
+	#js_detail,
+	.product-detail{
+		padding:0 5.56%;
+	}
+	.detail_tab {
+	    height: 39px;
+	    position: relative;
+	    z-index: 2;
+	}
+	.detail_tab_col {
+	    float: left;
+	    height: 38px;
+	    width:100%;
+	    position: relative;
+	    top: 1px;
+	    border-right: 1px solid #d5d5d5;
+	    padding: 0;
+	    margin: 0;
+	}
+	.detail_tab_col li {
+	    float: left;
+	    margin-right: -1px;
+	    
+	    height: 37px;
+	    display: inline;
+	    min-width: 20%;
+	}
+	.detail_tab_col li.fy-zx{
+		min-width:10%;
+	}
+	.detail_tab_col li a.current {
+	    position: relative;
+		border-bottom:none;
+	}
+	.detail_tab_col li a,
+	.evaluate-kind a {
+		border: 2px solid #1eb6c1;
+		border-bottom:3px solid #1eb6c1;
+		border-radius: 5px 5px 0 0;
+	    font-size: 14px;
+	    height: 37px;
+	    line-height: 37px;
+	    color: #1eb6c1;
+	    /* background: #fff; */
+	    display: block;
+	    zoom: 1;
+	    _display: inline;
+	    text-align: center;
+	}
+	#js_detail>h3,
+	.product-detail>h3,
+	.detail_content>h3{
+		padding:25px 0;
+		margin:0;
+	}
+	.ce-product{
+		display:inline-block;
+		width:20px;
+		height:20px;
+		background:url(/static/assets/images/mobile/background/product_recommend.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.ce-charge{
+		display:inline-block;
+		width:20px;
+		height:20px;
+		background:url(/static/assets/images/mobile/background/product_expenses.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.ce-reserve{
+		display:inline-block;
+		width:20px;
+		height:20px;
+		background:url(/static/assets/images/mobile/background/product_booking_info.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.ce-comment{
+		display:inline-block;
+		width:20px;
+		height:20px;
+		background:url(/static/assets/images/mobile/background/product_review.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.ce-consult{
+		display:inline-block;
+		width:20px;
+		height:20px;
+		background:url(/static/assets/images/mobile/background/consult.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.score-detail{
+		width:70%;
+	}
+	.global-score{
+		width:30%;
+	}
+	.global-score p {
+	    font-size: 47.5px;
+	    margin:0;
+	    color: #1eb6c1;
+	    line-height: 47.5px;
+	}
+	.people-num{
+		font-size:16px;
+	}
+	.people-num span{
+		color:#1eb6c1;
+	}
+	.evaluate-kind{
+		background:#fff;
+		padding-bottom: 20px;
+	}
+	.evaluate-kind a{
+		color:#666666;
+		float:left;
+		width:12.5%;
+	}
+	.evaluate-kind a.all{
+		color:#1eb6c1;
+		width:25%;
+	}
+	.evaluate-box{
+		padding-top:37px;
+	}
+	.evaluate-box .evaluate-personal,
+	.comment-box{
+		margin:30px 2.78% 0 2.78%;
+		padding:30px 2.78% 0 2.78%;
+		-webkit-box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    	box-shadow: 0 0 30px rgba(0,0,0,0.1);
+	}
+	.samll-solid{
+		display:inline-block;
+		width:13px;
+		height:11px;
+		background:url(/static/assets/images/tour/small_solid.png) no-repeat -201px -173px;
+	}
+	.samll-heart{
+		display:inline-block;
+		width:13px;
+		height:11px;
+		background:url(/static/assets/images/tour/small_heart.png) no-repeat -1px 0px;
+	}
+	.evaluate-user span{
+		color:#666666;
+
+	}
+	.evaluate-user p{
+		width:88%;
+		margin-top:11px;
+	}
+	.evaluate-user em{
+		display: inline-block;
+		width:12%;
+		border-radius: 50%;
+	}
+	.evaluate-user em img{
+		width:100%;
+		border-radius: 50%;
+		vertical-align: middle;
+	}
+	.evaluate-content .comment{
+		border-bottom: 1px solid #999999;
+		padding-top: 10px;
+		padding-bottom:20px;
+		margin-bottom:20px;
+	}
+	.grade{
+		margin-left:2.78%;
+		display:inline-block;
+		padding:2px 5px;
+		border-radius:5px;
+		color:#fff;
+		background:#1eb6c1;
+	}
+	.detaile-score>div{
+		padding:3px 0;
+	}
+	.evaluate-time{
+		padding:20px 0;
+	}
+	.get-more{
+		margin:30px 2.78% 0 2.78%;
+		padding:20px 2.78% 20px 2.78%;
+		border:2px solid #1eb6c3;
+		border-radius:4px;
+		background:#f2f2f2;
+		position:relative;
+	}
+	.get-more span{
+		color:#1eb6c1;
+		font-size:18px;
+		position:absolute;
+		top:11px;
+		left:28%;
+	}
+	.get-more b{
+		display: inline-block;
+		width:28px;
+		height:10px;
+		position:absolute;
+		left:55%;
+		background:url(/static/assets/images/mobile/background/arrow_down.png) no-repeat;
+		background-size:100% 100%;
+	}
+	.get-more b.b1{
+		top:13px;	
+	}
+	.get-more b.b2{
+		top:19px;
+	}
+	.consult,
+	.comment-box{
+		padding-bottom:20px;
+	}
+	li.comment a.comment-author{
+		display: inline-block;
+		width: 100%;
+	}
+	li.comment a.comment-author span {
+	    font-family: "Microsoft Yahei",Regular;
+	    font-weight: bold;
+	    color: #000000;
+	    font-size: 15px;
+		float:left;
+		margin-top:9px;
+		margin-left:5px;
+	}
+	li.comment a.comment-author i{
+		display: inline-block;
+		width:12%;
+		border-radius: 50%;
+		float:left;
+	}
+	li.comment a.comment-author i img{
+		width:100%;
+		border-radius: 50%;
+	}
+	small {
+	    font-family: "Microsoft Yahei",Regular;
+	    font-size: 14px;
+	    color: #000000;
+	    padding-left: 10px;
+	    float:right;
+	    margin-top:9px;
+	}
+	.list-inline li{
+		padding:0 3px;
+	}
+	.list-inline li a{
+		font-size:14px;
+		display: inline-block;
+		margin-top:3px;
+	}
+	li.comment.comment-reply {
+	    /* margin-left: 60px; */
+	    background-color: #F3F8FB;
+	    padding: 6px;
+	    margin-bottom: 6px;
+	    position:relative;
+	}
+	.triangle {
+	    display: inline-block;
+	    border: 8px solid #F3F8FB;
+	    transform: rotate(45deg);
+	    position: absolute;
+	    top: -7px;
+	    left: 45px;
+	}
+	.input-group .p-consult{
+		display: table-cell;
+		width:80%;
+	}
+	.b-consult{
+		width:20%;
+		height:40px;
+		background:#1eb6c1;
+		color:#fff;
+		border:1px solid #1eb6c1;
+	}
+	.validate{
+		padding:10px 2.78%;
+		background: #fff;
+	}
+	.consultation{
+		background: #1eb6c1;
+		color:#fff;
+		border:1px solid #1eb6c1;
+		padding:5px 6px;
+		border-radius: 3px;
+	}
+	.wangEditor-consult i{
+		display: block;
+		width: 20px;
+        height:13px;
+        margin:0 auto;
+	}
+	.top{
+        background:url(/static/assets/images/mobile/background/arrow_top.png) no-repeat;
+        background-size:100% 100%;
+    }
+    .down{
+        background:url(/static/assets/images/mobile/background/arrow_down.png) no-repeat;
+        background-size:100% 100%;
+    }
+    .peanturoll-footer{
+        background-color: #484848;
+    }
+    .peanturoll-row{
+        padding-left:3%;
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
+    .peanturoll-rows{
+        /* padding: 0 3%; */
+        padding-left:3%;
+        padding-bottom: 15px;
+    }
+    .peanturoll-title-1{
+        width: 21%;
+        display: inline-block;
+    }
+    .peanturoll-title-2{
+        width: 27%;
+        display: inline-block;
+    }
+    .peanturoll-title-3{
+        width: 25%;
+        display: inline-block;
+    }
+    .footer-t h5{
+        font-size:15px !important;
+        font-weight: 500 !important;
+        color: rgba(255,255,255,0.8);
+        padding-left: 5px;
+        border-left: 3px solid #2cd;
+    }
+    .footer-logo{
+        width: 20%;
+        display: inline-block;
+    }
+    .footer-logo img{
+        width: 100%;
+        height: 100%;
+    }
+    .footer-introduction{
+        width: 78%;
+        padding-left:3%;
+        display: inline-block;
+    }
+    .footer-introduction div{
+        line-height:15px !important;
+    }
+    .footer-introduction a{
+        color: rgba(255,255,255,0.6);
+        font-size: 12px;
+    }
+    .avatar,.rounded{
+    	border-radius: 50%;
+    }
+    .tours{
+    	display: inline-block;
+    	margin-top:9px;
+    	margin-left:5px;
+    	color:#000;
+    }
+    .detail_content{
+    	background:#fff;
+    }
+	
+	.ellipsis{
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	}
+	.clear:after{
+		content:"";
+		display:block;
+		clear:both;
+	}
+	.consult-active{
+		display: block;
+	}
+	.consult-hidden,.out{
+		display: none;
+	}
+	.in{
+		position:absolute;
+	}
+	#bdshare_weixin_qrcode_dialog{
+		height:288px !important;
+	}
+	.active{
+		display: block;
+	}
+	.fade{
+		display: none;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+{% include "../inc/top.html" %}
+{% include "../inc/nav.html" %}
+<section id="slider" class="mui-content">
+    {% set pic = info.pics|strToArray %}
+    {% for val in pic %}
+    <div id="sliderpic" class="mui-slider">
+    <div class="mui-slider-group mui-slider-loop theme-img">                        
+        <div class="mui-slider-item">
+            <a>
+                <img src="{{val|get_pic('m=3,w=100%,h=450')}}">
+                
+            </a>
+        </div>
+        <div class="collect-share">
+			{% if not controller.is_login %}
+			<a class="mui-col-xs-4 service" data-toggle="ajaxModal" href="/uc/public/login">
+				收藏
+				<i class="collect"></i>
+			</a>	
+			{% else %}
+			<a class="mui-col-xs-4 service" href="javascript:collect({{info.id}})">
+				收藏
+				<i class="collect"></i>
+			</a>
+			{% endif %}
+			<a class="mui-col-xs-4 service" href="javascript:share()">
+				分享
+				<i class="share"></i>
+			</a>
+			{% if info.vendor_qq!="" and info.vendor_qq!=null and info.vendor_qq!=undefined%}
+			<a class="mui-col-xs-4 service"  target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin={{info.vendor_qq}}&site=qq&menu=yes" alt="点击这里给我发消息" title="点击这里给我发消息">
+				客服
+				<i class="custom-service"></i>
+			</a>
+			{% else %}
+			<a class="mui-col-xs-4 service"  target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=306420988&site=qq&menu=yes" alt="点击这里给我发消息" title="点击这里给我发消息">
+				客服
+				<i class="custom-service"></i>
+			</a>
+			{% endif %}
+        </div>
+        <div class="clearfix share-box margin-top-20 out">
+            <div class="bdsharebuttonbox">
+            	<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+            	<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            	<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+            </div>
+            <script>
+            	window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}
+            	// ,"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}
+            };
+            	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+            </script>
+            
+        </div>
+        <div class="item-box-overlay-title text-title">
+            <h4 class="mui-pull-left start-place">出发地：{{info.departure_place_name}}</h4>
+            <h4 class="mui-pull-right serial-number">编号：{{info.id}}</h4>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+	<div class="product-information">
+		<h1 class="blog-post-title size-25 bold margin-bottom-20">{{info.title}}</h1>
+		<div class="shop-item-price">
+			{% set itemPrice = info.price|get_price_format('1') %}
+			<price class="text-danger">¥{{itemPrice | replace(",","") | round(0, "floor")}}</price>
+			<span>/人起</span>	
+			{% if info.favflag == 1 %}
+			{% set originalPrice = info.price|get_price_format('2') %}
+			<s>¥{{originalPrice | replace(",","") | round(0, "floor")}}<i></i></s>
+			{% endif %}
+			<div>				
+				<span class="score">{{ info.score_avg }}<span>分</span></span>
+				<span class="score"><span>{{info.commentcount}}条点评</span></span>
+				<span class="score"><span>{{info.ordercount}}人出游</span></span>
+			</div>						
+				
+		</div>
+	</div>
+	<div class="preferential clear">						
+		{% if not controller.is_login %}
+		<span class="mui-pull-left">优惠</span>
+		<i class="mui-pull-left"></i>
+		<div class="row mui-pull-left" style="margin-left:0px; margin-right:0px;margin-top:9.5px; font-size:16px;">
+			<div class="pull-left text-left">（<a class="" data-toggle="ajaxModal" href="/uc/public/login">登录</a>后查看更多优惠）</div>
+		</div>
+		{% endif %}
+	</div>
+	<div class="select-date">
+		<a href="/uc/reserve?product_id={{info.id}}">
+			<b>
+				<i class="mui-pull-left"></i>
+				<span class="mui-pull-left">选择出发日期/人数</span>
+			</b>
+			<span class="mui-pull-right"></span>
+		</a>
+	</div>
+</section>
+<section>
+	<div class="product-introduce">
+		<div class="detail_tab_div" style="height: 40px;">
+	        <div class="detail_tab basefix" style="z-index: 1;">
+	            <ul class="detail_tab_col" id="js_detail_tab">
+	                <li><a class="current xs-xcjs">行程介绍</a></li>
+	                <!-- <li id="J_zyld" style="display: none"><a href="#zyld">专业领队</a></li> -->
+	                {% if info.product_expenses  %}
+	                <li class="fy-zx" style=""><a class="xs-fy">费用</a></li>
+	                {% endif %}
+                	{% if info.product_booking_info  %}
+	                <li style=""><a class="xs-ydxz">预订须知</a></li>
+	                {% endif %}
+                	{% if info.product_visainfo  %}
+	                <li style=""><a class="xs-qz">签证/签注</a></li>
+	                {% endif %}
+	                <li style=""><a class="xs-yhpj">用户评价</a></li>
+	                <li class="fy-zx" style=""><a class="xs-zx">咨询</a></li>              
+	            </ul>
+	        </div>
+	    </div>
+		
+	</div>
+	{% if info.product_recommend or info.product_route %} 
+        <div id="js_detail" class="detail_content xcjs active product-info" style="border-top: none;">
+			<!--产品特色-->
+		    <h3 class="resource_title text-center">
+		       <i class="ce-product"></i> 产品特色
+		    </h3>
+		    <div class="product_feature" id="product_feature">
+		    	{{info.product_recommend | safe}}
+		    </div>
+		    <div class="" id="js_detail_travelCtrip">
+		    	{{info.product_route | safe}}
+		    </div> 
+		    
+	    </div>
+	{% endif %}
+	 <!-- 费用包含占位 -->
+    {% if info.product_expenses  %}  
+    <div class="fy active product-info">
+    <i class="under_tab_anchor" id="fy"></i>
+    <i class="under_tab_anchor_abc" id="fy_abc"></i>
+    <div id="js_expense" class="detail_content product-detail">
+		<h3 class="resource_title text-center"><i class="ce-charge"></i> 费&nbsp;&nbsp;用 </h3>
+	    <div class="product_feature" id="product_expense">
+	    	{{info.product_expenses | safe}}
+	    </div>
+    </div> 
+    </div>
+    {% endif %}
+
+     <!-- 预订须知占位 -->
+    {% if info.product_booking_info  %}
+    <div class="ydxz active product-info">
+    <i class="under_tab_anchor" id="ydxz"></i>
+    <i class="under_tab_anchor_abc" id="ydxz_abc"></i>
+    <div id="js_order_needknow" class="detail_content product-detail">
+		<h3 class="resource_title text-center"><i class="ce-reserve"></i> 预订须知</h3>
+	    <div class="product_feature" id="product_booking">
+	    	{{info.product_booking_info | safe}}
+	    </div>
+    </div> 
+    </div>
+    {% endif %}
+
+     <!-- 签证占位 -->
+    {% if info.product_visainfo  %}
+    <div class="qz active product-info">
+    <i id="qz" class="under_tab_anchor" ></i>
+    <i class="under_tab_anchor_abc" id="qz_abc"></i>
+    <div id="js_visa" class="detail_content product-detail">
+		<h3 class="resource_title text-center"><i class="ce-visa"></i> 签证/签注</h3>
+	    <div class="product_feature" id="product_visa">
+	    	{{info.product_visainfo | safe}}
+	    </div>
+    </div> 
+    </div>
+    {% endif %}
+
+	<!-- 用户点评占位 --> 
+	<div class="yhdp active product-info">
+    <i id="pj" class="under_tab_anchor" ></i>
+    <i class="under_tab_anchor_abc" id="qz_abc"></i>
+	{% if info.score!== 0 and info.score!== '' and info.commentcount !== 0 and info.commentcount !== '' %}			
+    <div id="js_review" class="detail_content product-detail">	
+		<h3 class="resource_title text-center">
+			<i class="ce-comment"></i> 用户评价
+		</h3>
+		<div class="product_feature clear " id="product_review">
+			<div class="score-detail mui-pull-left">	
+			{#
+				{% set score = info.score/info.commentcount %}
+			#}
+				<input class="proid" type="hidden" value="{{info.id}}">
+				<p class="people-num"><span>{{info.commentcount}}</span>条点评</p>
+				<p class="people-num"><span>{{info.ordercount}}</span>人出游</p>
+			</div>
+			<div class="global-score mui-pull-left text-center">
+				<p>{{ info.score_avg }}</p>
+				<span>总体评分</span>
+			</div>
+		</div>
+		
+    </div>
+	<div class="evaluate-kind padding-top-30 clear">
+		<a  class="all" href="javascript:allevaluate(1);">全部点评<span class="allCount"></span></a>
+		<a href="javascript:evaluate5(1);">5分<!-- <span class="count5"></span> --></a>
+		<a href="javascript:evaluate4(1);">4分<!-- <span class="count4"></span> --></a>
+		<a href="javascript:evaluate3(1);">3分<!-- <span class="count3"></span> --></a>
+		<a href="javascript:evaluate2(1);">2分<!-- <span class="count2"></span> --></a>
+		<a href="javascript:evaluate1(1);">1分<!-- <span class="count1"></span> --></a>
+		<a href="javascript:evaluateimg(1);">图片<!-- <span class="imgcount"></span> --></a>
+		<div class="evaluate-box">  </div>
+		<!-- <div id="more-comment" class="get-more"><span>展开更多</span> <b class="b1"></b><b class="b2"></b></div> -->	
+	</div>
+	</div>				
+	{% else %}
+	 <div id="js_review" class="detail_content product-detail">	
+		<h3 class="resource_title text-center"><i class="ce-comment"></i> 用户评价</h3>
+		<div class="product_feature margin-bottom-30" id="product_review">
+			暂无该产品评价！
+		</div>				
+    </div>
+    </div>
+	{% endif %}
+
+	<div class="consult active product-info">
+
+			<!-- RIGHT -->
+		<div class="">
+
+			<div class="under_tab_detail"> 
+			<i class="under_tab_anchor" id="zx"></i>
+	        <i class="under_tab_anchor_abc" id="zx_abc"></i>
+
+	        <div id="js_expense" class="detail_content">
+
+			<h3 class="resource_title text-center"><i class="ce-consult"></i> 咨&nbsp;&nbsp;询 </h3>
+			<!--评论================================-->
+            <div class="box-light margin-top-20 "><!-- .box-light OR .box-dark -->
+				
+                <div class="box-inner">
+
+                     
+                    {%model data="list",table="question_answer", page=1, where='{"question_id":'+info.id+',"category_id":'+info.category_id+'}',limit="10"%}
+                    {% for a in list %}
+                    <!-- <div class="divider divider-dotted " style="margin:10px -15px"> --><!-- divider --><!-- </div> -->
+                    <!-- COMMENT -->
+                    <div class="comment-box consult-hidden">
+	                    <ul class="comment list-unstyled clear margin-bottom-20">
+	                        <li class="comment margin-bottom-0">
+
+	                            <!-- avatar -->
+	                            <!-- <img class="avatar" src="/uc/index/avatar/uid/{{a.uid}}" width="50" height="50" alt="avatar"> -->
+
+	                            <!-- comment body -->
+	                            <!-- <div class="comment-body"> -->
+	                            <div class="tourist-question">
+	                                <a class="comment-author" style="position: relative;z-index: 10;background-color: #fff">
+	                                    <!-- <small class="text-muted pull-right">{{a.add_time|dateformat('Y-m-d H:i:s')}} </small> -->
+	                                    <i><img src="/uc/index/avatar/uid/{{a.uid}}" alt=""></i>
+	                                    <span>{{a.uid|get_nickname}}</span>
+	                                    <small class="text-mutedd">{{a.add_time|dateformat('Y-m-d H:i:s')}} </small>
+	                                </a>
+	                                <div class="wangEditor-container cmswing-container" style="position: relative;z-index: 9;border: none;">
+	                                    <div class="wangEditor-txt wangEditor-consult nopadding">
+	                                        {{a.answer_content|safe}}
+	                                        <i></i>
+	                                    </div>
+	                                </div>
+	                            </div><!-- /comment body -->
+
+	                            <!-- options -->
+	                            <ul class="list-inline size-11">
+	                               
+	                                {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
+	                                
+	                               <!--  <li class="mui-pull-right">
+	                                    <a href="/mod/question/ajax/delanswer/qid/{{info.id}}/id/{{a.answer_id}}" class="edit-delete confirm ajax-get">删除</a>
+	                                </li>
+	                                <li class="mui-pull-right">
+	                                    <a href="/mod/question/ajax/editanswer/id/{{a.answer_id}}" class="edit-delete lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
+	                                </li> -->
+	                                <li  class="mui-pull-right">
+	                                   <a href="javascript:;"  class="text-info comment-reply commentary" data-comment="write-reply-{{a.answer_id}}">
+	                                    	<i class="fa fa-reply"></i> <span id="oc-{{a.answer_id}}">回复</span>
+	                                    </a>
+	                                </li>
+
+	                                {%endif%}
+	                            </ul>
+	                        </li><!-- /options -->
+	                    </ul>
+	                    <div id="comment-reply-{{a.answer_id}}" class="margin-top-10">
+							<ul>
+			                 	{% model data="list",table="question_answer_comments",where='{"answer_id":'+a.answer_id+'}'%}
+			                 	{% for c in list %}
+								<li class="comment comment-reply clear">
+									<b class="triangle mui-pull-left"></b>
+									<img class="avatar mui-pull-left" src="/uc/index/avatar/uid/1" style="width:50px;height:50px" alt="avatar">
+									<div class="comment-body mui-pull-left">
+										<a class="comment-author">
+											
+											<span>admin</span>
+											<small class="text-muted">{{c.time|dateformat('Y-m-d H:i:s')}}</small>
+										</a>
+										<p>{{c.message}}</p>
+									</div>
+
+									 {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
+									 <ul class="list-inline size-11 clear">
+		                                <li class="mui-pull-right">
+		                                    <a href="javascript:editdelete({{c.id}})" class="edit-delete confirm ajax-get">删除</a>
+		                                </li>
+		                        	</ul>
+
+									{% endif %}
+
+								</li>
+								
+								{% endfor %}
+							</ul>
+
+	                 	</div>
+                    </div>
+
+                    <!-- /COMMENT -->
+                    {% endfor %}
+
+
+
+                </div>
+
+            </div>
+
+			</div>
+	</div>
+	</div>
+	<div id = "more-consult" class="get-more"><span>展开更多</span> <b class="b1"></b><b class="b2"></b></div>
+	</div>
+   <!--评论结束============================-->
+                   <form method="post" action="/mod/question/sys/updatetouranswer" class="box-light margin-top-20  validate"><!-- .box-light OR .box-dark -->
+                    <div class="box-inner clear">
+                        <h4 class="padding-bottom-0 clearfix margin-bottom-10 noborder row">  <div class="col-md-9 col-sm-9"><div class="clearfix margin-bottom-0 clear"><!-- rounded item -->
+                            {% if controller.user.uid %}
+                            <img class="thumbnail mui-pull-left rounded" src="/uc/index/avatar/uid/{{controller.user.uid}}" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding"><a class="tours">{{controller.user.uid|get_nickname}}</a></h4>
+                            {% else%}
+                            <img class="thumbnail mui-pull-left rounded" src="/uc/index/avatar/uid/0" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding"><a class="tours">遊客</a></h4>
+                            
+                            {%endif%}
+                           <!--  <span class="size-12 text-muted">....</span> -->
+                        </div>   </div><div class="col-md-3 col-sm-3">
+                        <!--<label class="switch switch-primary margin-top-10 pull-right">
+                            <input type="checkbox" checked="" name="anonymous" value="0">
+                            <span class="switch-label" data-on="不匿" data-off="匿名"></span>
+                        </label>--></div></h4>
+
+                        <textarea id="detail" name="answer_content"  class="form-control required zx-content" style="height: 140px"  placeholder="说说你的疑问"></textarea>
+
+                        <input type="hidden" name="question_id" value="{{info.id}}">
+                        <input type="hidden" name="category_id" value="{{info.category_id}}">
+                        <input type="hidden" name="backurl" value="{{http.url}}">
+                        <!-- <button type="submit" class="btn btn-primary mui-pull-right margin-top-20 consultation"><i class="fa fa-check"></i> 咨询</button> -->
+                        <a href="javascript:subTour()" class="mui-pull-right consultation">咨询</a>
+                    </div>
+                </form>
+</section>
+<div class="mui-content margin-top-10 margin-bottom-60 peanturoll-footer">
+    <div class="mui-row peanturoll-row">
+        <div class="footer-t peanturoll-title-1">
+            <a href="/"><h5 class="letter-spacing-1">电脑版</h5></a>
+        </div>
+        <div class="footer-t peanturoll-title-1">
+            <a href="/"><h5 class="letter-spacing-1">手机版</h5></a>
+        </div>
+        <div class="footer-t peanturoll-title-2">
+            <a href="/"><h5 class="letter-spacing-1">花生卷简介</h5></a>
+        </div>
+        <div class="footer-t peanturoll-title-3">
+            <a href="/"><h5 class="letter-spacing-1">联系我们</h5></a>
+        </div>
+    </div>
+    <div class="mui-row peanturoll-rows">
+        <div class="footer-logo">
+            <img src="/static/assets/images/mobile/index/logo.png">
+        </div>
+        <div class="footer-introduction">
+            <div><a href="/">2014-2017 ©花生卷 R</a></div>
+            <div><a href="/">沪ICP备17021830号</a> <a href="/">电话010-123456789</a> </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/assets/js/mobile_tour.js"></script>
+<script src="/static/assets/js/mobile_question.js"></script>
+<script>
+	mui.ready(function(){
+		console.log("a")
+		var height = document.getElementsByClassName("text-title");
+		height = height[0].offsetHeight
+		console.log(height)
+		document.getElementsByClassName("collect-share")[0].setAttribute('style', 'bottom:'+height+'px'); 
+	})
+	//底部导航栏单击打开herf事件
+    mui.ready(function() {
+    	//mui('.mui-scroll-wrapper').scroll();
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中...")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+</script>
+{% endblock %}

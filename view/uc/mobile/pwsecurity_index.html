@@ -1,0 +1,124 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
+<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+header.archives-header{
+        background:#1eb6c1;
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.archives-header span{
+    display: inline-block;
+    margin-top:8.5px;
+    font-size:24px;
+    color:#fff;
+}
+.mui-content .form-password{
+	background: #fff;
+	padding-left:5%;
+	padding-right:5%;
+	padding-bottom:30px;
+}
+.mui-content h3{
+	font-weight:normal;
+	text-align: center;
+	padding:20px 5% 20px 5%;
+	margin:0;
+}
+.mui-content .mui-input-group .mui-input-row input{
+	border:1px solid #b2b2b2;
+	padding:10px 15px;
+}
+.mui-input-group .mui-input-row{
+	margin:10px 0;
+}
+.save{
+	text-align: center;
+	margin-top:10px;
+}
+.save a{
+	display: inline-block;
+	padding:10px 30px;
+	background: #1eb6c1;
+	color:#fff;
+	border-radius: 5px;
+}
+
+
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav archives-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>账号安全</span>
+</header>
+{% include "./inc/barnav.html" %}
+<section class="mui-content">
+	
+    <form id="pw-form" class="form-password mui-input-group" action="/uc/seting/updatepassword" method="post">
+		<h3>修改登录密码</h3>
+        <div class="mui-input-row">
+	        <label>旧密码</label>
+	        <input type="password" class="" name="oldpassword" placeholder="输入旧密码">
+        </div>
+        <div class="mui-input-row">
+            <label>新密码</label>
+          	<input type="password" class="" minlength="6" maxlength="20" name="password" placeholder="字母和数字的8-16的字符">
+        </div>
+        <div class="mui-input-row">
+          	<label>确认密码</label>
+          	<input type="password" class="" minlength="6" maxlength="20" name="repassword" placeholder="字母和数字的8-16的字符">
+        </div>
+    </form>
+    <div class="mui-content-padded margin-top-30 save">
+        <a id="change" class="btn btn-primary">确认修改 </a>
+    </div>
+</section>
+{% endblock%}
+	
+{% block script %}
+<script>
+var btn = document.getElementById("change");
+btn.addEventListener("tap",function(){
+	var data = $("#pw-form").serialize();
+	console.log(data)
+	$.ajax({
+		type:"POST",
+		url:"/uc/seting/updatepassword",
+		data:data,
+		success:function(data){
+			console.log(data)
+			if(data.errno == 0){
+				mui.toast(data.data.name)
+			}else{
+				mui.toast(data.errmsg.oldpassword)
+				mui.toast(data.errmsg.password)
+			}
+		}
+	})
+})
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

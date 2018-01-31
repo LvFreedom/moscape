@@ -1,0 +1,800 @@
+{% extends "../inc/base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .tp-bullets.simplebullets.round {
+        bottom:130px !important;
+    }
+    #destination ul#destination-ul li {
+        margin-bottom: 10px !important;
+    }
+    #studytour ul#studytour-ul li {
+        margin-bottom: 20px !important;
+    }
+    #community ul#community-ul li {
+        margin-bottom: 12px !important;
+    }
+    section.alternate {
+        border-bottom: none;
+    }
+    section.alternate .item-box {
+        width: 100%;
+        height: 100%;
+    }
+    section#destination {
+        background-color: transparent;
+    }
+    section#studytour {
+        background-color: rgba(239,247,249,0.9);
+    }
+    section#community {
+        background-color: transparent;
+    }
+    .item-box figure {
+        height: 100%;
+    }
+    .thumbnail {
+        padding: 0px;
+        border: none;
+        cursor: pointer;
+    }
+    img.img-responsive {
+        width: 100%;
+        height: 100%;
+    }
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    #destination ul#destination-ul .destination-item {
+        width: 33.33%;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 433px;
+    }
+    .portfolio .item-box-overlay-title h4 {
+        font-size: 25px;
+    }
+    .portfolio header {
+        height: 60px;
+    }
+    .portfolio header h3 {
+        font-size: 32px;
+        float: left;
+    }
+    .portfolio header a {
+        margin-top: 20px;
+        float: right;
+    }
+    #studytour ul#studytour-ul .studytour-item {
+        width: 33.33%;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 433px;
+    }
+    
+    #community ul#community-ul .community-item {
+        width: 33.33%;
+        padding-left: 5px;
+        padding-right: 5px;
+        height: 433px;
+    }
+    .peanutRoll_a{
+        color: #565656;
+    }
+    .peanutRoll_a:hover{
+        color: #1eb6c1; 
+    }
+    ul.area-ul>li{
+        margin:0;
+        padding: 0!important; 
+    }
+    .mix-grid .col-md-3,.col-sm-3{
+        padding:0px; 
+    }
+    .area_li{
+        border-top: 2px skyblue solid;
+        border-left: 2px skyblue solid;
+    }
+    .area_figure{
+        width: 249px;
+       height: 116px;
+    }
+    .area_img {
+        /* 116 120 */
+        width: 70px;
+        /* height: 110px; */
+        height: 80px;
+        margin:18px 25px;
+    }
+    .area_span{
+        font-size:26px;
+        margin-top: 20px;
+    }
+    a:focus:not(.btn){
+    	color: #1eb6c1;
+    }
+    .title{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+    }
+    .end-single{
+        position: absolute;
+        height: 140px;
+        top: -10px;
+        right: 14px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!-- SLIDER -->
+<section id="slider" class="" style="height: 600px;background-position: center center">
+    <span class="overlay dark-2"><!-- dark overlay [0 to 9 opacity] --></span>
+
+    <div class="display-table">
+        <div class="display-table-cell vertical-align-middle">
+
+            <!-- REVOLUTION SLIDER -->
+            <div class="slider fullwidthbanner-container roundedcorners margin-bottom-30">
+                <div class="fullwidthbanner" data-height="600" data-shadow="3" data-navigationStyle="">
+                    <ul class="">
+                        <!-- SLIDE  -->
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000"  data-saveperformance="off">
+                            <img src="/static/assets/images/slider_pic1.jpg" data-lazyload="/static/assets/images/slider_pic1.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000"  data-saveperformance="off" >
+                            <img src="/static/assets/images/slider_pic2.jpg" data-lazyload="/static/assets/images/slider_pic2.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000"  data-saveperformance="off" >
+                            <img src="/static/assets/images/slider_pic3.jpg" data-lazyload="/static/assets/images/slider_pic3.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                        <li data-transition="fade" data-slotamount="7" data-masterspeed="1000"  data-delay="5000"  data-saveperformance="off" >
+                            <img src="/static/assets/images/slider_pic4.jpg" data-lazyload="/static/assets/images/slider_pic4.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+                        </li>
+                    </ul>
+                    <div class="tp-bannertimer"><!-- progress bar --></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-search-bar" style="position: absolute; left: 50%; bottom: 40px; height: 50px; width: 414px; z-index: 100; margin-left: -207px;">
+        <!-- INLINE SEARCH -->
+            <div class="inline-search clearfix" style="border: 10px solid rgba(26,21,31,0.5);border-radius: 5px;">
+                <form action="/search" method="get" class="widget_search">
+                    <input type="search" style="background: #fff;color: #111;" placeholder="" name="q" {% if queryword %} value={{queryword}} {%endif%}class="serch-input" style="color: black;">
+                    <button type="submit" style="background-color:#1EB6C1 ">
+                        <i class="fa fa-search" style="color: #fff;"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- /INLINE SEARCH -->
+    </div>
+
+</section>
+<!-- /SLIDER -->
+
+<!-- MAP -->
+<section class="alternate" id="area">
+    <div class="container portfolio" style="width: 1014px;">
+        <!-- <header class="section-header margin-bottom-20">
+            <div class="heading-title">
+                <h3 style="background-color: #F9F9F9">国家列表</h3>
+                <a class="peanutRoll_a" href="" id="studytour-change">换一换 <img src="/static/assets/images/change.png"></a>
+            </div>
+        </header> -->
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="area-ul" style="padding-left: 0px;">
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" >
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_100" title="亚洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area1.png"  alt="" >
+                                <span class="area_span">亚洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" >
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_200" title="欧洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area2.png"  alt="" >
+                                <span class="area_span">欧洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" >
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_300" title="非洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area3.png"  alt="" >
+                                <span class="area_span">非洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" style="border-right: 2px skyblue solid;">
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_500" title="南美洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area4.png"  alt="" >
+                                <span class="area_span">南美洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" style="border-bottom: 2px skyblue solid;">
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_400" title="北美洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area5.png"  alt="" >
+                                <span class="area_span">北美洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" style="border-bottom: 2px skyblue solid;">
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_600" title="大洋洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area6.png"  alt="" >
+                                <span class="area_span">大洋洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" style="border-bottom: 2px skyblue solid;">
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="/search.html?q=&value=youxue-0-0-17-tourdest_700|tourfeature_0|tourtype_0|tourmonth_0" title="南极洲">
+                            <figure class="area_figure">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    
+                                </span>
+                                <img class="area_img" src="/static/assets/images/world/area7.png"  alt="" >
+                                <span class="area_span">南极洲</span>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                    <li class="mix development col-md-3 col-sm-3 destination-item-5 mix_all area_li" style="border-right: 2px skyblue solid;border-bottom: 2px skyblue solid;">
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_00" title="全部">
+                            <figure class="area_figure" style="height: 116px;">
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span> 
+                                </span>
+                                <div style="margin-top:32px;margin-left:88px; ">
+                                    <span class="area_span" style="font-size: 26px;">全部</span>
+                                </div>
+                            </figure>
+                        </a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        
+       <!--  <div class="more-info text-center margin-top-10">
+           <a class="peanutRoll_a" href="/search{{http.config('view.file_ext')}}?q=&value=132-0-0-17-tourfeature_1|tourtype_0|tourdest_0|tourdays_0|tourmonth_0">点击查看更多》</a>
+       </div> -->
+        
+    </div>
+</section>
+<!-- /MAP -->
+
+<!-- -->
+<section class="alternate" id="destination">
+    <div class="container portfolio">
+        <header class="section-header margin-bottom-20">
+            <div class="heading-title">
+                <h3>明星产品</h3>
+                <a class="peanutRoll_a" href="javascript:getStarProduct();" >换一换 <img src="/static/assets/images/change.png"></a>
+            </div>
+        </header>
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="destination-ul" style="padding-left: 0px;">
+                    {% topic data = "list", limit= "3", cid=130, issub=1, ischild=1, type="level", page=0 %}
+                    {%set i = 1%}
+                    {% for v in list %}
+
+                    <li class="mix development col-md-3 col-sm-3 destination-item"><!-- item -->
+
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                            <figure>
+                                {% if v.favflag == 1 %}  
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%}
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                </span>
+                                <!-- overlay title -->
+                                <div class="item-box-overlay-title text-center text-title">
+                                    <h4 class="nomargin title">{{v.title}}</h4>
+                                </div><!-- /overlay title -->
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=324,h=433')}}"  alt="">
+                                
+                            </figure>
+                            <!-- overlay title -->
+                            <!-- <div class="item-box-overlay-title" style="height: 60px;background-color:#fff ">
+                                <h4 class="nomargin" style="font-size: 14px; color: #414141; height: 38px;overflow: hidden;">{{v.description}}</h4>
+                            </div> -->
+                            <!-- /overlay title -->
+                        </a>
+                        </div>
+
+                    </li><!-- /item -->
+                    {% set i = i + 1 %}
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        <!--
+        <div class="more-info text-center margin-top-20">
+            <a href="/youxue{{http.config('view.file_ext')}}">点击查看更多》</a>
+        </div>-->
+        
+
+    </div>
+</section>
+<!-- / -->
+
+<!-- -->
+<section class="alternate" id="studytour">
+    <div class="container portfolio">
+        <header class="section-header margin-bottom-20">
+            <div class="heading-title">
+                <h3 style="background-color: rgba(239,247,249,0.9)">学术类</h3>
+                 <a class="peanutRoll_a" href="javascript:getScienceProduct()" id="studytour-change">换一换 <img src="/static/assets/images/change.png"></a>
+            </div>
+        </header>
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="studytour-ul" style="padding-left: 0px;">
+                    {% topic data = "list", limit= "6", cid=130, issub=1, ischild=1, type="level", page=0 %}
+                    {%set i = 1%}
+                    {% for v in list %}
+
+                    <li class="mix development col-md-3 col-sm-3 studytour-item"><!-- item -->
+
+                        <div class="item-box thumbnail">
+                        <a class="peanutRoll_a" href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                            <figure>
+                                {% if v.favflag == 1 %}  
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%}
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    {#
+                                    <span class="inner">
+
+                                        <!-- lightbox -->
+                                        <a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+                                            <span class="glyphicon glyphicon-qrcode size-20"></span>
+                                        </a>
+
+                                        <!-- details -->
+                                        <a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+                                            <span class="glyphicon glyphicon-option-horizontal size-20"></span>
+                                        </a>
+
+                                    </span>
+                                    #}
+                                </span>
+
+                                
+                                <!-- overlay title -->
+                                <div class="item-box-overlay-title text-center text-title">
+                                    <h4 class="nomargin title">{{v.title}}</h4>
+                                </div><!-- /overlay title -->
+                            
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=324,h=433')}}"  alt="">
+                           
+                            </figure>
+                            <!-- overlay title -->
+                            <!-- <div class="item-box-overlay-title" style="height: 64px;background-color:#fff ">
+                                <h4 class="nomargin" style="font-size: 14px; color: #414141;overflow: hidden;height: 38px;">{{v.description}}</h4>
+                            </div> -->
+                            <!-- /overlay title -->
+                        </a>
+                        </div>
+
+                    </li><!-- /item -->
+                    {% set i = i + 1 %}
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        
+        <div class="more-info text-center margin-top-10">
+            <a class="peanutRoll_a" href="/search{{http.config('view.file_ext')}}?q=&value=132-0-0-17-tourfeature_1|tourtype_0|tourdest_0|tourdays_0|tourmonth_0">点击查看更多》</a>
+        </div>
+        
+    </div>
+</section>
+<!-- / -->
+
+<!-- -->
+<section class="alternate" id="community">
+    <div class="container portfolio">
+        <header class="section-header margin-bottom-20">
+            <div class="heading-title">
+                <h3>特色类</h3>
+                <a class="peanutRoll_a" href="javascript:getSpecialProduct()" id="community-change">换一换 <img src="/static/assets/images/change.png"></a>
+            </div>
+        </header>
+        <div  class=" portfolio-title-over">
+            <div class="row mix-grid">
+                <ul id="community-ul" style="padding-left: 0px;">
+                    {% topic data = "list", limit= "6", cid=130, issub=1, ischild=1, type="level", page=0 %}
+                    {%set i = 1%}
+                    {% for v in list %}
+                    <li class="mix development col-md-4 col-sm-4 community-item"><!-- item -->
+
+                        <div class="item-box thumbnail" title="{{v.title}}">
+                        <a class="peanutRoll_a" href="{{v.name|get_url(v.id)}}">
+                            <figure>
+                                {% if v.favflag == 1 %} 
+                                <img class="end-single"  src="/static/assets/images/end_single.png" />  
+                                {% endif%} 
+                                <span class="item-hover">
+                                    <span class="overlay dark-5"></span>
+                                    {#
+                                    <span class="inner">
+
+                                        <!-- lightbox -->
+                                        <a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+                                            <span class="glyphicon glyphicon-qrcode size-20"></span>
+                                        </a>
+
+                                        <!-- details -->
+                                        <a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+                                            <span class="glyphicon glyphicon-option-horizontal size-20"></span>
+                                        </a>
+
+                                    </span>
+                                    #}
+                                </span>
+
+                                
+                                <!-- overlay title -->
+                                <div class="item-box-overlay-title text-center text-title">
+                                    <h4 class="nomargin title">{{v.title}}</h4>
+                                </div>
+                                <!-- /overlay title -->
+                            
+                                <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=324,h=433')}}"  alt="">
+                           
+                            </figure>
+                            <!-- overlay title -->
+                            <!-- <div class="item-box-overlay-title" style="height: 64px;background-color:#fff ">
+                                <h4 class="nomargin" style="font-size: 14px; color: #414141;overflow: hidden;height: 38px;">{{v.description}}</h4>
+                            </div> -->
+                            <!-- /overlay title -->
+                        </a>
+                        </div>
+
+                    </li><!-- /item -->
+                    {% set i = i + 1 %}
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="more-info text-center margin-top-10">
+            <a class="peanutRoll_a" href="/search.html?q=&value=132-0-0-17-tourfeature_2|tourtype_0|tourdest_0|tourdays_0|tourmonth_0">点击查看更多》</a>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{#
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- RIGHT -->
+            <div class="col-md-9 col-sm-9">
+                <h3 class="page-header weight-300 margin-top-0 margin-bottom-0">
+                    <a href="/question.html" data-toggle="tooltip" title="" data-original-title="互帮互助有问题必达"><i class="fa fa-plus-square-o"></i></a>
+                    社区 <strong>问答</strong>
+                </h3>
+                <div class="timeline">
+                    <div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
+                    {%model data="list",table="question",where='{"has_img":1}',order="update_time DESC",limit="10"%}
+                    {% for val in list %}
+                    {% set categoryname = val.category_id|get_cate %}
+                    {% set imgs= val.detail|img_text_view(200,120)%}
+                    <!-- POST ITEM -->
+                    <div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+                        <div class="timeline-entry" ><!-- .rounded = entry -->
+                            <a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+                            <div class="timeline-vline"><!-- vertical line --></div>
+                        </div>
+                        <!-- IMAGE -->
+                        {% if imgs|length==1 %}
+                        <figure class="blog-item-small-image margin-bottom-0">
+                            <img class="img-responsive" src="{{imgs[0]}}" alt="">
+                        </figure>
+                        {% endif %}
+                        <div class="blog-item-small-content">
+                            <h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+                            <ul class="blog-post-info list-inline padding-bottom-10">
+                                <li>
+
+                                    <a class="" href="{{categoryname.url}}">
+                                        <span class="label label-light">{{categoryname.name}}</span>
+                                    </a>
+                                </li>
+                                <li>{%if val.answer_users>0%}
+                                    <a href="#">
+                                        <span class="font-lato">{{val.answer_users|get_nickname}}</span>
+                                    </a>
+                                    <span class="font-lato"> 回复了问题</span>
+                                    {%else%}
+                                    <a href="#">
+                                        <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                    </a>
+                                    <span class="font-lato"> 发起了问题</span>
+                                    {%endif%}
+                                </li>
+                                <li>
+                                <span class="font-lato">
+                                {{val.focus_count}} 人关注
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="font-lato">{{val.answer_count}} 个回复</span>
+
+                                </li>
+                                <li>
+                                    <span class="font-lato">{{val.view}} 次浏览</span>
+                                </li>
+                                <li>
+                                    <span class="font-lato"> {{val.update_time|moment}}</span>
+                                </li>
+
+                            </ul>
+                            {% if imgs|length>1 %}
+                            <div class="row margin-bottom-10">
+                                {%set i = 0%}
+                                {%for img in imgs%}
+                                {%if i< 4 %}
+                                <div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+                                {%endif%}
+                                {%set i=i+1%}
+                                {%endfor%}
+                            </div>
+                            {%endif%}
+                            <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                        </div>
+
+                    </div>
+                    <!-- /POST ITEM -->
+                    {%endfor%}
+
+                </div>
+
+                <!-- PAGINATION -->
+                <a class="btn btn-featured btn-default btn-inverse" href="/question.html" >
+                    <span>今天，你遇到了什么问题呢？进入社区寻求答案！</span>
+                    <i class="et-happy"></i>
+                </a>
+                <!-- /PAGINATION -->
+
+            </div>
+            <!-- LEFT -->
+            <div class="col-md-3 col-sm-3">
+
+                {% if controller.is_login %}
+                <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+                    今天，你遇到了什么问题呢？
+                    <a href="/mod/question/sys/add/cid/123" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                </div>
+                {%else%}
+                <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+                    你好! 你还没有登录，请先登录.
+                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login">
+                        <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+                    </a>
+                </div>
+                {%endif%}
+
+                <div class="box-inner nopadding  margin-bottom-20">
+                    <h3>
+                        <a class="pull-right size-11 text-warning" href="/topic">更多</a>
+                        热门话题
+                    </h3>
+                    <div class="" >
+                        {% keywords data ="topic",type="hot",limit="5" %}
+                        {%for k in topic%}
+                        <div class="clearfix margin-bottom-10"><!-- discussion item -->
+                            {%if k.pic==0%}
+                            <i class="ico-light ico-60 ico-hover et-chat pull-left margin-bottom-0 margin-top-0" ></i>
+                            {%else%}
+                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
+                            {%endif%}
+                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="{{k.url}}">
+                                <span class="txt">{{k.keyname}}</span>
+                                <span class="num"><i class="fa fa-fire"></i></span>
+                            </a>
+                            </h4>
+                            <span class="size-13 text-muted">
+                                {{k.videonum}} 个主题, {{k.focus_count}} 人关注
+                                                </span>
+                        </div><!-- /discussion item -->
+                        {%endfor%}
+
+
+                    </div>
+                </div>
+
+
+                {%model data="data",table="question_user",cache='1000',order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
+                {%if data.length>0%}
+                <div class="box-inner nopadding  margin-bottom-20">
+                    <h3>
+                        <a class="pull-right size-11 text-warning" href="#">更多</a>
+                        热门用户
+                    </h3>
+                    <div class="" >
+                        {%for user in data%}
+                        <div class="clearfix margin-bottom-10"><!-- squared item -->
+                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{user.uid}}" width="40" height="40" alt="" />
+                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{user.username}}</a></h4>
+                            <span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
+                        </div><!-- /squared item -->
+                        {%endfor%}
+
+                    </div>
+                </div>
+
+                {%endif%}
+                <div class="box-inner nopadding  margin-bottom-20">
+                    <h3>
+                        <a class="pull-right size-11 text-warning" href="#">更多</a>
+                        捐赠墙
+                    </h3>
+                    <div class="" >
+                        <div class="clearfix margin-bottom-20"><!-- notification item -->
+                            <span class="label label-success label-square pull-left" style="width: auto;padding-left: 5px;padding-right: 5px">
+                                                    <i class="fa fa-rmb"></i>5.00
+                                                </span>
+                            <span class="size-14 text-muted"><b class="weight-500 text-warning">仁伟</b>: 支付宝-转账</span>
+                        </div>
+                        <div class="clearfix margin-bottom-20"><!-- notification item -->
+                            <span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+                                                    <i class="fa fa-rmb"></i>1500.00
+                                                </span>
+                            <span class="size-14 text-muted"><b class="weight-500 text-warning">伴猪看斜阳</b>: 支付宝-转账</span>
+                        </div>
+                        <div class="clearfix margin-bottom-20"><!-- notification item -->
+                            <span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+                                                    <i class="fa fa-rmb"></i>500.00
+                                                </span>
+                            <span class="size-14 text-muted"><b class="weight-500 text-warning">张轶军</b>: 微信-转账</span>
+                        </div>
+                        <div class="clearfix margin-bottom-20"><!-- notification item -->
+                            <span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+                                                    <i class="fa fa-rmb"></i>50.00
+                                                </span>
+                            <span class="size-14 text-muted"><b class="weight-500 text-warning">koala</b>:QQ红包-转账</span>
+                        </div>
+                        <div class="clearfix margin-bottom-20"><!-- notification item -->
+                            <span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+                                                    <i class="fa fa-rmb"></i>50.00
+                                                </span>
+                            <span class="size-14 text-muted"><b class="weight-500 text-warning">dancingalone</b>:oschina-捐助</span>
+                        </div>
+                        <div class="clearfix margin-bottom-20"><!-- notification item -->
+                            <span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+                                                    <i class="fa fa-rmb"></i>666.00
+                                                </span>
+                            <span class="size-14 text-muted"><b class="weight-500 text-warning">dancingalone</b>:oschina-捐助</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</section>
+#}
+
+<section style="padding: 0; border-bottom: none;">
+    <img src="/static/assets/images/home_logo1.jpg" style="width: 100%;height: 100%;">
+</section>
+
+{% endblock %}
+
+{%block script%}
+<script src="/static/assets/js/exchange.js?v=1.1.5"></script>
+    <script type="text/javascript">
+        /*jQuery(window).ready(function () {
+            $("#destination ul#destination-ul").children("li").eq(0).addClass("col-md-3 col-sm-3 destination-item-1");
+            $("#destination ul#destination-ul").children("li").eq(1).addClass("col-md-6 col-sm-6 destination-item-2");
+            $("#destination ul#destination-ul").children("li").eq(2).addClass("col-md-3 col-sm-3 destination-item-3");
+            $("#destination ul#destination-ul").children("li").eq(3).addClass("col-md-5 col-sm-5 destination-item-4");
+            $("#destination ul#destination-ul").children("li").eq(4).addClass("col-md-2 col-sm-2 destination-item-5");
+            $("#destination ul#destination-ul").children("li").eq(5).addClass("col-md-5 col-sm-5 destination-item-6");
+
+            $("#studytour ul#studytour-ul").children("li").eq(0).addClass("col-md-7 col-sm-3 studytour-item-1");
+            $("#studytour ul#studytour-ul").children("li").eq(1).addClass("col-md-5 col-sm-6 studytour-item-2");
+            $("#studytour ul#studytour-ul").children("li").eq(2).addClass("col-md-5 col-sm-3 studytour-item-3");
+            $("#studytour ul#studytour-ul").children("li").eq(3).addClass("col-md-7 col-sm-5 studytour-item-4");
+
+            $("#community ul#community-ul").children("li").eq(0).addClass("col-md-4 col-sm-4 community-item-1");
+            $("#community ul#community-ul").children("li").eq(1).addClass("col-md-4 col-sm-4 community-item-2");
+            $("#community ul#community-ul").children("li").eq(2).addClass("col-md-4 col-sm-4 community-item-3");
+            $("#community ul#community-ul").children("li").eq(3).addClass("col-md-12 col-sm-12 community-item-4");
+        });*/
+
+        var destination_page = 0;
+        $("#destination-change").bind("click",function() {
+            console.log("destination-change click");
+            destination_page++;
+            if(destination_page == 10)
+                destination_page = 0;
+            var data = "list&limit=6&cid=135&issub=1&ischild=1&type=level&page=" + destination_page;
+            // $.post("http://180.168.129.230:8360/ajax/topic", "list&limit=6&cid=135&issub=1&ischild=1&type=level&page=" + destination_page, function(result) {
+            //  console.log(result);
+            //  $("#destination-ul").html(result);
+            // }, "application/x-www-form-urlencoded");
+            $.ajax({ 
+                type: "POST", 
+                url: "/ajax/topic",
+                data: data,
+                success: function(result){
+                    console.log(result);
+                } 
+            });
+
+        });
+
+    </script>
+{%endblock%}

@@ -1,0 +1,117 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+ul,ul li{
+	margin:0;
+	padding:0;
+}
+.traveller-header{
+	background: #1eb6c1
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.traveller-header span{
+    display: inline-block;
+    margin-top:10.5px;
+    font-size:24px;
+    color:#fff;
+}
+.mui-content{
+	padding-bottom:50px;
+}
+.mui-content h3{
+	color:#1eb6c1;
+	font-weight:normal;
+	padding:10px 5.56%;
+}
+.mui-table-view{
+	margin:15px 2.78%;
+	background:#fff;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.mui-table-view-cell:after{
+	height:0;
+}
+.specific-info .mui-table-view-cell span{
+	display: inline-block;
+	width:30%;
+	text-align:right;
+}
+.specific-info .mui-table-view-cell b{
+	display: inline-block;
+	width:65%;
+	margin-left:5%;
+}
+
+
+
+.clear:after{
+    content:"";
+    display: block;
+    clear:both;
+}
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>查看常用地址</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+{% for item in list %}
+	<ul class="specific-info mui-table-view">
+		<li class="mui-table-view-cell">
+			<span>地址简称</span><b>{% if item.sortname %} {{item.sortname}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>收件人姓名</span><b>{% if item.accept_name %} {{item.accept_name}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>所在地区</span><b>{% if item.province or item.city or item.county %} {{item.province}} {{item.city}} {{item.county}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>详细地址</span><b>{% if item.addr %} {{item.addr}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>邮政编码</span><b>{% if item.zip %} {{item.zip}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>手机号码</span><b>{% if item.mobile %} {{item.mobile}} {% else %} 未设置 {% endif %}</b>
+		</li>
+		<li class="mui-table-view-cell">
+			<span>联系电话</span><b>{% if item.phone_number %} {{item.phone_zone}} {{item.phone_number}} {{item.phone_ext}} {% else %} 未设置 {% endif %}</b>
+		</li>
+	</ul>
+{% endfor %}
+</section>
+
+{% endblock%}
+
+{% block script %}
+<script>
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

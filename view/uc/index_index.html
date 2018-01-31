@@ -1,0 +1,2292 @@
+{% extends "./inc/base.html" %} 
+
+
+ {% block style %}
+  <link href="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.css" rel="stylesheet">
+  <link href="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/admin/css/app-uc.css" type="text/css" />
+
+
+  <script src="/static/admin/js/jquery.min.js"></script>
+  <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
+  <link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
+  <script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
+
+
+  <style>
+      p{
+        margin:0;
+      }
+      .bg{
+        background:url(/static/assets/images/uc-background.jpg) 50% 50% / cover no-repeat;
+        border-bottom:0px;
+      }
+      .clear:after{
+        content:"";
+        display:block;
+        clear:both;
+      }
+      .aside-left{
+        min-width:15%;
+        padding-bottom:40px;
+        background: -webkit-linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* Firefox 3.6 - 15 */
+        background: linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* 标准的语法 */
+      }
+      .aside-left,
+      .aside-right,
+      .asideRight{
+        float:left;
+      }
+      ul,li{
+        margin:0;
+        padding:0;
+        list-style:none;
+      }
+      .aside-left div a,
+      .aside-left ul li a{
+        color:#fff;
+      }
+      .menu-box{
+        background:transparent;
+      }
+     .uc-title a{
+        font-family: "Microsoft Yahei",Regular;
+        font-size:22px;
+        font-weight:bold;
+     }
+     .uc-title{
+        padding:25px 10px 25px 10px;
+        border-bottom:3px solid #fff;
+     }
+     .aside-list li{
+        padding:20px 0 0 20px;
+     }
+     .aside-list>li>a{
+        font-size:16px;
+        display:inline-block;
+        width:100%;
+        height:100%;
+     }
+     .drop-down{
+        position:relative;
+     }
+     .aside-list>li>i{
+        float:right;
+        display:inline-block;
+        width:17px;
+        height:0px;
+        border:6px solid transparent;
+        border-left:13px solid #fff;
+        position:absolute;
+        top:26px;
+        left:116px;
+        transition:all linear 0.3s;
+    }
+    .rotate{
+      transform:rotate(90deg);
+      transform-origin:31% 50%;
+    }
+    .apply{
+      font-size:20px;
+       margin-left:50%;
+    }
+    .aside-right,
+    .asideRight{
+      float:right;
+      width:84%;
+    }
+    .order-box-header,
+    .person-header,
+    .head-title,
+    .address-title,
+    .information-title,
+    .security-title,
+    .order-title,
+    .order-table,
+    .archives-header,
+    .coupon-title,
+    .detail-title,
+    .new-increase,
+    .check-title,
+    .evaluation-title,
+    .stroke-title,
+    .collection-title{
+      padding:10px 0 10px 20px;
+      background: -webkit-linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* Firefox 3.6 - 15 */
+      background: linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* 标准的语法 */
+    }
+    .order-box-header span{
+      display:inline-block;
+      padding:0 0 0 15px;
+      color:#fff;
+      font-size:16px;
+    }
+  
+    .table-responsive,
+    .document,
+    .add-picture,
+    .information,
+    .security-box,
+    .archives,
+    .detail-content,
+    .increase-content,
+    .information-list,
+    .check-information,
+    .add-content,
+    .check-information,
+    .order-content,
+    .evaluation-information,
+    .collection-content{
+      padding-bottom:20px;
+      background: -webkit-linear-gradient(left,#6D8DB3, #9DB7D8); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(left,#6D8DB3, #9DB7D8); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(left,#6D8DB3, #9DB7D8); /* Firefox 3.6 - 15 */
+      background: linear-gradient(left,#6D8DB3, #9DB7D8); /* 标准的语法 */
+    }
+    .table-list{
+      background:#fff;
+    }
+    .table-list a{
+      display:inline-block;
+      width:24.5%;
+      text-align:center;
+      font-size:16px;
+      color:#000;
+      padding:10px 0 10px 0;
+    }
+    table tr td{
+      padding:8px 0;
+    }
+    .order-table{
+      padding:10px 20px 10px 20px;;
+    }
+    .order-title span{
+      font-size:16px;
+      color:#fff;
+      padding-left:15px;
+    }
+    .order-table table{
+      margin:20px 0 0 0;
+      border:2px solid #DAE3E8;
+      width:100%;
+      background: #fff;
+      text-align:center;
+    }
+    .goodsItem{
+      display:inline-block;
+      width:220px;
+    }
+    .order-table table tr:first-child{
+      background:#F3F8FB;
+      border-bottom:2px solid #DAE3E8;
+    }
+    .tr-header td{
+      font-size:16px;
+      text-align: center;
+    }
+    .person-header,
+    .head-title,
+    .check-title,
+    .evaluation-title,
+    .stroke-title{
+      color:#fff;
+      font-size:20px;
+    }
+    .upload{
+      color:#fff;
+    }
+    b.upload{
+      padding-left:30px;
+    }
+    span.upload{
+      padding-left:220px;
+    }
+    .landline-telephone{
+
+    }
+    .area,
+    .extension{
+      display:inline-block;
+      width:70px;
+      height:34px;
+      padding:6px 12px;
+      font-size:14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      border: #ddd 1px solid;
+      border-radius:3px;
+    }
+    .telephone{
+      display:inline-block;
+      height:34px;
+      padding:6px 12px;
+      font-size:14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      border: #ddd 1px solid;
+      border-radius:3px;
+    }
+    .form-group label{
+      color:#fff;
+    }
+    .uname{
+      color:#fff;
+      font-size:14px;
+    }
+    .security-title{
+      font-size:20px;
+      color:#fff;
+    }
+    .information-title span{
+      color:#fff;
+      padding-right:10px;
+      font-size:20px;
+    }
+    .information-title a,
+    .address-title button,
+    .coupon-title div a{
+      font-size:16px;
+      color:#fff;
+      background:#1eb6c1;
+      padding:5px 12px;
+      border-radius:7px;
+      margin-left:10px;
+    }
+    .order-select a{
+      font-size:14px;
+      color:#fff;
+      background:#1eb6c1;
+      padding:3px 8px;
+      border-radius:7px;
+      margin:2px;
+    }
+    .address-title span{
+      color:#fff;
+      padding-right:10px;
+      font-size:20px;
+    }
+    .alter{
+      font-size:18px;
+      color:#fff;
+      padding:15px 0 15px 30px;
+    }
+    .coupon-title{
+      padding-right:50px;
+    }
+    .coupon-title div{
+      float:right;
+    }
+    .coupon-title>span{
+      font-size:20px;
+      color:#fff;
+    }
+    .coupon-title>div>span{
+      font-size:16px;
+      color:#fff;
+    }
+    .coupon-count{
+      padding:15px;
+    }
+    .coupon-count b{
+      font-size:18px;
+      font-weight:normal;
+      color:#fff;
+    }
+    .coupon-count span,
+    .coupon-count span a{
+      color:#fff;
+    }
+    .coupon table,
+    .coupon-list{
+      width:100%;
+      margin:0 auto;
+    }
+    .coupon table{
+      margin-bottom:7px;
+      background:#fff;
+    }
+    .coupon table tr td{
+      width:25%;
+      text-align:center;
+      padding:10px 0;
+    }
+    .detail-title{
+      font-size:20px;
+      color:#fff;
+    }
+    .detail-title span{
+      font-size:18px;
+    }
+    .detail-content{
+      padding:20px 60px 20px 60px;
+    }
+    .detail-content p{
+      font-size:16px;
+      color:#fff;
+    }
+    .detail-content p span,
+    .detail-content ul li{
+      font-size:14px;
+      color:#fff;
+    }
+   .detail-content ul li b{
+      font-weight:normal;
+      display:inline-block;
+      min-width: 120px;
+      text-align: right;
+      padding-right:15px;
+    }
+    .detail-content ul{
+      padding-left:100px;
+    }
+    .order-select{
+      float:right;
+    }
+    .order-state{
+      float:left;
+    }
+    .order-information{
+      text-align: center;
+    }
+    .traveller-num{
+      float:left;
+    }
+    .traveller-num span{
+      color:#fff;
+    }
+    .traveller-list{
+      background:#fff;
+    }
+    .traveller-list a{
+      display:inline-block;
+      color:#000;
+      padding:0;
+    }
+    .archives-header{
+      font-size:20px;
+      color:#fff;
+    }
+    .archives{
+      padding-top:50px;
+    }
+    .arhcives-state{
+      color:#CFD4DA;
+      padding-top:15px;
+    }
+    .new-increase1{
+      font-size:20px;
+      color:#fff;
+    }
+    .new-increase2{
+      color:#fff;
+      padding-left:20px;
+    }
+    .new-increase3{
+      float:right;
+      color:#fff;
+      padding-right:20px;
+      padding-top:7px;
+    }
+    .increase-content{
+      padding:25px 0 25px 25px;
+    }
+    .increase-title{
+      color:#fff;
+      font-size:18px;
+      font-weight:bold;
+    }
+    .increase-content>form>div>label{
+      text-align: right;
+    }
+    .star{
+      float:left;
+      width:0;
+      color:#fff;
+    }
+    .ce{
+      padding-left:20px;
+      padding-bottom:15px;
+      color:#fff;
+    }
+    .self{
+      color:#fff;
+      padding-left:15px;
+      margin-bottom:20px;
+    }
+    .credentials{
+      color:#fff;
+      font-size:18px;
+      font-weight: bold;
+      padding:5px 0 20px 0;
+    }
+    .credentials-num{
+      padding:0;
+    }
+    .traveller-list{
+      padding:8px 20px 8px 25px;
+      text-align: center
+    }
+    .traveller-list div{
+      margin-left:20px;
+      width:96%;
+    }
+    .detail-information{
+      margin-top:20px;
+      padding:0 20px 0 20px;
+    }
+    .detail-information input{
+      float:left;
+      width:20px;
+      height:20px;
+      margin-top:8px;
+      margin-right:3px
+    }
+    .detail-information table{
+      float:left;
+      width:96%;
+      background:#fff;
+      text-align:center;
+    }
+    .check-information div{
+      font-weight:bold;
+      padding:20px 0 30px 48px;
+      font-size:18px;
+      color:#fff;
+    }
+    .check-information ul li{
+      color:#fff;
+      padding:0 0 20px 40px;
+    }
+    .check-information ul li span{
+      display:inline-block;
+      min-width: 80px;
+      text-align: right;
+    }
+    .check-information ul li b{
+       padding-left:30px;
+    }
+    .check-certificate li {
+      float:left;
+    }
+    .go-back{
+      color:#fff;
+      display: inline-block;
+      margin-left:80px;
+    }
+
+     .add-content{
+      padding:70px 0 0 50px;
+    }
+    .add-content form div label{
+      text-align: right;
+    }
+    .detail-information table tr td{
+    	padding:8px 0;
+    }
+    .detail-information>div{
+      margin-top:10px;
+    }
+    .stroke-content{
+       background:#fff;
+       padding:30px 20px;
+    }
+    .stroke-content p{
+      color:#fff;
+      font-size:18px;
+      padding:10px 0;
+    }
+
+
+
+    .evaluation-order form .form-group{
+      margin-bottom: 0;
+    }
+    .evaluation-order span,
+    .evaluation-order b{
+      color:#fff;
+    }
+    .evaluation-detail{
+      padding:20px 0 20px 70px;
+    }
+    .heart-score,
+    .heart-score>li{
+      float:left;
+    }
+    .heart-score>li{
+      position:relative;
+      color:#fff;
+      font-size:20px;
+    }
+    .total-points{
+      font-size:20px;
+      color:#fff;
+    }
+    .heart-score>li>div{
+      background: -webkit-linear-gradient(left,#6D8DB3, #9DB7D8); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(left,#6D8DB3, #9DB7D8); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(left,#6D8DB3, #9DB7D8); /* Firefox 3.6 - 15 */
+      background: linear-gradient(left,#6D8DB3, #9DB7D8); /* 标准的语法 */
+      display:none;
+      font-size:14px;
+      width:115px;
+      border:1px solid #fff;
+      padding:6px;
+      position:absolute;
+      top:25px;
+      left:-28px;
+    }
+    .heart-score>li:hover{
+      cursor:pointer;
+    }
+    .heart-score>li:hover>div{
+      display:block;
+      z-index:50;
+    }
+    #totality{
+      width:681px;
+      height:150px;
+      padding-bottom: 30px;
+    }
+    .queueList{
+      width:681px;
+    }
+    .up-load .statusBar{
+      border:0;
+    }
+    .marking,.heart-score{
+      margin-right:10px;
+    }
+    .satisfaction>li{
+      padding:5px 0 5px 0;
+    }
+    .satisfaction>li>input{
+      width:60%;
+    }
+    .write-evaluation{
+      position:relative;
+       margin-top:35px;
+    }
+    .write-evaluation>span{
+      color:#000;
+      position:absolute;
+      top:125px;
+      left:10px;
+    }
+     .write-evaluation>a{
+      position:absolute;
+      top:112px;
+      left:594px;
+    }
+    .totality-grade{
+      padding:15px 0 0 15px;
+    }
+    .evaluation-detail>b{
+      float:left;
+    }
+    .credentials-select{
+      padding:0;
+    }
+	.information-list{
+		position:relative;
+		padding-bottom:90px;
+	}
+	.delete-all{
+		position:absolute;
+		bottom:15px;
+		left:20px;
+		vertical-align: middle;
+	}
+	.delete-all input{
+		width:20px;
+		height:20px;
+		float:left;
+		margin-top:1px;
+	}
+	.delete-all label{
+		display: inline-block;
+	}
+	.delete-all label span{
+		margin-left:5px;
+		margin-right:25px;
+	}
+	.delete-all label span,
+	.delete-all label a{
+		color:#fff;
+	}
+
+
+  .order-content{
+    position: relative;
+    padding-bottom:8%;
+  }
+  .pagination{
+    position:absolute;
+    bottom:0px;
+    left:70%;
+  }
+  .pagination a,
+  .pagination span{
+      display:inline-block;
+      color:#fff;
+      padding:0 2px;
+    }
+    .pagination span:hover{
+      cursor:pointer;
+    }
+    .active-page{
+      font-size:18px;
+      font-weight:bold;
+    }
+	.cue{
+		color:#fff;
+	}
+    .collection-title{
+          font-size: 20px;
+          color: #fff;
+          padding-left:20px;
+    }
+    .collection-content{
+      padding-top:18px;
+      padding-bottom:54px;
+    }
+    .collection-box{
+      float:left;
+      margin-top:24px;
+      margin-left:2.5%;
+      width:45%;
+      max-height:108px;
+      background:#f9fafa;
+    }
+    .collection-box>div{
+      float:left;
+    }
+    .collection-detail{
+      max-width:53%;
+      height:108px;
+      padding:7px 5px;
+    }
+    .product-title{
+      color:#000;
+      font-size:16px;
+    }
+    .collection-detail>p a{
+      float:left;
+    }
+    .collection-detail>p span{
+      float:right;
+      font-size:17px;
+      color:#1eb6c1;
+    }
+     .order-num>td{
+      padding-left:0;
+      padding-right:0;
+    }
+
+    .lf{
+      float:left;
+    }
+    
+    .min-height{
+      min-height: 550px;
+    }
+    .min-height2{
+      min-height:514px;
+    }
+    .min-height3{
+      min-height:405px;
+    }
+    .in{
+      display:block;
+    }
+    .out{
+      display:none;
+    }
+  </style>
+ {% endblock %} 
+
+
+
+
+
+{% block content %}
+<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+
+
+
+
+
+{#
+<section class="page-header">
+  <div class="container">
+    <!-- breadcrumbs -->
+    <ol class="breadcrumb breadcrumb-inverse">
+      <li><a href="#">首页</a></li>
+      <li><a href="#">用户</a></li>
+      <li class="active">用户中心</li>
+    </ol>
+    <!-- /breadcrumbs -->
+
+  </div>
+</section>
+<!-- /PAGE HEADER -->
+
+<section class="bg">
+  <div class="uc-box clear container">
+    <div class="aside-left">
+      <div class="uc-title">
+        <a href="">我的花生卷</a>
+      </div>
+      <ul class="aside-list">
+          <li><a id="orderbx" class="category" href="a01">订单</a></li>
+          <li><a class="category" href="a02">个人档案</a></li>
+          <li><a class="category" href="a03">头像设置</a></li>
+          <li><a class="category" href="a04">我的社区主页</a></li>
+          <li><a class="category" href="a05">账号安全</a></li>
+          <li><a class="category" href="a06">收藏</a></li>
+          <li class="drop-down">
+            <a class="formation" data-toggle="collapse" href="#drop-menu">常用信息</a>
+            <i></i>
+            <div class="navbar-default menu-box">
+            
+                 <div id="drop-menu" class="collapse">
+                  <ul>
+                    <li><a class="category" href="a07">常用旅客信息</a></li>
+                    <li><a class="category" href="a08">常用地址</a></li>
+                  </ul>
+                 </div>
+            </div>
+          </li>
+          <li><a class="category" href="a09">优惠券</a></li>
+          <li><a class="category" href="a10">消息</a></li>
+          
+      </ul>
+    </div>
+    <div class="aside-rightqq">
+        <div class="order-box out">
+          <div class="order-box-header">
+              <img src="/uc/index/avatar"  class=" rounded" alt="{{controller.user.username}}" style="width: 65px" />
+              <span>{{controller.user.username}}</span>
+              <a class="btn btn-info apply" href="">申请成为商家</a>
+          </div>
+          <div class="table-responsive">
+            <div class="table-list">
+                <a>全部订单</a>
+                <a>未出行</a>
+                <a href="/uc/order/index/status/0">待付款</a>
+                <a>待评价</a>
+            </div>		
+             
+					<table class="table table-bordered  order-tb all">
+                  
+                  {% for item in list %}
+      
+                    <tbody>
+                    <!-- <tr class="sep-row">
+                        <td class="height-10" colspan="6"></td>
+
+                    </tr> -->
+            
+                    <tr class="active tr-header">
+                        <!-- <td colspan="5">
+                            {%if item.status == 4 or item.status== 6%}
+                            <a href="/uc/order/delorder/id/{{item.id}}" class="btn btn-default btn-xs pull-right nomargin confirm ajax-get"><i class="fa fa-trash-o nopadding"></i></a>
+                            {%endif%}
+                            {%if item.pay_status ==0 and item.status != 6%}
+                            <div class=" pull-right">
+                                <i class="fa fa-hourglass-half"></i> 剩余 <span class="countdown countdown-inline" data-from="{{item.end_time}}" data-labels="年,月,周,天,小时,分,秒"></span>
+                            </div>
+                            {%endif%}
+                            <h5 class="margin-bottom-0">
+                                <small>{{item.create_time|dateformat('Y-m-d H:i:s')}}</small>
+                                <span class="margin-left-20">订单<a href="#" target="_blank">{{item.order_no}}</a></span></h5>
+                            </span>
+
+
+                        </td> -->
+                        <td>
+                          订单号：<a href="#" target="_blank">{{item.order_no}}</a>
+                        </td>
+                        <td>姓名</td>
+                        <td>出发日期</td>
+                        <td>总金额</td>
+                        <td>订单状态</td>
+                        <td>操作</td>
+                    </tr>
+                    {%set i=0%}
+                    {% for v in item.goods%}
+                    {% if i==0 %}
+                    <tr>
+                        <td>
+                            <div class="goods-item">
+                                <!-- <div class="p-img">
+                                    <a href="{{v.url}}" target="_blank">
+                                        <img class="" src="{{v.pic}}" title="{{v.title}}" data-lazy-img="done" height="100%" width="60">
+                                    </a>
+                                </div> -->
+                                <div class="p-msg">
+                                    <div class="p-name">{%if v.type%}<span class="text-info">[{{v.type}}]</span> {%endif%}<a href="{{v.url}}" class="a-link" target="_blank" title="{{v.title}}">{{v.title}}</a></div>
+                                </div>
+                            </div>
+
+                           <!--  <div class="goods-number">
+                                x{{v.goods_nums}}
+                            </div> -->
+
+
+                           <!--  <div class="goods-repair">
+                                <a href="#{{item.id}}" target="_blank" >返修/退换货</a>
+                            </div> -->
+
+                        </td>
+                        <td style="border-bottom: none"><a href="javascript:;" type="button"
+                                                           data-container="body"
+                                                           data-toggle="popover"
+                                                           data-placement="left"
+                                                           data-content=" {{item.accept_name}} {{item.mobile}}<br>{{item.province}}{{item.city}}{{item.county}}{{item.addr}}"
+                                                           data-original-title="" title="">
+                             {{item.accept_name}}</a></td>
+                        <td style="border-bottom: none">
+                            <!-- <div class="amount">
+                                <span class="text-danger">总额 ¥{{item.order_amount|formatCurrency}}</span> <br>
+                                <span class="ftx-13">{{item.channel}}</span>
+                            </div> -->
+                                {{item.create_time|dateformat('Y-m-d H:i:s')}}
+                        </td>
+                        <td style="border-bottom: none">
+                          <div class="amount">
+                              <span class="text-danger">总额 ¥{{item.order_amount|formatCurrency}}</span> <br>
+                              <!-- <span class="ftx-13">{{item.channel}}</span> -->
+                          </div>
+                            <!-- <div class="status">
+
+                                {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                                <span class="text-warning">等待付款</span>
+                                {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                                <span class="text-warning">等待发货</span>
+                                {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
+                                <span class="text-success">等待收货</span>
+                                {%elif item.status == 6%}
+                                <span class="text-danger">已作废</span>
+                                {%elif item.status == 4%}
+                                <span class="text-default">已完成</span>
+                                {%endif%}
+
+                            <br>
+                            <a target="_blank" href="#{{item.id}}">订单详情</a>
+                            </div> -->
+                        </td>
+                        <td>
+                            <div class="status">
+
+                                {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                                <span class="text-warning">等待付款</span>
+                                {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                                <span class="text-warning">等待发货</span>
+                                {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
+                                <span class="text-success">等待收货</span>
+                                {%elif item.status == 6%}
+                                <span class="text-danger">已作废</span>
+                                {%elif item.status == 4%}
+                                <span class="text-default">已完成</span>
+                                {%endif%}
+
+                            <br>
+                            <a target="_blank" href="#{{item.id}}">订单详情</a>
+                            </div>
+                        </td>
+                        <td style="vertical-align: middle;border-bottom: none">
+                            {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                            <a class="btn btn-danger btn-xs" href="/uc/pay/pay?order={{item.id}}" target="_blank"><i class="fa fa-credit-card white"></i>立即付款 </a>
+                            {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                            <a class="btn btn-warning btn-xs" href="#"><i class="fa fa-cart-plus white"></i>提醒发货 </a>
+                            {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
+                            <a class="btn btn-success btn-xs confirm ajax-get" href="/uc/order/confirmreceipt/id/{{item.id}}"><i class="fa fa-cart-plus white"></i>确认收货 </a>
+                            {%elif item.status == 4 or item.status == 6%}
+                            <a class="btn btn-default btn-xs" href="#"><i class="fa fa-cart-plus white"></i>再次购买 </a>
+                            {%endif%}
+
+                        </td>
+
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>
+                           <!--  <div class="goods-item">
+                                <div class="p-img">
+                                    <a href="{{v.url}}" target="_blank">
+                                        <img class="" src="{{v.pic}}" title="{{v.title}}" data-lazy-img="done" height="100%" width="60">
+                                    </a>
+                                </div>
+                                <div class="p-msg">
+                                    <div class="p-name">{%if v.type%}<span class="text-info">[{{v.type}}]</span> {%endif%} <a href="{{v.url}}" class="a-link" target="_blank" title="{{v.title}}">{{v.title}}</a></div>
+                                </div>
+                            </div>
+
+                            <div class="goods-number">
+                                x{{v.goods_nums}}
+                            </div>
+
+
+                            <div class="goods-repair">
+                                <a href="#{{item.id}}" target="_blank" >返修/退换货</a>
+                            </div> -->
+                            <div class="goods-item">
+                                <!-- <div class="p-img">
+                                    <a href="{{v.url}}" target="_blank">
+                                        <img class="" src="{{v.pic}}" title="{{v.title}}" data-lazy-img="done" height="100%" width="60">
+                                    </a>
+                                </div> -->
+                                <div class="p-msg">
+                                    <div class="p-name">{%if v.type%}<span class="text-info">[{{v.type}}]</span> {%endif%}<a href="{{v.url}}" class="a-link" target="_blank" title="{{v.title}}">{{v.title}}</a></div>
+                                </div>
+
+                        </td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+
+                    </tr>
+                    {% endif %}
+                    {%set i=i+1%}
+                    {%endfor%}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                    <tr class="sep-row">
+                        <td class="height-10" colspan="5"></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="alert alert-warning alert-block">
+                                <button data-dismiss="alert" class="close" type="button">×</button>
+                                <p>This would display if the 'item' collection were empty</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+              </table>
+              
+
+              <!-- PAGINATION -->
+            <div class="text-right">
+                <!-- Pagination Default -->
+                {{pagination | safe}}
+                <!-- /Pagination Default -->
+            </div>
+          </div>
+
+        </div>
+        <div class="person-document in">
+            <div class="person-header">
+                个人档案
+            </div>
+            <div class="document">
+              <div class="tab-pane fade in active" id="info">
+                <form role="form" action="/uc/seting/updateinfo" method="post" class="form-horizontal form-info">
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">昵称</label>
+                    <div class="col-md-10">
+                      <p class="form-control-static uname">{{controller.user.username}}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">姓名</label>
+                    <div class="col-md-4">
+                    <input type="text" placeholder="真实姓名" class="form-control" name="real_name" value="{{userInfo.real_name}}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">性别</label>
+                    <div class="col-md-10">
+
+                      <label class="radio" style="margin-top: 3px;padding-top: 3px">
+                        <input type="radio" {%if userInfo.sex == 1 %} checked="checked"{%endif%} value="1" name="sex">
+                        <i></i> 男
+                      </label>
+                      <label class="radio" style="margin-top: 3px;padding-top: 3px">
+                      <input type="radio" {%if userInfo.sex == 2 %} checked="checked"{%endif%} value="2" name="sex">
+                      <i></i> 女
+                    </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">生日</label>
+                    <div class="col-md-4">
+                      <input type="text" name="birthday" value="{{userInfo.birthday|dateformat('Y-m-d')}}" class="form-control masked" data-format="9999-99-99" data-placeholder="_" placeholder="年-月-日">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">手机号码</label>
+                    <div class="col-md-4">
+                      <input type="text" name="mobile" value="{{userInfo.mobile}}" class="form-control masked" data-format="99999999999" data-placeholder="X" placeholder="手机号码">
+                    </div></div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">固定电话</label>
+                    <div class="col-md-10   landline-telephone">
+                      <input type="text" name="phone_zone" value="{{userInfo.phone_zone}}" class="area"  data-placeholder="区号" placeholder="区号">
+                      <input type="text" name="phone_number" value="{{userInfo.phone_number}}" class="telephone"  data-placeholder="电话" placeholder="电话">
+                      <input type="text" name="phone_ext" value="{{userInfo.phone_ext}}" class="extension"  data-placeholder="分机" placeholder="分机">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">常用出发城市</label>
+                    <div class="col-md-10">
+                      <select class="form-control pointer  " id="start_province1" name="start_province" style="width: 150px;display: inline-block">
+                        <option value="">--- 省份/直辖市 ---</option>
+                        {% for val in start_province %}
+                        <option value="{{val.id}}" {% if userInfo.start_province == val.id %} selected {% endif%}>{{val.name}}</option>
+                        {% endfor %}
+                      </select>
+                      <select class="form-control pointer  " id="start_city1" name="start_city" style="width: 150px;display: inline-block">
+                        {% for val in start_city %}
+                        <option value="{{val.id}}" {% if userInfo.start_city == val.id %} selected {% endif%}>{{val.name}}</option>
+                        {% else %}
+                        <option value="">--- 市 ---</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  
+                 
+                
+                  
+
+                  <div class="form-group margin-top-30">
+                    <div class="col-md-4 col-md-offset-2">
+                      <button class="btn btn-primary ajax-post" target-form="form-info" type="submit" ><i class="fa fa-check"></i> 保存更改 </button>
+                      </div>
+
+                  </div>
+                </form>
+              </div>
+
+            </div>
+        </div>
+        <!-- <div class="head-portrait out">
+            <div class="head-title">
+              头像设置
+            </div>
+            <div class="add-picture">
+              
+
+                <div class="" id="avatar-modal" aria-labelledby="avatar-modal-label" >
+                  <div class="">
+                    <div class="">
+                      <form class="avatar-form" action="/uc/seting/updateavatar" enctype="multipart/form-data" method="post">
+
+                        <div class="modal-body">
+                          <div class="avatar-body">
+                            <div class="avatar-upload">
+                              <input class="avatar-src" name="avatar_src" type="hidden">
+                              <input class="avatar-data" name="avatar_data" type="hidden">
+
+                              </div>
+                            <div class="fancy-file-upload fancy-file-primary">
+                              <b class="upload">头像</b>
+                              
+                              <input type="file" class="form-control avatar-input" id="avatarInput" name="file" onchange="jQuery(this).next('input').val(this.value);" />
+                              
+                              <span class="button">上传图片</span>
+                              <span class="upload">仅支持jpg.gif.png格式图片,且文件小于2M</span>
+                            </div>
+                            <div class="row">
+
+                              <div class="col-md-6 col-md-offset-1">
+                                <div class="avatar-wrapper"></div>
+                              </div>
+                              <div class="col-md-4" style="vertical-align: bottom">
+                                <div class="avatar-preview preview-lg"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-md"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-sm"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                              </div>
+
+                            </div>
+                            <div class="row avatar-btns">
+                              <div class="col-md-3">
+                                <button class="btn btn-primary btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
+                              </div>
+                              <div class="col-md-9">
+                                <div class="btn-group">
+                                  <button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
+                                </div>
+                                <div class="btn-group">
+                                  <button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+            
+            </div>
+        </div> -->
+        <div class="common-address out">
+          <div class="address-title">
+            <span>关键字</span>
+            <input type="text" placeholder="地址收件人/简称">
+            <button>查询</button>
+            <button>新增</button>
+          </div>
+          <div class="address-list">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped table-vertical-middle">
+                <thead>
+                <tr>
+                  <th >收货人</th>
+                  <th>所在地区</th>
+                  <th>街道地址</th>
+                  <th>邮编</th>
+                  <th>手机</th>
+                  <th></th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for item in list %}
+                <tr>
+                  <td >{{item.accept_name}}</td>
+                  <td>{{item.province}},{{item.city}},{{item.county}}</td>
+                  <td>{{item.addr}}</td>
+                  <td>
+                    {{item.zip}}
+                  </td>
+                  <td>
+                  {{item.mobile}}
+                  </td>
+                  <td>{%if item.is_default == 1%}<span class="label label-primary">默认地址 </span>{%else%}<a class="btn btn-default btn-xs ajax-get" href="/uc/address/addrisdefault/id/{{item.id}}"><i class="fa fa-check white"></i>设为默认地址 </a>{%endif%}</td>
+                  <td><a class="btn btn-default btn-xs" data-toggle="ajaxModal" href="/uc/address/editaddrmodal/id/{{item.id}}/type/1"><i class="fa fa-edit white"></i>编辑 </a>
+                    <a class="btn btn-default btn-xs confirm ajax-get" href="/uc/address/deladdr/id/{{item.id}}"><i class="fa fa-times white"></i>删除 </a></td>
+                </tr>
+                {%endfor%}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="passenger-information out">
+           <div class="information-title">
+               <span>旅客姓名</span>
+              <input type="text" placeholder="中文/英文">
+              <button>查询</button>
+              <button>新增</button>
+           </div>
+           <div class="information">
+              <div class="table-responsive">
+              <table class="table table-bordered table-striped table-vertical-middle">
+                <thead>
+                <tr>
+                  <th>中文姓名</th>
+                  <th>英文姓名</th>
+                  <th>国际</th>
+                  <th>证件</th>
+                  <th>手机</th>
+                  <th>类型</th>
+                  <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for item in list %}
+                <tr>
+                  <td >{{item.name_zh}}</td>
+                  <td>{{item.name_en_last}} {{item.name_en_first}}</td>
+                  <td>{{item.country}}</td>
+                  <td>{{item.credentials_type_name}}:{{item.credentials_value}}</td>
+                  <td>{{item.phone}}</td>
+                  <td>{{item.type_name}}</td>
+                  <td><a class="btn btn-default btn-xs" data-toggle="ajaxModal" href="/uc/traveller/editaddrmodal/id/{{item.id}}/type/1"><i class="fa fa-edit white"></i>编辑 </a>
+                    <a class="btn btn-default btn-xs confirm ajax-get" href="/uc/traveller/deladdr/id/{{item.id}}"><i class="fa fa-times white"></i>删除 </a></td>
+                </tr>
+                {%endfor%}
+
+                </tbody>
+              </table>
+            </div>
+            <!-- PAGINATION -->
+            <div class="text-right">
+              <!-- Pagination Default -->
+              {{pagination | safe}}
+              <!-- /Pagination Default -->
+            </div>
+           </div>
+        </div>
+        <div class="account-security out">
+          <div class="security-title">
+            账号安全
+          </div>
+          <div class="security-box">
+            <div class="alter">
+              修改登录密码
+            </div>
+            <form class="form-password form-horizontal" action="/uc/seting/updatepassword" method="post">
+
+                    <div class="form-group">
+                      <label class="control-label col-md-2">旧密码</label>
+                      <div class="col-md-4">
+                      <input type="password" class="form-control" name="oldpassword" placeholder="输入旧密码">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-2">新密码</label>
+                      <div class="col-md-4">
+                      <input type="password" class="form-control" name="password" placeholder="密码长度6-20个字符">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-md-2">确认密码</label>
+                      <div class="col-md-4">
+                      <input type="password" class="form-control" name="repassword" placeholder="密码长度6-20个字符">
+                        </div>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+                      <div class="col-md-4 col-md-offset-2">
+                        <button class="btn btn-primary ajax-post" target-form="form-password" type="submit" ><i class="fa fa-check"></i> 确认修改 </button>
+                      </div>
+
+                    </div>
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+</section>
+#}
+
+
+
+
+
+<section class="user-center page-header bg">
+   <div class="thumbnail text-center avatar-view hide">
+    <img src="/user/avatar"  alt="{{controller.user.username}}" style="width: 100%" />
+    <h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
+    <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
+  </div>
+	<div class="uc-box clear container">
+		<div class="aside-left">
+			<div class="uc-title">
+				<a href="">我的花生卷</a>
+			</div>
+			<ul class="aside-list" style="min-height:461px">
+				<li><a class="uc-order" href="javascript:ucOrder();">订单</a></li>
+				<li><a class="uc-archives" href="javascript:ucArchives();">个人档案</a></li>
+        		<li><a class="uc-portrait" href="javascript:ucPortrait();">头像设置</a></li>
+				<!--<li><a target="_Blank" href="/uc/seting">头像设置</a></li>
+				<li><a class="uc-community" href="javascript:ucCommunity();">我的社区主页</a></li>-->
+				<li><a class="uc-account" href="javascript:ucAccount();">账号安全</a></li>
+
+				<li><a class="uc-collection" href="javascript:ucCollection();">收藏</a></li>
+				<li class="drop-down">
+		    		<a class="formation" data-toggle="collapse" href="#dropdown-menu">常用信息</a>
+		    		<i></i>
+			    	<div class="navbar-default menu-box">
+						<div id="dropdown-menu" class="collapse">
+			          		<ul>
+					            <li><a class="uc-traveller" href="javascript:ucTraveller();">常用旅客信息</a></li>
+					            <li><a class="uc-address" href="javascript:ucAddress();">常用地址</a></li>
+							</ul>
+						</div>
+		    		</div>
+	  			</li>
+				<li><a class="uc-coupon" href="javascript:ucCoupon();">优惠券</a></li>
+				<!--<li><a class="uc-message" href="javascript:ucMessage();">消息</a></li>-->
+			</ul>
+    	</div>
+      <div class="asideRight tab-content">
+
+     
+        {% for item in list %}
+        {% if item.status == 8 %}
+        <div class="evaluation-order tab-pane fade" id="evaluation-order{{item.product_id}}">
+          <form class="evaluation-information form-sub{{item.product_id}}">
+
+          <input type="hidden" name="product_id" value="{{item.product_id}}">
+
+            <div class="order-evaluation{{item.product_id}}">
+              
+              <div class="form-group">
+                <div class="evaluation-title">
+                    评价订单
+                </div>
+                <div class="evaluation-detail">
+                  <span>订单号:</span><span class="order-number"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="evaluation-title">
+                    产品信息
+                </div>
+                <div class="evaluation-detail clear">
+                  <img src="" alt="" style="width: 65px;float:left">
+                  <div class="totality-grade lf"> 
+                    <span class="order-tit"></span>
+                    <br>
+                    <span class="lf marking">产品总体打分:</span>
+                    <div class="comment-evaluate lf"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>        
+    
+
+            <div class="form-group">
+              <div class="evaluation-title">
+                产品总体评分
+              </div>
+              <div class="evaluation-detail">
+                <span class="lf marking">产品总体打分:</span>
+                <ul class="heart-score clear"> 
+                  <li class="glyphicon glyphicon-heart-empty">
+                    <div>1分 很不满意</div>
+                  </li>
+                  <li class="glyphicon glyphicon-heart-empty">
+                    <div>2分 不满意</div>
+                  </li>
+                  <li class="glyphicon glyphicon-heart-empty">
+                    <div>3分 比较满意</div>
+                  </li>
+                  <li class="glyphicon glyphicon-heart-empty">
+                    <div>4分 满意</div>
+                  </li>
+                  <li class="glyphicon glyphicon-heart-empty">
+                    <div>5分 非常满意</div>
+                  </li>
+                </ul>
+                <b></b>
+                <input class="hidden-score score-total" name="score_total" value="" type="hidden"/>
+                <div class="write-evaluation clear">
+              <textarea name="comment_content" id="totality" class="totality{{item.product_id}}" maxlength="500" onkeyup="javascript:textCounter({{item.product_id}});" onblur="commentBlur({{item.product_id}})"
+              placeholder=""></textarea>
+                  <span>还可以输入<a class="word-number" href="javascript:;">500</a>字</span>
+                  <a class="btn btn-primary show-upload" href="">上传照片</a>
+              
+                  {% set pic = "picture"+item.product_id %}
+              
+  					          <div id="upload-img" class="out">
+                          <input type="hidden" name="comment_img" class="form-control" id="{{pic}}" value="{{data[pic]}}"/>
+                          <div id="uploader{{item.product_id}}" class="wu-example up-load">
+                              <div class="queueList">
+                                  <div id="dndArea" class="placeholder">
+                                      <div id="filePicker{{item.product_id}}"></div>
+                                      <p>或将照片拖到这里，单次可选多张</p>
+                                  </div>
+                              </div>
+                              <div class="statusBar" style="display:none;">
+                                  <div class="progress">
+                                      <span class="text">0%</span>
+                                      <span class="percentage"></span>
+                                  </div><div class="info"></div>
+                                  <div class="btns">
+                                      <div id="filePicker2{{item.product_id}}" class="filePicker2"></div><div class="uploadBtn">开始上传</div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <script>
+                          
+                            $(".asideRight").on("click",".show-upload",function(e){
+                              if(e.preventDefault)
+                                e.preventDefault();
+                              window.event.returnValue=false;
+                              $(this).siblings("#upload-img").removeClass("out");
+                              $(this).addClass("out");
+
+                              jQuery(function () {
+                                  var $ = jQuery,    // just in case. Make sure it's not an other libaray.
+
+                                  $wrap = $('#uploader{{item.product_id}}'),
+
+                                  // 图片容器
+                                  $queue = $('<ul class="filelist"></ul>')
+                                  .appendTo($wrap.find('.queueList')),
+
+                                  // 状态栏，包括进度和控制按钮
+                                  $statusBar = $wrap.find('.statusBar'),
+
+                                  // 文件总体选择信息。
+                                  $info = $statusBar.find('.info'),
+
+                                  // 上传按钮
+                                  $upload = $wrap.find('.uploadBtn'),
+
+                                  // 没选择文件之前的内容。
+                                  $placeHolder = $wrap.find('.placeholder'),
+
+                                  // 总体进度条
+                                  $progress = $statusBar.find('.progress').hide(),
+
+                                  // 添加的文件数量
+                                  fileCount = 0,
+
+                                  // 添加的文件总大小
+                                  fileSize = 0,
+
+                                  // 优化retina, 在retina下这个值是2
+                                  ratio = window.devicePixelRatio || 1,
+
+                                  // 缩略图大小
+                                  thumbnailWidth = 110 * ratio,
+                                  thumbnailHeight = 110 * ratio,
+
+                                  // 可能有pedding, ready, uploading, confirm, done.
+                                  state = 'pedding',
+
+                                  // 所有文件的进度信息，key为file id
+                                  percentages = {},
+
+                                  supportTransition = (function () {
+                                      var s = document.createElement('p').style,
+                                      r = 'transition' in s ||
+                                      'WebkitTransition' in s ||
+                                      'MozTransition' in s ||
+                                      'msTransition' in s ||
+                                      'OTransition' in s;
+                                      s = null;
+                                      return r;
+                                  })(),
+
+                                  // WebUploader实例
+                                  uploader;
+
+                                  if (!WebUploader.Uploader.support()) {
+                                      alert('Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
+                                      throw new Error('WebUploader does not support the browser you are using.');
+                                  }
+
+                                  // 实例化
+                                  uploader = WebUploader.create({
+                                      pick: {
+                                          id: '#filePicker{{item.product_id}}',
+                                          label: '点击选择图片'
+                                      },
+                                      dnd: '#uploader{{item.product_id}} .queueList',
+                                      paste: document.body,
+
+                                      accept: {
+                                          title: 'Images',
+                                          extensions: 'gif,jpg,jpeg,bmp,png',
+                                          mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
+                                      },
+
+                                      // swf文件路径
+                                      swf: '/static/js/webuploader/Uploader.swf',
+
+                                      disableGlobalDnd: true,
+
+                                      chunked: true,
+                                      // server: 'http://webuploader.duapp.com/server/fileupload.php',
+                                      server: '/admin/file/uploadpic',
+                                      fileNumLimit: 300,
+                                      fileSizeLimit: 5 * 1024 * 1024,    // 200 M
+                                      fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
+                                  });
+                            
+                                  // 添加“添加文件”的按钮，
+                                  uploader.addButton({
+                                      id: '#filePicker2{{item.product_id}}',
+                                      label: '继续添加'
+                                  });
+                                  uploader.on('uploadSuccess', function (file, res) {
+                                    console.log(res)
+                                      var id = $("#{{pic}}").val();
+                                      var ids;
+                                      if(id){
+                                         ids = id+','+res 
+                                     }else{
+                                      ids = res;
+                                  }
+
+                                      //console.log(ids);
+                                      $("#{{pic}}").val(ids);
+                                  });
+                                  //编辑的时候载入图片
+                                  if("{{data[pic]}}".length >0){
+                                      {% for val in data[pic]|strToArray%}
+                                      console.log(val);
+                                      var picobj = {}
+                                      var picurl = "{{val|get_pic('m=1,w=110,h=110')}}";
+                                      picobj.src = picurl;
+                                      picobj.id = {{val}};
+                                      picobj.name = {{val}};
+                                      addpic(picobj);
+                                      {% endfor %}
+                                  }
+                                  function addpic(file){
+                                      $placeHolder.addClass('element-invisible');
+                                      $statusBar.show();
+                                      $queue.parent().addClass('filled');   
+                                      var $li = $('<li id="' + file.id + '" class="up">' +
+                                          '<p class="title">' + file.name + '</p>' +
+                                          '<p class="imgWrap"></p>' +
+                                          '<p class="progress"><span></span></p>' +
+                                          '</li>'),
+
+                                      $btns = $('<div class="file-panel">' +
+                                          '<span class="cancel">删除</span>' +
+                                          '<span class="rotateRight">向右旋转</span>' +
+                                          '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+                                      $prgress = $li.find('p.progress span'),
+                                      $wrap = $li.find('p.imgWrap'),
+                                      $info = $('<p class="error"></p>');
+                                      $li.on('mouseenter', function () {
+                                          $btns.stop().animate({ height: 30 });
+                                      });
+
+                                      $li.on('mouseleave', function () {
+                                          $btns.stop().animate({ height: 0 });
+                                      });
+                                      $btns.on('click', 'span', function () {
+                                          var index = $(this).index(),
+                                          deg;
+                                          var id=$(this).parents("li.up").attr("id");
+                                          switch (index) {
+                                              case 0:
+                                              removepics(id);
+                                                  //removepics()
+                                                  return;
+
+                                                  case 1:
+                                                  //file.rotation += 90;
+                                                  break;
+
+                                                  case 2:
+                                                 // file.rotation -= 90;
+                                                 break;
+                                             }
+
+
+
+
+                                         });
+                                      var img = $('<img src="' + file.src + '">');
+                                      $wrap.empty().append(img);
+                                      $li.appendTo($queue);  
+                                  }
+                                  // 当有文件添加进来时执行，负责view的创建
+                                  function addFile(file) {
+                                      //console.log(file.id);
+                                      var $li = $('<li id="' + file.id + '">' +
+                                          '<p class="title">' + file.name + '</p>' +
+                                          '<p class="imgWrap"></p>' +
+                                          '<p class="progress"><span></span></p>' +
+                                          '</li>'),
+
+                                      $btns = $('<div class="file-panel">' +
+                                          '<span class="cancel">删除</span>' +
+                                          '<span class="rotateRight">向右旋转</span>' +
+                                          '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+                                      $prgress = $li.find('p.progress span'),
+                                      $wrap = $li.find('p.imgWrap'),
+                                      $info = $('<p class="error"></p>'),
+
+                                      showError = function (code) {
+                                          switch (code) {
+                                              case 'exceed_size':
+                                              text = '文件大小超出';
+                                              break;
+
+                                              case 'interrupt':
+                                              text = '上传暂停';
+                                              break;
+
+                                              default:
+                                              text = '上传失败，请重试';
+                                              break;
+                                          }
+
+                                          $info.text(text).appendTo($li);
+                                      };
+
+                                      if (file.getStatus() === 'invalid') {
+                                          showError(file.statusText);
+                                      } else {
+                                          // @todo lazyload
+                                          $wrap.text('预览中');
+                                          uploader.makeThumb(file, function (error, src) {
+                                              if (error) {
+                                                  $wrap.text('不能预览');
+                                                  return;
+                                              }
+
+                                              var img = $('<img src="' + src + '">');
+                                              $wrap.empty().append(img);
+                                          }, thumbnailWidth, thumbnailHeight);
+
+                                          percentages[file.id] = [file.size, 0];
+                                          file.rotation = 0;
+                                      }
+
+                                      file.on('statuschange', function (cur, prev) {
+                                          if (prev === 'progress') {
+                                              $prgress.hide().width(0);
+                                          } else if (prev === 'queued') {
+                                              $li.off('mouseenter mouseleave');
+                                              $btns.remove();
+                                          }
+
+                                          // 成功
+                                          if (cur === 'error' || cur === 'invalid') {
+                                              console.log(file.statusText);
+                                              showError(file.statusText);
+                                              percentages[file.id][1] = 1;
+                                          } else if (cur === 'interrupt') {
+                                              showError('interrupt');
+                                          } else if (cur === 'queued') {
+                                              percentages[file.id][1] = 0;
+                                          } else if (cur === 'progress') {
+                                              $info.remove();
+                                              $prgress.css('display', 'block');
+                                          } else if (cur === 'complete') {
+                                              $li.append('<span class="success"></span>');
+                                          }
+
+                                          $li.removeClass('state-' + prev).addClass('state-' + cur);
+                                      });
+
+                                      $li.on('mouseenter', function () {
+                                          $btns.stop().animate({ height: 30 });
+                                      });
+
+                                      $li.on('mouseleave', function () {
+                                          $btns.stop().animate({ height: 0 });
+                                      });
+
+                                      $btns.on('click', 'span', function () {
+                                          var index = $(this).index(),
+                                          deg;
+
+                                          switch (index) {
+                                              case 0:
+                                              uploader.removeFile(file);
+                                              return;
+
+                                              case 1:
+                                              file.rotation += 90;
+                                              break;
+
+                                              case 2:
+                                              file.rotation -= 90;
+                                              break;
+                                          }
+
+                                          if (supportTransition) {
+                                              deg = 'rotate(' + file.rotation + 'deg)';
+                                              $wrap.css({
+                                                  '-webkit-transform': deg,
+                                                  '-mos-transform': deg,
+                                                  '-o-transform': deg,
+                                                  'transform': deg
+                                              });
+                                          } else {
+                                              $wrap.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + (~~((file.rotation / 90) % 4 + 4) % 4) + ')');
+                                              // use jquery animate to rotation
+                                              // $({
+                                              //     rotation: rotation
+                                              // }).animate({
+                                              //     rotation: file.rotation
+                                              // }, {
+                                              //     easing: 'linear',
+                                              //     step: function( now ) {
+                                              //         now = now * Math.PI / 180;
+
+                                              //         var cos = Math.cos( now ),
+                                              //             sin = Math.sin( now );
+
+                                              //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
+                                              //     }
+                                              // });
+                                          }
+
+
+                                      });
+                                      //console.log($queue)
+                                      $li.appendTo($queue);
+                                      //console.log(percentages);
+                                  }
+                              // 负责view的销毁
+                                  function removepics(file) {
+                                    var $li = $('#' + file);
+                                    //delete percentages[file.id];
+                                    var id = $("#{{pic}}").val();
+                                    var ids=[]
+                                    id.split(",").forEach(function ( v) {
+                                        if(file!=v) {
+                                            ids.push(v)
+                                        }
+                                    });
+
+                                    $("#{{pic}}").val(ids.join(","))
+                                    //console.log(ids);
+                                    updateTotalProgress();
+                                    $li.off().find('.file-panel').off().end().remove();
+                                  }
+                                  // 负责view的销毁
+                                  function removeFile(file) {
+                                    var $li = $('#' + file.id);
+                                    delete percentages[file.id];
+                                    updateTotalProgress();
+                                    $li.off().find('.file-panel').off().end().remove();
+                                  }
+
+                                  function updateTotalProgress() {
+                                      var loaded = 0,
+                                      total = 0,
+                                      spans = $progress.children(),
+                                      percent;
+
+                                      $.each(percentages, function (k, v) {
+                                          total += v[0];
+                                          loaded += v[0] * v[1];
+                                      });
+
+                                      percent = total ? loaded / total : 0;
+
+                                      spans.eq(0).text(Math.round(percent * 100) + '%');
+                                      spans.eq(1).css('width', Math.round(percent * 100) + '%');
+                                      updateStatus();
+                                  }
+
+                                  function updateStatus() {
+                                      var text = '', stats;
+
+                                      if (state === 'ready') {
+                                        
+                                          
+                                      } else if (state === 'confirm') {
+                                          stats = uploader.getStats();
+                                          if (stats.uploadFailNum) {
+                                              
+                                              
+                                          }
+
+                                      } else {
+                                          stats = uploader.getStats();
+                                         
+                                          
+
+                                          if (stats.uploadFailNum) {
+                                             
+                                          }
+                                      }
+
+                                      $info.html(text);
+                                  }
+
+                                  function setState(val) {
+                                      //alert(val)
+                                      var file, stats;
+
+                                      if (val === state) {
+                                          return;
+                                      }
+
+                                      $upload.removeClass('state-' + state);
+                                      $upload.addClass('state-' + val);
+                                      state = val;
+
+                                      switch (state) {
+                                          case 'pedding':
+                                          $placeHolder.removeClass('element-invisible');
+                                          $queue.parent().removeClass('filled');
+                                          $queue.hide();
+                                          $statusBar.addClass('element-invisible');
+                                          uploader.refresh();
+                                          break;
+
+                                          case 'ready':
+                                          $placeHolder.addClass('element-invisible');
+                                          $('#filePicker2{{item.product_id}}').removeClass('element-invisible');
+                                          $queue.parent().addClass('filled');
+                                          $queue.show();
+                                          $statusBar.removeClass('element-invisible');
+                                          uploader.refresh();
+                                          break;
+
+                                          case 'uploading':
+                                          $('#filePicker2{{item.product_id}}').addClass('element-invisible');
+                                          $progress.show();
+                                          $upload.text('暂停上传');
+                                          break;
+
+                                          case 'paused':
+                                          $progress.show();
+                                          $upload.text('继续上传');
+                                          break;
+
+                                          case 'confirm':
+                                          $progress.hide();
+                                          $upload.text('开始上传').addClass('disabled');
+
+                                          stats = uploader.getStats();
+                                          if (stats.successNum && !stats.uploadFailNum) {
+                                              setState('finish');
+                                              return;
+                                          }
+                                          break;
+                                          case 'finish':
+                                          stats = uploader.getStats();
+                                          if (stats.successNum) {
+                                              alert('上传成功');
+                                          } else {
+                                                  // 没有成功的图片，重设
+                                                  state = 'done';
+                                                  location.reload();
+                                              }
+                                              break;
+                                          }
+
+                                          updateStatus();
+                                      }
+
+                                      uploader.onUploadProgress = function (file, percentage) {
+                                          var $li = $('#' + file.id),
+                                          $percent = $li.find('.progress span');
+
+                                          $percent.css('width', percentage * 100 + '%');
+                                          percentages[file.id][1] = percentage;
+                                          updateTotalProgress();
+                                      };
+
+                                      uploader.onFileQueued = function (file) {
+                                          fileCount++;
+                                          fileSize -= file.size;
+
+                                          if (fileCount === 1) {
+                                              $placeHolder.addClass('element-invisible');
+                                              $statusBar.show();
+                                          }
+
+                                          addFile(file);
+                                          setState('ready');
+                                          updateTotalProgress();
+                                      };
+
+                                      uploader.onFileDequeued = function (file) {
+                                          fileCount--;
+                                          fileSize += file.size;
+                                          if (!fileCount && !$('.filelist>li.up')) {
+                                              setState('pedding');
+                                          }
+
+                                          removeFile(file);
+                                          updateTotalProgress();
+
+                                      };
+
+                                      uploader.on('all', function (type) {
+                                          var stats;
+                                          switch (type) {
+                                              case 'uploadFinished':
+                                              setState('confirm');
+                                              break;
+
+                                              case 'startUpload':
+                                              setState('uploading');
+                                              break;
+
+                                              case 'stopUpload':
+                                              setState('paused');
+                                              break;
+
+                                          }
+                                      });
+
+                                      uploader.onError = function (code) {
+                                          alert('Eroor: ' + code);
+                                      };
+
+                                      $upload.on('click', function () {
+                                          if ($(this).hasClass('disabled')) {
+                                              return false;
+                                          }
+
+                                          if (state === 'ready') {
+                                              uploader.upload();
+                                          } else if (state === 'paused') {
+                                              uploader.upload();
+                                          } else if (state === 'uploading') {
+                                              uploader.stop();
+                                          }
+                                      });
+
+                                      $info.on('click', '.retry', function () {
+                                          uploader.retry();
+                                      });
+
+                                      $info.on('click', '.ignore', function () {
+                                          alert('todo');
+                                      });
+
+                                      $upload.addClass('state-' + state);
+                                      updateTotalProgress();
+                                  });
+
+
+                            })
+
+                              
+                          </script>
+                      </div>	
+
+
+
+				
+
+
+
+
+
+
+
+
+
+                </div>                  
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="evaluation-title">
+                产品满意度评分
+              </div>
+              <div class="evaluation-detail">
+                <ul class="satisfaction">
+                  <li>
+                    <span class="lf marking">导游讲解</span>
+                    <ul class="heart-score clear"> 
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>1分 很不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>2分 不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>3分 比较满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>4分 满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>5分 非常满意</div>
+                      </li>
+                    </ul>
+                    <b></b>
+                    <input class="hidden-score score-guide" name="score_guide" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_guide" maxlength="70">
+                    <a class="btn btn-primary guide" href="">评价</a>
+                  </li>
+                  <li>
+                    <span class="lf marking">领队服务</span>
+                    <ul class="heart-score clear"> 
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>1分 很不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>2分 不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>3分 比较满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>4分 满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>5分 非常满意</div>
+                      </li>
+                    </ul>
+                    <b></b>
+                    <input class="hidden-score score-service" name="score_service" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_service" maxlength="70">
+                    <a class="btn btn-primary guide" href="">评价</a>
+                  </li>
+                  <li>
+                    <span class="lf marking">交通路线</span>
+                    <ul class="heart-score clear"> 
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>1分 很不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>2分 不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>3分 比较满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>4分 满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>5分 非常满意</div>
+                      </li>
+                    </ul>
+                    <b></b>
+                    <input class="hidden-score score-traffic" name="score_traffic" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_traffic" maxlength="70">
+                    <a class="btn btn-primary guide" href="">评价</a>
+                  </li>
+                  <li>
+                    <span class="lf marking">住宿餐食</span>
+                    <ul class="heart-score clear"> 
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>1分 很不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>2分 不满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>3分 比较满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>4分 满意</div>
+                      </li>
+                      <li class="glyphicon glyphicon-heart-empty">
+                        <div>5分 非常满意</div>
+                      </li>
+                    </ul>
+                    <b></b>
+                    <input class="hidden-score score-hotel" name="score_hotel" value="" type="hidden"/>
+                    <input class="out commentguide" type="text" placeholder="还可以输入70个字" name="comment_hotel" maxlength="70">
+                    <a class="btn btn-primary guide" href="">评价</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div calss="form-group" style="text-align:center">
+                  <a href="javascript:submitComment({{item.product_id}});" class="btn btn-primary sub-evaluation"><i class="fa fa-check"></i>发表评论</a>
+            </div>        
+          </form>
+
+        </div>
+        {% endif %}
+      {% endfor %}     
+		
+	
+
+
+
+
+        <div class="set-header tab-pane fade" id="set-header">
+           <div class="head-title">
+              头像设置
+            </div>
+            <div class="add-picture min-height">
+                <div class="" id="avatar-modal" aria-labelledby="avatar-modal-label" >
+                  <div class="">
+                    <div class="">
+                      <form class="avatar-form" action="/uc/seting/updateavatar" enctype="multipart/form-data" method="post">
+
+                        <div class="modal-body">
+                          <div class="avatar-body">
+                            <div class="avatar-upload">
+                              <input class="avatar-src" name="avatar_src" type="hidden">
+                              <input class="avatar-data" name="avatar_data" type="hidden">
+
+                              </div>
+                            <div class="fancy-file-upload fancy-file-primary">
+                              <b class="upload">头像</b>
+                              
+                              <input type="file" class="form-control avatar-input" id="avatarInput" name="file" onchange="jQuery(this).next('input').val(this.value);" />
+                              
+                              <span class="button">上传图片</span>
+                              <span class="upload">仅支持jpg.gif.png格式图片,且文件小于2M</span>
+                            </div>
+                            <div class="row">
+
+                              <div class="col-md-6 col-md-offset-1">
+                                <div class="avatar-wrapper"></div>
+                              </div>
+                              <div class="col-md-4" style="vertical-align: bottom">
+                                <div class="avatar-preview preview-lg"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-md"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-sm"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                              </div>
+
+                            </div>
+                            <div class="row avatar-btns">
+                              <div class="col-md-3">
+                                <button class="btn btn-primary btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
+                              </div>
+                              <div class="col-md-9">
+                                <div class="btn-group">
+                                  <button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
+                                </div>
+                                <div class="btn-group">
+                                  <button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+            
+            </div>
+
+        </div>
+
+      </div>
+
+
+    	<div class="aside-right">
+       
+
+    	</div>
+
+  	</div>
+
+        
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- / -->
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.js"></script>
+
+
+
+<script type="text/javascript">
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        async: {
+            enable: true,
+            url: "/admin/article/getmenu",
+            otherParam: ["action", "add"]
+        },
+        view: {
+            showLine: true,
+            selectedMulti: false,
+        },
+        callback: {
+            onAsyncSuccess: zTreeOnAsyncSuccess
+        }
+    };
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+        //console.log(treeNode)
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandAll(true);
+        var id= $("#"+treeId).attr("data-cate");
+        curMenu = treeObj.getNodeByParam("id", id, null);
+        console.log(treeId)
+        treeObj.selectNode(curMenu);
+    };
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+        type = e.data.type,
+        nodes = zTree.getSelectedNodes();
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        }
+    }
+
+
+ 
+</script>
+
+
+
+
+<script src="/static/assets/js/uc.js"></script>
+  <script>
+    $(".drop-down").on("click","a.formation",function(){
+      if( $(".aside-list>li>i").attr("class")=="rotate")
+        $(".aside-list>li>i").removeClass("rotate");
+      else
+        $(".aside-list>li>i").addClass("rotate")
+    })
+
+     //打分
+    $('.aside-right').on("click","ul.heart-score>li",function(){
+      var i = $(this).index();
+      //console.log(i);
+      $(this).attr("class","glyphicon glyphicon-heart");
+      $(this).prevAll().attr("class","glyphicon glyphicon-heart");
+      $(this).nextAll().attr("class","glyphicon glyphicon-heart-empty");
+      $(this).parent().siblings("b").html(`${i+1}分`);
+      $(this).parent().siblings(".hidden-score").attr("value" ,`${i+1}`);
+    });
+    $('.asideRight').on("click","ul.heart-score>li",function(){
+      var i = $(this).index();
+      //console.log(i);
+      $(this).attr("class","glyphicon glyphicon-heart");
+      $(this).prevAll().attr("class","glyphicon glyphicon-heart");
+      $(this).nextAll().attr("class","glyphicon glyphicon-heart-empty");
+      $(this).parent().siblings("b").html(`${i+1}分`);
+      $(this).parent().siblings(".hidden-score").attr("value" ,`${i+1}`);
+    });
+
+    // console.log($(".order-handing"));
+    // console.log($(".aside-right .order-handing"))
+    // 
+    // 
+    $(".asideRight").on("click","a.guide",function(e){
+    	if(e.preventDefault)
+    	e.preventDefault()
+    	window.event.returnValue=false;
+    	$(this).siblings(".commentguide").removeClass("out")
+    })
+
+  </script>
+
+
+{% endblock %}

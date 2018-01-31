@@ -1,0 +1,463 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+.traveller-header{
+	background: #1eb6c1
+}
+.back{
+    display: inline-block;
+    width:35px;
+    height:20px;
+    background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+    background-size:35px 20px;
+    border:0;
+}
+.traveller-header span{
+    display: inline-block;
+    margin-top:8.5px;
+    font-size:24px;
+    color:#fff;
+}
+.list-content{
+	margin-top:170px;
+}
+.search{
+	padding:20px 2.78% 17px 2.78%;
+}
+.search input.search-trave{
+	width:57.78%;
+	border:2px solid #1eb6c1;
+	margin:0;
+} 
+.search a{
+	display: inline-block;
+	width:15.37%;
+	height:38px;
+	line-height: 38px;
+	text-align: center;
+	background: #1eb6c1;
+	color:#fff;
+	margin-left:2.9%;
+	float:right;
+	border-radius: 5px;
+}
+.all-dele{
+	padding:0 2.78%;
+	margin-bottom:17px;
+}
+.all-dele a{
+	display: inline-block;
+	width:18.31%;
+	height:38px;
+	line-height: 38px;
+	text-align: center;
+	background: #1eb6c1;
+	color:#fff;
+	margin-right:2.78%;
+	border-radius: 38px;
+}
+.mui-table-view{
+	margin:0 2.78%;
+	margin-bottom:15px;
+	background:#fff;
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+.mui-table-view-cell:after{
+	height:0;
+}
+.mui-table-view .mui-table-view-cell:first-child{
+	border-bottom:1px solid #c8c7cc;
+}
+.mui-table-view .mui-table-view-cell:first-child>b{
+	font-size:24px;
+}
+.mui-table-view .mui-table-view-cell:first-child>a{
+	display: inline-block;
+	color:#1eb6c1;
+	text-decoration:underline;
+	margin:0;
+	margin-left:3.7%;
+	padding:0;
+	margin-top:5px;
+}
+.mui-table-view .mui-table-view-cell>span{
+	display: inline-block;
+	padding-left:9%;
+	width:40%;
+}
+.mui-table-view .mui-table-view-cell>em{
+	display:inline-block;
+	font-style:normal;
+}
+
+
+.clear:after{
+    content:"";
+    display: block;
+    clear:both;
+}
+.mui-table-view-cell>a:not(.mui-btn).mui-active{
+    background: transparent;
+}
+.active{
+	border:1px solid #1eb6c1 !important;
+	-webkit-box-shadow: 0 0 10px #1eb6c1 !important;
+    box-shadow: 0 5px 10px #1eb6c1 !important;
+}
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav traveller-header text-center">
+    <a href="" class="mui-action-back back mui-btn mui-btn-nav mui-pull-left"></a>
+    <span>常用旅客信息</span>
+</header>
+<section class="mui-content">
+{% include "./inc/barnav.html" %}
+	<div class="search">
+	    <input class="search-trave" type="text" placeholder="中文">
+        <a class="add-traveller" href="/uc/traveller/edit">新增</a>
+        <a href="javascript:searchTraveller();">查询</a>
+	</div>
+	<div class="all-dele">
+		<a id="sel-all">全选</a>
+		<a href="javascript:deleteAll()">删除</a>
+	</div>
+	<!-- 下拉刷新容器 -->
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content">
+		<div class="mui-scroll">
+			<div class="mui-table">
+				<!-- 数据列表 -->
+				{% for item in list.data %}
+				<ul class="mui-table-view" data-value="{{item.id}}">
+					<li class="mui-table-view-cell mui-media li-title">
+						<b>{{item.name_zh}}</b>
+						<a href="javascript:deleteTraveller({{item.id}})" class="mui-pull-right">删除</a>
+						<a href="/uc/traveller/edit/id/{{item.id}}/type/1" class="mui-pull-right">编辑</a>
+						<a href="/uc/traveller/check/id/{{item.id}}" class="mui-pull-right">查看</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<span>手机/电话：</span>
+						<em>{% if item.phone %}{{item.phone}}{% elif item.tel_ext and item.tel_number %}{{item.tel_ext}} {{item.tel_number}}{% endif %}</em>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<span>证件类型：</span>
+						<em>{{item.credentials_type_name}}</em>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<span>证件号码：</span>
+						<em>{{item.credentials_value}}</em>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<span>国籍：</span>
+						<em>{{item.country}}</em>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<span>性别：</span>
+						<em> {% if item.sexual == 1%} 男 {% elif item.sexual == 2%}女{% endif %}</em>
+					</li>
+				</ul>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/template" id="tpl" >
+	{% raw %}
+	<%_.forEach(data,function(item,k){%>
+	<ul class="mui-table-view" data-value="<%=item.id%>">
+		<li class="mui-table-view-cell mui-media li-title">
+			<b><%=item.name_zh%></b>
+			<a href="javascript:deleteTraveller(<%=item.id%>)" class="mui-pull-right">删除</a>
+			<a href="/uc/traveller/edit/id/<%=item.id%>/type/1" class="mui-pull-right">编辑</a>
+			<a href="/uc/traveller/check/id/<%=item.id%>" class="mui-pull-right">查看</a>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<span>手机/电话：</span>
+			<em>
+				<%if (item.phone){%>
+	             <%=item.phone%>      
+	            <%}else if (item.tel_ext && item.tel_number){%>
+	             <%=item.tel_ext%> <%=item.tel_number%>       
+	            <%}%>
+            </em>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<span>证件类型：</span>
+			<em><%=item.credentials_type_name%></em>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<span>证件号码：</span>
+			<em><%=item.credentials_value%></em>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<span>国籍：</span>
+			<em><%=item.country%></em>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<span>性别：</span>
+			<em> 
+				<%if (item.sexual == 1){%>
+	             男       
+	            <%}else if (item.sexual == 2){%>
+	             女       
+	            <%}%>
+			</em>
+		</li>
+	</ul>
+	<%})%>
+	{% endraw %}
+</script>
+
+{% endblock%}
+
+{% block script %}
+<script>
+//超链接
+mui("#pullrefresh").on("tap",".mui-table-view-cell:first-child a",function(){
+	var href = this.getAttribute("href");
+    if(href=="#wait"){
+        //todo
+        mui.toast("功能开发中...")
+        return
+    }
+    mui.openWindow({url: href})
+})
+//加载模板
+var tplRender = _.template(document.getElementById("tpl").innerHTML)
+mui.init({
+	pullRefresh:{
+		container:"#pullrefresh",
+		down:{
+			callback:pulldownRefresh
+		},
+		up:{
+			contentrefresh:"正在加载...",
+			callback:pullupRefresh
+		}
+	}
+});
+var tops = parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+var size = parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+//记录位置
+window.onscroll = function(){
+	var patt1 = /\(.*?\)/;
+	var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+	if(srtY){
+		var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+	}else{
+		var Y = 0;
+	}
+	//console.log(Y)
+	var S = document.querySelector('#pullrefresh').querySelectorAll('ul.mui-table-view').length;
+	if(window.sessionStorage){
+		sessionStorage.setItem("{{http.url}}_top", Y);
+		sessionStorage.setItem("{{http.url}}_size", S)
+	}
+}
+//下拉刷新具体业务实现
+function pulldownRefresh(){
+	setTimeout(function(){
+		// var table = document.body.querySelector('#pullrefresh .mui-table');
+  //       var cells = document.body.querySelectorAll('.mui-table-view');
+  //       for(var i=cells.length,len=i+3;i<len;i++){
+  //       	var div = document.createElement("div");
+  //       	div.classNme = "mui-table-view-cell";
+  //       	div.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>'
+  //       	//下拉刷新，新纪录插到最前面；
+  //           table.insertBefore(div, table.firstChild); 
+  //       }
+        mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+	},1500)
+}
+var count = 0;
+//上拉加载具体业务实现
+function pullupRefresh(){
+	setTimeout(function(){
+		var table = document.body.querySelector('#pullrefresh .mui-table');
+        var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view');
+        var count = "{{list.count}}";
+        console.log(count)
+        console.log((parseInt(count) > cells.length));
+        if(parseInt(cells.length) < parseInt(count)){
+        	createFragment(10)
+        	mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+        }else {
+            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+        }
+	},1000)
+}
+
+var createFragment = function(count, page){
+	//无限加载
+	var table = document.body.querySelector('#pullrefresh .mui-table');
+    var lastIndex = table.querySelectorAll('.mui-table-view').length;
+    console.log(lastIndex);
+    var pages = page || Math.ceil((lastIndex+count)/count);
+    console.log(pages);
+    mui.ajax("/uc/traveller/mobilequery",{
+        data:{
+            page:pages
+        },
+        dataType:'json',//服务器返回json格式数据
+        type:'get',//HTTP请求类型
+        success:function(data){
+        	console.log(data)
+            //获得服务器响应
+            $('#pullrefresh .mui-table').append(tplRender(data));
+        }
+    });
+}
+mui.ready(function() {
+    var page = Math.ceil(size/10);
+    if(page>1 ){
+        for (var i = 1; i < (page+1); i++) {
+            createFragment(10,(i+1))
+        }
+    }
+    mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+})
+//删除旅客信息
+function deleteTraveller(id){
+	 var btnArray = ['否', '是'];
+	 mui.confirm('确定要删除该旅客信息吗?','您好', btnArray, function(e) {
+	 	if (e.index == 1) {
+	 		//console.log("ok")
+	 		$.ajax({
+		        url:"/uc/traveller/deladdr",
+		        data:{id:id},
+		        success: function (res) {
+		        	console.log(res)
+		            if(res.errno == 0){
+		               mui.toast("您选择的旅客信息已经被删除");
+		               setTimeout(function(){
+		               		mui.openWindow({url:window.location.href})
+		               },1000)		                		                
+		           	}else{
+		                 mui.toast("您选择的旅客信息删除失败！");
+		           	}
+		    	}
+		    })
+	 	}
+	 })
+}
+//查询
+function searchTraveller(){
+	var uname = $("input.search-trave").val();
+	console.log(uname)
+		$.ajax({
+		url:"/uc/traveller/query?q="+uname,
+		success:function(result){
+			var v = result.data;
+			var html = "";
+			for(var i=0;i<v.length;i++){
+  				html+=`
+					<ul class="mui-table-view" data-value="${v[i].id}">
+						<li class="mui-table-view-cell mui-media li-title">
+					`;
+				if(v[i].name_zh != "" && v[i].name_zh != undefined){
+					html+=`<b>${v[i].name_zh}</b>`;
+				}else{
+					html+=`<b>${v[i].name_en_last} ${v[i].name_en_first}</b>`;
+				}
+				html+=`			
+							<a href="javascript:deleteTraveller(${v[i].id})" class="mui-pull-right">删除</a>
+							<a href="/uc/traveller/edit/id/${v[i].id}/type/1" class="mui-pull-right">编辑</a>
+							<a href="/uc/traveller/check/id/${v[i].id}" class="mui-pull-right">查看</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<span>手机/电话：</span>
+					`;
+				if(v[i].phone !="" && v[i].phone != undefined){
+					html+=`<em>${v[i].phone}</em>`;
+				}else if(v[i].tel_number != "" && v[i].tel_number != undefined && v[i].tel_ext!="" && v[i].tel_ext!=undefined){
+					html+=`<em>${v[i].tel_ext} ${v[i].tel_number}</em>`;
+				}
+				html+=`			
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<span>证件类型：</span>
+							<em>${v[i].credentials_type_name}</em>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<span>证件号码：</span>
+							<em>${v[i].credentials_value}</em>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<span>国籍：</span>
+							<em>${v[i].country}</em>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<span>性别：</span>
+					`;
+				if(v[i].sexual == 1){
+	            	html+=`<em>男</em>`;
+	            }else if(v[i].sexual == 2){
+	            	html+=`<em>女</em>`;
+	            }
+				html+=`		</li>
+					</ul>
+  				`;
+  			}
+  			$(".mui-table").html(html);
+		}
+	})
+}
+//全选
+var selAll = document.getElementById("sel-all");
+selAll.addEventListener("tap",function(){
+	if($(".mui-table-view").hasClass("active")){
+		$(".mui-table-view").removeClass("active")
+	}else{
+		$(".mui-table-view").addClass("active")
+	}
+})
+//删除全选
+function deleteAll(){
+	var seled = $(".active")
+	if(seled.length>0){
+		var btnArray = ['否', '是'];
+	 	mui.confirm('确定要删除选中的旅客信息吗?','您好', btnArray, function(e) {
+	 		if (e.index == 1) {
+	 			for(var i=0;i<seled.length;i++){
+	 				var k = seled[i]
+	 				var id = parseInt($(k).attr("data-value"))
+	 				//console.log(id)
+	 				$.ajax({
+				        url:"/uc/traveller/deladdr",
+				        data:{id:id},
+				        success: function (res) {
+				        	//console.log(res)
+				            if(res.errno == 0){
+				               mui.toast("您选择的旅客信息已经被删除");		                		                
+				           	}else{
+				                 mui.toast("您选择的旅客信息删除失败！");
+				           	}
+				    	}
+				    })
+	 			}
+	 			setTimeout(function(){
+               		mui.openWindow({url:window.location.href})
+               },2000)
+	 		}
+	 	})
+	}
+}
+mui.ready(function() {
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+</script>
+{% endblock %}

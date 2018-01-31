@@ -1,0 +1,659 @@
+{% extends "../inc/base.html" %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<style type="text/css">
+    .home-search-bar{
+    	position: absolute; 
+    	left: 50%; 
+    	bottom: 40px; 
+    	width: 414px; 
+    	z-index: 100; 
+    	margin-left: -207px;
+    }
+    section#slider input{
+        background-color: #fff;
+    }
+    .ctr{
+    	width: 984px; 
+    	height: auto;
+    	margin-top:0px; 
+    	padding: 0px;
+    	background-color: #fff;
+    }
+    .cgy{
+        margin-top:15px;
+    }
+    .cgy a:focus:not(.btn) {
+    color: #fff;
+    }
+    .phb{
+    	padding:0px;
+    	margin:0px auto ! important;
+    	width:984px;
+    	height:85px;
+    	font-size: 25px;
+    	color: #fff;
+        border-radius: 5px;
+    	background: url('/static/assets/images/search_nav.png') no-repeat; 	
+    }
+    .phb li{
+    	width: 25%;
+    	height: 85px;
+    	margin-right:-7px;
+    	padding:0px;
+    	text-align: center;
+    }
+    .phb li a{
+        margin-top: 10px;
+        width: 180px;
+    	color: #fff;
+    }
+    .phb:hover{
+        cursor: pointer;
+
+    }
+    .phb li:hover div{
+        background-color: #fff !important;
+    }
+    .linea{
+    	height: 3px;
+    	width: 100%;
+    	background-color: #896B63;
+    	margin:0px auto;
+    }
+    table .btn{
+    	margin: 0 0px!important;
+    }
+    .table>tbody>tr>td{
+        padding: 5px;
+        border-top: 0px solid #ddd;
+    }
+    .page-header ul.page-header-tabs>li>a{
+    	color: #fff;
+    }
+    .tct{
+    	width: 904px;
+    	padding: 0; 
+    	margin: 20px auto;
+    }
+    .bpm{
+        width:904px;
+        height: 150px;
+        border-bottom: 0px;
+        margin-bottom: 25px;
+    }
+    .bpm:hover {
+    	cursor:pointer;
+    	box-shadow: 0  5px 15px 5px rgba(0,0,0,0.1);
+    }
+    .blog-post-item h2{
+    	margin-bottom:10px;
+    } 
+    .strategy-content{
+    	width: 904px;
+    	height: 150px;
+    	margin-bottom: 20px;
+    }
+    .strategy-content:hover{
+    	cursor: pointer;
+    	box-shadow: 0  5px 15px 5px rgba(0,0,0,0.1);
+
+    }
+    .strategy-content:hover h2{
+    	color: #1eb6c1;
+
+    }
+    /* .strategy-content:hover {
+    	cursor: pointer;
+    	box-shadow: 0  5px 15px 5px rgba(0,0,0,0.1);
+
+    } */
+    .strategy a{
+        color:#565656;
+    }
+    .qsn-awr a{
+        color:#565656;
+    }
+    .strategy-content>img{
+    	float: left;
+    	width: 233px;
+    	height: 150px;
+    }
+    .strategy-txt{
+    	margin-left: 274px;
+    }
+    .strategy-txt h2{
+    	font-size:16px;
+        font-weight: 500;
+    	color: #121212;
+    	margin: 0px 0px 10px 0px;
+    }
+    /* .strategy-txt p{
+        text-indent:1em;
+    } */
+    .btn-danger {
+        color: #fff;
+        background-color: #1eb6c1;
+        border-color: #1eb6c1;
+    }
+    .btn-danger:hover {
+        color: #fff;
+        background-color: #1eb6c1;
+        border-color: #1eb6c1;
+    }
+    .btn-danger.focus, .btn-danger:focus {
+        color: #fff;
+        background-color: #1eb6c1;
+        border-color: #1eb6c1;
+    }
+    .btn-danger:active:focus{
+    	color: #fff;
+        background-color: #1eb6c1;
+        border-color: #1eb6c1;
+    }
+    .btn-danger:active:hover{
+    	color: #fff;
+        background-color: #1eb6c1;
+        border-color: #1eb6c1;
+    }
+    .btn-danger.active, .btn-danger:active, .open>.dropdown-toggle.btn-danger {
+        color: #fff;
+        background-color: #1eb6c1;
+        border-color: #1eb6c1;
+    }
+    .head-section{
+        width:100%;
+        height: 560px;
+        /*background-position: center center;*/
+        background:url(/static/assets/images/slider_search.jpg) 50% 50% / cover no-repeat;
+    }
+    .searchin{
+        border: 10px solid rgba(26,21,31,0.5);
+    }
+    .body-section{
+        background-color: #EFF7F9;
+    }
+    /* .peanut-roll{
+        width:100%;
+        height:143px;
+        padding:0; 
+        border-bottom:none;
+        background: url(static/assets/images/home_logo1.jpg) no-repeat;
+        background-size:100% 100% !important;
+    } */
+    #page1{
+        width: 904px;
+        min-height:400px;
+        margin: 0px auto;
+        padding: 0px;
+        display: none;
+    }
+    #page2{
+        width: 984px;
+        margin: 0px auto;
+        margin-top:-15px;
+        padding: 0px;
+    }
+    #page3{
+        width: 904px;
+        min-height: 400px;
+        margin: 0px auto;
+        padding: 0px;
+        display: none;
+    }
+    #page4{
+        width: 904px;
+        min-height:400px;
+        margin: 0px auto;
+        padding: 0px;
+        display: none;
+    }
+    .the-td{
+        width: 90px;
+        text-align:justify;
+        text-align-last:justify;line-height:1.6;
+    }
+    .txtbd{
+        width: 924px; 
+        margin:10px -35px;
+    }
+    .left-part{
+        margin-right: 25px;
+        margin-left: 25px;
+        width: 904px;
+        height: auto;
+    }
+    .left-part h2:hover{
+    	color: #1eb6c1;
+    }
+    .left-part p{
+    	color: #3e3e3e;
+    }
+    .a-img{
+        width:233px !important;
+        height: 150px;
+        max-width:none;
+    }
+    .bilt{
+        padding-left:274px !important;
+        height: 150px;
+    }
+    .bpm:hover .bilt>h2>a{
+    	color: #1eb6c1;
+    }
+    /* .bilt p{
+        text-indent:1em;
+    } */
+    .gopage{
+        width:100%;
+        margin-top:10px;
+    }
+    .price-span{
+        color:#1eb6c1;
+        position: absolute;
+        right: 15px;
+    }
+    .load-more,.tq-load-more,.tn-load-more,.no-more{
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    .load-more a{
+        text-decoration-color: #8a8e9f;
+        font-size: 18;
+        color: #3e3e3e;
+    }
+    .no-more p{
+        text-decoration-color: #8a8e9f;
+        font-size: 12;
+    } 
+    .tournote_pagination a, a:focus:not(.btn){
+    	color:#3e3e3e;
+    }
+    ul.blog-post-info {
+    height: 33px;
+    }
+    section.page-header span.font-lato {
+        border: 0px;
+    }
+    ul.blog-post-info li a:after {
+        content:none;
+    }
+    ul.blog-post-info li {
+        margin-right: 0px;
+    }
+    .span_userName{
+        margin: 0px 6px;
+        font-weight: bold;
+    }
+    .showquestion{
+        border:#eee 1px solid;
+        padding:15px 20px;
+        margin-bottom:20px;
+        width:862px;
+    }
+    .showquestion:hover h2 a{
+        color: #1eb6c1;
+    }
+    .tourschool_pagination>a{
+		color: #3e3e3e;
+    }
+    .small-end-single{
+        width: 50px !important;
+        height: 60px !important;    
+        position: relative;
+        top: 0px;
+        left: -45px;
+    }
+    </style>
+    <!--
+    PAGE HEADER
+
+    CLASSES:
+    .page-header-xs = 20px margins
+    .page-header-md = 50px margins
+    .page-header-lg = 80px margins
+    .page-header-xlg= 130px margins
+    .dark           = dark page header
+
+    .shadow-before-1    = shadow 1 header top
+    .shadow-after-1     = shadow 1 header bottom
+    .shadow-before-2    = shadow 2 header top
+    .shadow-after-2     = shadow 2 header bottom
+    .shadow-before-3    = shadow 3 header top
+    .shadow-after-3     = shadow 3 header bottom
+    -->
+    <!-- SLIDER -->
+    <section id="slider" class="head-section" >
+        <span class="overlay dark-2"><!-- dark overlay [0 to 9 opacity] --></span>
+
+        <div class="display-table">
+            <div class="display-table-cell vertical-align-middle">
+
+                <!-- REVOLUTION SLIDER -->
+                <div class="slider fullwidthbanner-container roundedcorners margin-bottom-30">
+                    <div class="fullwidthbanner" data-height="560" data-shadow="3" data-navigationStyle="">
+                        <ul class="">
+                            <!-- SLIDE  -->
+                            <li data-transition="fade" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
+                            {#
+                                <img src="/static/assets/images/slider_search.jpg" data-lazyload="/static/assets/images/slider_search.jpg" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+                            #}    
+                            
+
+                            </li>
+                            
+                        </ul>
+                        <div class="tp-bannertimer"><!-- progress bar --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-search-bar">
+            <!-- INLINE SEARCH -->
+            <div class="searchin inline-search clearfix" style="border-radius: 5px;" >
+                <form action="/search" method="get" class="widget_search">
+                    <input type="search" placeholder="" name="q" {% if queryword %} value={{queryword}}{%endif%} class="serch-input" style="color: black;">
+                    <button type="submit" style="background-color:#1eb6c1;">
+                        <i class="fa fa-search" style="color: #fff;"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- /INLINE SEARCH -->
+        </div>
+
+    </section>
+
+    <!-- /SLIDER -->
+    <section class="body-section page-header-xs main_section">
+        <div class="ctr container">			
+				 <!-- page tabs -->
+        
+            <ul class="phb page-header-tabs list-inline margin-bottom-0 margin-top-70" id="phb">
+
+                <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+                <!-- Version 2.0 -->
+                
+                <li class="cgy" id="select1" onclick="getschool();"><a href="javascript:;" >学校</a><div class="linea"></div></li>
+                <li class="cgy" id="select2" ><a href="javascript:;">游学</a><div class="linea" style="background-color: #fff;"></li>
+                <li class="cgy" id="select3" onclick="gettournote();"><a href="javascript:;">游记攻略</a><div class="linea"></li>
+                <li class="cgy" id="select4" onclick="gettourquestion();"><a href="javascript:;">问答</a><div class="linea"></li> 
+
+               <!-- Version 1.0  
+               <li class="cgy"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}" >学校</a><div class="linea"></div></li>
+               <li class="cgy"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}">游学</a><div class="linea" style="background-color: #fff;"></li>
+               <li class="cgy"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}">游记攻略</a><div class="linea"></li>
+               <li class="cgy"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}">问答</a><div class="linea"></li>
+               --> 
+
+
+
+               <!--  <li  class="active" style="width: 226px;height: 85px;margin-right:-6px;padding:0px;background-color: pink;text-align: center;font-size: 28px;"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}">游学</a></li>
+               <li style="width: 226px;height: 85px;margin-right:-6px;padding:0px;background-color: red;text-align: center;font-size: 28px;"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}">游记攻略</a></li>
+               <li  style="width: 226px;height: 85px;margin-right:-6px;padding:0px;background-color: grey;text-align: center;font-size: 28px;"><a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{val.id}}">问答</a></li> -->
+            </ul>
+      
+            <!-- /page tabs -->
+
+            <div class="school" id="page1">
+				<!-- 学校 -->
+                 <table class="table table  m-b-none" style="margin:10px 0px;">
+                    <tbody>
+                        <tr class="type_tr_m ">
+                            <td class="the-td">地  区：</td>
+                            <td class="tourdest">
+                                <a href="javascript:;" class="btn btn-danger btn-xs relative" id="tourdest_0">全部</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_100">亚洲</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_200">非洲</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_300">欧洲</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_400">拉丁美洲</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_500">北美洲</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_600">大洋洲</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="tourdest_700">南极洲</a>
+                            </td>
+                        </tr>
+                        <tr class="type_tr_m">
+                            <td class="the-td">学校类别：</td>
+                            <td class="schoolclass"> 
+                                <a href="javascript:;" class="btn btn-danger btn-xs relative" id="schoolclass_0">全部</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="schoolclass_1">幼儿园</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="schoolclass_2">小学</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="schoolclass_3">中学</a>
+                                <a href="javascript:;" class="btn btn-xs relative" id="schoolclass_4">大学</a>
+                            </td>
+                        </tr>
+                        <tr class="type_tr_m">
+                            <td class="the-td">学校性质:</td>
+                            <td class="schooltype">
+                                <a href="javascript:;" class="btn btn-danger btn-xs relative" id="schooltype_0">全部</a>
+                                <a href="javascript:;" class="btn btn-clean btn-xs relative" id="schooltype_1">私立</a>
+                                <a href="javascript:;" class="btn btn-clean btn-xs relative" id="schooltype_2">公立</a>
+                                <a href="javascript:;" class="btn btn-clean btn-xs relative" id="schooltype_3">综合</a>
+                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="tour_school">
+
+                </div>
+            </div>
+
+            <div class="strategy" id="page3">
+				<!-- 游记攻略 -->
+				
+			</div>
+			
+			<div class="qsn-awr" id="page4">
+				<!-- 问答 -->
+			</div>
+           
+            <div class="study-tour" id="page2">
+            <!-- 分类信息
+            {%if sort%}
+            {%if sort.types|length ==1%}
+            <ul class="nav nav-tabs">
+                {%for val in sort.types%}
+                <li class="{%if sortid == val.enable%}active{%endif%}"><a href="search{{http.config('view.file_ext')}}?value={{cate.id}}-{{order}}-{{group_id}}-{{val.enable}}" >{{val.name}}</a></li>
+                {%endfor%}
+            
+            </ul>
+            {%endif%} -->
+            <!-- <div class="tct tab-content table-bordered" style=""> -->
+            
+            <div class="tct tab-content">
+                <table class="table table  m-b-none" style="margin-top: -1px">
+                    <tbody>
+                        {% set typenum = 1%}
+                        {%for val in typevar%}
+                        {%if val.search > 1%}
+                        <!-- <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} > -->
+                        <tr  class="type_tr_m"  >
+                            <td class="the-td">
+                                {{val.option.title}}:
+                            </td>
+                            <td>
+                                {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                                <span class="btn btn-danger btn-xs relative">全部</span>
+                                {%else%}
+                                <a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{cate.id}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >全部</a>
+                                {%endif%}
+
+                                {%for v in val.rules %}
+                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
+                                {%else%}
+                                <a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{cate.id}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
+                                {%endif%}
+                                {%endfor%}
+                                <!--子栏目-->
+                                {%for v in val.rules %}
+                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                    {% if v.children%}
+                                        <div class="subtsm" style="border: 0px;">
+                                            {%if v.id == nsobj[val.option.identifier] %}
+                                            <span class="btn btn-danger btn-xs relative">全部</span>
+                                            {%else%}
+                                            <a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{cate.id}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >全部</a>
+                                            {%endif%}
+
+                                            {% for v_ in v.children %}  
+                                            {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                            <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
+                                            {%else%}
+                                            <a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{cate.id}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                                            {%endif%}
+                                            {% endfor %}
+                                        </div>
+                                    {%endif%}
+                                {%endif%}
+                                {%endfor%}
+                                <!--子栏目-->
+                                {%for v in val.rules %}
+                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                {% if v.children%}
+
+                                {% for v_ in v.children %}
+                                {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                {% if v_.children%}
+                                <div class="subtsm">
+                                    {% for v__ in v_.children %}
+
+                                    {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                                    <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
+                                    {%else%}
+                                    <a href="search{{http.config('view.file_ext')}}?q={{queryword}}&value={{cate.id}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+
+                                    {%endif%}
+                                    {%endfor%}
+                                </div>
+                                {%endif%}
+                                {%endif%}
+                                {% endfor %}
+
+                                {%endif%}
+                                {%endif%}
+                                {%endfor%}
+                            </td>
+
+                        </tr>
+                        {% set typenum = typenum+1%}
+                        {%endif%}
+                        {%endfor%}
+
+                      {%endif%}
+                    </tbody>
+                </table>
+                <!-- {% if typenum > 4%}
+                <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+                <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+                {%endif%} -->
+               <!--  </div> -->
+              
+                <!--/分类信息-->
+                <!--正文信息-->
+                <div class="row txtbd" >
+
+                    <!-- LEFT -->
+                    <div class="col-md-9 col-sm-9 left-part studytour_pagination1">
+                            <!-- POST ITEM -->
+                            {% for val in list %}
+                            {% set categoryname = val.category_id|get_cate %}
+                            <a target="_blank" href="{{val.name|get_url(val.id)}}" title="{{val.title}}" >
+                            <!-- /mod/question/'+v.id+'.html -->
+                                <div class="strategy-content">
+                                    {% if val.cover_id>0 %}
+                                    <img src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}">
+                                    {%else%}
+                                    <img src="/static/noimg.jpg">
+                                    {% endif %}
+                                    {% if val.favflag==1 %}
+                                    <img class="small-end-single"  src="/static/assets/images/small_end_single.jpg" /> 
+                                    {%endif%}
+                                    <div class="strategy-txt">
+                                        <h2>
+                                            {{val.title|truncate(30, true, "...")}}
+                                            <span class="price-span">¥{{val.price|get_price('1')}}/人起</span>
+                                        </h2>
+                                        <p>{{val.description|truncate(90, true, "...")}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            {%endfor%}
+
+                            {#                    
+                            {% for val in list %}
+                            {% set categoryname = val.category_id|get_cate %}
+                            {#                    
+                            {% for val in list %}
+                            {% set categoryname = val.category_id|get_cate %}
+                             <!-- POST ITEM -->
+                            <div class="bpm blog-post-item padding-bottom-0 margin-bottom-15 clearfix">
+                                <!-- IMAGE -->
+                                {% if val.cover_id>0 %}
+                                <figure class="blog-item-small-image margin-bottom-0">
+                                   <!--  {% if v.favflag == 1 %} 
+                                   <div>
+                                       <img class="small-end-single"  src="/static/assets/images/small_end_single.jpg" /> 
+                                   </div>
+                                   {% endif%} -->
+                                    <img class="img-responsive a-img" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="" >
+                                </figure>
+                                {% endif %}
+                                <div class="bilt blog-item-small-content">
+                                    <p> &nbsp;</p>
+                                        <h2>
+                                            <a  class="goPage" href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title|truncate(30, true, "...")}} <span class="price-span">¥{{val.price|get_price('1')}}/人起</span></a>
+                                        </h2>
+                                    <p>{{val.description|truncate(90, true, "...")}}</p>
+                                </div> <!--add-->
+                            </div>
+                            <!-- /POST ITEM -->     
+                            {%endfor%}
+                            #}
+                            {#
+                           <!-- PAGINATION(分页) -->
+                           <div class="text-left">
+                               <!-- Pagination Default -->
+                               {{pagination | safe}} 
+                               <!-- /Pagination Default -->
+                           </div>
+                          <!-- /PAGINATION -->
+                            #}
+                        
+                     	
+                   		{% if currentPage < totalPages %}
+                    	<div class="text-center load-more">
+                            <a href="javascript:studytour_pagination(2)">加载更多</a>
+                        </div>
+                        {% else%}
+                        <!--
+                        <div class="text-center no-more">
+                            <p>已无更多</p>
+                        </div>-->
+                        {% endif %}
+                        
+
+                </div>
+
+                      
+                </div>
+                                  
+            </div>             
+        </div>
+			
+    </section>
+
+    <!-- /PAGE HEADER -->
+
+    <!-- PEANUT ROLL -->   
+    <section style="padding: 0; border-bottom: none;">
+        <img src="/static/assets/images/home_logo1.jpg" style="width: 100%;height: 100%;">
+    </section>
+    <!-- /PEANUT ROLL -->
+
+    {% endblock %}
+
+{% block script %}	
+<script src="/static/assets/js/search.js"></script>
+{% endblock %}

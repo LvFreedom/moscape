@@ -1,0 +1,381 @@
+
+
+
+.up-load .queueList {
+    border: 3px dashed #e6e6e6;
+    margin: 0px;
+}
+.up-load .queueList.filled {
+    /*border: 3px dashed transparent;*/
+    margin: 0;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 0px;
+}
+.up-load .queueList.webuploader-dnd-over {
+    border: 3px dashed #999999;
+}
+.up-load p {
+    margin: 0;
+}
+.element-invisible {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+}
+.up-load .placeholder {
+    background: rgba(0, 0, 0, 0) url("../img/image.png") no-repeat scroll center 15px;
+    color: #cccccc;
+    font-size: 18px;
+    min-height: 200px;
+    padding-top: 100px;
+    position: relative;
+    text-align: center;
+}
+.up-load .placeholder .webuploader-pick {
+    background: #00b7ee none repeat scroll 0 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 44px;
+    margin: 0 auto 5px;
+    padding: 0 30px;
+}
+.up-load .placeholder .webuploader-pick-hover {
+    background: #00a2d4 none repeat scroll 0 0;
+}
+.up-load .placeholder .flashTip {
+    bottom: 20px;
+    color: #666666;
+    font-size: 12px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.up-load .placeholder .flashTip a {
+    color: #0785d1;
+    text-decoration: none;
+}
+.up-load .placeholder .flashTip a:hover {
+    text-decoration: underline;
+}
+.up-load .filelist {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.up-load .filelist::after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+.up-load .filelist li {
+    background: rgba(0, 0, 0, 0) url("../img/bg.png") no-repeat scroll 0 0;
+    display: inline;
+    float: left;
+    font-size: 12px;
+    height: 110px;
+    margin: 0 8px 20px 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 110px;
+}
+.up-load .filelist li p.log {
+    position: relative;
+    top: -45px;
+}
+.up-load .filelist li p.title {
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    text-indent: 5px;
+    text-overflow: ellipsis;
+    top: 5px;
+    white-space: nowrap;
+    width: 100%;
+}
+.up-load .filelist li p.progress {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border-radius: 0;
+    bottom: 0;
+    height: 8px;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 50;
+}
+.up-load .filelist li p.progress span {
+    animation: 2s linear 0s normal none infinite running progressmove;
+    background: #1483d8 url("../img/progress.png") repeat-x scroll 0 0;
+    display: none;
+    height: 100%;
+    overflow: hidden;
+    transition: width 200ms linear 0s;
+    width: 0;
+}
+@keyframes progressmove {
+0% {
+    background-position: 0 0;
+}
+100% {
+    background-position: 17px 0;
+}
+}
+@keyframes progressmove {
+0% {
+    background-position: 0 0;
+}
+100% {
+    background-position: 17px 0;
+}
+}
+.up-load .filelist li p.imgWrap {
+    height: 110px;
+    line-height: 110px;
+    overflow: hidden;
+    position: relative;
+    transform-origin: 50% 50% 0;
+    transition: all 200ms ease-out 0s;
+    vertical-align: middle;
+    width: 110px;
+    z-index: 2;
+}
+.up-load .filelist li img {
+    width: 100%;
+}
+.up-load .filelist li p.error {
+    background: #f43838 none repeat scroll 0 0;
+    bottom: 0;
+    color: #fff;
+    height: 28px;
+    left: 0;
+    line-height: 28px;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+.up-load .filelist li .success {
+    background: rgba(0, 0, 0, 0) url("../img/success.png") no-repeat scroll right bottom;
+    bottom: 0;
+    display: block;
+    height: 40px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 200;
+}
+.up-load .filelist div.file-panel {
+    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    height: 0;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 300;
+}
+.up-load .filelist div.file-panel span {
+    background: rgba(0, 0, 0, 0) url("../img/icons.png") no-repeat scroll 0 0;
+    cursor: pointer;
+    display: inline;
+    float: right;
+    height: 24px;
+    margin: 5px 1px 1px;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 24px;
+}
+.up-load .filelist div.file-panel span.rotateLeft {
+    background-position: 0 -24px;
+}
+.up-load .filelist div.file-panel span.rotateLeft:hover {
+    background-position: 0 0;
+}
+.up-load .filelist div.file-panel span.rotateRight {
+    background-position: -24px -24px;
+}
+.up-load .filelist div.file-panel span.rotateRight:hover {
+    background-position: -24px 0;
+}
+.up-load .filelist div.file-panel span.cancel {
+    background-position: -48px -24px;
+}
+.up-load .filelist div.file-panel span.cancel:hover {
+    background-position: -48px 0;
+}
+.up-load .statusBar {
+    border-top: 1px solid #dadada;
+    height: 63px;
+    line-height: 63px;
+    padding: 0 20px;
+    position: relative;
+    vertical-align: middle;
+}
+.up-load .statusBar .progress {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #1483d8;
+    color: #6dbfff;
+    display: inline-block;
+    height: 18px;
+    line-height: 20px;
+    margin: 0 10px 0 0;
+    position: relative;
+    text-align: center;
+    width: 198px;
+}
+.up-load .statusBar .progress span.percentage {
+    background: #1483d8 none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+}
+.up-load .statusBar .progress span.text {
+    position: relative;
+    z-index: 10;
+}
+.up-load .statusBar .info {
+    color: #666666;
+    display: inline-block;
+    font-size: 14px;
+}
+.up-load .statusBar .btns {
+    line-height: 40px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+.filePicker2 {
+    display: inline-block;
+    float: left;
+}
+.up-load .statusBar .btns .webuploader-pick, .up-load .statusBar .btns .uploadBtn, .up-load .statusBar .btns .uploadBtn.state-uploading, .up-load .statusBar .btns .uploadBtn.state-paused {
+    background: #ffffff none repeat scroll 0 0;
+    border: 1px solid #cfcfcf;
+    border-radius: 3px;
+    color: #565656;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 0 18px;
+}
+.up-load .statusBar .btns .webuploader-pick-hover, .up-load .statusBar .btns .uploadBtn:hover, .up-load .statusBar .btns .uploadBtn.state-uploading:hover, .up-load .statusBar .btns .uploadBtn.state-paused:hover {
+    background: #f0f0f0 none repeat scroll 0 0;
+}
+.up-load .statusBar .btns .uploadBtn {
+    background: #00b7ee none repeat scroll 0 0;
+    border-color: transparent;
+    color: #fff;
+}
+.up-load .statusBar .btns .uploadBtn:hover {
+    background: #00a2d4 none repeat scroll 0 0;
+}
+.up-load .statusBar .btns .uploadBtn.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+.dropdown-menu-right{
+  left: auto;
+  right: 0;
+}
+.text-dep1{
+  color: #333;
+  font-size: 14px;
+}
+
+.text-dep2{
+  color: #555;
+  font-size: 13px;
+}
+.text-dep3{
+
+  font-size: 12px;
+}
+
+table.treetable span.indenter {
+  /*display: inline-block;*/
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  width: 19px;
+}
+
+table.treetable span.indenter a {
+  background-position: left center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-decoration: none;
+  width: 19px;
+}
+
+
+table.treetable tbody tr td {
+  cursor: default;
+  padding: .3em 1em;
+}
+
+table.treetable span {
+  background-position: center left;
+  background-repeat: no-repeat;
+  padding: .2em 0 .2em 1.5em;
+}
+
+table.treetable span.file {
+  background-image: url(../img/file.png);
+}
+
+table.treetable span.folder {
+  background-image: url(../img/folder.png);
+}
+
+table.treetable tr.collapsed span.indenter a {
+  background-image: url(../img/expand.png);
+}
+
+table.treetable tr.expanded span.indenter a {
+  background-image: url(../img/collapse.png);
+}
+
+table.treetable tr.selected {
+  background-color: #3875d7;
+  color: #fff;
+}
+
+table.treetable tr.collapsed.selected span.indenter a {
+  background-image: url(../img/expand-light.png);
+}
+
+table.treetable tr.expanded.selected span.indenter a {
+  background-image: url(../img/collapse-light.png);
+}
+
+table.treetable tr.accept {
+  background-color: #a3bce4;
+  color: #fff
+}
+
+table.treetable tr.collapsed.accept td span.indenter a {
+  background-image: url(../img/expand-light.png);
+}
+
+table.treetable tr.expanded.accept td span.indenter a {
+  background-image: url(../img/collapse-light.png);
+}

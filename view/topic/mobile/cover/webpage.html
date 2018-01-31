@@ -1,0 +1,123 @@
+{% extends "../inc/base.html" %}
+{% block style%}
+<style type="text/css">
+    .peanturoll-top{
+        background-color: #1eb6c1;
+        text-align: center;
+    }
+    .back{
+        display: inline-block;
+        width:21px;
+        height:14px;
+        background:url(/static/assets/images/mobile/login/back.png) no-repeat;
+        background-size:21px 14px;
+        border:0;
+    }
+    .web-title{
+        color: #fff;
+        display: inline-block;
+        margin: 10px 0; 
+        display: none;
+        position: relative;
+        left: -12px;
+        /* font-weight: 500; */
+    }
+    .web-content{
+        background-color: #fff;
+        padding-left:3%;
+        padding-right: 3%;
+        padding-bottom:5%;
+        margin-top:5%;
+        display: none;
+        min-height: 500px;
+    }
+    .wangEditor-txt{
+        width: 100%;
+        height: 100%;
+    }
+    .wangEditor-txt p{
+        width: 90%;
+    }
+    .wangEditor-txt img{
+        width: 100%  !important;
+    }
+</style>
+{%endblock%}
+{% block content %}
+
+
+{% include "../inc/nav.html" %}
+<header class="mui-bar mui-bar-nav peanturoll-top">
+    <a  class="mui-action-back  back mui-btn mui-btn-nav mui-pull-left"></a>
+    {% column data="cates",cid=category.id %} 
+    {%for val in cates%}
+        {% topic data = "list",cid=val.id,isstu=1 %} 
+        {% for val in list %}
+            {%if val.id == 565%} 
+            <span class="web-title" id="tag{{val.id}}">{{val.title}}</span>
+            {%elseif val.id == 567 %}
+            <span class="web-title" id="tag{{val.id}}">{{val.title}}</span>
+            {%endif%}
+        {%endfor%}
+    {%endfor%}
+</header>
+  
+
+{% column data="cates",cid=category.id %} 
+{%for val in cates%}
+    {% topic data = "list",cid=val.id,isstu=1 %} 
+    {% for val in list %}
+        {%if val.id == 565%} 
+        <div class="mui-content web-content" id="p565">  
+           
+            <div  class="wangEditor-txt nopadding" style="margin:0px 15px 10px 15px">
+                {{val.content|safe}}
+            </div>
+        </div>
+        {%elseif val.id == 567 %}
+        <div class="mui-content web-content" id="p567">  
+           
+            <div  class="wangEditor-txt nopadding" style="margin:0px 15px 10px 15px">
+                {{val.content|safe}}
+            </div>
+        </div>
+        {%endif%}
+    {%endfor%}
+{%endfor%}
+
+
+
+
+{% endblock%}
+{% block script %}
+<script>
+    //打开对应页面
+    mui.ready(function() {
+        //console.log('ready');
+        //console.log(window.location.href);
+        var id = window.location.href.split("#")[1];
+        //console.log(id);
+        $("#tag"+id).css("display","block");
+        $("#p"+id).css("display","block");
+    });
+    //底部导航栏单击打开herf事件
+    mui.ready(function() {
+        //mui('.mui-scroll-wrapper').scroll();
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    }); 
+    
+</script>
+
+{% endblock %}

@@ -1,0 +1,969 @@
+{% extends "../inc/base.html" %}
+{% block style%}
+<style type="text/css">
+    .mui-bar{
+        z-index: 1000;
+    }
+    .peanturoll-top{
+        background:url(/static/assets/images/mobile/index/index_bc.jpg) no-repeat ;
+        background-size: 100% 100%;
+        
+    }
+    .peanturoll-logo{
+        height: 100%;
+    }
+    .mobile-log,
+    .mobile-reg{
+        display:inline-block;
+        width:50px;
+        height:30px;
+        margin-top:7px;
+        line-height: 30px;
+        text-align:center;
+        color:#fff;
+        margin-left:15px;
+    }
+    .peanturoll-search{
+        width: 94% !important;
+        height: 36px !important;
+        margin:auto;
+    }
+    .serch-input{
+        background-color: #fff !important;
+        border: 1px solid  skyblue !important ;
+        display: inline-block !important;
+    }
+    .search_btn{
+        width: 32px !important;
+        height: 32px !important;
+        padding: 6px 0px !important;
+        position: relative !important;
+        border: 0 !important;
+        float: right !important;
+        top: -48px !important;
+        right: 5px !important;
+    }
+    .search_logo{
+        width: 20px;
+        height: 20px;
+        margin:auto auto;
+    }
+    .mui-bar-tab~.mui-content{
+        padding-top:0px !important;
+        padding-bottom: 0px !important;
+    }
+    .mui-content{
+        background-color: #fff;
+    }
+    .peanturoll-selection{
+        background-color: transparent !important;
+        margin-top: 53px !important;
+    }
+    .peanturoll-navigation{
+        width: 94%;
+        margin:10px auto;
+        background-color: #fff;
+    }
+    .peanturoll-navigation a{
+        width: 30% !important;
+        height: 50px !important;
+        display: inline-block;
+    }
+    .peanturoll-navigation a:nth-child(2) {
+        margin:auto 3% !important;
+    }
+    .peanturoll-navigation a div img{
+        margin-top: 10%;
+        margin-left:10%;
+        height: 50% !important;
+    }
+    .peanturoll-navigation a div span{
+        position: relative;
+        /* TODO  自适应 */
+        top: -13%;
+        left: 2%;
+    }
+    .destination{
+        width: 100% !important;
+        height: 100% !important;
+        background:url(/static/assets/images/mobile/index/destination_bc.jpg) no-repeat;
+        background-size: 100% 100%;
+        color: #fff;
+        display: inline-block;
+    }
+    .studytour{
+        width: 100% !important;
+        height: 100% !important;
+        background:url(/static/assets/images/mobile/index/studytour_bc.jpg) no-repeat;
+        background-size: 100% 100%;
+        color: #fff;
+        display: inline-block;
+    }
+    .community{
+        width: 100% !important;
+        height: 100% !important;
+        background:url(/static/assets/images/mobile/index/community_bc.jpg) no-repeat;
+        background-size: 100% 100%;
+        color: #fff;
+        display: inline-block;
+    }
+    .peanturoll-type{
+        text-align: center;
+        font-weight: 500;
+        font-size: 24px;
+    }
+    .peanturoll-more{
+        float: right;
+        margin-top: -20px;
+        margin-right: 3%;
+        color: #1eb6c1;
+        font-size: 13px;
+    }
+    .peanturoll-ul{
+        padding: 0 3%;
+        margin:5px 0;
+    }
+    .item-box-overlay-title {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 5px 10px;
+        margin-bottom:4px;
+        color: #fff;
+        background-color: rgba(4,5,5,0.5);
+        z-index: 100;
+    }
+    .peanturoll-item{
+        width: 49% !important;
+        display: inline-block;
+    }
+    .peanturoll-item-1{
+        width: 32% !important;
+        display: inline-block;
+    }
+    .item-box figure {
+        height: 100%;
+        width: 100%;
+        margin:0;
+        display: block;
+        margin-bottom: 0;
+        overflow: hidden;
+        position: relative;
+    }
+    .title {
+        font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .img-responsive{
+        width: 100%;
+    }
+    .area-list{
+        padding: 0 3%;
+        margin:25px 0; 
+    }
+
+    .mui-grid-view.mui-grid-9 {
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid skyblue;
+        border-left: 1px solid skyblue;
+        background-color: #fff;
+    }
+    .mui-grid-view.mui-grid-9 .mui-table-view-cell {
+        margin: 0;
+        /* padding: 11px 15px; */
+        padding: 0  !important;
+        /* vertical-align: top; */
+        border-right: 1px solid  skyblue;
+        border-bottom: 1px solid  skyblue;
+    }
+    .area-img{
+        height: 45px  !important;
+        width: 40px !important;
+        display: inline-block;
+    }
+    .area-div{
+        position:relative;
+        display: inline-block;
+        width: 50% !important;
+        top: -16px  !important;
+        left: -5px ;
+    }
+    .area-all{
+        position:relative;
+        display: inline-block;
+        width: 40% !important;
+        top: -16px  !important;
+        left: -25px;
+    }
+    .mui-indexed-list-alert{
+        padding-left:5px;
+        font-size: 18px;
+    }
+    .mui-table-view-divider{
+        /* border: 1px solid #1eb6c1; */
+    }
+    .mui-indexed-list-item{
+        color: #666666;
+        font-size: 15px;
+    }
+    .mui-table-view-cell{
+        /* padding: 11px 0 !important; */
+    }
+    .mui-table-view-cell:after{
+        left: -26px;
+        /* background-color:#1eb6c1; */
+    }
+    .peanturoll-footer{
+    	background-color: #484848;
+    }
+    .peanturoll-row{
+    	padding-left:3%;
+    	padding-top: 15px;
+    	padding-bottom: 5px;
+    }
+    .peanturoll-rows{
+    	/* padding: 0 3%; */
+    	padding-left:3%;
+    	padding-bottom: 15px;
+    }
+    .peanturoll-title-1{
+    	width: 21%;
+    	display: inline-block;
+    }
+    .peanturoll-title-2{
+    	width: 27%;
+    	display: inline-block;
+    }
+    .peanturoll-title-3{
+    	width: 25%;
+    	display: inline-block;
+    }
+    .footer-t h5{
+    	font-size:15px !important;
+    	font-weight: 500 !important;
+    	color: rgba(255,255,255,0.8);
+    	padding-left: 5px;
+    	border-left: 3px solid #2cd;
+    }
+    .footer-logo{
+    	width: 20%;
+    	display: inline-block;
+    }
+    .footer-logo img{
+    	width: 100%;
+    	height: 100%;
+    }
+    .footer-introduction{
+    	width: 78%;
+    	padding-left:3%;
+    	display: inline-block;
+    }
+    .footer-introduction div{
+    	line-height:15px !important;
+    }
+    .footer-introduction a{
+    	color: rgba(255,255,255,0.6);
+		font-size: 12px;
+    }
+</style>
+{%endblock%}
+{% block content %}
+{#
+<header class="mui-bar mui-bar-nav peanturoll-top">
+    <img src="/static/assets/images/mobile/index/logo.png" class="peanturoll-logo mui-pull-left">
+    <a class="mobile-log mui-btn-nav mui-pull-right" href="/uc/public/login">登录</a>
+    <a class="mobile-reg mui-btn-nav mui-pull-right" href="/uc/public/startregister">注册</a>
+</header>
+#}
+{% include "../inc/top.html" %}
+{% include "../inc/nav.html" %}
+{% include "../inc/search.html" %}
+{#
+<div class="mui-content peanturoll-selection">
+    <div class="mui-input-row peanturoll-search " >
+        <form action="/search" method="get" class="widget_search">
+            <input type="search" name="q" {% if queryword %} value={{queryword}} {%endif%} class="serch-input">
+            <button class="search_btn" type="submit">
+                <img class="search_logo" src="/static/assets/images/mobile/index/search_logo.png">
+            </button>
+        </form>
+    </div> 
+</div>
+#}
+<div class="mui-content margin-top-20">
+    <div class="mui-row">
+        <h2 class="peanturoll-type">热门</h2>
+        <a class="peanturoll-more" href="/search.html">更多 ></a>
+    </div>
+    <div class="mui-row">
+        <ul class="peanturoll-ul">
+            {% hotrecommend data = "list", position="1", limit= "6", issub=1, ischild=1, page=0 %}
+            {%set i = 1%}
+            {% for v in list %}
+            <li class="peanturoll-item" ><!-- item -->
+                <div class="item-box thumbnail">
+                    <a class="peanutroll-a" href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                        <figure>
+                            <div class="item-box-overlay-title text-center text-title">
+                                <h4 class="nomargin title">{{v.title}}</h4>
+                            </div>
+                            <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=196,h=103')}}"  alt="">
+                        </figure>
+                    </a>
+                </div>
+            </li><!-- /item -->
+            {% set i = i + 1 %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="mui-content margin-top-20">
+    <div class="mui-row">
+        <h2 class="peanturoll-type">热门产品</h2>
+        <a class="peanturoll-more" href="/search.html">更多 ></a>
+    </div>
+    <div class="mui-row">
+        <ul class="peanturoll-ul">
+            {% topic data = "list", limit= "8", cid=130, issub=1, ischild=1, type="level", page=0 %}
+            {%set i = 1%}
+            {% for v in list %}
+            <li class="peanturoll-item" ><!-- item -->
+                <div class="item-box thumbnail">
+                    <a class="peanutroll-a" href="{{v.name|get_url(v.id)}}" title="{{v.title}}">
+                        <figure>
+                            <div class="item-box-overlay-title text-center text-title">
+                                <h4 class="nomargin title">{{v.title}}</h4>
+                            </div>
+                            <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=196,h=103')}}"  alt="">
+                        </figure>
+                    </a>
+                </div>
+            </li><!-- /item -->
+            {% set i = i + 1 %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="mui-content margin-top-20 margin-bottom-10">
+    <div class="mui-row">
+        <h2 class="peanturoll-type margin-top-20">国家列表</h2>
+        <!-- <a class="peanturoll-more" href="/question">更多 ></a> -->
+    </div>
+    <div class="mui-content area-list">
+        <ul class="mui-table-view mui-grid-view mui-grid-9">
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a class="peanutRoll_a" href="search.html?q=&value=132-0-0-17-tourdest_100" title="亚洲">
+                    <img class="area-img" src="/static/assets/images/world/area1.png"  alt="" >
+                    <div class="area-div">亚洲</div>   
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="/">
+                    <img class="area-img" src="/static/assets/images/world/area2.png"  alt="" >
+                    <div class="area-div">欧洲</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="/">
+                    <img class="area-img" src="/static/assets/images/world/area3.png"  alt="" >
+                    <div class="area-div">非洲</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="/">
+                    <img class="area-img" src="/static/assets/images/world/area5.png"  alt="" >
+                    <div class="area-div">美洲</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+                <a href="/">
+                    <img class="area-img" src="/static/assets/images/world/area6.png"  alt="" >
+                    <div class="area-div">大洋洲</div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 area-li" >
+                <a href="/">
+                    <span class="area-img"></span>
+                    <div class="area-all">全部</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    {#
+    {% topic data = "list", limit= "200", cid=135, issub=1, isstu=1, pid=0, type="level", page=0 %}
+    {% for v in list %}
+    	{{v.title}}{{v.name_en}}
+    	{% topic data = "list", limit= "200", cid=135, isstu=1, pid=v.id,type="none",page=0 %}
+        {% for v_ in list %}
+        	{{v_.title}}
+        {% endfor %}
+    {% endfor %}
+    #}
+    <div class="mui-slider-group area-list">
+        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
+            <div id='list' class="mui-indexed-list" >
+                <div class="mui-indexed-list-alert margin-bottom-10">全部国家和地区</div>
+                <div class="mui-indexed-list-inner">
+                    <!-- <div class="mui-indexed-list-empty-alert margin-bottom-10">没有数据</div> -->
+                    <ul class="mui-table-view" id="cityList">
+                        <li data-group="A" class="mui-table-view-divider mui-indexed-list-group" id="A">A</li>
+
+                        <li data-group="B" class="mui-table-view-divider mui-indexed-list-group" id="B">B</li>
+                        <li data-group="C" class="mui-table-view-divider mui-indexed-list-group" id="C">C</li>
+
+                        <li data-group="D" class="mui-table-view-divider mui-indexed-list-group" id="D">D</li>
+
+                        <li data-group="E" class="mui-table-view-divider mui-indexed-list-group" id="E">E</li>
+
+                        <li data-group="F" class="mui-table-view-divider mui-indexed-list-group" id="F">F</li>
+                        <li data-group="G" class="mui-table-view-divider mui-indexed-list-group" id="G">G</li>
+                        <li data-group="H" class="mui-table-view-divider mui-indexed-list-group" id="H">H</li>
+                        <li data-group="J" class="mui-table-view-divider mui-indexed-list-group" id="J">J</li>
+                        <li data-group="K" class="mui-table-view-divider mui-indexed-list-group" id="K">K</li>
+
+                        <li data-group="L" class="mui-table-view-divider mui-indexed-list-group" id="L">L</li>
+                        <li data-group="M" class="mui-table-view-divider mui-indexed-list-group" id="M">M</li>
+                        <li data-group="N" class="mui-table-view-divider mui-indexed-list-group" id="N">N</li>
+                        <li data-group="P" class="mui-table-view-divider mui-indexed-list-group" id="P">P</li>
+                        <!-- <li data-group="Q" class="mui-table-view-divider mui-indexed-list-group" id="Q">Q</li> -->
+                        <li data-group="R" class="mui-table-view-divider mui-indexed-list-group" id="R">R</li>
+                        <li data-group="S" class="mui-table-view-divider mui-indexed-list-group" id="S">S</li>
+                        <li data-group="T" class="mui-table-view-divider mui-indexed-list-group" id="T">T</li>
+                        <li data-group="W" class="mui-table-view-divider mui-indexed-list-group" id="W">W</li>
+                        <li data-group="X" class="mui-table-view-divider mui-indexed-list-group" id="X">X</li>
+                        <li data-group="Y" class="mui-table-view-divider mui-indexed-list-group" id="Y">Y</li>
+                        <li data-group="Z" class="mui-table-view-divider mui-indexed-list-group" id="Z">Z</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "../inc/footer.html" %}
+{#
+<div class="mui-content margin-top-10 margin-bottom-60 peanturoll-footer">
+	<div class="mui-row peanturoll-row">
+        <div class="footer-t peanturoll-title-1">
+			<a href="#wait"><h5 class="letter-spacing-1">电脑版</h5></a>
+		</div>
+		<div class="footer-t peanturoll-title-1">
+			<a href="#wait"><h5 class="letter-spacing-1">手机版</h5></a>
+		</div>
+		<div class="footer-t peanturoll-title-2">
+			<a href="/webpage#565"><h5 class="letter-spacing-1">花生卷简介</h5></a>
+		</div>
+		<div class="footer-t peanturoll-title-3">
+			<a href="/webpage#567"><h5 class="letter-spacing-1">联系我们</h5></a>
+		</div>
+    </div>
+    <div class="mui-row peanturoll-rows">
+    	<div class="footer-logo">
+    		<img src="/static/assets/images/mobile/index/logo.png">
+    	</div>
+    	<div class="footer-introduction">
+    		<div><a href="/">2014-2017 ©花生卷 R</a></div>
+    		<div><a href="/">沪ICP备17021830号</a> <a href="/">电话010-123456789</a> </div>
+    	</div>
+    </div>
+</div>
+#}
+{#
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view ">
+            {%for v in list.data%}
+            <!--如果有缩略图-->
+            {%if v.cover_id >0%}
+            {% if v.model_id == 5%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+
+
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+
+                    <div class="mui-row">
+                        <div class="mui-col-sm-12 mui-col-xs-12">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=0,w=360')}}">
+                        </div>
+                    </div>
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" >{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%else%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+
+                                <span class="src space">{{v.uid|get_nickname}}</span>
+                                <span class="cmt space">评论&nbsp;2323</span>
+
+                                <span class="time" >{{v.update_time|moment}}</span>
+
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endif%}
+            {%elif v.pics%}
+            {% set pics = v.pics|strToArray%}
+            {% if pics|length >2%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+                    <div class="mui-row">
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}">
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{pics[1]|get_pic('m=1,w=123,h=82')}}">
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{pics[2]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" >{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%else%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+                                <span class="src space">{{v.uid|get_nickname}}</span>
+                                <span class="cmt space">评论&nbsp;2323</span>
+
+                                <span class="time" >{{v.update_time|moment}}</span>
+
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endif%}
+            {%else%}
+            <!--无图-->
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;0</span>
+
+                        <span class="time" >{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%endif%}
+            {%endfor%}
+
+
+        </ul>
+    </div>
+</div>
+#}
+
+<script type="text/template" id="tpl">
+    {% raw %}
+    <%_.forEach(data,function(v,k){ %>
+    <!--如果有缩略图-->
+    <%if (v.cover_id){%>
+
+    <% if (v.model_id == 5){%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>">
+
+
+            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+
+
+            <div class="mui-row">
+                <div class="mui-col-sm-12 mui-col-xs-12">
+                    <img class="list_img_holder" src="<%=v.cover_id%>">
+                </div>
+            </div>
+            <p class="item_info">
+
+                <span class="src space"><%=v.uid%></span>
+                <span class="cmt space">评论&nbsp;2323</span>
+
+                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+    <%}else{%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>" >
+            <div class="mui-row">
+                <div class="mui-col-sm-8 mui-col-xs-8">
+
+                    <h4 class="dotdot line2 "><%=v.title%></h4>
+                    <p class="item_info">
+
+                        <span class="src space"><%=v.uid%></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+                    </p>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="<%=v.cover_id%>" >
+
+                </div>
+            </div>
+        </a>
+    </li>
+    <%}%>
+    <%}else if(v.pics){%>
+    <% if (v.pics.length >2){%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>">
+            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+            <div class="mui-row">
+                <div class="mui-col-sm-4 mui-col-xs-4">
+                    <img class="list_img_holder" src="<%=v.pics[0]%>">
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4">
+                    <img class="list_img_holder" src="<%=v.pics[1]%>">
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="<%=v.pics[2]%>" >
+
+                </div>
+            </div>
+            <p class="item_info">
+
+                <span class="src space"><%=v.uid%></span>
+                <span class="cmt space">评论&nbsp;2323</span>
+
+                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+    <%}else{%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>" >
+            <div class="mui-row">
+                <div class="mui-col-sm-8 mui-col-xs-8">
+
+                    <h4 class="dotdot line2 "><%=v.title%></h4>
+                    <p class="item_info">
+                        <span class="src space"><%=v.uid%></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+                    </p>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="<%=v.pics[0]%>" >
+
+                </div>
+            </div>
+        </a>
+    </li>
+    <%}%>
+    <%}else{%>
+    <!--无图-->
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>">
+            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+
+            <p class="item_info">
+
+                <span class="src space"><%=v.uid%></span>
+                <span class="cmt space">评论&nbsp;0</span>
+
+                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+    <%}%>
+    <%})%>
+    {% endraw %}
+</script>
+{% endblock%}
+
+{% block script %}
+<script>
+{#
+    //console.log();
+    var tplRender =  _.template(document.getElementById("tpl").innerHTML);
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                callback: pulldownRefresh
+            },
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
+        }
+    });
+    mui("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
+        var url = this.getAttribute("data-url");
+        //打开关于页面
+        //alert(url)
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
+        var url = this.getAttribute("href");
+        //打开关于页面
+        mui.openWindow({
+            url: url
+        });
+    })
+    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    //记录位置
+    window.onscroll = function () {
+
+        var patt1 = /\(.*?\)/;
+        var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+        if (srtY) {
+            var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+        } else {
+            var Y = 0;
+        }
+        console.log(Y)
+        var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
+        console.log(Y);
+        if (window.sessionStorage) {
+            sessionStorage.setItem("{{http.url}}_top", Y);
+            sessionStorage.setItem("{{http.url}}_size", S);
+        }
+    }
+    /**
+     * 下拉刷新具体业务实现
+     */
+    function pulldownRefresh() {
+        setTimeout(function() {
+            var table = document.body.querySelector('.mui-table-view');
+            var cells = document.body.querySelectorAll('.mui-table-view-cell');
+            for (var i = cells.length, len = i + 3; i < len; i++) {
+                var li = document.createElement('li');
+                li.className = 'mui-table-view-cell';
+                li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+                //下拉刷新，新纪录插到最前面；
+                table.insertBefore(li, table.firstChild);
+            }
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        }, 1000);
+    }
+    /**
+     * 上拉加载具体业务实现
+     */
+    function pullupRefresh() {
+        setTimeout(function() {
+
+            var table = document.body.querySelector('#pullrefresh .mui-table-view');
+            var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view-cell');
+            var count = "{{list.count}}";
+            console.log((parseInt(count) > cells.length));
+
+            if(parseInt(cells.length) < parseInt(count)){
+                createFragment(10)
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+            }else {
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+            }
+
+        }, 1000);
+    }
+    var createFragment = function(count, page) {
+        //无限加载
+        var table = document.body.querySelector('#pullrefresh .mui-table-view');
+        var lastIndex = table.querySelectorAll('li.mui-table-view-cell').length;
+        console.log(lastIndex);
+        var pages = page || Math.ceil((lastIndex+count)/count);
+        console.log(pages);
+        mui.ajax("{{http.url}}",{
+            data:{
+                page:pages
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'get',//HTTP请求类型
+            success:function(data){
+                $('#pullrefresh .mui-table-view').append(tplRender(data));
+                //获得服务器响应
+//                console.log();
+//             var fragment = document.createDocumentFragment();
+//                var li;
+//                for (var i = 0; i < data.data.length; i++) {
+//                    li = document.createElement('li');
+//                    li.className = 'mui-table-view-cell';
+//                    li.innerHTML ='<a href="javascript:;">'+
+//                            '<img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">'+
+//                            '<div class="mui-media-body">'+
+//                            data.data[i].title+
+//                            '<p class="mui-ellipsis">静静的看这个世界，最后终于疯了</p>'+
+//                            '</div>'+
+//                            '</a>';
+//                    fragment.appendChild(li);
+//                }
+                //console.log($(tplRender(data)));
+                //document.getElementById("tpl").innerHTML= tplRender(data)
+
+            }
+        });
+
+    };
+
+        mui.ready(function() {
+
+            //mui('#pullrefresh').pullRefresh().pullupLoading();
+
+            var page = Math.ceil(size/10);
+            if(page>1 ){
+                for (var i = 1; i < (page+1); i++) {
+                    createFragment(10,(i+1))
+                }
+            }
+            mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+            //alert(1)
+            console.log()
+//            $('header').on('doubleTap',function () {
+//                alert(3)
+//            })
+            document.querySelector('header h1').addEventListener('tap',function () {
+                //内容区滚动到顶部
+                mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+            });
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
+
+                })
+            }
+        });
+
+#}
+    //底部导航栏单击打开herf事件
+    mui.ready(function() {
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+</script>
+
+
+<script src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+<script src="/static/webapp/js/mui.min.js"></script>
+<script src="/static/mobile/indexedlist.js"></script>
+<script type="text/javascript" charset="utf-8">
+    
+   
+   $(function getCityList(){
+       $.getJSON("/static/mobile/area.json",function(data){
+           $.each(data,function(index,item){
+               //console.log(index,item)
+               var datas=item;
+               var name=index;
+               var str='';
+               $.each(datas,function(index,item){
+                   //console.log(index,item)
+                   str+='<li data-value="'+item.url+'" class="mui-table-view-cell mui-indexed-list-item"  code="'+item.code+'" onclick="alertCode(this)">'+item.name+' '+''+' </li>';
+               });
+               $("#"+name).after(str);
+           });
+          /* mui.ready(function () {
+               var header = document.querySelector('header.mui-bar');
+               var list = document.getElementById('list');
+               //calc hieght
+               list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+               //create
+               window.indexedList = new mui.IndexedList(list);
+           });*/
+
+       });
+   });
+
+   $(function getAreaList(){
+   		console.log("getAreaList");
+   		//var list = "{% topic data = "list", limit= "200", cid=135, isstu=1, pid=v.id,type="none",page=0 %}";
+   		var list ="{{list}}";
+   		console.log(list);
+   		//console.log(JSON.stringify(list)); 
+   		/*for(var l in list){
+   			console.log(list[l].data);
+   		}*/
+   		/*for (var i =0; i <=list.length - 1; i++) {
+   			console.log(list[i]);
+   			console.log('-0-');
+   		}*/
+   });
+    
+</script>
+{% endblock %}

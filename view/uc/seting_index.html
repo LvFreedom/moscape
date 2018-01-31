@@ -1,0 +1,545 @@
+{% extends "./inc/base.html" %}
+{%block style%}
+<link href="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.css" rel="stylesheet">
+<link href="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.css" rel="stylesheet">
+ <style>
+     p{
+        margin:0;
+      }
+      .bg{
+        background:url(/static/assets/images/uc-background.jpg) 50% 50% / cover no-repeat;
+        border-bottom:0px;
+      }
+      .clear:after{
+        content:"";
+        display:block;
+        clear:both;
+      }
+      .aside-left{
+        min-width:15%;
+        padding-bottom:40px;
+        background: -webkit-linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* Firefox 3.6 - 15 */
+        background: linear-gradient(#425575, #8E8693 30%,#38628B 100%); /* 标准的语法 */
+      }
+      .aside-left,
+      .aside-right{
+        float:left;
+      }
+      ul,li{
+        margin:0;
+        padding:0;
+        list-style:none;
+      }
+      .aside-left div a,
+      .aside-left ul li a{
+        color:#fff;
+      }
+      .menu-box{
+        background:transparent;
+      }
+     .uc-title a{
+        font-family: "Microsoft Yahei",Regular;
+        font-size:22px;
+        font-weight:bold;
+     }
+     .uc-title{
+        padding:25px 10px 25px 10px;
+        border-bottom:3px solid #fff;
+     }
+     .aside-list li{
+        padding:20px 0 0 20px;
+     }
+     .aside-list>li>a{
+        font-size:16px;
+        display:inline-block;
+        width:100%;
+        height:100%;
+     }
+     .drop-down{
+        position:relative;
+     }
+     .aside-list>li>i{
+        float:right;
+        display:inline-block;
+        width:17px;
+        height:0px;
+        border:6px solid transparent;
+        border-left:13px solid #fff;
+        position:absolute;
+        top:26px;
+        left:116px;
+        transition:all linear 0.3s;
+    }
+    .rotate{
+      transform:rotate(90deg);
+      transform-origin:31% 50%;
+    }
+    .apply{
+      font-size:20px;
+       margin-left:50%;
+    }
+    .aside-right{
+      float:right;
+      width:84%;
+    }
+    .order-box-header,
+    .person-header,
+    .head-title,
+    .address-title,
+    .information-title,
+    .security-title,
+    .order-title,
+    .order-table,
+    .archives-header,
+    .coupon-title,
+    .detail-title,
+    .new-increase{
+      padding:10px 0 10px 20px;
+      background: -webkit-linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* Firefox 3.6 - 15 */
+      background: linear-gradient(left,#425575, #8E8693 30%,#38628B 100%); /* 标准的语法 */
+    }
+    .order-box-header span{
+      display:inline-block;
+      padding:0 0 0 15px;
+      color:#fff;
+      font-size:16px;
+    }
+  
+    .table-responsive,
+    .document,
+    .add-picture,
+    .information,
+    .security-box,
+    .archives,
+    .detail-content,
+    .increase-content,
+    .information-list{
+      padding-bottom:20px;
+      background: -webkit-linear-gradient(left,#6D8DB3, #9DB7D8); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(left,#6D8DB3, #9DB7D8); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(left,#6D8DB3, #9DB7D8); /* Firefox 3.6 - 15 */
+      background: linear-gradient(left,#6D8DB3, #9DB7D8); /* 标准的语法 */
+    }
+    .table-list{
+      background:#fff;
+    }
+    .table-list a{
+      display:inline-block;
+      width:24.5%;
+      text-align:center;
+      font-size:16px;
+      color:#000;
+      padding:10px 0 10px 0;
+    }
+    table tr td{
+      padding:8px;
+    }
+    .order-table{
+      padding:10px 20px 10px 20px;;
+    }
+    .order-table table{
+      margin:20px 0 0 0;
+      border:2px solid #DAE3E8;
+      width:100%;
+      background: #fff;
+      text-align:center;
+    }
+    .goodsItem{
+      display:inline-block;
+      width:220px;
+    }
+    .order-table table tr:first-child{
+      background:#F3F8FB;
+      border-bottom:2px solid #DAE3E8;
+    }
+    .tr-header td{
+      font-size:16px;
+      text-align: center;
+    }
+    .person-header,
+    .head-title{
+      color:#fff;
+      font-size:20px;
+    }
+    .upload{
+      color:#fff;
+      font-size:;
+    }
+    b.upload{
+      padding-left:30px;
+    }
+    span.upload{
+      padding-left:220px;
+    }
+    .landline-telephone{
+
+    }
+    .area,
+    .extension{
+      display:inline-block;
+      width:70px;
+      height:34px;
+      padding:6px 12px;
+      font-size:14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      border: #ddd 1px solid;
+      border-radius:3px;
+    }
+    .telephone{
+      display:inline-block;
+      height:34px;
+      padding:6px 12px;
+      font-size:14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      border: #ddd 1px solid;
+      border-radius:3px;
+    }
+    .form-group label{
+      color:#fff;
+    }
+    .uname{
+      color:#fff;
+      font-size:14px;
+    }
+    .security-title{
+      font-size:20px;
+      color:#fff;
+    }
+    .information-title span{
+      color:#fff;
+      padding-right:10px;
+      font-size:20px;
+    }
+    .information-title button,
+    .address-title button,
+    .coupon-title div button{
+      font-size:16px;
+      color:#fff;
+      background:#179BD7;
+      padding:5px 12px;
+      border-radius:7px;
+      margin-left:10px;
+    }
+    .order-select button{
+      font-size:14px;
+      color:#fff;
+      background:#179BD7;
+      padding:3px 8px;
+      border-radius:7px;
+      margin:2px;
+    }
+    .address-title span{
+      color:#fff;
+      padding-right:10px;
+      font-size:20px;
+    }
+    .alter{
+      font-size:18px;
+      color:#fff;
+      padding:15px 0 15px 30px;
+    }
+    .coupon-title{
+      padding-right:50px;
+    }
+    .coupon-title div{
+      float:right;
+    }
+    .coupon-title>span{
+      font-size:20px;
+      color:#fff;
+    }
+    .coupon-title>div>span{
+      font-size:16px;
+      color:#fff;
+    }
+    .coupon-count{
+      padding:15px;
+    }
+    .coupon-count b{
+      font-size:18px;
+      font-weight:normal;
+      color:#fff;
+    }
+    .coupon-count span,
+    .coupon-count span a{
+      color:#fff;
+    }
+    .coupon table,
+    .coupon-list{
+      width:100%;
+      margin:0 auto;
+    }
+    .coupon table{
+      margin-bottom:7px;
+      background:#fff;
+    }
+    .coupon table tr td{
+      width:25%;
+      text-align:center;
+      padding:10px 0;
+    }
+    .detail-title{
+      font-size:20px;
+      color:#fff;
+    }
+    .detail-title span{
+      font-size:18px;
+    }
+    .detail-content{
+      padding:20px 60px 20px 60px;
+    }
+    .detail-content p{
+      font-size:16px;
+      color:#fff;
+    }
+    .detail-content p span,
+    .detail-content ul li{
+      font-size:14px;
+      color:#fff;
+    }
+   .detail-content ul li b{
+      font-weight:normal;
+      display:inline-block;
+      min-width: 120px;
+      text-align: right;
+      padding-right:15px;
+    }
+    .detail-content ul{
+      padding-left:100px;
+    }
+    .order-select{
+      float:right;
+    }
+    .order-state{
+      float:left;
+    }
+    .order-information{
+      text-align: center;
+    }
+    .traveller-num{
+      float:left;
+    }
+    .traveller-num span{
+      color:#fff;
+    }
+    .traveller-list{
+      background:#fff;
+    }
+    .traveller-list a{
+      display:inline-block;
+      color:#000;
+    }
+    .archives-header{
+      font-size:20px;
+      color:#fff;
+    }
+    .archives{
+      padding-top:50px;
+    }
+    .arhcives-state{
+      color:#CFD4DA;
+      padding-top:15px;
+    }
+    .new-increase1{
+      font-size:20px;
+      color:#fff;
+    }
+    .new-increase2{
+      color:#fff;
+      padding-left:20px;
+    }
+    .new-increase3{
+      float:right;
+      color:#fff;
+      padding-right:20px;
+      padding-top:7px;
+    }
+    .increase-content{
+      padding:25px 0 25px 25px;
+    }
+    .increase-title{
+      color:#fff;
+      font-size:18px;
+      font-weight:bold;
+    }
+    .increase-content>form>div>label{
+      text-align: right;
+    }
+    .star{
+      float:left;
+      width:0;
+      color:#fff;
+    }
+    .ce{
+      padding-left:20px;
+      padding-bottom:15px;
+      color:#fff;
+    }
+    .self{
+      color:#fff;
+      padding-left:15px;
+      margin-bottom:20px;
+    }
+    .credentials{
+      color:#fff;
+      font-size:18px;
+      font-weight: bold;
+      padding:5px 0 20px 0;
+    }
+    .credentials-num{
+      padding:0;
+    }
+    .traveller-list{
+      padding:8px 20px 8px 25px;
+      text-align: center
+    }
+    .traveller-list div{
+      margin-left:20px;
+      width:96%;
+    }
+    .detail-information{
+      margin-top:20px;
+      padding:0 20px 0 20px;
+    }
+    .detail-information input{
+      float:left;
+      width:20px;
+      height:20px;
+      margin-top:8px;
+      margin-right:3px
+    }
+    .detail-information table{
+      float:left;
+      width:96%;
+      background:#fff;
+      text-align:center;
+    }
+
+
+    
+    .min-height{
+      min-height: 461px;
+   }
+  </style>
+{%endblock%}
+		
+ {% block content %}
+
+
+<section class="user-center page-header bg">
+<div class="thumbnail text-center avatar-view hide">
+            <img src="/user/avatar"  alt="{{controller.user.username}}" style="width: 100%" />
+            <h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
+            <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
+          </div>
+  <div class="uc-box clear container">
+    <div class="aside-left">
+      <div class="uc-title">
+        <a href="">我的花生卷</a>
+      </div>
+      <ul class="aside-list min-height">
+        <!-- <li><a class="uc-order" href="">订单</a></li>
+        <li><a class="uc-archives" href="">个人档案</a></li> -->
+        <li><a href="/uc/seting">头像设置</a></li>
+        <!-- <li><a class="uc-community" href="">我的社区主页</a></li>
+        <li><a class="uc-account" href="">账号安全</a></li>
+        <li><a class="uc-collection" href="">收藏</a></li> -->
+        <!-- <li class="drop-down">
+            <a class="formation" data-toggle="collapse" href="#dropdown-menu">常用信息</a>
+            <i></i>
+            <div class="navbar-default menu-box">
+            <div id="dropdown-menu" class="collapse">
+              <ul>
+                <li><a class="uc-traveller" href="">常用旅客信息</a></li>
+                <li><a class="uc-address" href="">常用地址</a></li>
+              </ul>
+            </div>
+            </div>
+          </li>
+        <li><a class="uc-coupon" href="">优惠券</a></li>
+        <li><a class="uc-message" href="">消息</a></li> -->
+      </ul>
+      </div>
+      <div class="aside-right">
+
+            <div class="head-title">
+              头像设置
+            </div>
+            <div class="add-picture min-height">
+                <div class="" id="avatar-modal" aria-labelledby="avatar-modal-label" >
+                  <div class="">
+                    <div class="">
+                      <form class="avatar-form" action="/uc/seting/updateavatar" enctype="multipart/form-data" method="post">
+
+                        <div class="modal-body">
+                          <div class="avatar-body">
+                            <div class="avatar-upload">
+                              <input class="avatar-src" name="avatar_src" type="hidden">
+                              <input class="avatar-data" name="avatar_data" type="hidden">
+
+                              </div>
+                            <div class="fancy-file-upload fancy-file-primary">
+                              <b class="upload">头像</b>
+                              
+                              <input type="file" class="form-control avatar-input" id="avatarInput" name="file" onchange="jQuery(this).next('input').val(this.value);" />
+                              
+                              <span class="button">上传图片</span>
+                              <span class="upload">仅支持jpg.gif.png格式图片,且文件小于2M</span>
+                            </div>
+                            <div class="row">
+
+                              <div class="col-md-6 col-md-offset-1">
+                                <div class="avatar-wrapper"></div>
+                              </div>
+                              <div class="col-md-4" style="vertical-align: bottom">
+                                <div class="avatar-preview preview-lg"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-md"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-sm"><img src="/uc/index/avatar"  alt="{{controller.user.username}}" /></div>
+                              </div>
+
+                            </div>
+                            <div class="row avatar-btns">
+                              <div class="col-md-3">
+                                <button class="btn btn-primary btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
+                              </div>
+                              <div class="col-md-9">
+                                <div class="btn-group">
+                                  <button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
+                                </div>
+                                <div class="btn-group">
+                                  <button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+            
+            </div>
+
+					</div>					
+				</div>
+			</section>
+			<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.js"></script>
+
+{% endblock %}
