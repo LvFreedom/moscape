@@ -35,7 +35,7 @@ export default class extends Base{
 		let movielist = moviedata.data;
 		////console.log(movielist);
 		//获取电影分类信息
-		let cate_id = 157;//电影分类
+		let cate_id = 162;//电影分类
 		let sort = await this.model("category").get_category(cate_id, 'documentsorts');
 		//console.log(sort)
 		if(sort){
@@ -133,7 +133,7 @@ export default class extends Base{
 		let supplier = this.post("supplier") || "all";
 		let page = this.post("page") || 1;
 		let moviedata,collectlist;
-		let cate_id = 157;//电影分类
+		let cate_id = 162;//电影分类
 		let sortid = this.get('sortid')||0;
 		let pnum = this.post('pnum') || 30;
 		let map = {};

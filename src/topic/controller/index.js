@@ -44,7 +44,7 @@ export default class extends Base {
       let classify1 = 1;//
       //战争
       let classify2 = 2;//
-      let cate_id = 157;//电影分类
+      let cate_id = 162;//电影分类
       let sortid = this.get('sortid')||0;
       let map1 = {};
       let map2 = {};

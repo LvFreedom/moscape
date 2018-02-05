@@ -7,7 +7,7 @@ export default {
   type: 'mysql',
   adapter: {
     mysql: {
-      host: '127.0.0.1',
+      host: '101.132.164.111',
       port: '23306',
       database: 'moscape',
       user: 'root',

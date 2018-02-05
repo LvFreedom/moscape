@@ -363,7 +363,12 @@ export default class extends Base {
     this.setCorsHeader();
 
     //获取用户信息
-    this.user = await this.session('userInfo');
+    this.user = await this.model("member").join({
+          table: "member_group",
+          join: "left",
+          as: "c",
+          on: ["groupid", "groupid"]
+      }).find(this.user.uid);
 
     let queryword = this.get('q');
     this.assign('queryword',queryword);

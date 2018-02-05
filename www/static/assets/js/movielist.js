@@ -8,12 +8,10 @@ $(".tab-content").on("click","a",function(){
 	var classify = $(".movietype>a.btn-info").attr("data-type")
 	//选择供应商
 	var supplier = $(".supplier>a.btn-info").attr("data-type")
-	console.log(classify,supplier)
 	//页码，第一页
 	var page = 1;
 	//用户
 	var uname = $("strong").html();
-	console.log(uname)
 	htmllist(uname,classify,supplier,page)
 
 })
@@ -25,7 +23,6 @@ $(".pagelist").on("click","li",function(){
 	var classify = $(".movietype>a.btn-info").attr("data-type")
 	//选择供应商
 	var supplier = $(".supplier>a.btn-info").attr("data-type")
-	console.log(classify,supplier)
 	//页码
 	var page;
 	if($(this).attr("class") == "prev"){
@@ -35,10 +32,8 @@ $(".pagelist").on("click","li",function(){
 	}else{
 		page = parseInt($(this).children().html())
 	}
-	console.log(page)
 	//用户
 	var uname = $("strong").html();
-	console.log(uname)
 	htmllist(uname,classify,supplier,page)
 })
 /**********************
@@ -51,10 +46,8 @@ function htmllist(uname,classify,supplier,page){
 		data:{uname:uname,classify:classify,supplier:supplier,page:page},
 		url:"/ajax/movielist",
 		success:function(data){
-			console.log(data)
 			if(data.errno == 0){
 				var moviedata = data.data.data;
-				console.log(moviedata)
 				var html = "";
 				for(var i=0;i<moviedata.length;i++){
 					html += `<li class="col-xs-4 col-sm-3 col-md-3s">

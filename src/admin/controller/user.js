@@ -27,6 +27,7 @@ export default class extends Base {
 
 
    async indexAction(){
+   		this.tactive = "article";
         let map = {'status': ['>', -1]}
         if(!think.isEmpty(this.get("username"))){
             map.username= ["like", "%"+this.get("username")+"%"]
